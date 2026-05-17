@@ -1,0 +1,415 @@
+// =========================================================================
+// ILMCONNECT DATABASE SCHEMA (PRISMA ORM)
+// =========================================================================
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// -------------------------------------------------------------------------
+// ENUMS
+// -------------------------------------------------------------------------
+
+enum Role {
+  STUDENT
+  LECTURER
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum UserStatus {
+  PENDING
+  ACTIVE
+  SUSPENDED
+}
+
+enum SessionStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  NO_SHOW_STUDENT
+  NO_SHOW_LECTURER
+  CANCELED
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELED
+  PAST_DUE
+}
+
+enum SlotStatus {
+  OPEN
+  BOOKED
+  BLOCKED
+}
+
+enum BlockStatus {
+  PENDING
+  COMPLETED
+  PAID_OUT
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESSFUL
+  FAILED
+  REFUNDED
+}
+
+enum PayoutStatus {
+  PENDING
+  SUCCESSFUL
+  FAILED
+}
+
+// -------------------------------------------------------------------------
+// USER & PROFILE MODELS
+// -------------------------------------------------------------------------
+
+model User {
+  id                String            @id @default(uuid())
+  email             String            @unique
+  passwordHash      String            @map("password_hash")
+  role              Role              @default(STUDENT)
+  status            UserStatus        @default(PENDING)
+  emailVerifiedAt   DateTime?         @map("email_verified_at")
+  twoFactorSecret   String?           @map("two_factor_secret")
+  createdAt         DateTime          @default(now()) @map("created_at")
+  deletedAt         DateTime?         @map("deleted_at")
+
+  // Relations
+  studentProfile    StudentProfile?
+  lecturerProfile   LecturerProfile?
+  materialsUploaded Material[]        @relation("UploaderMaterials")
+  sentMessages      Message[]         @relation("SenderMessages")
+  receivedMessages  Message[]         @relation("RecipientMessages")
+  auditLogs         AuditLog[]        @relation("ActorAuditLogs")
+  notifications     Notification[]
+
+  @@index([email])
+  @@index([role])
+  @@index([status])
+  @@map("users")
+}
+
+model StudentProfile {
+  userId            String            @id @map("user_id")
+  fullName          String            @map("full_name") // Encrypted PII
+  phone             String            @map("phone")     // Encrypted PII
+  country           String
+  timezone          String
+  preferredLanguage String            @map("preferred_language")
+  learningGoals     String            @map("learning_goals")
+  currentTier       String            @map("current_tier")
+
+  // Relations
+  user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subscriptions     Subscription[]
+  sessions          Session[]
+  sessionBlocks     SessionBlock[]
+  ratingsGiven      Rating[]          @relation("StudentRatings")
+  progressReports   ProgressReport[]
+
+  @@map("student_profiles")
+}
+
+model LecturerProfile {
+  userId               String             @id @map("user_id")
+  fullName             String             @map("full_name") // Encrypted PII
+  bio                  String
+  qualifications       String
+  specializations      String[]
+  languages            String[]
+  hourlyAvailabilityJson Json             @map("hourly_availability_json")
+  payoutMethod         String             @map("payout_method")
+  payoutDetails        String             @map("payout_details") // Encrypted PII
+  ratingAvg            Float              @default(0.0) @map("rating_avg")
+  ratingCount          Int                @default(0) @map("rating_count")
+  status               UserStatus         @default(PENDING)
+
+  // Relations
+  user                 User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  availabilitySlots    AvailabilitySlot[]
+  sessions             Session[]
+  sessionBlocks        SessionBlock[]
+  sessionNotes         SessionNotes[]
+  payouts              Payout[]
+  progressReports      ProgressReport[]
+  ratingsReceived      Rating[]           @relation("LecturerRatings")
+
+  @@map("lecturer_profiles")
+}
+
+// -------------------------------------------------------------------------
+// SUBSCRIPTION & PAYMENT MODELS
+// -------------------------------------------------------------------------
+
+model Subscription {
+  id                   String             @id @default(uuid())
+  studentId            String             @map("student_id")
+  tier                 String
+  status               SubscriptionStatus @default(ACTIVE)
+  stripeSubscriptionId String?            @map("stripe_subscription_id")
+  currentPeriodStart   DateTime           @map("current_period_start")
+  currentPeriodEnd     DateTime           @map("current_period_end")
+  lkrAmount            Float              @map("lkr_amount")
+  fxRateApplied        Float              @map("fx_rate_applied")
+
+  // Relations
+  student              StudentProfile     @relation(fields: [studentId], references: [userId], onDelete: Cascade)
+  payments             Payment[]
+
+  @@index([studentId])
+  @@index([status])
+  @@map("subscriptions")
+}
+
+model Payment {
+  id               String        @id @default(uuid())
+  subscriptionId   String        @map("subscription_id")
+  amountLkr        Float         @map("amount_lkr")
+  fxRate           Float         @map("fx_rate")
+  gateway          String        // stripe or payhere
+  gatewayChargeId  String        @map("gateway_charge_id")
+  status           PaymentStatus @default(PENDING)
+  processedAt      DateTime      @map("processed_at")
+
+  // Relations
+  subscription     Subscription  @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+
+  @@index([subscriptionId])
+  @@index([status])
+  @@map("payments")
+}
+
+// -------------------------------------------------------------------------
+// SCHEDULING & SESSION MODELS
+// -------------------------------------------------------------------------
+
+model AvailabilitySlot {
+  id            String             @id @default(uuid())
+  lecturerId    String             @map("lecturer_id")
+  startsAt      DateTime           @map("starts_at")
+  endsAt        DateTime           @map("ends_at")
+  status        SlotStatus         @default(OPEN)
+  recurringRule String?            @map("recurring_rule") // RRULE format
+
+  // Relations
+  lecturer      LecturerProfile    @relation(fields: [lecturerId], references: [userId], onDelete: Cascade)
+
+  @@index([lecturerId])
+  @@index([startsAt])
+  @@index([status])
+  @@map("availability_slots")
+}
+
+model Session {
+  id            String             @id @default(uuid())
+  studentId     String             @map("student_id")
+  lecturerId    String             @map("lecturer_id")
+  startsAt      DateTime           @map("starts_at")
+  endsAt        DateTime           @map("ends_at")
+  status        SessionStatus      @default(SCHEDULED)
+  zoomMeetingId String?            @map("zoom_meeting_id")
+  zoomJoinUrl   String?            @map("zoom_join_url")   // Encrypted Zoom Join URL
+  zoomPassword  String?            @map("zoom_password")   // Encrypted Zoom Password
+  recordingUrl  String?            @map("recording_url")   // Encrypted Recording URL
+
+  // Relations
+  student       StudentProfile     @relation(fields: [studentId], references: [userId], onDelete: Cascade)
+  lecturer      LecturerProfile    @relation(fields: [lecturerId], references: [userId], onDelete: Cascade)
+  notes         SessionNotes?      @relation("SessionToNotes")
+  materials     Material[]
+  rating        Rating?            @relation("SessionToRating")
+  blocks1       SessionBlock[]     @relation("Session1Relation")
+  blocks2       SessionBlock[]     @relation("Session2Relation")
+
+  @@index([startsAt])
+  @@index([status])
+  @@index([studentId])
+  @@index([lecturerId])
+  @@index([studentId, startsAt])
+  @@index([lecturerId, startsAt])
+  @@map("sessions")
+}
+
+model SessionBlock {
+  id              String           @id @default(uuid())
+  studentId       String           @map("student_id")
+  lecturerId      String           @map("lecturer_id")
+  session1Id      String?          @map("session_1_id")
+  session2Id      String?          @map("session_2_id")
+  status          BlockStatus      @default(PENDING)
+  payoutAmountLkr Float            @default(2500.0) @map("payout_amount_lkr")
+  completedAt     DateTime?        @map("completed_at")
+
+  // Relations
+  student         StudentProfile   @relation(fields: [studentId], references: [userId], onDelete: Cascade)
+  lecturer        LecturerProfile  @relation(fields: [lecturerId], references: [userId], onDelete: Cascade)
+  session1        Session?         @relation("Session1Relation", fields: [session1Id], references: [id], onDelete: SetNull)
+  session2        Session?         @relation("Session2Relation", fields: [session2Id], references: [id], onDelete: SetNull)
+
+  @@index([studentId])
+  @@index([lecturerId])
+  @@index([status])
+  @@map("session_blocks")
+}
+
+model SessionNotes {
+  id                   String          @id @default(uuid())
+  sessionId            String          @unique @map("session_id")
+  lecturerId           String          @map("lecturer_id")
+  topicsCovered        String          @map("topics_covered")
+  homework             String
+  studentProgressRating Int            @map("student_progress_rating")
+  internalNotes        String          @map("internal_notes") // Lecturer-only
+  sharedNotes          String          @map("shared_notes")   // Student-visible
+
+  // Relations
+  session              Session         @relation("SessionToNotes", fields: [sessionId], references: [id], onDelete: Cascade)
+  lecturer             LecturerProfile @relation(fields: [lecturerId], references: [userId], onDelete: Cascade)
+
+  @@map("session_notes")
+}
+
+// -------------------------------------------------------------------------
+// AUXILIARY & SYSTEM MODELS
+// -------------------------------------------------------------------------
+
+model Material {
+  id               String          @id @default(uuid())
+  uploaderId       String          @map("uploader_id")
+  sessionId        String?         @map("session_id")
+  title            String
+  fileUrl          String          @map("file_url")
+  fileType         String          @map("file_type")
+  fileSize         Int             @map("file_size")
+  virusScanStatus  String          @map("virus_scan_status") // PENDING, CLEAN, INFECTED
+
+  // Relations
+  uploader         User            @relation("UploaderMaterials", fields: [uploaderId], references: [id], onDelete: Cascade)
+  session          Session?        @relation(fields: [sessionId], references: [id], onDelete: SetNull)
+
+  @@index([uploaderId])
+  @@index([sessionId])
+  @@map("materials")
+}
+
+model Payout {
+  id                     String          @id @default(uuid())
+  lecturerId             String          @map("lecturer_id")
+  amountLkr              Float           @map("amount_lkr")
+  sessionBlocksIncluded  String[]        @map("session_blocks_included") // List of completed Block IDs
+  method                 String          // wise, bank_transfer, wise_lkr
+  status                 PayoutStatus    @default(PENDING)
+  initiatedAt            DateTime        @default(now()) @map("initiated_at")
+  completedAt            DateTime?       @map("completed_at")
+  failureReason          String?         @map("failure_reason")
+
+  // Relations
+  lecturer               LecturerProfile @relation(fields: [lecturerId], references: [userId], onDelete: Cascade)
+
+  @@index([lecturerId])
+  @@index([status])
+  @@map("payouts")
+}
+
+model ProgressReport {
+  id           String          @id @default(uuid())
+  studentId    String          @map("student_id")
+  lecturerId   String          @map("lecturer_id")
+  periodMonth  String          @map("period_month") // e.g. "2026-05"
+  contentJson  Json            @map("content_json")
+  generatedAt  DateTime        @default(now()) @map("generated_at")
+  sentAt       DateTime?       @map("sent_at")
+
+  // Relations
+  student      StudentProfile  @relation(fields: [studentId], references: [userId], onDelete: Cascade)
+  lecturer     LecturerProfile @relation(fields: [lecturerId], references: [userId], onDelete: Cascade)
+
+  @@index([studentId])
+  @@index([lecturerId])
+  @@map("progress_reports")
+}
+
+model Message {
+  id          String    @id @default(uuid())
+  threadId    String    @map("thread_id")
+  senderId    String    @map("sender_id")
+  recipientId String    @map("recipient_id")
+  content     String    // Encrypted Message Content
+  readAt      DateTime? @map("read_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  // Relations
+  sender      User      @relation("SenderMessages", fields: [senderId], references: [id], onDelete: Cascade)
+  recipient   User      @relation("RecipientMessages", fields: [recipientId], references: [id], onDelete: Cascade)
+
+  @@index([threadId])
+  @@index([senderId])
+  @@index([recipientId])
+  @@map("messages")
+}
+
+model Rating {
+  id         String         @id @default(uuid())
+  sessionId  String         @unique @map("session_id")
+  studentId  String         @map("student_id")
+  lecturerId String         @map("lecturer_id")
+  score      Int            // 1-5 stars
+  comment    String
+  createdAt  DateTime       @default(now()) @map("created_at")
+
+  // Relations
+  session    Session        @relation("SessionToRating", fields: [sessionId], references: [id], onDelete: Cascade)
+  student    StudentProfile @relation("StudentRatings", fields: [studentId], references: [userId], onDelete: Cascade)
+  lecturer   LecturerProfile @relation("LecturerRatings", fields: [lecturerId], references: [userId], onDelete: Cascade)
+
+  @@index([studentId])
+  @@index([lecturerId])
+  @@map("ratings")
+}
+
+model AuditLog {
+  id           String    @id @default(uuid())
+  actorId      String?   @map("actor_id")
+  action       String    // e.g. "AUTH_SIGNIN", "PAYMENT_COMPLETE"
+  resourceType String    @map("resource_type") // e.g. "USER", "SESSION"
+  resourceId   String    @map("resource_id")
+  ip           String
+  userAgent    String    @map("user_agent")
+  beforeJson   Json?     @map("before_json")
+  afterJson    Json?     @map("after_json")
+  createdAt    DateTime  @default(now()) @map("created_at")
+
+  // Relations
+  actor        User?     @relation("ActorAuditLogs", fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([actorId])
+  @@index([createdAt])
+  @@index([resourceType])
+  @@map("audit_logs")
+}
+
+model Notification {
+  id          String    @id @default(uuid())
+  userId      String    @map("user_id")
+  type        String    // e.g. "BOOKING_CONFIRMED"
+  payloadJson Json      @map("payload_json")
+  readAt      DateTime? @map("read_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  channel     String    // "IN_APP", "EMAIL", "SMS"
+
+  // Relations
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([createdAt])
+  @@map("notifications")
+}

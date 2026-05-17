@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { sessions } from '@/lib/mock-data';
 import { Video, Search, Filter, CheckCircle, XCircle, Calendar, Clock, AlertTriangle, FileText, ChevronDown } from 'lucide-react';
 
@@ -24,6 +24,11 @@ const allSessions = [
 ];
 
 export default function LecturerSessionsPage() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<StatusFilter>('all');
   const [notesModal, setNotesModal] = useState<typeof allSessions[0] | null>(null);
@@ -66,7 +71,13 @@ export default function LecturerSessionsPage() {
               <div className="flex-1 min-w-0">
                 <div className="font-medium text-sm">{s.studentName}</div>
                 <div className="text-xs text-[hsl(var(--muted-foreground))]">{s.subject}</div>
-                <div className="text-xs text-[hsl(var(--muted-foreground))]">{new Date(s.startsAt).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })} · {new Date(s.startsAt).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</div>
+                <div className="text-xs text-[hsl(var(--muted-foreground))]">
+                  {mounted ? (
+                    `${new Date(s.startsAt).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })} · ${new Date(s.startsAt).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`
+                  ) : (
+                    <span>Loading date...</span>
+                  )}
+                </div>
               </div>
               <span className={`px-2.5 py-1 text-xs font-medium rounded-full ${cfg.color} whitespace-nowrap`}>{cfg.label}</span>
               {s.status === 'completed' && (

@@ -1,0 +1,258 @@
+/* ============================================
+   IlmConnect Design System — Global Styles
+   ============================================ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---- CSS Custom Properties (Design Tokens) ---- */
+:root {
+  /* Primary — Deep Teal/Emerald */
+  --primary: 168 80% 26%;
+  --primary-hover: 168 80% 22%;
+  --primary-light: 168 60% 94%;
+  --primary-foreground: 0 0% 100%;
+
+  /* Accent — Gold (used sparingly) */
+  --accent: 45 84% 40%;
+  --accent-hover: 45 84% 35%;
+  --accent-light: 45 80% 95%;
+  --accent-foreground: 0 0% 10%;
+
+  /* Neutrals — Warm Grays */
+  --background: 40 20% 99%;
+  --foreground: 220 20% 10%;
+  --card: 0 0% 100%;
+  --card-foreground: 220 20% 10%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 220 20% 10%;
+  --muted: 40 10% 96%;
+  --muted-foreground: 220 10% 45%;
+  --border: 40 10% 90%;
+  --input: 40 10% 90%;
+  --ring: 168 80% 26%;
+
+  /* Semantic */
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 100%;
+  --success: 142 72% 29%;
+  --success-foreground: 0 0% 100%;
+  --warning: 38 92% 50%;
+  --warning-foreground: 0 0% 10%;
+  --info: 199 89% 48%;
+  --info-foreground: 0 0% 100%;
+
+  /* Sidebar */
+  --sidebar: 168 30% 12%;
+  --sidebar-foreground: 168 10% 90%;
+  --sidebar-accent: 168 40% 18%;
+  --sidebar-accent-foreground: 168 10% 95%;
+  --sidebar-border: 168 20% 20%;
+
+  /* Radius */
+  --radius: 0.625rem;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+.dark {
+  --primary: 168 65% 45%;
+  --primary-hover: 168 65% 50%;
+  --primary-light: 168 40% 15%;
+  --primary-foreground: 0 0% 100%;
+
+  --accent: 45 84% 50%;
+  --accent-hover: 45 84% 55%;
+  --accent-light: 45 40% 15%;
+  --accent-foreground: 0 0% 100%;
+
+  --background: 220 20% 7%;
+  --foreground: 40 10% 93%;
+  --card: 220 18% 10%;
+  --card-foreground: 40 10% 93%;
+  --popover: 220 18% 10%;
+  --popover-foreground: 40 10% 93%;
+  --muted: 220 15% 15%;
+  --muted-foreground: 220 10% 55%;
+  --border: 220 15% 18%;
+  --input: 220 15% 18%;
+  --ring: 168 65% 45%;
+
+  --destructive: 0 62% 55%;
+  --success: 142 60% 45%;
+  --warning: 38 80% 55%;
+  --info: 199 80% 55%;
+
+  --sidebar: 220 20% 6%;
+  --sidebar-foreground: 168 10% 90%;
+  --sidebar-accent: 168 30% 15%;
+  --sidebar-accent-foreground: 168 10% 95%;
+  --sidebar-border: 220 15% 15%;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px -1px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+}
+
+/* ---- Base Reset ---- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border-color: hsl(var(--border));
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ---- Typography Utilities ---- */
+.font-arabic {
+  font-family: 'Noto Naskh Arabic', serif;
+}
+
+.text-gradient-primary {
+  background: linear-gradient(135deg, hsl(168 80% 26%), hsl(168 60% 40%));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, hsl(45 84% 40%), hsl(38 92% 50%));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dark .text-gradient-primary {
+  background: linear-gradient(135deg, hsl(168 65% 45%), hsl(168 50% 60%));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ---- Islamic Geometric Pattern Background ---- */
+.pattern-islamic {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230f766e' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.dark .pattern-islamic {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2345b8a8' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* ---- Glass Morphism ---- */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.dark .glass {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ---- Skeleton Loading Animation ---- */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: hsl(var(--muted));
+  border-radius: var(--radius);
+}
+
+.skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: shimmer 1.5s infinite;
+}
+
+.dark .skeleton::after {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+}
+
+/* ---- Fade In Animation ---- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* ---- Pulse Glow ---- */
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 hsla(168, 80%, 26%, 0.4); }
+  50% { box-shadow: 0 0 0 8px hsla(168, 80%, 26%, 0); }
+}
+
+.pulse-glow {
+  animation: pulseGlow 2s infinite;
+}
+
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.5);
+}
+
+/* ---- Focus visible ---- */
+*:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ---- Selection ---- */
+::selection {
+  background: hsl(var(--primary) / 0.2);
+  color: hsl(var(--foreground));
+}
+
+/* ---- Reduced Motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

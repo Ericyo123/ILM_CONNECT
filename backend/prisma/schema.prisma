@@ -3,7 +3,7 @@
 // =========================================================================
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -124,8 +124,8 @@ model LecturerProfile {
   fullName             String             @map("full_name") // Encrypted PII
   bio                  String
   qualifications       String
-  specializations      String[]
-  languages            String[]
+  specializations      Json
+  languages            Json
   hourlyAvailabilityJson Json             @map("hourly_availability_json")
   payoutMethod         String             @map("payout_method")
   payoutDetails        String             @map("payout_details") // Encrypted PII
@@ -305,7 +305,7 @@ model Payout {
   id                     String          @id @default(uuid())
   lecturerId             String          @map("lecturer_id")
   amountLkr              Float           @map("amount_lkr")
-  sessionBlocksIncluded  String[]        @map("session_blocks_included") // List of completed Block IDs
+  sessionBlocksIncluded  Json        @map("session_blocks_included") // List of completed Block IDs
   method                 String          // wise, bank_transfer, wise_lkr
   status                 PayoutStatus    @default(PENDING)
   initiatedAt            DateTime        @default(now()) @map("initiated_at")

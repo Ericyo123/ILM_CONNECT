@@ -10,10 +10,31 @@ export default function SignInPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const router = useRouter();
 
   const handleDemoLogin = (role: 'student' | 'lecturer' | 'admin') => {
     router.push(`/${role}/dashboard`);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    try {
+      const res = await fetch('http://localhost:3001/api/v1/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.message || 'Invalid credentials');
+      }
+      const userRole = data.user.role.toLowerCase();
+      router.push(`/${userRole}/dashboard`);
+    } catch (err: any) {
+      setError(err.message || 'Connection to authentication server failed');
+    }
   };
 
   return (
@@ -32,7 +53,13 @@ export default function SignInPage() {
           <h1 className="text-3xl font-bold mb-2">Welcome back</h1>
           <p className="text-[hsl(var(--muted-foreground))] mb-8">Sign in to continue your learning journey</p>
 
-          <form onSubmit={(e) => { e.preventDefault(); router.push('/student/dashboard'); }} className="space-y-5">
+          {error && (
+            <div className="p-3.5 mb-5 rounded-xl bg-red-100 dark:bg-red-950/30 text-red-700 dark:text-red-400 text-sm font-medium">
+              {error}
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label className="block text-sm font-medium mb-1.5">Email address</label>
               <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" className="w-full px-4 py-3 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] text-sm focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))] transition-colors" />

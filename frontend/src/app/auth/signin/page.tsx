@@ -12,8 +12,16 @@ export default function SignInPage() {
   const [password, setPassword] = useState('');
   const router = useRouter();
 
-  const handleDemoLogin = (role: 'student' | 'lecturer' | 'admin') => {
-    router.push(`/${role}/dashboard`);
+  const handleDemoLogin = (role: 'student' | 'lecturer' | 'admin' | 'staff') => {
+    if (role === 'admin') {
+      localStorage.setItem('ilm_admin_role', 'owner');
+      router.push('/admin/dashboard');
+    } else if (role === 'staff') {
+      localStorage.setItem('ilm_admin_role', 'staff');
+      router.push('/admin/dashboard');
+    } else {
+      router.push(`/${role}/dashboard`);
+    }
   };
 
   return (
@@ -58,10 +66,11 @@ export default function SignInPage() {
           {/* Demo Access */}
           <div className="mt-6 pt-6 border-t border-[hsl(var(--border))]">
             <p className="text-xs text-[hsl(var(--muted-foreground))] text-center mb-3">Quick Demo Access</p>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-4 gap-2">
               {[
                 { role: 'student' as const, label: 'Student', color: 'text-[hsl(var(--primary))]' },
                 { role: 'lecturer' as const, label: 'Lecturer', color: 'text-purple-600 dark:text-purple-400' },
+                { role: 'staff' as const, label: 'Staff', color: 'text-blue-600 dark:text-blue-400' },
                 { role: 'admin' as const, label: 'Admin', color: 'text-amber-600 dark:text-amber-400' },
               ].map((d) => (
                 <button key={d.role} onClick={() => handleDemoLogin(d.role)} className={`py-2 rounded-xl text-xs font-medium border border-[hsl(var(--border))] hover:bg-[hsl(var(--muted))] transition-colors ${d.color}`}>

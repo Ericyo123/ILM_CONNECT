@@ -4,17 +4,10 @@ import { BookOpen, Mail, Phone, MapPin } from 'lucide-react';
 const footerLinks = {
   Platform: [
     { label: 'How It Works', href: '/about' },
-    { label: 'Our Scholars', href: '/lecturers' },
     { label: 'Pricing', href: '/pricing' },
     { label: 'Free Trial', href: '/auth/signup' },
   ],
-  Subjects: [
-    { label: 'Quran Recitation', href: '/lecturers?subject=quran' },
-    { label: 'Quran Memorization', href: '/lecturers?subject=hifz' },
-    { label: 'Hadith Studies', href: '/lecturers?subject=hadith' },
-    { label: 'Fiqh & Islamic Law', href: '/lecturers?subject=fiqh' },
-    { label: 'Arabic Language', href: '/lecturers?subject=arabic' },
-  ],
+
   Support: [
     { label: 'Help Center', href: '#' },
     { label: 'Contact Us', href: '#' },

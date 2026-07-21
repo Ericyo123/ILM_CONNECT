@@ -26,12 +26,13 @@ export default function Header() {
   const { resolvedTheme, setTheme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const isDashboard =
+  const shouldHideHeader =
     pathname.startsWith('/student') ||
     pathname.startsWith('/lecturer') ||
-    pathname.startsWith('/admin');
+    pathname.startsWith('/admin') ||
+    pathname.startsWith('/auth');
 
-  if (isDashboard) return null;
+  if (shouldHideHeader) return null;
 
   return (
     <header className="sticky top-0 z-50 glass">

@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { sessions } from '@/lib/mock-data';
 import { Video, CheckCircle, XCircle, Calendar, List, ChevronLeft, ChevronRight, Clock, Edit, Trash2, AlertTriangle, Info, Lock } from 'lucide-react';
+import Link from 'next/link';
 
 type ViewMode = 'list' | 'calendar';
 
@@ -174,7 +175,7 @@ export default function StudentSessionsPage() {
             <div className="flex gap-2">
               <button onClick={closeDetail} className="flex-1 py-2.5 rounded-xl text-sm font-medium border border-[hsl(var(--border))] hover:bg-[hsl(var(--muted))]">Close</button>
               {selectedSession.status === 'scheduled' && (
-                <button className="flex-1 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)]">Join Session</button>
+                <Link href={`/student/courses/beginner-qaida/sessions/${selectedSession.id}/room`} className="flex-1 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)] flex items-center justify-center">Join Session</Link>
               )}
             </div>
           </div>

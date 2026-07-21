@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Calendar, Clock, BookOpen, Star, Video, CreditCard, TrendingUp, ChevronRight, Play, RefreshCw, User, AlertTriangle } from 'lucide-react';
 import { sessions, lecturers } from '@/lib/mock-data';
 import { useState, useEffect, useCallback } from 'react';
+import { subscriptions } from '@/lib/mock-data';
 
 const upcomingSessions = sessions.filter(s => s.status === 'scheduled').slice(0, 3);
 const assignedLecturer = lecturers[0]; // Auto-assigned lecturer
@@ -16,30 +17,35 @@ const progressData = [
 
 export default function StudentDashboard() {
   const [showChangeModal, setShowChangeModal] = useState(false);
+  const [showBookModal, setShowBookModal] = useState(false);
   const [changeRequested, setChangeRequested] = useState(false);
 
-  const closeModal = useCallback(() => setShowChangeModal(false), []);
+  const closeModal = useCallback(() => {
+    setShowChangeModal(false);
+    setShowBookModal(false);
+  }, []);
 
   // Lock body scroll and handle ESC key when modal is open
   useEffect(() => {
-    if (!showChangeModal) return;
+    if (!showChangeModal && !showBookModal) return;
     document.body.style.overflow = 'hidden';
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') closeModal(); };
     window.addEventListener('keydown', onKey);
     return () => { document.body.style.overflow = ''; window.removeEventListener('keydown', onKey); };
-  }, [showChangeModal, closeModal]);
+  }, [showChangeModal, showBookModal, closeModal]);
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <>
+      <div className="space-y-6 animate-fade-in">
       {/* Welcome */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold">Assalamu Alaikum, Aisha!</h1>
           <p className="text-[hsl(var(--muted-foreground))]">Your next session is in 2 hours</p>
         </div>
-        <Link href="/student/book" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)] hover:shadow-lg transition-all">
+        <button onClick={() => setShowBookModal(true)} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)] hover:shadow-lg transition-all">
           <Calendar className="h-4 w-4" /> Book Session
-        </Link>
+        </button>
       </div>
 
       {/* Stats */}
@@ -94,7 +100,7 @@ export default function StudentDashboard() {
           <div>
             <div className="flex items-center justify-between mb-4">
               <h2 className="font-semibold text-lg">Upcoming Sessions</h2>
-              <Link href="/student/sessions" className="text-sm text-[hsl(var(--primary))] hover:underline">View all</Link>
+              <Link href="/student/courses/beginner-qaida/sessions" className="text-sm text-[hsl(var(--primary))] hover:underline">View all</Link>
             </div>
             <div className="space-y-3">
               {upcomingSessions.map((s) => (
@@ -107,9 +113,9 @@ export default function StudentDashboard() {
                     <div className="text-xs text-[hsl(var(--muted-foreground))]">with {s.lecturerName}</div>
                     <div className="text-xs text-[hsl(var(--muted-foreground))] mt-0.5">{new Date(s.startsAt).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })} — {new Date(s.endsAt).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</div>
                   </div>
-                  <button className="px-4 py-2 rounded-lg text-xs font-semibold text-white bg-gradient-to-r from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)] hover:shadow-md transition-all flex items-center gap-1.5">
+                  <Link href={`/student/courses/beginner-qaida/sessions/${s.id}/room`} className="px-4 py-2 rounded-lg text-xs font-semibold text-white bg-gradient-to-r from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)] hover:shadow-md transition-all flex items-center gap-1.5">
                     <Play className="h-3 w-3" /> Join
-                  </button>
+                  </Link>
                 </div>
               ))}
               {upcomingSessions.length === 0 && (
@@ -117,7 +123,7 @@ export default function StudentDashboard() {
                   <Calendar className="h-10 w-10 mx-auto text-[hsl(var(--muted-foreground))] mb-3" />
                   <p className="font-medium mb-1">No upcoming sessions</p>
                   <p className="text-sm text-[hsl(var(--muted-foreground))] mb-3">Book your next session to continue learning</p>
-                  <Link href="/student/book" className="text-sm text-[hsl(var(--primary))] font-medium hover:underline">Book Now →</Link>
+                  <button onClick={() => setShowBookModal(true)} className="text-sm text-[hsl(var(--primary))] font-medium hover:underline">Book Now →</button>
                 </div>
               )}
             </div>
@@ -141,20 +147,38 @@ export default function StudentDashboard() {
             ))}
           </div>
 
-          {/* Subscription */}
+          {/* Subscription / Trial Status */}
           <div className="p-5 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))]">
             <div className="flex items-center gap-2 mb-3">
               <CreditCard className="h-4 w-4 text-[hsl(var(--primary))]" />
               <span className="font-medium text-sm">Subscription</span>
             </div>
-            <div className="flex items-baseline gap-1 mb-1">
-              <span className="text-lg font-bold">Tajweed Premium</span>
-              <span className="px-1.5 py-0.5 text-[10px] font-semibold rounded-full bg-[hsl(var(--success)/0.1)] text-[hsl(var(--success))]">Active</span>
-            </div>
-            <p className="text-xs text-[hsl(var(--muted-foreground))]">Renews May 1, 2025 · $55/month</p>
-            <Link href="/student/billing" className="flex items-center gap-1 text-xs text-[hsl(var(--primary))] font-medium mt-3 hover:underline">
-              Manage <ChevronRight className="h-3 w-3" />
-            </Link>
+            
+            {subscriptions[0]?.isTrial ? (
+               <div className="space-y-3">
+                 <div className="flex items-center gap-2">
+                   <span className="text-lg font-bold">Free Trial</span>
+                   <span className="px-1.5 py-0.5 text-[10px] font-semibold rounded-full bg-[hsl(var(--warning)/0.1)] text-[hsl(var(--warning))]">Action Required</span>
+                 </div>
+                 <p className="text-sm text-[hsl(var(--muted-foreground))]">
+                   You have <strong>1 free session</strong> remaining. Enjoy your first session without any payment!
+                 </p>
+                 <button className="w-full py-2.5 rounded-lg text-sm font-semibold text-white bg-gradient-to-r from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)] hover:shadow-md transition-all">
+                   Upgrade to Premium
+                 </button>
+               </div>
+            ) : (
+               <>
+                  <div className="flex items-baseline gap-1 mb-1">
+                    <span className="text-lg font-bold">Tajweed Premium</span>
+                    <span className="px-1.5 py-0.5 text-[10px] font-semibold rounded-full bg-[hsl(var(--success)/0.1)] text-[hsl(var(--success))]">Active</span>
+                  </div>
+                  <p className="text-xs text-[hsl(var(--muted-foreground))]">Renews May 1, 2025 · $55/month</p>
+                  <Link href="/student/billing" className="flex items-center gap-1 text-xs text-[hsl(var(--primary))] font-medium mt-3 hover:underline">
+                    Manage <ChevronRight className="h-3 w-3" />
+                  </Link>
+               </>
+            )}
           </div>
 
           {/* Policy note */}
@@ -167,6 +191,8 @@ export default function StudentDashboard() {
             </div>
           </div>
         </div>
+      </div>
+
       </div>
 
       {/* Lecturer Change Modal — clean overlay, no blur distortion */}
@@ -204,6 +230,43 @@ export default function StudentDashboard() {
           </div>
         </div>
       )}
-    </div>
+
+      {/* Book Session Course Selection Modal */}
+      {showBookModal && (
+        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }} onClick={closeModal}>
+          <div className="bg-[hsl(var(--card))] rounded-2xl border border-[hsl(var(--border))] shadow-2xl max-w-md w-full p-6 animate-fade-in" onClick={(e) => e.stopPropagation()}>
+            <h3 className="text-lg font-bold mb-1">Select Course</h3>
+            <p className="text-sm text-[hsl(var(--muted-foreground))] mb-5">
+              Which course would you like to book a session for?
+            </p>
+            <div className="space-y-3 mb-6">
+              <Link href="/student/courses/beginner-qaida/sessions/book" className="flex items-center gap-3 p-4 rounded-xl border border-[hsl(var(--border))] hover:border-[hsl(var(--primary))] hover:bg-[hsl(var(--primary)/0.05)] transition-all">
+                <div className="h-10 w-10 rounded-lg bg-[hsl(var(--primary)/0.1)] flex items-center justify-center flex-shrink-0">
+                  <BookOpen className="h-5 w-5 text-[hsl(var(--primary))]" />
+                </div>
+                <div>
+                  <div className="font-semibold text-sm">Beginner: Noorani Qaida</div>
+                  <div className="text-xs text-[hsl(var(--muted-foreground))]">with Sheikh Ahmed Al-Farsi</div>
+                </div>
+                <ChevronRight className="h-4 w-4 text-[hsl(var(--muted-foreground))] ml-auto" />
+              </Link>
+              
+              <button disabled className="w-full flex items-center gap-3 p-4 rounded-xl border border-[hsl(var(--border))] opacity-50 cursor-not-allowed">
+                <div className="h-10 w-10 rounded-lg bg-[hsl(var(--muted))] flex items-center justify-center flex-shrink-0">
+                  <BookOpen className="h-5 w-5 text-[hsl(var(--muted-foreground))]" />
+                </div>
+                <div className="text-left">
+                  <div className="font-semibold text-sm">Intermediate: Tajweed (Completed)</div>
+                  <div className="text-xs text-[hsl(var(--muted-foreground))]">with Sheikh Yasir Qadhi</div>
+                </div>
+              </button>
+            </div>
+            <button onClick={closeModal} className="w-full py-2.5 rounded-xl text-sm font-medium border border-[hsl(var(--border))] hover:bg-[hsl(var(--muted))]">
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

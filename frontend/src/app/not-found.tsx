@@ -14,9 +14,7 @@ export default function NotFound() {
           <Link href="/" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)]">
             <Home className="h-4 w-4" /> Go Home
           </Link>
-          <Link href="/lecturers" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-medium border border-[hsl(var(--border))] hover:bg-[hsl(var(--muted))]">
-            <ArrowLeft className="h-4 w-4" /> Browse Scholars
-          </Link>
+
         </div>
       </div>
     </div>

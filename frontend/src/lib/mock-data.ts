@@ -55,6 +55,7 @@ export interface Subscription {
   amountLKR: number;
   currentPeriodStart: string;
   currentPeriodEnd: string;
+  isTrial?: boolean;
 }
 
 export interface Payout {
@@ -75,6 +76,29 @@ export interface AuditLog {
   resourceType: string;
   resourceId: string;
   ip: string;
+  createdAt: string;
+}
+
+export interface AdminRequest {
+  id: string;
+  type: 'lecturer_change' | 'new_assignment';
+  studentId: string;
+  studentName: string;
+  courseName: string;
+  reason?: string;
+  status: 'pending' | 'resolved';
+  createdAt: string;
+}
+
+export interface SessionFeedback {
+  id: string;
+  sessionId: string;
+  studentId: string;
+  studentName: string;
+  lecturerId: string;
+  lecturerName: string;
+  rating: number;
+  comment: string;
   createdAt: string;
 }
 
@@ -187,7 +211,7 @@ export const sessions: Session[] = [
 ];
 
 export const subscriptions: Subscription[] = [
-  { id: 'sub1', studentId: 's1', tier: 'premium', status: 'active', amountLKR: 18000, currentPeriodStart: '2025-04-01', currentPeriodEnd: '2025-04-30' },
+  { id: 'sub1', studentId: 's1', tier: 'premium', status: 'active', amountLKR: 18000, currentPeriodStart: '2025-04-01', currentPeriodEnd: '2025-04-30', isTrial: true },
   { id: 'sub2', studentId: 's2', tier: 'basic', status: 'active', amountLKR: 15000, currentPeriodStart: '2025-04-01', currentPeriodEnd: '2025-04-30' },
   { id: 'sub3', studentId: 's3', tier: 'advanced', status: 'active', amountLKR: 20000, currentPeriodStart: '2025-04-01', currentPeriodEnd: '2025-04-30' },
   { id: 'sub4', studentId: 's4', tier: 'premium', status: 'active', amountLKR: 18000, currentPeriodStart: '2025-04-01', currentPeriodEnd: '2025-04-30' },
@@ -214,11 +238,43 @@ export const auditLogs: AuditLog[] = [
   { id: 'a8', actorId: 'l1', actorName: 'Sheikh Ahmed Al-Farsi', action: 'SESSION_NOTES_ADDED', resourceType: 'session', resourceId: 'ss4', ip: '112.134.78.10', createdAt: '2025-04-28T17:00:00Z' },
 ];
 
+export const mockRequests: AdminRequest[] = [
+  { id: 'req1', type: 'new_assignment', studentId: 's8', studentName: 'Ahmed Rahman', courseName: 'Beginner: Noorani Qaida', status: 'pending', createdAt: '2025-04-28T09:00:00Z' },
+  { id: 'req2', type: 'lecturer_change', studentId: 's1', studentName: 'Aisha Khan', courseName: 'Intermediate: Tajweed', reason: 'Scheduling conflict with current lecturer', status: 'pending', createdAt: '2025-04-27T14:30:00Z' },
+];
+
+export const mockFeedbacks: SessionFeedback[] = [
+  { id: 'f1', sessionId: 'ss4', studentId: 's4', studentName: 'Yusuf Ali', lecturerId: 'l3', lecturerName: 'Ustadha Fatima Noor', rating: 5, comment: 'Ustadha Fatima was incredibly patient and explained the grammar rules very clearly. I finally understand the difference between Ism and Fi\'l!', createdAt: '2025-04-28T11:30:00Z' },
+  { id: 'f2', sessionId: 'ss5', studentId: 's5', studentName: 'Maryam Saleem', lecturerId: 'l1', lecturerName: 'Sheikh Ahmed Al-Farsi', rating: 4, comment: 'Great session, but we started about 5 minutes late. Otherwise, the pronunciation tips were very helpful.', createdAt: '2025-04-28T09:15:00Z' },
+  { id: 'f3', sessionId: 'ss_old1', studentId: 's2', studentName: 'Omar Malik', lecturerId: 'l4', lecturerName: 'Maulavi Yusuf Kareem', rating: 5, comment: 'Maulavi Yusuf\'s revision techniques are amazing. I memorized the whole page perfectly.', createdAt: '2025-04-25T17:00:00Z' },
+  { id: 'f4', sessionId: 'ss_old2', studentId: 's1', studentName: 'Aisha Khan', lecturerId: 'l1', lecturerName: 'Sheikh Ahmed Al-Farsi', rating: 2, comment: 'The connection kept dropping on his end, and we could barely hear each other. Also felt rushed.', createdAt: '2025-04-24T15:00:00Z' },
+  { id: 'f5', sessionId: 'ss_old3', studentId: 's3', studentName: 'Fatima Hassan', lecturerId: 'l2', lecturerName: 'Maulavi Ismail Rahman', rating: 5, comment: 'Excellent breakdown of the Hadith context. Very deep knowledge.', createdAt: '2025-04-22T19:30:00Z' },
+];
+
 export const courseOfferings = [
   {
-    id: 'tajweed',
-    name: 'Tajweed',
-    description: 'Quran recitation with proper pronunciation rules',
+    id: 'beginner-qaida',
+    name: 'Beginner: Noorani Qaida',
+    description: 'Fundamental course for beginners to learn the Arabic alphabet and basic pronunciation rules.',
+    basicPriceUSD: 40,
+    premiumPriceUSD: 45,
+    basicPriceLKR: 12000,
+    premiumPriceLKR: 13500,
+    premiumExtras: ['Session recordings (cloud stored)', 'Monthly progress report'],
+    features: [
+      '8 sessions per month (2/week)',
+      '45-minute 1:1 sessions',
+      'Qualified Arabic instructor',
+      'Letter recognition and basic rules',
+      'Progress tracking dashboard',
+    ],
+    comingSoon: false,
+    isGroup: false,
+  },
+  {
+    id: 'intermediate-tajweed',
+    name: 'Intermediate: Tajweed Quran Recitation',
+    description: 'Quran recitation with proper pronunciation rules (Tajweed) for intermediate learners.',
     basicPriceUSD: 50,
     premiumPriceUSD: 55,
     basicPriceLKR: 15000,
@@ -237,9 +293,9 @@ export const courseOfferings = [
     isGroup: false,
   },
   {
-    id: 'hifz',
-    name: 'Hifz',
-    description: 'Quran memorization — structured memorization program with revision tracking',
+    id: 'advanced-hifz',
+    name: 'Advanced: Hifz',
+    description: 'Advanced Quran memorization — structured memorization program with revision tracking.',
     basicPriceUSD: 60,
     premiumPriceUSD: 65,
     basicPriceLKR: 18000,
@@ -256,25 +312,6 @@ export const courseOfferings = [
     ],
     comingSoon: false,
     isGroup: false,
-  },
-  {
-    id: 'fiqh',
-    name: 'Fiqh (Islamic Law)',
-    description: 'Group classes covering Islamic jurisprudence with senior scholars',
-    basicPriceUSD: 0,
-    premiumPriceUSD: 0,
-    basicPriceLKR: 0,
-    premiumPriceLKR: 0,
-    premiumExtras: [],
-    features: [
-      'Group classes (max 8 students)',
-      'Senior scholar instruction',
-      'Islamic jurisprudence curriculum',
-      'Comparative Fiqh discussions',
-      'Certificate of completion',
-    ],
-    comingSoon: true,
-    isGroup: true,
   },
 ];
 
@@ -319,5 +356,7 @@ export const adminStats = {
   revenueThisMonth: 2340000,
   payoutsThisMonth: 1560000,
   profitThisMonth: 709800,
+  unassignedStudents: 1,
+  lecturerChangeRequests: 1,
 };
 

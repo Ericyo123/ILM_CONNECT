@@ -26,6 +26,9 @@ import {
   ChevronLeft,
   ChevronRight,
   User,
+  Library,
+  MessageSquare,
+  Award,
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -36,12 +39,21 @@ interface NavItem {
   badge?: string;
 }
 
-const studentNav: NavItem[] = [
+const globalStudentNav: NavItem[] = [
   { href: '/student/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/student/book', label: 'Book Session', icon: Calendar },
-  { href: '/student/sessions', label: 'My Sessions', icon: Clock },
+  { href: '/student/courses', label: 'My Courses', icon: Library },
   { href: '/student/billing', label: 'Billing', icon: CreditCard },
   { href: '/student/settings', label: 'Settings', icon: Settings },
+];
+
+const getCourseNav = (courseId: string): NavItem[] => [
+  { href: '/student/courses', label: 'Back to My Courses', icon: ChevronLeft },
+  { href: `/student/courses/${courseId}/materials`, label: 'Course Materials', icon: FileText },
+  { href: `/student/courses/${courseId}/sessions`, label: 'Sessions', icon: Clock },
+  { href: `/student/courses/${courseId}/sessions/book`, label: 'Book Session', icon: Calendar },
+  { href: `/student/courses/${courseId}/assessments`, label: 'Assessments', icon: ClipboardList },
+  { href: `/student/courses/${courseId}/feedback`, label: 'Session Feedback', icon: MessageSquare },
+  { href: `/student/courses/${courseId}/awards`, label: 'Awards & Badges', icon: Award },
 ];
 
 const lecturerNav: NavItem[] = [
@@ -55,34 +67,53 @@ const lecturerNav: NavItem[] = [
 
 const adminNav: NavItem[] = [
   { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/admin/users', label: 'Users', icon: Users, badge: '3' },
+  { href: '/admin/requests', label: 'Requests', icon: ClipboardList, badge: '2' },
+  { href: '/admin/users', label: 'Users', icon: Users },
   { href: '/admin/sessions', label: 'Sessions', icon: Clock },
+  { href: '/admin/feedback', label: 'Feedback', icon: MessageSquare },
   { href: '/admin/finance', label: 'Finance', icon: BarChart3 },
   { href: '/admin/config', label: 'Configuration', icon: Sliders },
   { href: '/admin/audit', label: 'Audit Log', icon: Shield },
 ];
 
+import { useRole } from '@/lib/role-context';
+
 export default function DashboardSidebar() {
   const pathname = usePathname();
   const { resolvedTheme, setTheme } = useTheme();
   const [collapsed, setCollapsed] = useState(false);
-
+  
   let navItems: NavItem[] = [];
   let roleName = '';
   let userName = '';
+  
+  let adminRole = 'owner';
+  try {
+    const context = useRole();
+    adminRole = context.role;
+  } catch(e) {}
 
   if (pathname.startsWith('/student')) {
-    navItems = studentNav;
     roleName = 'Student';
     userName = 'Aisha Khan';
+    
+    // Check if we are inside a specific course (e.g., /student/courses/beginner-qaida/...)
+    const courseMatch = pathname.match(/^\/student\/courses\/([^/]+)/);
+    if (courseMatch) {
+      navItems = getCourseNav(courseMatch[1]);
+    } else {
+      navItems = globalStudentNav;
+    }
   } else if (pathname.startsWith('/lecturer')) {
     navItems = lecturerNav;
     roleName = 'Lecturer';
     userName = 'Sheikh Ahmed Al-Farsi';
   } else if (pathname.startsWith('/admin')) {
-    navItems = adminNav;
-    roleName = 'Administrator';
-    userName = 'Super Admin';
+    navItems = adminRole === 'staff' 
+      ? adminNav.filter(n => !['Finance', 'Configuration', 'Audit Log'].includes(n.label))
+      : adminNav;
+    roleName = adminRole === 'staff' ? 'Staff' : 'Administrator';
+    userName = adminRole === 'staff' ? 'Support Rep' : 'Super Admin';
   }
 
   return (

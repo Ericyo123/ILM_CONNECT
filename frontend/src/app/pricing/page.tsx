@@ -111,7 +111,7 @@ export default function PricingPage() {
             {[
               { q: 'Can I try before subscribing?', a: 'Yes! Every new student gets a free 30-minute trial session with one of our scholars. No payment information required.' },
               { q: 'What is the difference between Standard and Fast Track?', a: 'Standard gives you 8 sessions per month (2 sessions a week). Fast Track accelerates your learning with 12 sessions per month (3 sessions a week), plus session recordings.' },
-              { q: 'How are sessions conducted?', a: 'All sessions are conducted via Zoom in a private, one-on-one setting. You\'ll receive a unique meeting link before each session.' },
+              { q: 'How are sessions conducted?', a: 'All sessions are conducted via our built-in live video platform in a private, one-on-one setting. Simply click "Join" when your session starts.' },
               { q: 'Can I change my lecturer?', a: 'Yes! You can request a lecturer change at any time. You\'ll get a trial session with a new lecturer before confirming the switch.' },
               { q: 'What is the cancellation policy?', a: 'Sessions can be rescheduled for free up to 12 hours before the start time. Cancellations within 12 hours count as a used session.' },
               { q: 'How do payments work?', a: 'We accept international cards via Stripe and local Sri Lankan payments via PayHere. All prices are displayed in your local currency.' },

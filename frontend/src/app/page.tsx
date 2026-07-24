@@ -12,7 +12,7 @@ const steps = [
   { num: '1', title: 'Sign Up', desc: 'Create your account in minutes and tell us about your learning goals', icon: '📝' },
   { num: '2', title: 'Choose Your Course', desc: 'Select Tajweed for Quran recitation or Hifz for memorization', icon: '📖' },
   { num: '3', title: 'Get Matched with a Maulavi', desc: 'We assign a qualified scholar based on your needs and schedule', icon: '🤝' },
-  { num: '4', title: 'Start Learning', desc: 'Join 1:1 Zoom sessions twice a week and track your progress', icon: '🎓' },
+  { num: '4', title: 'Start Learning', desc: 'Join 1:1 live sessions twice a week and track your progress', icon: '🎓' },
 ];
 
 export default function HomePage() {

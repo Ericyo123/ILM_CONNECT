@@ -132,10 +132,10 @@ export default function LecturerDashboard() {
                 <div className="text-xs text-[hsl(var(--muted-foreground))]">Quran Session</div>
                 <div className="text-xs text-[hsl(var(--muted-foreground))]">{new Date(s.startsAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
               </div>
-              {s.zoomJoinUrl ? (
-                <a href={s.zoomJoinUrl} target="_blank" rel="noopener noreferrer" className="px-3 py-2 rounded-lg text-xs font-semibold text-white bg-gradient-to-r from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)] flex items-center gap-1.5">
+              {s.livekitRoomName ? (
+                <Link href={`/lecturer/sessions/${s.id}/room`} className="px-3 py-2 rounded-lg text-xs font-semibold text-white bg-gradient-to-r from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)] flex items-center gap-1.5">
                   <Play className="h-3 w-3" /> Start
-                </a>
+                </Link>
               ) : (
                 <span className="text-xs text-[hsl(var(--muted-foreground))]">Link pending</span>
               )}

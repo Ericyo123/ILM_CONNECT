@@ -147,9 +147,9 @@ export default function StudentSessionsPage() {
               return (
                 <div key={day} className={`min-h-[80px] p-1 border-b border-r border-[hsl(var(--border))] ${isToday ? 'bg-[hsl(var(--primary)/0.05)]' : ''}`}>
                   <div className={`text-xs font-medium mb-1 ${isToday ? 'h-5 w-5 rounded-full bg-[hsl(var(--primary))] text-white flex items-center justify-center' : 'text-[hsl(var(--muted-foreground))]'}`}>{day}</div>
-                  {daySessions.map(s => (
+                  {daySessions.map((s: any) => (
                     <button key={s.id} onClick={() => setSelectedSession(s)} className={`w-full text-left px-1 py-0.5 rounded text-[10px] font-medium truncate mb-0.5 ${s.status === 'completed' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' : 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'}`}>
-                      {new Date(s.startsAt).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })} {s.subject.split('—')[0].trim().slice(0,15)}
+                      {new Date(s.startsAt).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })} {s.subject?.split('—')[0].trim().slice(0,15)}
                     </button>
                   ))}
                 </div>

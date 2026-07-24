@@ -2,6 +2,8 @@
 
 import { CreditCard, Check, ChevronRight, Download, Clock } from 'lucide-react';
 import Link from 'next/link';
+import { useQuery } from '@tanstack/react-query';
+import { apiFetch } from '@/lib/api';
 
 const invoices = [
   { id: 'INV-2025-04', date: 'Apr 1, 2025', amount: '$55.00', status: 'Paid' },
@@ -11,6 +13,15 @@ const invoices = [
 ];
 
 export default function BillingPage() {
+  const { data: subscription, isLoading } = useQuery({
+    queryKey: ['studentSubscription'],
+    queryFn: () => apiFetch('/subscriptions/me'),
+  });
+
+  if (isLoading) {
+    return <div className="min-h-screen bg-[hsl(var(--background))] animate-pulse p-8">Loading billing info...</div>;
+  }
+
   return (
     <div className="space-y-6 animate-fade-in max-w-3xl">
       <h1 className="text-2xl font-bold">Billing & Subscription</h1>
@@ -20,12 +31,16 @@ export default function BillingPage() {
         <div className="flex items-start justify-between">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <h2 className="text-lg font-bold">Tajweed Premium</h2>
-              <span className="px-2 py-0.5 text-[10px] font-semibold rounded-full bg-[hsl(var(--success)/0.1)] text-[hsl(var(--success))]">Active</span>
+              <h2 className="text-lg font-bold">{subscription?.tier || 'No Active Plan'}</h2>
+              <span className="px-2 py-0.5 text-[10px] font-semibold rounded-full bg-[hsl(var(--success)/0.1)] text-[hsl(var(--success))]">{subscription ? 'Active' : 'Inactive'}</span>
             </div>
-            <p className="text-sm text-[hsl(var(--muted-foreground))] mb-4">8 sessions/month · 45 min each · Recordings included</p>
-            <div className="text-3xl font-bold">$55<span className="text-base font-normal text-[hsl(var(--muted-foreground))]">/month</span></div>
-            <p className="text-xs text-[hsl(var(--muted-foreground))] mt-1">Next billing date: May 1, 2025</p>
+            <p className="text-sm text-[hsl(var(--muted-foreground))] mb-4">
+              {subscription?.tier?.includes('Fast Track') ? '12 sessions/month' : '8 sessions/month'} · 45 min each · Recordings included
+            </p>
+            <div className="text-3xl font-bold">${subscription?.lkrAmount === 17700 ? '59' : subscription?.lkrAmount === 26700 ? '89' : '0'}<span className="text-base font-normal text-[hsl(var(--muted-foreground))]">/month</span></div>
+            <p className="text-xs text-[hsl(var(--muted-foreground))] mt-1">
+              Next billing date: {subscription ? new Date(subscription.currentPeriodEnd).toLocaleDateString() : 'N/A'}
+            </p>
           </div>
         </div>
         <div className="flex gap-3 mt-6">

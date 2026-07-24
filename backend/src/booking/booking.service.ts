@@ -68,9 +68,9 @@ export class BookingService {
       throw new BadRequestException('Lecturer already has a scheduled session at this time');
     }
 
-    // Create session ID first so we can build the internal room URL
+    // Create session ID first so we can build the LiveKit room name
     const sessionId = require('crypto').randomUUID();
-    const internalRoomUrl = `/student/courses/beginner-qaida/sessions/${sessionId}/room`;
+    const livekitRoomName = `ilm-session-${sessionId}`;
 
     // Book slot and session
     const [session] = await this.prisma.$transaction([
@@ -82,7 +82,7 @@ export class BookingService {
           startsAt,
           endsAt,
           status: SessionStatus.SCHEDULED,
-          zoomJoinUrl: internalRoomUrl,
+          livekitRoomName,
         },
       }),
       this.prisma.availabilitySlot.update({

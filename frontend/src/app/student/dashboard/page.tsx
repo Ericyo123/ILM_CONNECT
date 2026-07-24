@@ -164,10 +164,10 @@ export default function StudentDashboard() {
                       <div className="text-xs text-[hsl(var(--muted-foreground))]">with {s.lecturer?.fullName}</div>
                       <div className="text-xs text-[hsl(var(--muted-foreground))] mt-0.5">{new Date(s.startsAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} — {new Date(s.endsAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
                     </div>
-                    {s.zoomJoinUrl ? (
-                      <a href={s.zoomJoinUrl} target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded-lg text-xs font-semibold text-white bg-gradient-to-r from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)] hover:shadow-md transition-all flex items-center gap-1.5">
+                    {s.livekitRoomName ? (
+                      <Link href={`/student/courses/beginner-qaida/sessions/${s.id}/room`} className="px-4 py-2 rounded-lg text-xs font-semibold text-white bg-gradient-to-r from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)] hover:shadow-md transition-all flex items-center gap-1.5">
                         <Play className="h-3 w-3" /> Join
-                      </a>
+                      </Link>
                     ) : (
                       <span className="text-xs text-[hsl(var(--muted-foreground))]">Link pending</span>
                     )}

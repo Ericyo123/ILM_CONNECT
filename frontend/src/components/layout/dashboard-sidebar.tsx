@@ -1,5 +1,9 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
+import { apiFetch } from '@/lib/api';
+import { useAuth } from '@/lib/auth-context';
+import { useRole } from '@/lib/role-context';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTheme } from '@/components/theme-provider';
@@ -76,16 +80,23 @@ const adminNav: NavItem[] = [
   { href: '/admin/audit', label: 'Audit Log', icon: Shield },
 ];
 
-import { useRole } from '@/lib/role-context';
 
 export default function DashboardSidebar() {
   const pathname = usePathname();
   const { resolvedTheme, setTheme } = useTheme();
   const [collapsed, setCollapsed] = useState(false);
+  const { user } = useAuth();
+  
+  const { data: profile } = useQuery({
+    queryKey: ['studentProfile'],
+    queryFn: () => apiFetch('/profile/student'),
+    enabled: !!user && pathname.startsWith('/student'),
+  });
   
   let navItems: NavItem[] = [];
   let roleName = '';
   let userName = '';
+  let initials = 'AK';
   
   let adminRole = 'owner';
   try {
@@ -95,7 +106,8 @@ export default function DashboardSidebar() {
 
   if (pathname.startsWith('/student')) {
     roleName = 'Student';
-    userName = 'Aisha Khan';
+    userName = profile?.fullName || 'Student';
+    initials = profile?.fullName?.split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase() || 'ST';
     
     // Check if we are inside a specific course (e.g., /student/courses/beginner-qaida/...)
     const courseMatch = pathname.match(/^\/student\/courses\/([^/]+)/);
@@ -108,12 +120,14 @@ export default function DashboardSidebar() {
     navItems = lecturerNav;
     roleName = 'Lecturer';
     userName = 'Sheikh Ahmed Al-Farsi';
+    initials = 'SA';
   } else if (pathname.startsWith('/admin')) {
     navItems = adminRole === 'staff' 
       ? adminNav.filter(n => !['Finance', 'Configuration', 'Audit Log'].includes(n.label))
       : adminNav;
     roleName = adminRole === 'staff' ? 'Staff' : 'Administrator';
     userName = adminRole === 'staff' ? 'Support Rep' : 'Super Admin';
+    initials = 'AD';
   }
 
   return (

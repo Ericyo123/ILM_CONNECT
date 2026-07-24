@@ -16,6 +16,8 @@ import { PayoutModule } from './payout/payout.module';
 import { SupportModule } from './support/support.module';
 import { CurriculumModule } from './curriculum/curriculum.module';
 import { ProgressModule } from './progress/progress.module';
+import { LivekitModule } from './livekit/livekit.module';
+
 @Module({
   imports: [
     PrismaModule,
@@ -33,6 +35,7 @@ import { ProgressModule } from './progress/progress.module';
     SupportModule,
     CurriculumModule,
     ProgressModule,
+    LivekitModule,
   ],
   controllers: [AppController],
   providers: [AppService],

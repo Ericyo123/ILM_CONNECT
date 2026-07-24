@@ -220,10 +220,8 @@ model Session {
   startsAt      DateTime           @map("starts_at")
   endsAt        DateTime           @map("ends_at")
   status        SessionStatus      @default(SCHEDULED)
-  zoomMeetingId String?            @map("zoom_meeting_id")
-  zoomJoinUrl   String?            @map("zoom_join_url")   // Encrypted Zoom Join URL
-  zoomPassword  String?            @map("zoom_password")   // Encrypted Zoom Password
-  recordingUrl  String?            @map("recording_url")   // Encrypted Recording URL
+  livekitRoomName String?           @map("livekit_room_name")
+  recordingUrl  String?            @map("recording_url")
 
   // Relations
   student       StudentProfile     @relation(fields: [studentId], references: [userId], onDelete: Cascade)

@@ -8,7 +8,7 @@ const fadeUp = { hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } };
 
 const values = [
   { icon: ShieldCheck, title: 'Verified Scholars', desc: 'Every lecturer is personally vetted, interviewed, and holds recognized qualifications in Islamic sciences.' },
-  { icon: Video, title: 'Live 1:1 Sessions', desc: '45-minute private Zoom sessions twice weekly. No group dilution — your learning, your pace.' },
+  { icon: Video, title: 'Live 1:1 Sessions', desc: '45-minute private live sessions twice weekly. No group dilution — your learning, your pace.' },
   { icon: Globe, title: 'Global Access', desc: 'Serving the Muslim diaspora across UK, Europe, Australia, Middle East, and North America.' },
   { icon: Award, title: 'Structured Curriculum', desc: 'Progress tracking, homework, monthly reports, and certificate of completion for advanced courses.' },
   { icon: Users, title: 'Family Friendly', desc: 'Safe, professional platform with safeguarding policies. Parents can track progress and access recordings.' },
@@ -51,7 +51,7 @@ export default function AboutPage() {
               { step: 1, title: 'Sign Up & Choose Your Subject', desc: 'Create your account, select your learning goals, and pick a subscription tier that fits your needs.' },
               { step: 2, title: 'Get Matched with a Scholar', desc: 'Browse our directory of qualified lecturers, read reviews, and select a scholar — or let our system match you based on your preferences.' },
               { step: 3, title: 'Schedule Your Sessions', desc: 'Pick two weekly time slots that work with your timezone. Our smart scheduler enforces quality spacing between sessions.' },
-              { step: 4, title: 'Learn & Grow', desc: 'Join your private Zoom sessions, receive personalized feedback, track your progress, and achieve your learning goals.' },
+              { step: 4, title: 'Start Learning', desc: 'Join your private live sessions, receive personalized feedback, track your progress, and achieve your learning goals.' },
             ].map((s) => (
               <motion.div key={s.step} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="flex gap-6 text-left">
                 <div className="h-10 w-10 rounded-full bg-gradient-to-br from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)] flex items-center justify-center text-white font-bold text-sm flex-shrink-0">

@@ -158,16 +158,16 @@ async function main() {
   // 5. Create 10 Students in Diaspora
   console.log('👦 Creating 10 Student accounts in global timezones...');
   const studentsData = [
-    { email: 'omar.london@gmail.com', fullName: 'Omar Farooq', country: 'United Kingdom', timezone: 'Europe/London', goals: 'Learn Quran Tajweed from scratch', tier: 'Quran Basic', amount: 15000 },
-    { email: 'sarah.nyc@gmail.com', fullName: 'Sarah Ahmed', country: 'United States', timezone: 'America/New_York', goals: 'Start Hifz of Juz Amma', tier: 'Quran Premium', amount: 18000 },
-    { email: 'zayd.sydney@yahoo.com', fullName: 'Zayd Al-Faisal', country: 'Australia', timezone: 'Australia/Sydney', goals: 'Hadith and daily Sunnah practices', tier: 'Hadith / Fiqh / Islamic Law', amount: 20000 },
-    { email: 'amina.melbourne@gmail.com', fullName: 'Amina Mansoor', country: 'Australia', timezone: 'Australia/Melbourne', goals: 'Advanced Quran recitation with Tafsir', tier: 'Quran Premium', amount: 18000 },
-    { email: 'hamza.toronto@gmail.com', fullName: 'Hamza Malik', country: 'Canada', timezone: 'America/Toronto', goals: 'Basic Islamic Fiqh and Aqeedah studies', tier: 'Hadith / Fiqh / Islamic Law', amount: 20000 },
-    { email: 'yasmine.dubai@gmail.com', fullName: 'Yasmine Al-Sayed', country: 'United Arab Emirates', timezone: 'Asia/Dubai', goals: 'Quran memorization and Arabic language', tier: 'Quran Premium', amount: 18000 },
-    { email: 'bilal.chicago@gmail.com', fullName: 'Bilal Hussain', country: 'United States', timezone: 'America/Chicago', goals: 'Learn basic Quran reading (Noorani Qaida)', tier: 'Quran Basic', amount: 15000 },
-    { email: 'maryam.paris@gmail.com', fullName: 'Maryam Dubois', country: 'France', timezone: 'Europe/Paris', goals: 'Quran Tajweed and sister Fiqh classes', tier: 'Quran Basic', amount: 15000 },
-    { email: 'tareq.riyadh@gmail.com', fullName: 'Tareq Al-Sulaiman', country: 'Saudi Arabia', timezone: 'Asia/Riyadh', goals: 'Fiqh jurisprudence and Aqeedah', tier: 'Hadith / Fiqh / Islamic Law', amount: 20000 },
-    { email: 'zainab.perth@gmail.com', fullName: 'Zainab Qazi', country: 'Australia', timezone: 'Australia/Perth', goals: 'Intensive Hifz (memorization) pathways', tier: 'Quran Premium', amount: 18000 },
+    { email: 'omar.london@gmail.com', fullName: 'Omar Farooq', country: 'United Kingdom', timezone: 'Europe/London', goals: 'Learn Quran Tajweed from scratch', tier: 'Standard Plan', amount: 17700 },
+    { email: 'sarah.nyc@gmail.com', fullName: 'Sarah Ahmed', country: 'United States', timezone: 'America/New_York', goals: 'Start Hifz of Juz Amma', tier: 'Fast Track Plan', amount: 26700 },
+    { email: 'zayd.sydney@yahoo.com', fullName: 'Zayd Al-Faisal', country: 'Australia', timezone: 'Australia/Sydney', goals: 'Hadith and daily Sunnah practices', tier: 'Fast Track Plan', amount: 26700 },
+    { email: 'amina.melbourne@gmail.com', fullName: 'Amina Mansoor', country: 'Australia', timezone: 'Australia/Melbourne', goals: 'Advanced Quran recitation with Tafsir', tier: 'Fast Track Plan', amount: 26700 },
+    { email: 'hamza.toronto@gmail.com', fullName: 'Hamza Malik', country: 'Canada', timezone: 'America/Toronto', goals: 'Basic Islamic Fiqh and Aqeedah studies', tier: 'Standard Plan', amount: 17700 },
+    { email: 'yasmine.dubai@gmail.com', fullName: 'Yasmine Al-Sayed', country: 'United Arab Emirates', timezone: 'Asia/Dubai', goals: 'Quran memorization and Arabic language', tier: 'Standard Plan', amount: 17700 },
+    { email: 'bilal.chicago@gmail.com', fullName: 'Bilal Hussain', country: 'United States', timezone: 'America/Chicago', goals: 'Learn basic Quran reading (Noorani Qaida)', tier: 'Standard Plan', amount: 17700 },
+    { email: 'maryam.paris@gmail.com', fullName: 'Maryam Dubois', country: 'France', timezone: 'Europe/Paris', goals: 'Quran Tajweed and sister Fiqh classes', tier: 'Standard Plan', amount: 17700 },
+    { email: 'tareq.riyadh@gmail.com', fullName: 'Tareq Al-Sulaiman', country: 'Saudi Arabia', timezone: 'Asia/Riyadh', goals: 'Fiqh jurisprudence and Aqeedah', tier: 'Fast Track Plan', amount: 26700 },
+    { email: 'zainab.perth@gmail.com', fullName: 'Zainab Qazi', country: 'Australia', timezone: 'Australia/Perth', goals: 'Intensive Hifz (memorization) pathways', tier: 'Fast Track Plan', amount: 26700 },
   ];
 
   const students: any[] = [];
@@ -267,16 +267,16 @@ async function main() {
       ? (i % 8 === 0 ? SessionStatus.NO_SHOW_STUDENT : (i % 12 === 0 ? SessionStatus.CANCELED : SessionStatus.COMPLETED))
       : SessionStatus.SCHEDULED;
 
+    const sessionId = require('crypto').randomUUID();
     const session = await prisma.session.create({
       data: {
+        id: sessionId,
         studentId: student.userId,
         lecturerId: lecturer.userId,
         startsAt,
         endsAt,
         status,
-        zoomMeetingId: `zoom_${Math.floor(100000000 + Math.random() * 900000000)}`,
-        zoomJoinUrl: 'https://zoom.us/j/mockmeeting',
-        zoomPassword: 'mock_password_123',
+        livekitRoomName: `ilm-session-${sessionId}`,
         recordingUrl: status === SessionStatus.COMPLETED && i % 3 === 0 ? 'https://s3.amazonaws.com/ilmconnect-recordings/test.mp4' : null,
       },
     });

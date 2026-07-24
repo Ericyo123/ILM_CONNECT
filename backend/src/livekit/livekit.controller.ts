@@ -54,14 +54,14 @@ export class LivekitController {
     const joinWindowStart = new Date(startsAt.getTime() - 30 * 60 * 1000); // 30 min before
     const joinWindowEnd = new Date(startsAt.getTime() + 2 * 60 * 60 * 1000); // 2 hours after start
 
-    if (now < joinWindowStart) {
-      const minutesUntil = Math.ceil((joinWindowStart.getTime() - now.getTime()) / 60000);
-      throw new BadRequestException(`Session room opens ${minutesUntil} minutes before the start time. Please come back later.`);
-    }
+    // if (now < joinWindowStart) {
+    //   const minutesUntil = Math.ceil((joinWindowStart.getTime() - now.getTime()) / 60000);
+    //   throw new BadRequestException(`Session room opens ${minutesUntil} minutes before the start time. Please come back later.`);
+    // }
 
-    if (now > joinWindowEnd) {
-      throw new BadRequestException('The join window for this session has expired');
-    }
+    // if (now > joinWindowEnd) {
+    //   throw new BadRequestException('The join window for this session has expired');
+    // }
 
     // 5. Update session status to IN_PROGRESS if it's still SCHEDULED and within start time
     if (session.status === SessionStatus.SCHEDULED && now >= startsAt) {

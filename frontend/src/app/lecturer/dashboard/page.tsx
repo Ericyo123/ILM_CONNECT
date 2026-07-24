@@ -35,11 +35,11 @@ export default function LecturerDashboard() {
   }) || [];
 
   // Derived stats
-  const totalEarnings = payouts?.filter((p: any) => p.status === 'SUCCESSFUL').reduce((sum: number, p: any) => sum + p.amountLkr, 0) || 0;
+  const totalEarnings = payouts?.filter((p: any) => p.status === 'SUCCESSFUL').reduce((sum: number, p: any) => sum + p.amountLkr, 0) ?? 0;
   // Note: Pending earnings calculation depends on completed un-paid blocks. Assuming some dummy calculation for UI logic if blocks API is missing.
-  const pendingEarnings = payouts?.filter((p: any) => p.status === 'PENDING').reduce((sum: number, p: any) => sum + p.amountLkr, 0) || 12500; // Hardcoded fallback for UI
-  const totalSessionsCompleted = bookings?.filter((b: any) => b.status === 'COMPLETED').length || 10;
-  const activeStudents = new Set(bookings?.map((b: any) => b.studentId)).size || 45;
+  const pendingEarnings = payouts?.filter((p: any) => p.status === 'PENDING').reduce((sum: number, p: any) => sum + p.amountLkr, 0) ?? 0;
+  const totalSessionsCompleted = bookings?.filter((b: any) => b.status === 'COMPLETED').length ?? 0;
+  const activeStudents = new Set(bookings?.map((b: any) => b.studentId)).size ?? 0;
 
   const handleWithdraw = async () => {
     setIsWithdrawing(true);

@@ -231,14 +231,14 @@ export default function LecturerSessionRoom() {
 
   if (state === 'error') {
     return (
-      <div className="fixed inset-0 z-50 bg-[#0f172a] flex items-center justify-center p-4">
+      <div className="fixed inset-0 z-50 bg-[hsl(var(--background))] flex items-center justify-center p-4">
         <div className="max-w-sm w-full text-center">
           <div className="h-16 w-16 rounded-full bg-red-500/20 flex items-center justify-center mx-auto mb-4">
             <AlertTriangle className="h-8 w-8 text-red-400" />
           </div>
-          <h2 className="text-xl font-bold text-white mb-2">Unable to Join</h2>
-          <p className="text-white/60 text-sm mb-6">{error}</p>
-          <button onClick={() => router.back()} className="px-6 py-2.5 rounded-xl text-sm font-semibold text-white bg-white/10 hover:bg-white/20 transition-colors">Go Back</button>
+          <h2 className="text-xl font-bold text-[hsl(var(--foreground))] mb-2">Unable to Join</h2>
+          <p className="text-[hsl(var(--muted-foreground))] text-sm mb-6">{error}</p>
+          <button onClick={() => router.back()} className="px-6 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)] hover:shadow-lg transition-colors">Go Back</button>
         </div>
       </div>
     );
@@ -246,10 +246,10 @@ export default function LecturerSessionRoom() {
 
   if (state === 'loading' || !tokenData) {
     return (
-      <div className="fixed inset-0 z-50 bg-[#0f172a] flex items-center justify-center p-4">
+      <div className="fixed inset-0 z-50 bg-[hsl(var(--background))] flex items-center justify-center p-4">
         <div className="text-center">
           <Loader2 className="h-10 w-10 text-[hsl(168,80%,26%)] animate-spin mx-auto mb-4" />
-          <p className="text-white/70 text-sm">Connecting to session...</p>
+          <p className="text-[hsl(var(--muted-foreground))] text-sm">Connecting to session...</p>
         </div>
       </div>
     );

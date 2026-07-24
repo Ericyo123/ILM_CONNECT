@@ -106,6 +106,7 @@ model StudentProfile {
   timezone          String
   preferredLanguage String            @map("preferred_language")
   learningGoals     String            @map("learning_goals")
+  currentTier       String            @default("FREE") @map("current_tier")
   assignedLecturerId String?          @map("assigned_lecturer_id")
 
   // Relations

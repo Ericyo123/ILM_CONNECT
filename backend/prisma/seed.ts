@@ -1,7 +1,13 @@
+import 'dotenv/config';
 import { PrismaClient, Role, UserStatus, SessionStatus, SubscriptionStatus, SlotStatus, PaymentStatus, BlockStatus } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
+import { Pool } from 'pg';
+import { PrismaPg } from '@prisma/adapter-pg';
 
-const prisma = new PrismaClient();
+const connectionString = process.env.DATABASE_URL;
+const pool = new Pool({ connectionString, ssl: true });
+const adapter = new PrismaPg(pool);
+const prisma = new PrismaClient({ adapter });
 
 async function main() {
   console.log('🌱 Starting database seeding...');
@@ -185,7 +191,6 @@ async function main() {
         timezone: item.timezone,
         preferredLanguage: 'English',
         learningGoals: item.goals,
-        currentTier: item.tier,
       },
     });
 
@@ -341,15 +346,19 @@ async function main() {
     }
   }
 
-  // 8. Generate some mock System Audit Logs
-  console.log('🛡️ Creating system audit log entries...');
+  // 8. Generate some mock  // 9. Add mock audit logs
+  console.log('📝 Creating Audit Logs...');
   await prisma.auditLog.create({
     data: {
-      action: 'SYSTEM_BOOTSTRAP',
-      resourceType: 'SYSTEM',
-      resourceId: 'seeder',
-      ip: '127.0.0.1',
-      userAgent: 'NestJS CLI Seeder',
+      actorId: superAdmin.id,
+      action: 'SYSTEM_STARTUP',
+      entity: 'SYSTEM',
+      entityId: 'system-1',
+      details: {
+        ip: '127.0.0.1',
+        userAgent: 'system-seed',
+        note: 'Initial mock data seeded'
+      },
     },
   });
 

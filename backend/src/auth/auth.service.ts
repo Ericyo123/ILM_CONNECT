@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { ConflictException, Injectable, UnauthorizedException, InternalServerErrorException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
@@ -13,80 +13,83 @@ export class AuthService {
   ) {}
 
   async register(dto: RegisterDto) {
-    const existingUser = await this.prisma.user.findUnique({
-      where: { email: dto.email.toLowerCase() },
-    });
+    try {
+      const existingUser = await this.prisma.user.findUnique({
+        where: { email: dto.email.toLowerCase() },
+      });
 
-    if (existingUser) {
-      throw new ConflictException('Email already registered');
-    }
+      if (existingUser) {
+        throw new ConflictException('Email already registered');
+      }
 
-    const saltRounds = 10;
-    const passwordHash = await bcrypt.hash(dto.password, saltRounds);
+      const saltRounds = 10;
+      const passwordHash = await bcrypt.hash(dto.password, saltRounds);
 
-    const role = dto.role || Role.STUDENT;
-    const status = role === Role.LECTURER ? UserStatus.PENDING : UserStatus.ACTIVE;
+      const role = dto.role || Role.STUDENT;
+      const status = role === Role.LECTURER ? UserStatus.PENDING : UserStatus.ACTIVE;
 
-    const user = await this.prisma.user.create({
-      data: {
-        email: dto.email.toLowerCase(),
-        passwordHash,
-        role,
-        status,
-        emailVerifiedAt: role === Role.STUDENT ? new Date() : null, // Auto-verify student for local setup
-      },
-    });
-
-    if (role === Role.LECTURER) {
-      await this.prisma.lecturerProfile.create({
+      const user = await this.prisma.user.create({
         data: {
-          userId: user.id,
-          fullName: dto.fullName,
-          bio: dto.bio || 'New lecturer onboarding',
-          qualifications: dto.qualifications || 'Pending evaluation',
-          specializations: dto.specializations || ['Quran Recitation'],
-          languages: dto.languages || ['English'],
-          hourlyAvailabilityJson: {
-            monday: ['09:00-12:00', '14:00-18:00'],
-            tuesday: ['09:00-12:00', '14:00-18:00'],
-            wednesday: ['09:00-12:00', '14:00-18:00'],
-            thursday: ['09:00-12:00', '14:00-18:00'],
-            friday: ['09:00-12:00'],
-            saturday: ['10:00-15:00'],
+          email: dto.email.toLowerCase(),
+          passwordHash,
+          role,
+          status,
+          emailVerifiedAt: role === Role.STUDENT ? new Date() : null, // Auto-verify student for local setup
+        },
+      });
+
+      if (role === Role.LECTURER) {
+        await this.prisma.lecturerProfile.create({
+          data: {
+            userId: user.id,
+            fullName: dto.fullName,
+            bio: dto.bio || 'New lecturer onboarding',
+            qualifications: dto.qualifications || 'Pending evaluation',
+            specializations: dto.specializations || ['Quran Recitation'],
+            languages: dto.languages || ['English'],
+            hourlyAvailabilityJson: {
+              monday: ['09:00-12:00', '14:00-18:00'],
+              tuesday: ['09:00-12:00', '14:00-18:00'],
+              wednesday: ['09:00-12:00', '14:00-18:00'],
+              thursday: ['09:00-12:00', '14:00-18:00'],
+              friday: ['09:00-12:00'],
+              saturday: ['10:00-15:00'],
+            },
+            payoutMethod: dto.payoutMethod || 'wise',
+            payoutDetails: dto.payoutDetails || 'wise:default@example.com',
+            status: UserStatus.PENDING,
           },
-          payoutMethod: dto.payoutMethod || 'wise',
-          payoutDetails: dto.payoutDetails || 'wise:default@example.com',
-          status: UserStatus.PENDING,
-        },
-      });
-    } else {
-      await this.prisma.studentProfile.create({
+        });
+      } else {
+        await this.prisma.studentProfile.create({
+          data: {
+            userId: user.id,
+            fullName: dto.fullName,
+            phone: dto.phone,
+            country: dto.country,
+            timezone: dto.timezone,
+            preferredLanguage: dto.preferredLanguage || 'English',
+            learningGoals: dto.learningGoals || 'Quran Recitation and Tajweed',
+          },
+        });
+      }
+
+      // Write audit log
+      await this.prisma.auditLog.create({
         data: {
-          userId: user.id,
-          fullName: dto.fullName,
-          phone: dto.phone,
-          country: dto.country,
-          timezone: dto.timezone,
-          preferredLanguage: dto.preferredLanguage || 'English',
-          learningGoals: dto.learningGoals || 'Quran Recitation and Tajweed',
-          currentTier: dto.currentTier || 'Quran Basic',
+          actorId: user.id,
+          action: 'USER_REGISTER',
+          entity: 'USER',
+          entityId: user.id,
+          details: { ip: '127.0.0.1', userAgent: 'ilmconnect-client' },
         },
       });
+
+      return this.sanitizeUser(user);
+    } catch (e: any) {
+      if (e instanceof ConflictException) throw e;
+      throw new InternalServerErrorException(e.message || String(e));
     }
-
-    // Write audit log
-    await this.prisma.auditLog.create({
-      data: {
-        actorId: user.id,
-        action: 'USER_REGISTER',
-        resourceType: 'USER',
-        resourceId: user.id,
-        ip: '127.0.0.1',
-        userAgent: 'ilmconnect-client',
-      },
-    });
-
-    return this.sanitizeUser(user);
   }
 
   async login(dto: LoginDto) {
@@ -116,10 +119,9 @@ export class AuthService {
       data: {
         actorId: user.id,
         action: 'USER_LOGIN',
-        resourceType: 'USER',
-        resourceId: user.id,
-        ip: '127.0.0.1',
-        userAgent: 'ilmconnect-client',
+        entity: 'USER',
+        entityId: user.id,
+        details: { ip: '127.0.0.1', userAgent: 'ilmconnect-client' },
       },
     });
 

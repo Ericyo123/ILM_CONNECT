@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Delete, Param, Body, UseGuards, Req } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Patch, Param, Body, UseGuards, Req } from '@nestjs/common';
 import { BookingService } from './booking.service';
 import { CreateBookingDto } from './dto/booking.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -33,5 +33,15 @@ export class BookingController {
   @Roles(Role.LECTURER)
   async getLecturerBookings(@Req() req: any) {
     return this.bookingService.getLecturerBookings(req.user.id);
+  }
+
+  @Patch(':id')
+  @Roles(Role.LECTURER, Role.ADMIN, Role.SUPER_ADMIN)
+  async updateBooking(
+    @Req() req: any,
+    @Param('id') id: string,
+    @Body() body: { notes?: string; status?: string }
+  ) {
+    return this.bookingService.updateBooking(id, body);
   }
 }

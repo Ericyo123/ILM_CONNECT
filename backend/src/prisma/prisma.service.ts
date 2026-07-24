@@ -1,10 +1,21 @@
 import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
+import { Pool } from 'pg';
+import { PrismaPg } from '@prisma/adapter-pg';
+import 'dotenv/config'; // Ensure env variables are loaded before constructor runs
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
   constructor() {
+    const connectionString = process.env.DATABASE_URL;
+    if (!connectionString) {
+      console.error('CRITICAL: DATABASE_URL is undefined in PrismaService constructor!');
+    }
+    const pool = new Pool({ connectionString, ssl: true });
+    const adapter = new PrismaPg(pool);
+
     super({
+      adapter,
       log: process.env.NODE_ENV === 'development' ? ['query', 'info', 'warn', 'error'] : ['error'],
     });
   }

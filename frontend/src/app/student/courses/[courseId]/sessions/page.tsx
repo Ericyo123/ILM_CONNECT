@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
-import { sessions } from '@/lib/mock-data';
+import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { apiFetch } from '@/lib/api';
 import { Video, CheckCircle, XCircle, Calendar, List, ChevronLeft, ChevronRight, Clock, Edit, Trash2, AlertTriangle, Info, Lock } from 'lucide-react';
 import Link from 'next/link';
 
@@ -37,6 +38,23 @@ export default function StudentSessionsPage() {
   }, []);
   const handleViewChange = (v: ViewMode) => { setView(v); localStorage.setItem('ilm-sessions-view', v); };
 
+  const { data: rawBookings, isLoading } = useQuery({
+    queryKey: ['studentBookings'],
+    queryFn: () => apiFetch('/bookings/student'),
+  });
+
+  const sessions = useMemo(() => {
+    if (!rawBookings) return [];
+    return rawBookings.map((b: any) => ({
+      id: b.id,
+      subject: b.subject || 'Quran Session',
+      status: b.status.toLowerCase(),
+      startsAt: b.startsAt,
+      endsAt: b.endsAt,
+      lecturerName: b.lecturer?.fullName || b.lecturer?.name || 'Assigned Lecturer'
+    }));
+  }, [rawBookings]);
+
   const now = new Date();
   const [calYear, setCalYear] = useState(now.getFullYear());
   const [calMonth, setCalMonth] = useState(now.getMonth());
@@ -45,7 +63,7 @@ export default function StudentSessionsPage() {
   const monthName = new Date(calYear, calMonth).toLocaleString('default', { month: 'long', year: 'numeric' });
   const prevMonth = () => { if (calMonth === 0) { setCalYear(calYear - 1); setCalMonth(11); } else setCalMonth(calMonth - 1); };
   const nextMonth = () => { if (calMonth === 11) { setCalYear(calYear + 1); setCalMonth(0); } else setCalMonth(calMonth + 1); };
-  const getSessionsForDay = (day: number) => sessions.filter(s => { const d = new Date(s.startsAt); return d.getFullYear() === calYear && d.getMonth() === calMonth && d.getDate() === day; });
+  const getSessionsForDay = (day: number) => sessions.filter((s: any) => { const d = new Date(s.startsAt); return d.getFullYear() === calYear && d.getMonth() === calMonth && d.getDate() === day; });
 
   const closeDetail = useCallback(() => { setSelectedSession(null); setShowCancelConfirm(false); setShowReschedule(false); }, []);
 
@@ -58,6 +76,7 @@ export default function StudentSessionsPage() {
   }, [selectedSession, closeDetail]);
 
   return (
+    <>
     <div className="space-y-6 animate-fade-in">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">My Sessions</h1>
@@ -80,7 +99,16 @@ export default function StudentSessionsPage() {
       {/* List View */}
       {view === 'list' && (
         <div className="space-y-3">
-          {sessions.map((s) => {
+          {isLoading ? (
+            <div className="text-center py-8 text-[hsl(var(--muted-foreground))]">Loading sessions...</div>
+          ) : sessions.length === 0 ? (
+            <div className="text-center py-12 rounded-xl border border-dashed border-[hsl(var(--border))] bg-[hsl(var(--card))]">
+              <Calendar className="h-8 w-8 mx-auto text-[hsl(var(--muted-foreground))] opacity-50 mb-3" />
+              <p className="text-sm font-medium">No sessions booked</p>
+              <p className="text-xs text-[hsl(var(--muted-foreground))] mt-1 mb-4">You haven't scheduled any sessions yet.</p>
+              <Link href="/student/courses/beginner-qaida/sessions/book" className="text-sm font-semibold text-[hsl(var(--primary))] hover:underline">Book a session now</Link>
+            </div>
+          ) : sessions.map((s: any) => {
             const cfg = statusConfig[s.status] || statusConfig.scheduled;
             return (
               <button key={s.id} onClick={() => setSelectedSession(s)} className="w-full text-left flex items-center gap-4 p-4 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] hover:border-[hsl(var(--primary)/0.3)] transition-colors">
@@ -130,10 +158,11 @@ export default function StudentSessionsPage() {
           </div>
         </div>
       )}
+    </div>
 
       {/* Session Detail Modal */}
       {selectedSession && !showCancelConfirm && !showReschedule && (
-        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }} onClick={closeDetail}>
+        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/50" onClick={closeDetail}>
           <div className="bg-[hsl(var(--card))] rounded-2xl border border-[hsl(var(--border))] shadow-2xl max-w-sm w-full p-6 animate-fade-in" onClick={e => e.stopPropagation()}>
             <h3 className="font-bold text-lg mb-4">{selectedSession.subject}</h3>
             <div className="space-y-2.5 text-sm mb-5">
@@ -184,7 +213,7 @@ export default function StudentSessionsPage() {
 
       {/* Cancel Confirmation */}
       {showCancelConfirm && selectedSession && (
-        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }} onClick={closeDetail}>
+        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/50" onClick={closeDetail}>
           <div className="bg-[hsl(var(--card))] rounded-2xl border border-[hsl(var(--border))] shadow-2xl max-w-sm w-full p-6 animate-fade-in" onClick={e => e.stopPropagation()}>
             <div className="h-12 w-12 rounded-full bg-[hsl(var(--destructive)/0.1)] flex items-center justify-center mx-auto mb-4">
               <AlertTriangle className="h-6 w-6 text-[hsl(var(--destructive))]" />
@@ -201,7 +230,7 @@ export default function StudentSessionsPage() {
 
       {/* Reschedule Flow */}
       {showReschedule && selectedSession && (
-        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }} onClick={closeDetail}>
+        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/50" onClick={closeDetail}>
           <div className="bg-[hsl(var(--card))] rounded-2xl border border-[hsl(var(--border))] shadow-2xl max-w-sm w-full p-6 animate-fade-in" onClick={e => e.stopPropagation()}>
             <h3 className="font-bold text-lg mb-2">Reschedule Session</h3>
             <p className="text-sm text-[hsl(var(--muted-foreground))] mb-4">Choose a new date and time for &ldquo;{selectedSession.subject}&rdquo;</p>
@@ -211,11 +240,11 @@ export default function StudentSessionsPage() {
             </div>
             <div className="flex gap-3">
               <button onClick={() => setShowReschedule(false)} className="flex-1 py-2.5 rounded-xl text-sm font-medium border border-[hsl(var(--border))] hover:bg-[hsl(var(--muted))]">Cancel</button>
-              <button onClick={closeDetail} className="flex-1 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)]">Confirm Reschedule</button>
+              <button onClick={closeDetail} className="flex-1 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)]">Confirm New Time</button>
             </div>
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

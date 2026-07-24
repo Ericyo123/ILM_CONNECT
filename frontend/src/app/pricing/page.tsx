@@ -13,7 +13,7 @@ export default function PricingPage() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <h1 className="text-4xl lg:text-5xl font-bold mb-4">Simple, Transparent Pricing</h1>
-          <p className="text-lg text-[hsl(var(--muted-foreground))] max-w-2xl mx-auto">Every plan includes 8 sessions per month (2 per week), each 45 minutes of personalized 1:1 instruction. Premium adds recordings and progress reports for just $5 more.</p>
+          <p className="text-lg text-[hsl(var(--muted-foreground))] max-w-2xl mx-auto">Every learning path offers two paces: the Standard 8-session plan (2 per week) or the Fast Track 12-session plan (3 per week) to accelerate your progress.</p>
         </div>
 
         {/* Course Cards */}
@@ -27,9 +27,9 @@ export default function PricingPage() {
                 </div>
                 <div className="p-6 sm:p-8">
                   <div className="grid md:grid-cols-2 gap-6">
-                    {/* Basic */}
+                    {/* Standard */}
                     <div className="p-6 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))]">
-                      <div className="text-sm font-semibold text-[hsl(var(--muted-foreground))] mb-2">Basic</div>
+                      <div className="text-sm font-semibold text-[hsl(var(--muted-foreground))] mb-2">Standard Plan</div>
                       <div className="mb-4">
                         <span className="text-4xl font-bold">${course.basicPriceUSD}</span>
                         <span className="text-[hsl(var(--muted-foreground))]"> / month</span>
@@ -43,21 +43,21 @@ export default function PricingPage() {
                         ))}
                       </ul>
                       <Link href="/auth/signup" className="flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-semibold border border-[hsl(var(--border))] hover:bg-[hsl(var(--muted))] transition-colors">
-                        Get Started <ChevronRight className="h-4 w-4" />
+                        Select Standard <ChevronRight className="h-4 w-4" />
                       </Link>
                     </div>
-                    {/* Premium */}
+                    {/* Fast Track */}
                     <div className="p-6 rounded-xl border-2 border-[hsl(var(--primary))] bg-[hsl(var(--background))] relative">
                       <div className="absolute -top-3 right-4 px-3 py-0.5 rounded-full bg-[hsl(var(--primary))] text-white text-xs font-semibold flex items-center gap-1">
-                        <Sparkles className="h-3 w-3" /> Premium
+                        <Sparkles className="h-3 w-3" /> Popular
                       </div>
-                      <div className="text-sm font-semibold text-[hsl(var(--primary))] mb-2">Premium</div>
+                      <div className="text-sm font-semibold text-[hsl(var(--primary))] mb-2">Fast Track Plan</div>
                       <div className="mb-4">
                         <span className="text-4xl font-bold">${course.premiumPriceUSD}</span>
                         <span className="text-[hsl(var(--muted-foreground))]"> / month</span>
                       </div>
                       <ul className="space-y-2.5 mb-4">
-                        {course.features.map((f) => (
+                        {course.features.filter(f => !f.includes('Standard')).map((f) => (
                           <li key={f} className="flex items-start gap-2 text-sm">
                             <Check className="h-4 w-4 text-[hsl(var(--success))] mt-0.5 flex-shrink-0" />
                             <span>{f}</span>
@@ -65,7 +65,7 @@ export default function PricingPage() {
                         ))}
                       </ul>
                       <div className="p-3 rounded-lg bg-[hsl(var(--accent-light))] border border-[hsl(var(--accent)/0.2)] mb-6">
-                        <div className="text-xs font-semibold text-[hsl(var(--accent))] mb-1.5">Plus premium features:</div>
+                        <div className="text-xs font-semibold text-[hsl(var(--accent))] mb-1.5">Plus Fast Track features:</div>
                         {course.premiumExtras.map(e => (
                           <div key={e} className="flex items-center gap-1.5 text-xs">
                             <Sparkles className="h-3 w-3 text-[hsl(var(--accent))] flex-shrink-0" /> {e}
@@ -73,7 +73,7 @@ export default function PricingPage() {
                         ))}
                       </div>
                       <Link href="/auth/signup" className="flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-semibold bg-gradient-to-r from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)] text-white hover:shadow-lg transition-all">
-                        Get Started <ChevronRight className="h-4 w-4" />
+                        Select Fast Track <ChevronRight className="h-4 w-4" />
                       </Link>
                     </div>
                   </div>
@@ -110,7 +110,7 @@ export default function PricingPage() {
           <div className="space-y-4">
             {[
               { q: 'Can I try before subscribing?', a: 'Yes! Every new student gets a free 30-minute trial session with one of our scholars. No payment information required.' },
-              { q: 'What is the difference between Basic and Premium?', a: 'Premium is simply an upgrade of the Basic course (+$5/month) that adds session recordings and a detailed end-of-month progress report. All other features are identical.' },
+              { q: 'What is the difference between Standard and Fast Track?', a: 'Standard gives you 8 sessions per month (2 sessions a week). Fast Track accelerates your learning with 12 sessions per month (3 sessions a week), plus session recordings.' },
               { q: 'How are sessions conducted?', a: 'All sessions are conducted via Zoom in a private, one-on-one setting. You\'ll receive a unique meeting link before each session.' },
               { q: 'Can I change my lecturer?', a: 'Yes! You can request a lecturer change at any time. You\'ll get a trial session with a new lecturer before confirming the switch.' },
               { q: 'What is the cancellation policy?', a: 'Sessions can be rescheduled for free up to 12 hours before the start time. Cancellations within 12 hours count as a used session.' },

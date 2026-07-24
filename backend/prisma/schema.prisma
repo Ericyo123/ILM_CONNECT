@@ -3,8 +3,7 @@
 // =========================================================================
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider = "postgresql"
 }
 
 generator client {
@@ -91,6 +90,7 @@ model User {
   receivedMessages  Message[]         @relation("RecipientMessages")
   auditLogs         AuditLog[]        @relation("ActorAuditLogs")
   notifications     Notification[]
+  supportTickets    SupportTicket[]
 
   @@index([email])
   @@index([role])
@@ -106,15 +106,18 @@ model StudentProfile {
   timezone          String
   preferredLanguage String            @map("preferred_language")
   learningGoals     String            @map("learning_goals")
-  currentTier       String            @map("current_tier")
+  assignedLecturerId String?          @map("assigned_lecturer_id")
 
   // Relations
   user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  assignedLecturer  LecturerProfile?  @relation("AssignedLecturer", fields: [assignedLecturerId], references: [userId], onDelete: SetNull)
   subscriptions     Subscription[]
   sessions          Session[]
   sessionBlocks     SessionBlock[]
   ratingsGiven      Rating[]          @relation("StudentRatings")
   progressReports   ProgressReport[]
+  progress          StudentProgress?  @relation("StudentProgressRelation")
+  certificates      Certificate[]
 
   @@map("student_profiles")
 }
@@ -135,6 +138,7 @@ model LecturerProfile {
 
   // Relations
   user                 User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  assignedStudents     StudentProfile[]   @relation("AssignedLecturer")
   availabilitySlots    AvailabilitySlot[]
   sessions             Session[]
   sessionBlocks        SessionBlock[]
@@ -224,6 +228,8 @@ model Session {
   // Relations
   student       StudentProfile     @relation(fields: [studentId], references: [userId], onDelete: Cascade)
   lecturer      LecturerProfile    @relation(fields: [lecturerId], references: [userId], onDelete: Cascade)
+  lessonId      String?            @map("lesson_id")
+  lesson        Lesson?            @relation(fields: [lessonId], references: [id], onDelete: SetNull)
   notes         SessionNotes?      @relation("SessionToNotes")
   materials     Material[]
   rating        Rating?            @relation("SessionToRating")
@@ -377,24 +383,105 @@ model Rating {
 }
 
 model AuditLog {
-  id           String    @id @default(uuid())
-  actorId      String?   @map("actor_id")
-  action       String    // e.g. "AUTH_SIGNIN", "PAYMENT_COMPLETE"
-  resourceType String    @map("resource_type") // e.g. "USER", "SESSION"
-  resourceId   String    @map("resource_id")
-  ip           String
-  userAgent    String    @map("user_agent")
-  beforeJson   Json?     @map("before_json")
-  afterJson    Json?     @map("after_json")
-  createdAt    DateTime  @default(now()) @map("created_at")
+  id        String   @id @default(uuid())
+  actorId   String   @map("actor_id")
+  action    String
+  entity    String
+  entityId  String   @map("entity_id")
+  details   Json
+  createdAt DateTime @default(now()) @map("created_at")
 
   // Relations
-  actor        User?     @relation("ActorAuditLogs", fields: [actorId], references: [id], onDelete: SetNull)
+  actor     User     @relation("ActorAuditLogs", fields: [actorId], references: [id], onDelete: Cascade)
 
   @@index([actorId])
-  @@index([createdAt])
-  @@index([resourceType])
+  @@index([action])
   @@map("audit_logs")
+}
+
+// -------------------------------------------------------------------------
+// CURRICULUM MODELS
+// -------------------------------------------------------------------------
+
+model LearningPath {
+  id             String   @id @default(uuid())
+  title          String
+  level          String
+  difficulty     String
+  description    String
+  targetAudience String   @map("target_audience")
+  objectives     String
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  modules        Module[]
+  studentProgress StudentProgress[]
+  certificates   Certificate[]
+
+  @@map("learning_paths")
+}
+
+model Module {
+  id             String   @id @default(uuid())
+  learningPathId String   @map("learning_path_id")
+  title          String
+  orderIndex     Int      @map("order_index")
+
+  learningPath   LearningPath @relation(fields: [learningPathId], references: [id], onDelete: Cascade)
+  lessons        Lesson[]
+  studentProgress StudentProgress[]
+
+  @@index([learningPathId])
+  @@map("modules")
+}
+
+model Lesson {
+  id             String   @id @default(uuid())
+  moduleId       String   @map("module_id")
+  title          String
+  objectives     String
+  durationMinutes Int     @default(45) @map("duration_minutes")
+  orderIndex     Int      @map("order_index")
+
+  module         Module   @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  studentProgress StudentProgress[]
+  sessions       Session[]
+
+  @@index([moduleId])
+  @@map("lessons")
+}
+
+model StudentProgress {
+  id                   String   @id @default(uuid())
+  studentId            String   @unique @map("student_id")
+  currentLearningPathId String   @map("current_learning_path_id")
+  currentModuleId       String?  @map("current_module_id")
+  currentLessonId       String?  @map("current_lesson_id")
+  progressPercentage    Float    @default(0.0) @map("progress_percentage")
+  updatedAt            DateTime @updatedAt @map("updated_at")
+
+  student              StudentProfile @relation("StudentProgressRelation", fields: [studentId], references: [userId], onDelete: Cascade)
+  currentLearningPath  LearningPath   @relation(fields: [currentLearningPathId], references: [id], onDelete: Cascade)
+  currentModule        Module?        @relation(fields: [currentModuleId], references: [id], onDelete: SetNull)
+  currentLesson        Lesson?        @relation(fields: [currentLessonId], references: [id], onDelete: SetNull)
+
+  @@index([currentLearningPathId])
+  @@map("student_progress")
+}
+
+model Certificate {
+  id             String   @id @default(uuid())
+  studentId      String   @map("student_id")
+  learningPathId String   @map("learning_path_id")
+  scholarId      String   @map("scholar_id") // ID of the lecturer who issued/verified it
+  issuedAt       DateTime @default(now()) @map("issued_at")
+  performanceSummary String @map("performance_summary")
+
+  student        StudentProfile @relation(fields: [studentId], references: [userId], onDelete: Cascade)
+  learningPath   LearningPath   @relation(fields: [learningPathId], references: [id], onDelete: Cascade)
+
+  @@index([studentId])
+  @@index([learningPathId])
+  @@map("certificates")
 }
 
 model Notification {
@@ -412,4 +499,21 @@ model Notification {
   @@index([userId])
   @@index([createdAt])
   @@map("notifications")
+}
+
+model SupportTicket {
+  id          String    @id @default(uuid())
+  userId      String    @map("user_id")
+  type        String    // e.g. "LECTURER_CHANGE", "GENERAL_SUPPORT"
+  reason      String?
+  status      String    @default("PENDING") // PENDING, RESOLVED, REJECTED
+  createdAt   DateTime  @default(now()) @map("created_at")
+  resolvedAt  DateTime? @map("resolved_at")
+
+  // Relations
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([status])
+  @@map("support_tickets")
 }

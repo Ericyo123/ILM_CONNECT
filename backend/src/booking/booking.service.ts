@@ -68,23 +68,21 @@ export class BookingService {
       throw new BadRequestException('Lecturer already has a scheduled session at this time');
     }
 
-    // Generate Zoom credentials
-    const zoomMeetingId = `zoom_${Math.floor(100000000 + Math.random() * 900000000)}`;
-    const zoomJoinUrl = `https://zoom.us/j/${zoomMeetingId}`;
-    const zoomPassword = 'ilmconnect-pass';
+    // Create session ID first so we can build the internal room URL
+    const sessionId = require('crypto').randomUUID();
+    const internalRoomUrl = `/student/courses/beginner-qaida/sessions/${sessionId}/room`;
 
     // Book slot and session
     const [session] = await this.prisma.$transaction([
       this.prisma.session.create({
         data: {
+          id: sessionId,
           studentId,
           lecturerId: dto.lecturerId,
           startsAt,
           endsAt,
           status: SessionStatus.SCHEDULED,
-          zoomMeetingId,
-          zoomJoinUrl,
-          zoomPassword,
+          zoomJoinUrl: internalRoomUrl,
         },
       }),
       this.prisma.availabilitySlot.update({
@@ -98,10 +96,9 @@ export class BookingService {
       data: {
         actorId: studentId,
         action: 'SESSION_BOOKED',
-        resourceType: 'SESSION',
-        resourceId: session.id,
-        ip: '127.0.0.1',
-        userAgent: 'ilmconnect-client',
+        entity: 'SESSION',
+        entityId: session.id,
+        details: { ip: '127.0.0.1', userAgent: 'ilmconnect-client' },
       },
     });
 
@@ -206,10 +203,9 @@ export class BookingService {
       data: {
         actorId: studentId,
         action: 'SESSION_CANCELED',
-        resourceType: 'SESSION',
-        resourceId: sessionId,
-        ip: '127.0.0.1',
-        userAgent: 'ilmconnect-client',
+        entity: 'SESSION',
+        entityId: sessionId,
+        details: { ip: '127.0.0.1', userAgent: 'ilmconnect-client' },
       },
     });
 
@@ -229,6 +225,24 @@ export class BookingService {
       where: { lecturerId },
       include: { student: true },
       orderBy: { startsAt: 'asc' },
+    });
+  }
+
+  async updateBooking(id: string, data: { notes?: string; status?: string }) {
+    const session = await this.prisma.session.findUnique({ where: { id } });
+    if (!session) throw new NotFoundException('Session not found');
+
+    return this.prisma.session.update({
+      where: { id },
+      data: {
+        notes: data.notes !== undefined ? {
+          upsert: {
+            create: { lecturerId: session.lecturerId, topicsCovered: '', homework: '', studentProgressRating: 0, internalNotes: '', sharedNotes: data.notes },
+            update: { sharedNotes: data.notes }
+          }
+        } : undefined,
+        status: data.status ? (data.status as any) : undefined,
+      },
     });
   }
 }

@@ -1,9 +1,36 @@
 'use client';
 
-import { DollarSign, Download, TrendingUp, TrendingDown } from 'lucide-react';
-import { adminStats, payouts } from '@/lib/mock-data';
+import { DollarSign, Download, TrendingUp, TrendingDown, CheckCircle } from 'lucide-react';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { apiFetch } from '@/lib/api';
 
 export default function AdminFinancePage() {
+  const queryClient = useQueryClient();
+  const { data: finance, isLoading } = useQuery({
+    queryKey: ['adminFinance'],
+    queryFn: () => apiFetch('/admin/finance'),
+  });
+
+  const { data: stats } = useQuery({
+    queryKey: ['adminStats'],
+    queryFn: () => apiFetch('/admin/stats'),
+  });
+
+  const handleProcessPayout = async (id: string) => {
+    if (!confirm('Mark this payout as processed?')) return;
+    try {
+      await apiFetch(`/admin/payouts/${id}/status`, {
+        method: 'PATCH',
+        body: JSON.stringify({ status: 'SUCCESSFUL' }),
+      });
+      queryClient.invalidateQueries({ queryKey: ['adminFinance'] });
+      queryClient.invalidateQueries({ queryKey: ['adminStats'] });
+    } catch (err) {
+      alert('Failed to process payout');
+    }
+  };
+
+  if (isLoading || !finance || !stats) return <div className="p-8">Loading finance data...</div>;
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex items-center justify-between">
@@ -15,10 +42,10 @@ export default function AdminFinancePage() {
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {[
-          { label: 'Revenue', value: `Rs. ${(adminStats.revenueThisMonth/1000)}K`, trend: '+12%', up: true },
-          { label: 'Lecturer Payouts', value: `Rs. ${(adminStats.payoutsThisMonth/1000)}K`, trend: '+8%', up: true },
-          { label: 'Net Profit', value: `Rs. ${(adminStats.profitThisMonth/1000).toFixed(0)}K`, trend: '+18%', up: true },
-          { label: 'Payment Processing', value: `Rs. ${(adminStats.revenueThisMonth*0.03/1000).toFixed(0)}K`, trend: '3%', up: false },
+          { label: 'Revenue', value: `Rs. ${(stats.revenueThisMonth/1000).toFixed(0)}K`, trend: '+12%', up: true },
+          { label: 'Lecturer Payouts', value: `Rs. ${(stats.payoutsThisMonth/1000).toFixed(0)}K`, trend: '+8%', up: true },
+          { label: 'Net Profit', value: `Rs. ${(stats.profitThisMonth/1000).toFixed(0)}K`, trend: '+18%', up: true },
+          { label: 'Payment Processing', value: `Rs. ${(stats.revenueThisMonth*0.03/1000).toFixed(0)}K`, trend: '3%', up: false },
         ].map((m) => (
           <div key={m.label} className="p-4 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))]">
             <div className="text-xs text-[hsl(var(--muted-foreground))] mb-1">{m.label}</div>
@@ -56,14 +83,24 @@ export default function AdminFinancePage() {
       <div>
         <h2 className="font-semibold text-lg mb-4">Recent Payouts</h2>
         <div className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] overflow-hidden">
-          {payouts.map((p, i) => (
+          {finance.payouts.map((p: any, i: number) => (
             <div key={p.id} className={`flex items-center justify-between px-5 py-3.5 text-sm ${i > 0 ? 'border-t border-[hsl(var(--border))]' : ''}`}>
-              <span className="font-medium">Lecturer {p.lecturerId}</span>
-              <span className="text-[hsl(var(--muted-foreground))]">{p.sessionsCount} sessions</span>
-              <span className="font-medium">Rs. {p.amountLKR.toLocaleString()}</span>
-              <span className={`px-2 py-0.5 text-xs font-medium rounded-full ${p.status === 'completed' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' : p.status === 'processing' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' : 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400'}`}>{p.status}</span>
+              <div className="flex flex-col">
+                <span className="font-medium">Lecturer {p.lecturerId.substring(0, 8)}</span>
+                <span className="text-[hsl(var(--muted-foreground))] text-xs">{p.method} • {new Date(p.initiatedAt).toLocaleDateString()}</span>
+              </div>
+              <span className="font-medium">Rs. {p.amountLkr.toLocaleString()}</span>
+              <div className="flex items-center gap-3">
+                <span className={`px-2 py-0.5 text-xs font-medium rounded-full ${p.status === 'SUCCESSFUL' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' : p.status === 'PROCESSING' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' : 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400'}`}>{p.status}</span>
+                {p.status === 'PENDING' && (
+                  <button onClick={() => handleProcessPayout(p.id)} className="text-xs font-medium text-[hsl(var(--primary))] hover:underline flex items-center gap-1">
+                    <CheckCircle className="h-3 w-3" /> Process
+                  </button>
+                )}
+              </div>
             </div>
           ))}
+          {finance.payouts.length === 0 && <div className="p-4 text-center text-sm text-[hsl(var(--muted-foreground))]">No payouts found</div>}
         </div>
       </div>
     </div>

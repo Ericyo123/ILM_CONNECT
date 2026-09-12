@@ -25,11 +25,12 @@ export default function SignUpPage() {
     setIsLoading(true);
 
     try {
+      const cleanEmail = email.trim().toLowerCase();
       // 1. Register the user
       await apiFetch('/auth/register', {
         method: 'POST',
         body: JSON.stringify({
-          email,
+          email: cleanEmail,
           password,
           role: 'STUDENT',
           fullName: `${firstName} ${lastName}`.trim(),
@@ -42,10 +43,10 @@ export default function SignUpPage() {
       // 2. Log them in immediately after successful registration
       const loginRes = await apiFetch('/auth/login', {
         method: 'POST',
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email: cleanEmail, password }),
       });
 
-      login(loginRes.user);
+      login(loginRes.user, loginRes.token);
       router.push(`/student/dashboard`);
     } catch (err: any) {
       setError(err.message || 'Failed to create account');

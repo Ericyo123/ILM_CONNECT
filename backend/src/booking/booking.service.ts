@@ -319,6 +319,28 @@ export class BookingService {
     }
 
     const now = new Date();
+
+    // Cancellation policy:
+    // Student: only allowed >= 12 hours before start time
+    if (isStudent && !isAdmin) {
+      const twelveHoursBefore = new Date(session.startsAt.getTime() - 12 * 60 * 60 * 1000);
+      if (now > twelveHoursBefore) {
+        throw new BadRequestException(
+          'Sessions cannot be canceled less than 12 hours before start time. Please contact Support for emergency assistance.',
+        );
+      }
+    }
+
+    // Lecturer: only allowed >= 6 hours before start time
+    if (isLecturer && !isAdmin) {
+      const sixHoursBefore = new Date(session.startsAt.getTime() - 6 * 60 * 60 * 1000);
+      if (now > sixHoursBefore) {
+        throw new BadRequestException(
+          'Lecturers cannot cancel sessions less than 6 hours before start time. Please contact Support for emergency assistance.',
+        );
+      }
+    }
+
     const twentyFourHoursFromNow = new Date(now.getTime() + 24 * 60 * 60 * 1000);
 
     // If lecturer cancels, student should never be penalized (always CANCELED).
@@ -487,6 +509,130 @@ export class BookingService {
     });
   }
 
+  async markStudentAbsent(
+    user: { id: string; role?: Role },
+    sessionId: string,
+    reason?: string,
+  ) {
+    const session = await this.prisma.session.findUnique({
+      where: { id: sessionId },
+      include: {
+        student: { include: { user: true } },
+        lecturer: { include: { user: true } },
+      },
+    });
+
+    if (!session) {
+      throw new NotFoundException('Session not found');
+    }
+
+    const isAdmin = user.role === Role.ADMIN || user.role === Role.SUPER_ADMIN;
+    const isLecturer = session.lecturerId === user.id;
+
+    if (!isAdmin && !isLecturer) {
+      throw new ForbiddenException(
+        'Only the assigned lecturer or an administrator can mark attendance.'
+      );
+    }
+
+    if (session.status === SessionStatus.COMPLETED) {
+      throw new BadRequestException('Cannot mark an already completed session as absent.');
+    }
+
+    if (session.status === SessionStatus.CANCELED) {
+      throw new BadRequestException('Cannot mark a canceled session as absent.');
+    }
+
+    if (session.status === SessionStatus.NO_SHOW_STUDENT) {
+      throw new BadRequestException('This session has already been marked as student absent.');
+    }
+
+    const noteReason = reason?.trim() || 'Student did not attend scheduled session.';
+
+    const updatedSession = await this.prisma.session.update({
+      where: { id: sessionId },
+      data: {
+        status: SessionStatus.NO_SHOW_STUDENT,
+        notes: {
+          upsert: {
+            create: {
+              lecturerId: session.lecturerId,
+              topicsCovered: 'Session conducted · Student was absent',
+              homework: '',
+              studentProgressRating: 0,
+              internalNotes: noteReason,
+              sharedNotes: `Marked absent by instructor: ${noteReason}`,
+            },
+            update: {
+              sharedNotes: `Marked absent by instructor: ${noteReason}`,
+              internalNotes: noteReason,
+            },
+          },
+        },
+      },
+      include: {
+        student: true,
+        lecturer: true,
+        notes: true,
+      },
+    });
+
+    // Write audit log
+    await this.prisma.auditLog.create({
+      data: {
+        actorId: user.id,
+        action: 'SESSION_STUDENT_NO_SHOW',
+        entity: 'SESSION',
+        entityId: sessionId,
+        details: {
+          markedBy: user.id,
+          reason: reason || 'Lecturer marked student absent',
+          studentId: session.studentId,
+        },
+      },
+    });
+
+    // Dispatch notification to student
+    try {
+      const studentName = session.student?.fullName || session.student?.user?.email?.split('@')[0] || 'Student';
+      const lecturerName = session.lecturer?.fullName || 'Your Lecturer';
+      const studentEmail = session.student?.user?.email || '';
+      const studentPhone = session.student?.phone || null;
+
+      const sessionTimeFormatted = `${session.startsAt.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+      })} – ${session.endsAt.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+      })}`;
+
+      await this.notificationService.dispatchBookingNotification({
+        eventType: 'SESSION_STUDENT_NO_SHOW' as any,
+        sessionId,
+        actor: {
+          id: user.id,
+          name: lecturerName,
+          role: 'LECTURER',
+        },
+        recipient: {
+          id: session.studentId,
+          name: studentName,
+          role: 'STUDENT',
+          email: studentEmail,
+          phone: studentPhone,
+        },
+        sessionDate: session.startsAt,
+        sessionTimeFormatted,
+        reason: reason || 'Student did not attend the scheduled classroom session.',
+      });
+    } catch (notifErr: any) {
+      this.logger.error(`Failed to dispatch student absent notification: ${notifErr.message}`);
+    }
+
+    return updatedSession;
+  }
+
   async rescheduleBooking(
     user: { id: string; role?: Role },
     sessionId: string,
@@ -515,8 +661,38 @@ export class BookingService {
       );
     }
 
-    if (session.status !== SessionStatus.SCHEDULED) {
-      throw new BadRequestException('Only scheduled sessions can be rescheduled');
+    const now = new Date();
+    const startsAtTime = session.startsAt.getTime();
+    const endsAtTime = session.endsAt
+      ? session.endsAt.getTime()
+      : startsAtTime + 40 * 60 * 1000;
+
+    // Student: Allowed only before, and must be >= 12 hours before start
+    if (isStudent && !isAdmin) {
+      if (session.status !== SessionStatus.SCHEDULED) {
+        throw new BadRequestException('Only scheduled sessions can be rescheduled');
+      }
+      const twelveHoursBefore = new Date(startsAtTime - 12 * 60 * 60 * 1000);
+      if (now > twelveHoursBefore) {
+        throw new BadRequestException(
+          'Students can only reschedule at least 12 hours before class starts. Please contact Support.',
+        );
+      }
+    }
+
+    // Lecturer: Allowed >= 6 hours before start, OR within 6 hours after session end
+    if (isLecturer && !isAdmin) {
+      if (session.status === SessionStatus.CANCELED) {
+        throw new BadRequestException('Canceled sessions cannot be rescheduled');
+      }
+      const isBeforeAllowed = startsAtTime - now.getTime() >= 6 * 60 * 60 * 1000;
+      const isAfterAllowed = now.getTime() >= endsAtTime && (now.getTime() - endsAtTime) <= 6 * 60 * 60 * 1000;
+
+      if (!isBeforeAllowed && !isAfterAllowed) {
+        throw new BadRequestException(
+          'Lecturers can only reschedule sessions at least 6 hours before start time, or within 6 hours after class concludes. Outside these windows, please contact Support.',
+        );
+      }
     }
 
     const newStartsAt = new Date(newStartsAtISO);
@@ -568,6 +744,7 @@ export class BookingService {
       data: {
         startsAt: newStartsAt,
         endsAt: newEndsAt,
+        status: SessionStatus.SCHEDULED,
       },
       include: { lecturer: true, student: true },
     });

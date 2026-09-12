@@ -248,6 +248,25 @@ export class AdminService {
     return updated;
   }
 
+  async updateLecturer(id: string, dto: any) {
+    const lecturerProfile = await this.prisma.lecturerProfile.findUnique({
+      where: { userId: id }
+    });
+    if (!lecturerProfile) {
+      throw new NotFoundException('Lecturer profile not found');
+    }
+    
+    const updateData: any = {};
+    if (dto.hourlyAvailabilityJson !== undefined) {
+      updateData.hourlyAvailabilityJson = dto.hourlyAvailabilityJson;
+    }
+    
+    return this.prisma.lecturerProfile.update({
+      where: { userId: id },
+      data: updateData,
+    });
+  }
+
   async updateUserStatus(id: string, status: string) {
     const user = await this.prisma.user.findUnique({ where: { id } });
     if (!user) throw new NotFoundException('User not found');
@@ -261,11 +280,29 @@ export class AdminService {
   async getSessions() {
     return this.prisma.session.findMany({
       include: {
-        student: true,
-        lecturer: true,
+        student: {
+          include: {
+            user: { select: { id: true, email: true } },
+          },
+        },
+        lecturer: {
+          include: {
+            user: { select: { id: true, email: true } },
+          },
+        },
+        lesson: {
+          include: {
+            module: {
+              include: {
+                learningPath: true,
+              },
+            },
+          },
+        },
+        notes: true,
       },
       orderBy: { startsAt: 'desc' },
-      take: 50,
+      take: 200,
     });
   }
 

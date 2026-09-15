@@ -88,6 +88,7 @@ export function LiveNotificationProvider({ children }: { children: React.ReactNo
   const [toasts, setToasts] = useState<LiveToastItem[]>([]);
   const seenIdsRef = useRef<Set<string>>(new Set());
   const initialLoadDoneRef = useRef(false);
+  const mountTimeRef = useRef(Date.now());
 
   const dismissToast = useCallback((id: string) => {
     setToasts((prev) => prev.filter((t) => t.id !== id));
@@ -95,6 +96,12 @@ export function LiveNotificationProvider({ children }: { children: React.ReactNo
 
   const addToast = useCallback(
     (notif: any) => {
+      // Prevent historic notifications from popping up as toasts (they will still be in the bell menu)
+      const notifTime = new Date(notif.createdAt || new Date()).getTime();
+      if (notifTime < mountTimeRef.current - 15000) {
+        return;
+      }
+
       const payload = notif.payloadJson || {};
       const type = notif.type || 'NOTIFICATION';
 
@@ -216,7 +223,7 @@ export function LiveNotificationProvider({ children }: { children: React.ReactNo
   // 2. Secondary: Fast Polling fallback (every 7 seconds)
   const { data: latestNotifications } = useQuery<any[]>({
     queryKey: ['liveNotificationPoll'],
-    queryFn: () => apiFetch('/notifications'),
+    queryFn: () => apiFetch('/notifications', { skipRedirect: true }),
     refetchInterval: 7000,
     enabled: !!user,
   });

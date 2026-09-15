@@ -15,7 +15,11 @@ export function setAuthToken(token: string | null) {
   }
 }
 
-export async function apiFetch(endpoint: string, options: RequestInit = {}) {
+export interface ApiFetchOptions extends RequestInit {
+  skipRedirect?: boolean;
+}
+
+export async function apiFetch(endpoint: string, options: ApiFetchOptions = {}) {
   const token = getAuthToken();
   const authHeaders: Record<string, string> = {};
 
@@ -31,6 +35,7 @@ export async function apiFetch(endpoint: string, options: RequestInit = {}) {
       ...authHeaders,
       ...options.headers,
     },
+    cache: 'no-store', // Prevent Next.js from caching dynamic API requests
     // We include credentials for cookies as well as Bearer token header
     credentials: 'include', 
   };
@@ -39,11 +44,18 @@ export async function apiFetch(endpoint: string, options: RequestInit = {}) {
 
   if (!response.ok) {
     let errorMessage = 'An error occurred';
-    let errorData: any = null;
+    let errorData: unknown = null;
     try {
       errorData = await response.json();
-      errorMessage = errorData.message || errorMessage;
-    } catch (e) {
+      if (
+        typeof errorData === 'object' &&
+        errorData !== null &&
+        'message' in errorData &&
+        typeof errorData.message === 'string'
+      ) {
+        errorMessage = errorData.message;
+      }
+    } catch {
       errorMessage = response.statusText;
     }
 
@@ -52,15 +64,16 @@ export async function apiFetch(endpoint: string, options: RequestInit = {}) {
       if (typeof window !== 'undefined') {
         localStorage.removeItem('ilm_token');
         localStorage.removeItem('ilm_user');
-        if (!window.location.pathname.startsWith('/auth')) {
+        if (!options.skipRedirect && !window.location.pathname.startsWith('/auth')) {
           window.location.href = '/auth/signin';
         }
       }
     }
 
-    const error: any = new Error(errorMessage);
-    error.data = errorData;
-    error.status = response.status;
+    const error = Object.assign(new Error(errorMessage), {
+      data: errorData,
+      status: response.status,
+    });
     throw error;
   }
 

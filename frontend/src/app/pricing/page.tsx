@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Check, ChevronRight, Sparkles, Users, Clock } from 'lucide-react';
+import { Check, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { courseOfferings } from '@/lib/mock-data';
 
@@ -9,95 +9,119 @@ const fadeUp = { hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } };
 
 export default function PricingPage() {
   return (
-    <div className="py-20 lg:py-28">
+    <div className="py-20 lg:py-28 min-h-screen text-stone-900 relative">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
-          <h1 className="text-4xl lg:text-5xl font-bold mb-4">Simple, Transparent Pricing</h1>
-          <p className="text-lg text-[hsl(var(--muted-foreground))] max-w-2xl mx-auto">Every learning path offers two paces: the Standard 8-session plan (2 per week) or the Fast Track 12-session plan (3 per week) to accelerate your progress.</p>
+          <h1 className="text-4xl lg:text-5xl font-extrabold mb-4 tracking-tight text-stone-950">Simple, Transparent Pricing</h1>
+          <p className="text-base sm:text-lg text-stone-600 max-w-2xl mx-auto">
+            Every learning path offers two paces: the Standard 8-session plan (2 per week) or the Fast Track 12-session plan (3 per week) to accelerate your progress.
+          </p>
         </div>
 
         {/* Course Cards */}
         <div className="space-y-12 max-w-5xl mx-auto">
           {courseOfferings.filter(c => !c.comingSoon).map((course, i) => (
             <motion.div key={course.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} transition={{ delay: i * 0.1 }}>
-              <div className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] overflow-hidden">
-                <div className="p-6 sm:p-8 border-b border-[hsl(var(--border))] bg-gradient-to-r from-[hsl(var(--primary-light))] to-transparent">
-                  <h2 className="text-2xl font-bold">{course.name}</h2>
-                  <p className="text-[hsl(var(--muted-foreground))] mt-1">{course.description}</p>
+              <div className="rounded-3xl border border-stone-200/90 bg-white/90 backdrop-blur-md p-6 sm:p-8 shadow-xl">
+                <div className="mb-6 pb-5 border-b border-stone-100">
+                  <h2 className="text-2xl sm:text-3xl font-black text-stone-950 tracking-tight">{course.name}</h2>
+                  <p className="text-stone-500 mt-1.5 text-sm">{course.description}</p>
                 </div>
-                <div className="p-6 sm:p-8">
+                <div>
                   <div className="grid md:grid-cols-2 gap-6">
-                    {/* Standard */}
-                    <div className="p-6 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))]">
-                      <div className="text-sm font-semibold text-[hsl(var(--muted-foreground))] mb-2">Standard Plan</div>
-                      <div className="mb-4">
-                        <span className="text-4xl font-bold">${course.basicPriceUSD}</span>
-                        <span className="text-[hsl(var(--muted-foreground))]"> / month</span>
-                      </div>
-                      <ul className="space-y-2.5 mb-6">
-                        {course.features.map((f) => (
-                          <li key={f} className="flex items-start gap-2 text-sm">
-                            <Check className="h-4 w-4 text-[hsl(var(--success))] mt-0.5 flex-shrink-0" />
-                            <span>{f}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      <Link href="/auth/signup" className="flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-semibold border border-[hsl(var(--border))] hover:bg-[hsl(var(--muted))] transition-colors">
-                        Select Standard <ChevronRight className="h-4 w-4" />
-                      </Link>
-                    </div>
-                    {/* Fast Track */}
-                    <div className="p-6 rounded-xl border-2 border-[hsl(var(--primary))] bg-[hsl(var(--background))] relative">
-                      <div className="absolute -top-3 right-4 px-3 py-0.5 rounded-full bg-[hsl(var(--primary))] text-white text-xs font-semibold flex items-center gap-1">
-                        <Sparkles className="h-3 w-3" /> Popular
-                      </div>
-                      <div className="text-sm font-semibold text-[hsl(var(--primary))] mb-2">Fast Track Plan</div>
-                      <div className="mb-4">
-                        <span className="text-4xl font-bold">${course.premiumPriceUSD}</span>
-                        <span className="text-[hsl(var(--muted-foreground))]"> / month</span>
-                      </div>
-                      <ul className="space-y-2.5 mb-4">
-                        {course.features.filter(f => !f.includes('Standard')).map((f) => (
-                          <li key={f} className="flex items-start gap-2 text-sm">
-                            <Check className="h-4 w-4 text-[hsl(var(--success))] mt-0.5 flex-shrink-0" />
-                            <span>{f}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      <div className="p-3 rounded-lg bg-[hsl(var(--accent-light))] border border-[hsl(var(--accent)/0.2)] mb-6">
-                        <div className="text-xs font-semibold text-[hsl(var(--accent))] mb-1.5">Plus Fast Track features:</div>
-                        {course.premiumExtras.map(e => (
-                          <div key={e} className="flex items-center gap-1.5 text-xs">
-                            <Sparkles className="h-3 w-3 text-[hsl(var(--accent))] flex-shrink-0" /> {e}
+                    {/* Standard Plan */}
+                    <div className="p-7 rounded-2xl border border-stone-200/90 bg-stone-50/60 flex flex-col justify-between relative overflow-hidden transition-all hover:border-stone-300">
+                      <div>
+                        <div className="flex items-center gap-3.5 mb-5">
+                          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white border border-stone-200 text-stone-900 shadow-xs font-extrabold text-base">
+                            S
                           </div>
-                        ))}
+                          <div>
+                            <div className="text-xl font-bold text-stone-950 tracking-tight">Standard Plan</div>
+                            <div className="text-xs text-stone-500 font-medium">8 sessions/month · 2 per week</div>
+                          </div>
+                        </div>
+                        <ul className="space-y-3 mb-6">
+                          {course.features.map((f) => (
+                            <li key={f} className="flex items-start gap-3 text-sm">
+                              <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-stone-900 text-white mt-0.5">
+                                <Check className="h-3 w-3 stroke-[3]" />
+                              </div>
+                              <span className="text-stone-700 text-sm font-medium">{f}</span>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
-                      <Link href="/auth/signup" className="flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-semibold bg-gradient-to-r from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)] text-white hover:shadow-lg transition-all">
-                        Select Fast Track <ChevronRight className="h-4 w-4" />
-                      </Link>
+                      <div className="pt-4 border-t border-stone-200/70 mt-auto">
+                        <div className="my-5 text-center">
+                          <div className="inline-flex items-baseline gap-1.5">
+                            <span className="text-3xl sm:text-4xl font-black text-stone-950 tracking-tight">${course.basicPriceUSD}</span>
+                            <span className="text-sm font-medium text-stone-500">/Month</span>
+                          </div>
+                        </div>
+                        <Link
+                          href="/auth/signup"
+                          className="w-full py-3.5 px-6 rounded-2xl text-center text-sm font-bold text-stone-900 bg-stone-100 hover:bg-stone-200 border border-stone-200 active:scale-[0.99] transition-all block"
+                        >
+                          Subscribe
+                        </Link>
+                      </div>
+                    </div>
+
+                    {/* Fast Track Plan (Popular) */}
+                    <div className="p-7 rounded-2xl border border-stone-800 bg-[#0f1416] text-white shadow-xl flex flex-col justify-between relative overflow-hidden transition-all">
+                      {/* Diagonal Popular Ribbon */}
+                      <div className="absolute top-0 right-0 overflow-hidden w-28 h-28 pointer-events-none z-10">
+                        <div className="absolute top-5 right-[-35px] w-36 bg-emerald-400 text-stone-950 text-[11px] font-extrabold uppercase tracking-wider text-center py-1 rotate-45 shadow-md">
+                          Popular
+                        </div>
+                      </div>
+
+                      <div>
+                        <div className="flex items-center gap-3.5 mb-5">
+                          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-stone-900 border border-stone-800 text-emerald-300 shadow-inner font-extrabold text-base">
+                            F
+                          </div>
+                          <div>
+                            <div className="text-xl font-bold text-white tracking-tight">Fast Track Plan</div>
+                            <div className="text-xs text-stone-400 font-medium">12 sessions/month · 3 per week</div>
+                          </div>
+                        </div>
+                        <ul className="space-y-3 mb-6">
+                          {course.features.filter(f => !f.includes('Standard')).map((f) => (
+                            <li key={f} className="flex items-start gap-3 text-sm">
+                              <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-400 text-stone-950 mt-0.5">
+                                <Check className="h-3 w-3 stroke-[3]" />
+                              </div>
+                              <span className="text-stone-300 text-sm font-medium">{f}</span>
+                            </li>
+                          ))}
+                          {course.premiumExtras.map((e) => (
+                            <li key={e} className="flex items-start gap-3 text-sm">
+                              <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-400 text-stone-950 mt-0.5">
+                                <Check className="h-3 w-3 stroke-[3]" />
+                              </div>
+                              <span className="text-stone-300 text-sm font-medium">{e}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="pt-4 border-t border-stone-800/60 mt-auto">
+                        <div className="my-5 text-center">
+                          <div className="inline-flex items-baseline gap-1.5">
+                            <span className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">${course.premiumPriceUSD}</span>
+                            <span className="text-sm font-medium text-stone-400">/Month</span>
+                          </div>
+                        </div>
+                        <Link
+                          href="/auth/signup"
+                          className="w-full py-3.5 px-6 rounded-2xl text-center text-sm font-bold text-white bg-gradient-to-r from-[hsl(var(--primary))] to-emerald-500 hover:from-emerald-800 hover:to-emerald-600 shadow-[0_0_24px_rgba(16,185,129,0.34)] hover:shadow-[0_0_32px_rgba(16,185,129,0.5)] active:scale-[0.99] transition-all block"
+                        >
+                          Subscribe
+                        </Link>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-
-          {/* Fiqh Coming Soon */}
-          {courseOfferings.filter(c => c.comingSoon).map((course) => (
-            <motion.div key={course.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
-              <div className="rounded-2xl border border-dashed border-[hsl(var(--border))] bg-[hsl(var(--card))] p-8 text-center opacity-80">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[hsl(var(--accent)/0.1)] text-[hsl(var(--accent))] text-sm font-semibold mb-4">
-                  <Clock className="h-4 w-4" /> Coming Soon
-                </div>
-                <h2 className="text-2xl font-bold mb-2">{course.name}</h2>
-                <p className="text-[hsl(var(--muted-foreground))] mb-4 max-w-lg mx-auto">{course.description}</p>
-                <div className="inline-flex items-center gap-1 text-sm text-purple-600 dark:text-purple-400 font-medium">
-                  <Users className="h-4 w-4" /> Group Classes
-                </div>
-                <div className="mt-6 flex flex-wrap justify-center gap-2">
-                  {course.features.map(f => (
-                    <span key={f} className="px-3 py-1 rounded-full text-xs bg-[hsl(var(--muted))] text-[hsl(var(--muted-foreground))]">{f}</span>
-                  ))}
                 </div>
               </div>
             </motion.div>
@@ -106,7 +130,7 @@ export default function PricingPage() {
 
         {/* FAQ */}
         <div className="mt-20 max-w-3xl mx-auto">
-          <h2 className="text-2xl font-bold text-center mb-10">Frequently Asked Questions</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-10 text-stone-950">Frequently Asked Questions</h2>
           <div className="space-y-4">
             {[
               { q: 'Can I try before subscribing?', a: 'Yes! Every new student gets a free 30-minute trial session with one of our scholars. No payment information required.' },
@@ -116,12 +140,12 @@ export default function PricingPage() {
               { q: 'What is the cancellation policy?', a: 'Sessions can be rescheduled for free up to 12 hours before the start time. Cancellations within 12 hours count as a used session.' },
               { q: 'How do payments work?', a: 'We accept international cards via Stripe and local Sri Lankan payments via PayHere. All prices are displayed in your local currency.' },
             ].map((faq, i) => (
-              <details key={i} className="group rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))]">
-                <summary className="flex items-center justify-between cursor-pointer px-6 py-4 text-sm font-medium">
+              <details key={i} className="group rounded-2xl border border-stone-200/90 bg-white/90 backdrop-blur-sm overflow-hidden shadow-2xs">
+                <summary className="flex items-center justify-between cursor-pointer px-6 py-4 text-sm font-semibold text-stone-900 hover:text-stone-950">
                   {faq.q}
-                  <ChevronRight className="h-4 w-4 text-[hsl(var(--muted-foreground))] transition-transform group-open:rotate-90" />
+                  <ChevronRight className="h-4 w-4 text-stone-400 transition-transform group-open:rotate-90" />
                 </summary>
-                <div className="px-6 pb-4 text-sm text-[hsl(var(--muted-foreground))] leading-relaxed">{faq.a}</div>
+                <div className="px-6 pb-4 text-sm text-stone-600 leading-relaxed border-t border-stone-100 pt-3">{faq.a}</div>
               </details>
             ))}
           </div>

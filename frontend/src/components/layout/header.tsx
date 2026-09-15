@@ -2,16 +2,11 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
-import { useTheme } from '@/components/theme-provider';
+import { useState, useEffect } from 'react';
 import {
   BookOpen,
   Menu,
   X,
-  Sun,
-  Moon,
-  ChevronDown,
-  User,
   LogIn,
 } from 'lucide-react';
 
@@ -23,8 +18,17 @@ const navLinks = [
 
 export default function Header() {
   const pathname = usePathname();
-  const { resolvedTheme, setTheme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 400);
+    };
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const shouldHideHeader =
     pathname.startsWith('/student') ||
@@ -34,8 +38,12 @@ export default function Header() {
 
   if (shouldHideHeader) return null;
 
+  // On home page, hide default header while at top so the hero's navigation is showcased
+  const isHome = pathname === '/';
+  if (isHome && !scrolled) return null;
+
   return (
-    <header className="sticky top-0 z-50 glass">
+    <header className="sticky top-0 z-50 border-b border-emerald-900/10 bg-[linear-gradient(120deg,rgba(240,250,246,0.82),rgba(226,241,236,0.72),rgba(249,247,240,0.76))] backdrop-blur-2xl shadow-[0_10px_34px_rgba(15,76,68,0.08)] transition-all duration-300 animate-fade-in supports-[backdrop-filter]:bg-[linear-gradient(120deg,rgba(240,250,246,0.72),rgba(226,241,236,0.58),rgba(249,247,240,0.62))]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
@@ -57,8 +65,8 @@ export default function Header() {
                 href={link.href}
                 className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${
                   pathname === link.href
-                    ? 'text-[hsl(var(--primary))] bg-[hsl(var(--primary-light))]'
-                    : 'text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))]'
+                    ? 'text-[hsl(var(--primary))] bg-white/65 shadow-sm'
+                    : 'text-stone-600 hover:text-stone-950 hover:bg-white/45'
                 }`}
               >
                 {link.label}
@@ -68,16 +76,9 @@ export default function Header() {
 
           {/* Actions */}
           <div className="hidden md:flex items-center gap-2">
-            <button
-              onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-              className="p-2 rounded-lg text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))] transition-colors"
-              aria-label="Toggle theme"
-            >
-              {resolvedTheme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </button>
             <Link
               href="/auth/signin"
-              className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))] transition-colors"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium text-stone-600 hover:text-stone-950 hover:bg-white/45 transition-colors"
             >
               <LogIn className="h-4 w-4" />
               Sign In
@@ -92,7 +93,7 @@ export default function Header() {
 
           {/* Mobile toggle */}
           <button
-            className="md:hidden p-2 rounded-lg text-[hsl(var(--foreground))] hover:bg-[hsl(var(--muted))]"
+            className="md:hidden p-2 rounded-lg text-stone-800 hover:bg-white/55"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
@@ -103,7 +104,7 @@ export default function Header() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden border-t border-[hsl(var(--border))] bg-[hsl(var(--card))] animate-fade-in">
+        <div className="md:hidden border-t border-emerald-900/10 bg-white/75 backdrop-blur-2xl animate-fade-in">
           <div className="px-4 py-3 space-y-1">
             {navLinks.map((link) => (
               <Link
@@ -112,14 +113,14 @@ export default function Header() {
                 onClick={() => setMobileOpen(false)}
                 className={`block px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                   pathname === link.href
-                    ? 'text-[hsl(var(--primary))] bg-[hsl(var(--primary-light))]'
-                    : 'text-[hsl(var(--muted-foreground))] hover:bg-[hsl(var(--muted))]'
+                    ? 'text-[hsl(var(--primary))] bg-emerald-50'
+                    : 'text-stone-600 hover:bg-white/70'
                 }`}
               >
                 {link.label}
               </Link>
             ))}
-            <div className="pt-3 mt-3 border-t border-[hsl(var(--border))] flex flex-col gap-2">
+            <div className="pt-3 mt-3 border-t border-emerald-900/10 flex flex-col gap-2">
               <Link
                 href="/auth/signin"
                 onClick={() => setMobileOpen(false)}

@@ -8,7 +8,8 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
-        arabic: ['Noto Naskh Arabic', 'serif'],
+        serif: ['var(--font-cinzel)', 'Georgia', 'serif'],
+        arabic: ['var(--font-amiri)', 'Noto Naskh Arabic', 'serif'],
       },
       borderRadius: {
         xl: '0.75rem',

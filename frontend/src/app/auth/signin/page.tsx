@@ -1,12 +1,16 @@
 'use client';
 
-import Link from 'next/link';
 import Image from 'next/image';
-import { BookOpen, Eye, EyeOff } from 'lucide-react';
+import Link from 'next/link';
+import { ArrowLeft, BookOpen, Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { apiFetch } from '@/lib/api';
 import { useAuth } from '@/lib/auth-context';
+
+function getErrorMessage(error: unknown, fallback: string) {
+  return error instanceof Error ? error.message : fallback;
+}
 
 export default function SignInPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -16,7 +20,6 @@ export default function SignInPage() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { login } = useAuth();
-
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,74 +34,141 @@ export default function SignInPage() {
       const rawRole = (data.user?.role || '').toLowerCase();
       const routeRole = rawRole === 'super_admin' ? 'admin' : rawRole;
       router.push(`/${routeRole}/dashboard`);
-    } catch (err: any) {
-      setError(err.message || 'Invalid email or password. Please try again.');
+    } catch (err) {
+      setError(getErrorMessage(err, 'Invalid email or password. Please try again.'));
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex">
-      {/* Left block — Form */}
-      <div className="flex-1 flex flex-col justify-center px-6 sm:px-12 lg:px-16 py-12">
-        <div className="w-full max-w-md mx-auto">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 mb-10">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)]">
-              <BookOpen className="h-5 w-5 text-white" strokeWidth={2.5} />
-            </div>
-            <span className="text-xl font-bold tracking-tight">IlmConnect</span>
-          </Link>
-
-          <h1 className="text-3xl font-bold mb-2">Welcome back</h1>
-          <p className="text-[hsl(var(--muted-foreground))] mb-8">Sign in to continue your learning journey</p>
-
-          {error && (
-            <div className="p-3.5 mb-5 rounded-xl bg-red-100 dark:bg-red-950/30 text-red-700 dark:text-red-400 text-sm font-medium">
-              {error}
-            </div>
-          )}
-
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div>
-              <label className="block text-sm font-medium mb-1.5">Email address</label>
-              <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" className="w-full px-4 py-3 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] text-sm focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))] transition-colors" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1.5">Password</label>
-              <div className="relative">
-                <input required type={showPassword ? 'text' : 'password'} value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" className="w-full px-4 py-3 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] text-sm focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))] pr-11 transition-colors" />
-                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))]">
-                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                </button>
+    <main className="min-h-screen bg-[#f7f8f5] text-stone-950">
+      <div className="grid min-h-screen w-full gap-0 lg:grid-cols-[1fr_1.06fr]">
+        <section className="flex min-h-screen flex-col justify-between bg-white px-7 py-8 sm:px-12 lg:px-20">
+          <div className="flex items-center justify-between gap-4">
+            <Link href="/" className="flex w-fit items-center gap-3">
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-emerald-100 bg-emerald-50 text-[hsl(var(--primary))]">
+                <BookOpen className="h-5 w-5" strokeWidth={2.5} />
               </div>
-            </div>
-            <div className="flex items-center justify-between">
-              <label className="flex items-center gap-2 text-sm"><input type="checkbox" className="h-4 w-4 rounded" /> Remember me</label>
-              <Link href="/auth/forgot-password" className="text-sm text-[hsl(var(--primary))] hover:underline">Forgot password?</Link>
-            </div>
-            <button disabled={isLoading} type="submit" className="w-full py-3 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)] hover:shadow-lg transition-all disabled:opacity-50">
-              {isLoading ? 'Signing In...' : 'Sign In'}
-            </button>
-          </form>
+              <span className="text-lg font-black tracking-tight">
+                <span>Ilm</span>
+                <span className="text-[hsl(var(--primary))]">Connect</span>
+              </span>
+            </Link>
+            <Link
+              href="/"
+              className="inline-flex h-9 items-center gap-2 rounded-full border border-stone-200 px-3 text-xs font-bold text-stone-600 transition-colors hover:border-emerald-200 hover:bg-emerald-50 hover:text-[hsl(var(--primary))]"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" />
+              Home
+            </Link>
+          </div>
 
-          <p className="mt-8 text-center text-sm text-[hsl(var(--muted-foreground))]">
-            Don&apos;t have an account?{' '}
-            <Link href="/auth/signup" className="text-[hsl(var(--primary))] font-medium hover:underline">Sign up</Link>
-          </p>
-        </div>
-      </div>
+          <div className="mx-auto w-full max-w-md py-10 lg:-mt-8">
+            <div className="mb-9">
+              <h1 className="text-4xl font-black tracking-tight text-stone-950">Welcome back</h1>
+              <p className="mt-3 text-base font-medium text-stone-500">
+                Sign in to continue your learning journey
+              </p>
+            </div>
 
-      {/* Right block — Image */}
-      <div className="hidden md:block w-1/2 relative">
-        <Image src="/images/signin-side.png" alt="Islamic architecture and Quran" fill className="object-cover" priority />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-        <div className="absolute bottom-12 left-8 right-8 text-white">
-          <p className="text-2xl font-bold leading-snug">&ldquo;Seek knowledge from the cradle to the grave&rdquo;</p>
-          <p className="text-sm text-white/70 mt-2">— Prophet Muhammad ﷺ</p>
-        </div>
+            {error && (
+              <div className="mb-5 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">
+                {error}
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div>
+                <label htmlFor="email" className="mb-2 block text-sm font-bold text-stone-800">
+                  Email address*
+                </label>
+                <input
+                  id="email"
+                  required
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  className="h-14 w-full rounded-full border border-stone-200 bg-white px-5 text-base text-stone-900 shadow-sm outline-none transition-all placeholder:text-stone-400 focus:border-[hsl(var(--primary))] focus:ring-4 focus:ring-emerald-100"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="password" className="mb-2 block text-sm font-bold text-stone-800">
+                  Password*
+                </label>
+                <div className="relative">
+                  <input
+                    id="password"
+                    required
+                    type={showPassword ? 'text' : 'password'}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter your password"
+                    className="h-14 w-full rounded-full border border-stone-200 bg-white px-5 pr-12 text-base text-stone-900 shadow-sm outline-none transition-all placeholder:text-stone-400 focus:border-[hsl(var(--primary))] focus:ring-4 focus:ring-emerald-100"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full text-stone-400 transition-colors hover:bg-stone-100 hover:text-stone-900"
+                    aria-label={showPassword ? 'Hide password' : 'Show password'}
+                  >
+                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between gap-3 pt-1">
+                <label className="flex items-center gap-2 text-xs font-medium text-stone-600">
+                  <input type="checkbox" className="h-4 w-4 rounded border-stone-300 text-[hsl(var(--primary))]" />
+                  Remember me
+                </label>
+                <Link href="/auth/forgot-password" className="text-xs font-bold text-[hsl(var(--primary))] hover:underline">
+                  Forgot password?
+                </Link>
+              </div>
+
+              <button
+                disabled={isLoading}
+                type="submit"
+                className="mt-3 h-14 w-full rounded-full bg-stone-950 text-base font-bold text-white shadow-[0_18px_36px_rgba(15,23,42,0.2)] transition-all hover:-translate-y-0.5 hover:bg-[hsl(var(--primary))] disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {isLoading ? 'Signing In...' : 'Sign In'}
+              </button>
+            </form>
+
+            <p className="mt-5 text-sm font-medium text-stone-500">
+              Don&apos;t have an account?{' '}
+              <Link href="/auth/signup" className="font-bold text-[hsl(var(--primary))] hover:underline">
+                Sign up
+              </Link>
+            </p>
+          </div>
+
+          <p className="text-xs font-medium text-stone-400">Secure scholar-led learning, wherever you are.</p>
+        </section>
+
+        <aside className="relative hidden min-h-screen overflow-hidden rounded-bl-[3rem] rounded-tl-[3rem] bg-stone-950 lg:block">
+          <Image
+            src="/images/signin-side.png"
+            alt="Islamic learning environment"
+            fill
+            priority
+            sizes="50vw"
+            className="object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-stone-950/94 via-stone-950/38 to-stone-950/8" />
+          <div className="absolute inset-x-10 bottom-16 text-center text-white">
+            <blockquote className="mx-auto max-w-2xl text-4xl font-black leading-tight tracking-tight drop-shadow-[0_4px_18px_rgba(0,0,0,0.65)]">
+              &ldquo;Seek knowledge from the cradle to the grave&rdquo;
+            </blockquote>
+            <p className="mt-5 text-lg font-semibold text-white drop-shadow-[0_3px_14px_rgba(0,0,0,0.65)]">
+              — Prophet Muhammad ﷺ
+            </p>
+          </div>
+        </aside>
       </div>
-    </div>
+    </main>
   );
 }

@@ -161,27 +161,63 @@ const missionPoints = [
 const howItWorksSteps = [
   {
     num: '01',
-    title: 'Sign Up',
-    desc: 'Create your free account in minutes, share your student background, and tell us about your personal Quranic learning goals.',
+    badge: 'STEP 01',
+    title: 'Sign Up & Profile',
+    desc: 'Create your free student profile in minutes, share your background, and outline your personal Quranic learning goals.',
     icon: UserPlus,
+    meta: [
+      { label: 'Format', value: 'Online LMS' },
+      { label: 'Time', value: '2 Mins' },
+      { label: 'Cost', value: '100% Free' },
+    ],
+    highlight: 'Free Trial',
+    buttonText: 'Get Started',
+    buttonLink: '/auth/signup',
   },
   {
     num: '02',
+    badge: 'STEP 02',
     title: 'Choose Your Course',
-    desc: 'Select from Noorani Qaida for fundamentals, Tajweed Mastery for accurate recitation, or intensive Hifz for Quran memorization.',
+    desc: 'Select from Noorani Qaida fundamentals, Tajweed recitation mastery, or comprehensive Hifz memorization tracks.',
     icon: Compass,
+    meta: [
+      { label: 'Levels', value: 'All Ages' },
+      { label: 'Focus', value: 'Tajweed' },
+      { label: 'Pacing', value: 'Flexible' },
+    ],
+    highlight: 'From $49/mo',
+    buttonText: 'Explore Plans',
+    buttonLink: '#courses',
   },
   {
     num: '03',
+    badge: 'STEP 03',
     title: 'Match With Scholar',
     desc: 'We pair you with a verified Sri Lankan scholar tailored to your preferred time zone, native language, and learning pace.',
     icon: GraduationCap,
+    meta: [
+      { label: 'Faculty', value: 'Sanad Alim' },
+      { label: 'Ratio', value: '1:1 Private' },
+      { label: 'Schedule', value: 'Global 24/7' },
+    ],
+    highlight: 'Sanad Certified',
+    buttonText: 'Meet Scholars',
+    buttonLink: '/auth/signup',
   },
   {
     num: '04',
+    badge: 'STEP 04',
     title: 'Start Learning',
-    desc: 'Attend interactive 1:1 live sessions in our digital classroom, receive real-time feedback, and track milestones with session recordings.',
+    desc: 'Attend interactive 1:1 live sessions in our digital classroom, receive real-time feedback, and track milestones with recordings.',
     icon: Video,
+    meta: [
+      { label: 'Format', value: 'Live 1:1 HD' },
+      { label: 'Sessions', value: '2-3x / Wk' },
+      { label: 'Archive', value: 'Full HD' },
+    ],
+    highlight: 'Live 1:1 Room',
+    buttonText: 'Join Room',
+    buttonLink: '/auth/signup',
   },
 ];
 
@@ -548,11 +584,11 @@ export default function HomePage() {
         </section>
 
         {/* ========================================================================= */}
-        {/* HOW IT WORKS SECTION — Full-Width Horizontal 4-Step Journey */}
+        {/* HOW IT WORKS SECTION — Reference Scooped-Notch White Cards */}
         {/* ========================================================================= */}
         <section
           id="how-it-works"
-          className="py-14 sm:py-18 lg:py-20 bg-white/35 backdrop-blur-xs text-stone-900 border-b border-stone-200/60 scroll-mt-16 select-none lg:min-h-[85vh] flex flex-col justify-center"
+          className="py-14 sm:py-18 lg:py-20 bg-[#f6f8f6] text-stone-900 border-b border-stone-200/60 scroll-mt-16 select-none lg:min-h-[85vh] flex flex-col justify-center relative overflow-hidden"
         >
           <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             {/* Section Header */}
@@ -573,60 +609,82 @@ export default function HomePage() {
 
             {/* Horizontal 4 Steps Grid Across Full Screen */}
             <div className="relative">
-              {/* Desktop Horizontal Connecting Guide Line behind cards */}
-              <div className="hidden lg:block absolute top-[52px] left-[10%] right-[10%] h-[1.5px] bg-gradient-to-r from-emerald-200/60 via-teal-300/70 to-emerald-200/60 pointer-events-none z-0" />
-
               <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: false, amount: 0.15 }}
                 variants={cardStagger}
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 relative z-10"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10 items-stretch"
               >
-                {howItWorksSteps.map((step, idx) => (
+                {howItWorksSteps.map((step) => (
                   <motion.div
                     key={step.num}
                     variants={cardItem}
-                    className="rounded-3xl bg-white/95 backdrop-blur-md border border-stone-200/90 p-6 sm:p-7 shadow-[0_6px_28px_rgba(0,0,0,0.035)] hover:shadow-[0_16px_40px_rgba(15,76,68,0.12)] hover:border-emerald-300/80 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group relative overflow-hidden"
+                    className="hiw-notch-card p-6 pt-6 hover:shadow-[0_20px_45px_rgba(16,185,129,0.12)] hover:border-emerald-300/80 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between h-full group"
                   >
-                    {/* Top subtle luxury shimmer accent */}
-                    <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                    {/* Stepped Scooped Notch in Top Right */}
+                    <div className="hiw-notch-cutout flex items-center justify-end pr-2 pt-1">
+                      <div className="px-2.5 py-1 rounded-full bg-stone-950 text-white text-[10px] font-mono font-bold tracking-wider flex items-center gap-1.5 shadow-xs">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        {step.badge}
+                      </div>
+                    </div>
 
                     <div>
-                      {/* Top Header in Card: Dark Squircle Icon + Connected Jewel Node & Mono Number */}
-                      <div className="flex items-center justify-between mb-5">
-                        <div className="w-12 h-12 rounded-[16px] bg-[#18181b] text-white shadow-md flex items-center justify-center border border-stone-800/80 group-hover:scale-105 group-hover:border-emerald-500/50 group-hover:shadow-[0_0_15px_rgba(16,185,129,0.2)] transition-all duration-300">
-                          <step.icon className="w-5 h-5 text-emerald-400 stroke-[2.2]" />
+                      {/* Top Header: Emerald Squircle Icon + Brand + Verified Badge */}
+                      <div className="flex items-center gap-2 mb-5 pr-20">
+                        <div className="w-9 h-9 rounded-xl bg-emerald-500 text-white flex items-center justify-center shadow-xs shadow-emerald-500/20 group-hover:scale-105 group-hover:bg-emerald-600 transition-all duration-300 shrink-0">
+                          <step.icon className="w-4.5 h-4.5 text-white stroke-[2.2]" />
                         </div>
-
-                        {/* Mono Step Token paired with Radiant Glowing Jewel Node */}
-                        <div className="flex items-center gap-2">
-                          <span className="px-2.5 py-1 rounded-full bg-stone-100 border border-stone-200/90 text-xs font-mono font-extrabold text-stone-700 tracking-wider shadow-2xs">
-                            {step.num}
+                        <div className="flex items-center gap-1 min-w-0">
+                          <span className="font-bold text-stone-900 text-xs sm:text-[13px] tracking-tight whitespace-nowrap">
+                            IlmConnect
                           </span>
-                          <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-emerald-500 via-teal-400 to-amber-300 p-[2px] shadow-[0_0_12px_rgba(16,185,129,0.35)] flex items-center justify-center">
-                            <div className="w-full h-full bg-white rounded-full flex items-center justify-center">
-                              <div className="w-1.5 h-1.5 rounded-full bg-stone-900 group-hover:bg-emerald-600 transition-colors" />
-                            </div>
-                          </div>
+                          <svg className="w-3.5 h-3.5 text-sky-500 shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                            <path fillRule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.49 4.49 0 01-3.498-1.306 4.491 4.491 0 01-1.307-3.498A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clipRule="evenodd" />
+                          </svg>
                         </div>
                       </div>
 
                       {/* Step Title */}
-                      <h3 className="text-base sm:text-lg font-bold text-stone-950 mb-2.5 tracking-tight group-hover:text-emerald-800 transition-colors">
+                      <h3 className="text-xl font-extrabold text-stone-950 mb-3.5 tracking-tight group-hover:text-emerald-900 transition-colors">
                         {step.title}
                       </h3>
 
-                      {/* 3-line rich description */}
-                      <p className="text-stone-500 text-xs sm:text-[13px] leading-relaxed">
+                      {/* 3-Column Metadata Row with Vertical Dividers */}
+                      <div className="grid grid-cols-3 border-y border-stone-100 py-3 mb-4">
+                        {step.meta.map((m, mIdx) => (
+                          <div
+                            key={m.label}
+                            className={mIdx > 0 ? 'border-l border-stone-200/80 pl-2' : ''}
+                          >
+                            <div className="text-[10px] uppercase font-semibold text-stone-400 tracking-wider">
+                              {m.label}
+                            </div>
+                            <div className="text-xs font-bold text-stone-900 mt-0.5 whitespace-nowrap">
+                              {m.value}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Description Paragraph */}
+                      <p className="text-xs text-stone-500 leading-relaxed mb-6 flex-1">
                         {step.desc}
                       </p>
                     </div>
 
-                    {/* Bottom Step Progress Footer */}
-                    <div className="mt-6 pt-4 border-t border-stone-100 flex items-center justify-between text-[11px] font-bold text-stone-400 group-hover:text-emerald-700 transition-colors">
-                      <span className="uppercase tracking-wider">Step {idx + 1} of 4</span>
-                      <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1 text-stone-400 group-hover:text-emerald-700" />
+                    {/* Bottom Bar: Bold Highlight + Emerald Pill CTA */}
+                    <div className="flex items-center justify-between pt-4 border-t border-stone-100 mt-auto">
+                      <div className="text-base font-extrabold text-stone-950 tracking-tight">
+                        {step.highlight}
+                      </div>
+                      <Link
+                        href={step.buttonLink}
+                        className="inline-flex items-center justify-center px-5 py-2.5 rounded-full text-xs font-bold text-white bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 shadow-md shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:scale-105 active:scale-95 transition-all duration-200"
+                      >
+                        {step.buttonText}
+                      </Link>
                     </div>
                   </motion.div>
                 ))}

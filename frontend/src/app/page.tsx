@@ -112,37 +112,27 @@ function AnimatedCounter({
   );
 }
 
-const statsData = [
+const statsPillData = [
   {
-    target: 12,
-    suffix: '+',
-    label: 'Qualified Scholars',
-    desc: 'Sanad-verified Sri Lankan Alims and Hafizas teaching with authentic methodology',
-    icon: GraduationCap,
+    target: 100,
+    suffix: '%',
+    line1: 'verified Sri Lankan scholars',
+    line2: 'with authentic Sanad lineage',
   },
   {
     target: 150,
     suffix: '+',
-    label: 'Active Students',
-    desc: 'Muslim diaspora children and adults enrolled across 14+ countries worldwide',
-    icon: Users,
-  },
-  {
-    target: 4.85,
-    decimals: 2,
-    suffix: '',
-    label: 'Average Rating',
-    desc: 'Based on verified parent reviews and consistent lesson milestone feedback',
-    icon: Star,
+    line1: 'active diaspora students',
+    line2: 'enrolled across 14+ countries',
   },
   {
     target: 10000,
     suffix: '+',
-    label: 'Teaching Hours',
-    desc: 'One-on-one live interactive Tajweed, Hifz, and Qaida sessions delivered',
-    icon: Clock,
+    line1: 'one-on-one live teaching hours',
+    line2: 'delivered worldwide',
   },
 ];
+
 
 const missionPoints = [
   {
@@ -615,57 +605,96 @@ export default function HomePage() {
               </p>
             </motion.div>
 
-            {/* 4 Grand Elevated Stat Cards */}
+            {/* Desktop: Reference 3-Segment Overlapping Emerald Capsule */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.15 }}
+              variants={sectionReveal}
+              className="hidden md:block w-full max-w-6xl mx-auto"
+            >
+              <div className="relative w-full h-[270px] lg:h-[290px] rounded-full bg-[#c2ecd6] overflow-hidden shadow-[0_20px_50px_-15px_rgba(16,185,129,0.22),0_4px_16px_-4px_rgba(0,0,0,0.04)] border border-emerald-300/50 select-none">
+                {/* Segment 1: Lightest (Left) */}
+                <div className="absolute top-0 bottom-0 left-0 w-[38%] bg-[#f4fbf7] z-30 rounded-r-[140px] lg:rounded-r-[150px] flex flex-col justify-center pl-12 lg:pl-20 pr-6 shadow-[6px_0_24px_rgba(0,0,0,0.03)] border-r border-emerald-100/80">
+                  <div className="text-5xl lg:text-6xl font-black text-stone-950 tracking-tight mb-2.5">
+                    <AnimatedCounter
+                      target={statsPillData[0].target}
+                      suffix={statsPillData[0].suffix}
+                      duration={2000}
+                    />
+                  </div>
+                  <p className="text-stone-700 text-sm lg:text-[15px] font-medium leading-snug">
+                    <span className="block whitespace-nowrap">{statsPillData[0].line1}</span>
+                    <span className="block whitespace-nowrap">{statsPillData[0].line2}</span>
+                  </p>
+                </div>
+
+                {/* Segment 2: Medium (Center) */}
+                <div className="absolute top-0 bottom-0 left-0 w-[69%] bg-[#dbf4e7] z-20 rounded-r-[140px] lg:rounded-r-[150px] flex flex-col justify-center pl-[40%] pr-6 shadow-[6px_0_24px_rgba(0,0,0,0.03)] border-r border-emerald-200/80">
+                  <div className="text-5xl lg:text-6xl font-black text-stone-950 tracking-tight mb-2.5">
+                    <AnimatedCounter
+                      target={statsPillData[1].target}
+                      suffix={statsPillData[1].suffix}
+                      duration={2000}
+                    />
+                  </div>
+                  <p className="text-stone-700 text-sm lg:text-[15px] font-medium leading-snug">
+                    <span className="block whitespace-nowrap">{statsPillData[1].line1}</span>
+                    <span className="block whitespace-nowrap">{statsPillData[1].line2}</span>
+                  </p>
+                </div>
+
+                {/* Segment 3: Deepest (Right) */}
+                <div className="relative z-10 w-full h-full flex flex-col justify-center pl-[70%] pr-6 lg:pr-10">
+                  <div className="text-5xl lg:text-6xl font-black text-stone-950 tracking-tight mb-2.5">
+                    <AnimatedCounter
+                      target={statsPillData[2].target}
+                      suffix={statsPillData[2].suffix}
+                      duration={2000}
+                    />
+                  </div>
+                  <p className="text-stone-700 text-sm lg:text-[15px] font-medium leading-snug">
+                    <span className="block whitespace-nowrap">{statsPillData[2].line1}</span>
+                    <span className="block whitespace-nowrap">{statsPillData[2].line2}</span>
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Mobile: 3 Stacked Emerald Capsule Cards */}
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: false, amount: 0.15 }}
               variants={cardStagger}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch"
+              className="grid grid-cols-1 gap-4 md:hidden"
             >
-              {statsData.map((s) => (
-                <motion.div
-                  key={s.label}
-                  variants={cardItem}
-                  className="rounded-3xl bg-white border border-stone-200/90 p-7 sm:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.035)] hover:shadow-[0_20px_45px_rgba(16,185,129,0.14)] hover:border-emerald-300/80 hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between group relative overflow-hidden h-full"
-                >
-                  {/* Subtle top emerald accent */}
-                  <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-emerald-500/20 via-emerald-500 to-teal-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                  <div>
-                    {/* Top: Icon Badge */}
-                    <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 border border-emerald-500/20 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-emerald-500 group-hover:to-teal-600 group-hover:text-white transition-all duration-300 shadow-xs">
-                      <s.icon className="w-6 h-6 stroke-[2]" />
-                    </div>
-
-                    {/* Big Counter Number */}
-                    <div className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-gradient-primary mb-2.5">
+              {statsPillData.map((stat, idx) => {
+                const bgColors = [
+                  'bg-[#f4fbf7] border-emerald-100/90 shadow-emerald-500/5',
+                  'bg-[#dbf4e7] border-emerald-200/90 shadow-emerald-500/10',
+                  'bg-[#c2ecd6] border-emerald-300/90 shadow-emerald-500/15',
+                ];
+                return (
+                  <motion.div
+                    key={idx}
+                    variants={cardItem}
+                    className={`rounded-3xl p-7 text-center border shadow-md ${bgColors[idx]}`}
+                  >
+                    <div className="text-4xl font-black text-stone-950 tracking-tight mb-2">
                       <AnimatedCounter
-                        target={s.target}
-                        decimals={s.decimals}
-                        suffix={s.suffix}
+                        target={stat.target}
+                        suffix={stat.suffix}
                         duration={2000}
                       />
                     </div>
-
-                    {/* Label */}
-                    <h3 className="text-lg sm:text-xl font-extrabold text-stone-950 tracking-tight mb-2 group-hover:text-emerald-900 transition-colors">
-                      {s.label}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="text-xs sm:text-[13px] text-stone-500 leading-relaxed">
-                      {s.desc}
+                    <p className="text-stone-700 text-sm font-medium leading-snug">
+                      <span className="block">{stat.line1}</span>
+                      <span className="block">{stat.line2}</span>
                     </p>
-                  </div>
-
-                  {/* Bottom Accent */}
-                  <div className="mt-6 pt-4 border-t border-stone-100 flex items-center justify-between text-[11px] font-bold text-stone-400 group-hover:text-emerald-700 transition-colors">
-                    <span className="uppercase tracking-wider">Live Verified Metric</span>
-                    <span className="w-2 h-2 rounded-full bg-emerald-500/40 group-hover:bg-emerald-500 transition-colors" />
-                  </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                );
+              })}
             </motion.div>
           </div>
         </section>

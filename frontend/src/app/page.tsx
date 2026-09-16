@@ -19,6 +19,8 @@ import {
   UserPlus,
   Compass,
   Video,
+  Users,
+  Clock,
 } from 'lucide-react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 
@@ -115,22 +117,30 @@ const statsData = [
     target: 12,
     suffix: '+',
     label: 'Qualified Scholars',
+    desc: 'Sanad-verified Sri Lankan Alims and Hafizas teaching with authentic methodology',
+    icon: GraduationCap,
   },
   {
     target: 150,
     suffix: '+',
     label: 'Active Students',
+    desc: 'Muslim diaspora children and adults enrolled across 14+ countries worldwide',
+    icon: Users,
   },
   {
     target: 4.85,
     decimals: 2,
     suffix: '',
     label: 'Average Rating',
+    desc: 'Based on verified parent reviews and consistent lesson milestone feedback',
+    icon: Star,
   },
   {
     target: 10000,
     suffix: '+',
-    label: 'Teaching Hours Completed',
+    label: 'Teaching Hours',
+    desc: 'One-on-one live interactive Tajweed, Hifz, and Qaida sessions delivered',
+    icon: Clock,
   },
 ];
 
@@ -507,11 +517,11 @@ export default function HomePage() {
         <div className="absolute top-[75%] -left-[14%] w-[650px] h-[650px] rounded-full bg-emerald-200/25 blur-[130px] animate-ambient-orb-2 pointer-events-none" />
 
         {/* ========================================================================= */}
-        {/* WHY ILMCONNECT & STATS SECTION — Unified in One Screen */}
+        {/* WHY ILMCONNECT SECTION — Dedicated Full-Screen Narrative */}
         {/* ========================================================================= */}
         <section
           id="mission"
-          className="relative z-20 py-10 sm:py-12 lg:py-14 lg:min-h-[88vh] flex flex-col justify-center border-b border-stone-200/60 select-none"
+          className="relative z-20 py-16 sm:py-20 lg:py-24 lg:min-h-[88vh] flex flex-col justify-center border-b border-stone-200/60 select-none"
         >
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             {/* Header: Short Heading & Lead Narrative */}
@@ -520,9 +530,9 @@ export default function HomePage() {
               whileInView="visible"
               viewport={{ once: false, amount: 0.2 }}
               variants={sectionReveal}
-              className="text-center max-w-2xl mx-auto mb-8 sm:mb-10 lg:mb-12"
+              className="text-center max-w-2xl mx-auto mb-10 sm:mb-14"
             >
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-stone-950 mb-3">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-stone-950 mb-3.5">
                 Why IlmConnect
               </h2>
               <p className="text-stone-500 font-normal text-xs sm:text-sm lg:text-base leading-relaxed max-w-xl mx-auto">
@@ -536,13 +546,13 @@ export default function HomePage() {
               whileInView="visible"
               viewport={{ once: false, amount: 0.15 }}
               variants={cardStagger}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 items-stretch"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch"
             >
               {missionPoints.map((item) => (
                 <motion.div
                   key={item.category}
                   variants={cardItem}
-                  className="relative rounded-[28px] bg-white border border-stone-200/80 p-6 sm:p-7 shadow-[0_10px_30px_-5px_rgba(0,0,0,0.04),0_4px_12px_-2px_rgba(0,0,0,0.02)] hover:shadow-[0_20px_45px_-10px_rgba(16,185,129,0.16)] hover:border-emerald-300/80 hover:-translate-y-2 transition-all duration-300 flex flex-col justify-start min-h-[310px] sm:min-h-[330px] overflow-hidden group select-none h-full"
+                  className="relative rounded-[32px] bg-white border border-stone-200/80 p-7 sm:p-8 shadow-[0_10px_30px_-5px_rgba(0,0,0,0.04),0_4px_12px_-2px_rgba(0,0,0,0.02)] hover:shadow-[0_20px_45px_-10px_rgba(16,185,129,0.16)] hover:border-emerald-300/80 hover:-translate-y-2 transition-all duration-300 flex flex-col justify-start min-h-[340px] sm:min-h-[360px] overflow-hidden group select-none h-full"
                 >
                   {/* Soft Logo Emerald Gradient Wash on the right side matching reference */}
                   <div
@@ -555,17 +565,17 @@ export default function HomePage() {
 
                   <div className="relative z-10 flex flex-col items-start">
                     {/* Top-Left: Elevated White Circular Icon Badge */}
-                    <div className="w-12 h-12 rounded-full bg-white shadow-[0_4px_16px_rgba(0,0,0,0.06)] border border-stone-100/90 flex items-center justify-center mb-7 sm:mb-8 group-hover:scale-110 group-hover:border-emerald-200 group-hover:shadow-[0_6px_20px_rgba(16,185,129,0.18)] transition-all duration-300 shrink-0">
-                      <item.icon className="w-5 h-5 text-stone-900 group-hover:text-emerald-700 stroke-[1.9] transition-colors" />
+                    <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-white shadow-[0_6px_20px_rgba(0,0,0,0.06)] border border-stone-100/90 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:border-emerald-200 group-hover:shadow-[0_8px_24px_rgba(16,185,129,0.18)] transition-all duration-300 shrink-0">
+                      <item.icon className="w-6 h-6 text-stone-900 group-hover:text-emerald-700 stroke-[1.9] transition-colors" />
                     </div>
 
                     {/* Category / Subtitle */}
-                    <div className="text-[11px] sm:text-xs font-semibold uppercase tracking-widest text-stone-400 mb-3">
+                    <div className="text-xs sm:text-[13px] font-bold uppercase tracking-widest text-stone-400 mb-3.5">
                       {item.category}
                     </div>
 
                     {/* Dual-Tone Bold Headline Matching Reference */}
-                    <h3 className="text-xl sm:text-[22px] font-black tracking-tight text-stone-900 leading-[1.28]">
+                    <h3 className="text-xl sm:text-2xl font-black tracking-tight text-stone-900 leading-[1.28]">
                       <span>{item.line1}</span>{' '}
                       <span className="block text-stone-400 font-bold">{item.highlight}</span>{' '}
                       <span>{item.line3}</span>
@@ -574,24 +584,62 @@ export default function HomePage() {
                 </motion.div>
               ))}
             </motion.div>
+          </div>
+        </section>
 
-            {/* Real-Time Stats Row — Integrated in Same View */}
+        {/* ========================================================================= */}
+        {/* PLATFORM MILESTONES & STATS SECTION — Dedicated Standalone Screen */}
+        {/* ========================================================================= */}
+        <section
+          id="stats"
+          className="relative z-20 py-16 sm:py-20 lg:py-24 lg:min-h-[82vh] flex flex-col justify-center border-b border-stone-200/60 select-none bg-white/40 backdrop-blur-xs"
+        >
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            {/* Header */}
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: false, amount: 0.2 }}
               variants={sectionReveal}
-              className="mt-8 sm:mt-10 pt-7 sm:pt-9 border-t border-stone-200/70"
+              className="text-center max-w-2xl mx-auto mb-12 sm:mb-16"
             >
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 divide-y sm:divide-y-0 sm:divide-x divide-stone-200/70 max-w-5xl mx-auto">
-                {statsData.map((s, idx) => (
-                  <div
-                    key={s.label}
-                    className={`flex flex-col items-center justify-center text-center ${
-                      idx > 0 ? 'sm:pl-6 pt-4 sm:pt-0' : ''
-                    }`}
-                  >
-                    <div className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-gradient-primary">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-4 shadow-2xs">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                Verified Academic Milestones
+              </div>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-stone-950 mb-3.5">
+                Empowering Quranic Excellence Globally
+              </h2>
+              <p className="text-stone-500 font-normal text-xs sm:text-sm lg:text-base leading-relaxed max-w-xl mx-auto">
+                Transparent metrics demonstrating our commitment to verified scholarship, student dedication, and diaspora reach.
+              </p>
+            </motion.div>
+
+            {/* 4 Grand Elevated Stat Cards */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.15 }}
+              variants={cardStagger}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch"
+            >
+              {statsData.map((s) => (
+                <motion.div
+                  key={s.label}
+                  variants={cardItem}
+                  className="rounded-3xl bg-white border border-stone-200/90 p-7 sm:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.035)] hover:shadow-[0_20px_45px_rgba(16,185,129,0.14)] hover:border-emerald-300/80 hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between group relative overflow-hidden h-full"
+                >
+                  {/* Subtle top emerald accent */}
+                  <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-emerald-500/20 via-emerald-500 to-teal-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                  <div>
+                    {/* Top: Icon Badge */}
+                    <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 border border-emerald-500/20 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-emerald-500 group-hover:to-teal-600 group-hover:text-white transition-all duration-300 shadow-xs">
+                      <s.icon className="w-6 h-6 stroke-[2]" />
+                    </div>
+
+                    {/* Big Counter Number */}
+                    <div className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-gradient-primary mb-2.5">
                       <AnimatedCounter
                         target={s.target}
                         decimals={s.decimals}
@@ -599,12 +647,25 @@ export default function HomePage() {
                         duration={2000}
                       />
                     </div>
-                    <div className="text-xs sm:text-[13px] font-medium text-stone-600 mt-1 tracking-wide">
+
+                    {/* Label */}
+                    <h3 className="text-lg sm:text-xl font-extrabold text-stone-950 tracking-tight mb-2 group-hover:text-emerald-900 transition-colors">
                       {s.label}
-                    </div>
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-xs sm:text-[13px] text-stone-500 leading-relaxed">
+                      {s.desc}
+                    </p>
                   </div>
-                ))}
-              </div>
+
+                  {/* Bottom Accent */}
+                  <div className="mt-6 pt-4 border-t border-stone-100 flex items-center justify-between text-[11px] font-bold text-stone-400 group-hover:text-emerald-700 transition-colors">
+                    <span className="uppercase tracking-wider">Live Verified Metric</span>
+                    <span className="w-2 h-2 rounded-full bg-emerald-500/40 group-hover:bg-emerald-500 transition-colors" />
+                  </div>
+                </motion.div>
+              ))}
             </motion.div>
           </div>
         </section>

@@ -19,8 +19,6 @@ import {
   UserPlus,
   Compass,
   Video,
-  Users,
-  Clock,
 } from 'lucide-react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 
@@ -747,57 +745,22 @@ export default function HomePage() {
                     </div>
 
                     <div>
-                      {/* Top Header: Emerald Squircle Icon + Brand + Verified Badge */}
-                      <div className="flex items-center gap-2 mb-5 pr-20">
-                        <div className="w-9 h-9 rounded-xl bg-emerald-500 text-white flex items-center justify-center shadow-xs shadow-emerald-500/20 group-hover:scale-105 group-hover:bg-emerald-600 transition-all duration-300 shrink-0">
-                          <step.icon className="w-4.5 h-4.5 text-white stroke-[2.2]" />
-                        </div>
-                        <div className="flex items-center gap-1 min-w-0">
-                          <span className="font-bold text-stone-900 text-xs sm:text-[13px] tracking-tight whitespace-nowrap">
-                            IlmConnect
-                          </span>
-                          <svg className="w-3.5 h-3.5 text-sky-500 shrink-0" viewBox="0 0 24 24" fill="currentColor">
-                            <path fillRule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.49 4.49 0 01-3.498-1.306 4.491 4.491 0 01-1.307-3.498A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clipRule="evenodd" />
-                          </svg>
-                        </div>
-                      </div>
-
-                      {/* Step Title */}
-                      <h3 className="text-xl font-extrabold text-stone-950 mb-3.5 tracking-tight group-hover:text-emerald-900 transition-colors">
+                      {/* Step Title with consistent baseline height */}
+                      <h3 className="text-xl font-extrabold text-stone-950 mb-3 tracking-tight group-hover:text-emerald-900 transition-colors pt-2 pr-16 min-h-[56px]">
                         {step.title}
                       </h3>
 
-                      {/* 3-Column Metadata Row with Vertical Dividers */}
-                      <div className="grid grid-cols-3 border-y border-stone-100 py-3 mb-4">
-                        {step.meta.map((m, mIdx) => (
-                          <div
-                            key={m.label}
-                            className={mIdx > 0 ? 'border-l border-stone-200/80 pl-2' : ''}
-                          >
-                            <div className="text-[10px] uppercase font-semibold text-stone-400 tracking-wider">
-                              {m.label}
-                            </div>
-                            <div className="text-xs font-bold text-stone-900 mt-0.5 whitespace-nowrap">
-                              {m.value}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-
                       {/* Description Paragraph */}
-                      <p className="text-xs text-stone-500 leading-relaxed mb-6 flex-1">
+                      <p className="text-sm text-stone-600 leading-relaxed mb-6">
                         {step.desc}
                       </p>
                     </div>
 
-                    {/* Bottom Bar: Bold Highlight + Emerald Pill CTA */}
-                    <div className="flex items-center justify-between pt-4 border-t border-stone-100 mt-auto">
-                      <div className="text-base font-extrabold text-stone-950 tracking-tight">
-                        {step.highlight}
-                      </div>
+                    {/* Bottom Bar: Centered Pill CTA Button */}
+                    <div className="flex items-center justify-center pt-5 border-t border-stone-100/80 mt-auto">
                       <Link
                         href={step.buttonLink}
-                        className="inline-flex items-center justify-center px-5 py-2.5 rounded-full text-xs font-bold text-white bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 shadow-md shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:scale-105 active:scale-95 transition-all duration-200"
+                        className="inline-flex items-center justify-center px-7 py-2.5 rounded-full text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 shadow-md shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:scale-105 active:scale-95 transition-all duration-200"
                       >
                         {step.buttonText}
                       </Link>

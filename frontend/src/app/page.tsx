@@ -110,24 +110,30 @@ function AnimatedCounter({
   );
 }
 
-const statsPillData = [
+const platformStats = [
   {
-    target: 100,
-    suffix: '%',
-    line1: 'verified Sri Lankan scholars',
-    line2: 'with authentic Sanad lineage',
+    target: 12,
+    suffix: '+',
+    decimals: 0,
+    label: 'Qualified Scholars',
   },
   {
     target: 150,
     suffix: '+',
-    line1: 'active diaspora students',
-    line2: 'enrolled across 14+ countries',
+    decimals: 0,
+    label: 'Active Students',
+  },
+  {
+    target: 4.85,
+    suffix: '',
+    decimals: 2,
+    label: 'Average Rating',
   },
   {
     target: 10000,
     suffix: '+',
-    line1: 'one-on-one live teaching hours',
-    line2: 'delivered worldwide',
+    decimals: 0,
+    label: 'Teaching Hours Completed',
   },
 ];
 
@@ -576,121 +582,45 @@ export default function HomePage() {
         </section>
 
         {/* ========================================================================= */}
-        {/* PLATFORM MILESTONES & STATS SECTION — Dedicated Standalone Screen */}
+        {/* PLATFORM STATS STRIP — Compact 4 Metrics Directly Below Why IlmConnect */}
         {/* ========================================================================= */}
         <section
           id="stats"
-          className="relative z-20 py-16 sm:py-20 lg:py-24 lg:min-h-[82vh] flex flex-col justify-center border-b border-stone-200/60 select-none bg-white/40 backdrop-blur-xs"
+          className="relative z-20 py-8 sm:py-10 border-b border-stone-200/60 select-none bg-[#f8faf8]"
         >
-          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-            {/* Header */}
+          <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
             <motion.div
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: false, amount: 0.2 }}
+              viewport={{ once: false, amount: 0.3 }}
               variants={sectionReveal}
-              className="text-center max-w-2xl mx-auto mb-12 sm:mb-16"
+              className="grid grid-cols-2 md:grid-cols-4 items-center"
             >
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-4 shadow-2xs">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                Verified Academic Milestones
-              </div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-stone-950 mb-3.5">
-                Empowering Quranic Excellence Globally
-              </h2>
-              <p className="text-stone-500 font-normal text-xs sm:text-sm lg:text-base leading-relaxed max-w-xl mx-auto">
-                Transparent metrics demonstrating our commitment to verified scholarship, student dedication, and diaspora reach.
-              </p>
-            </motion.div>
-
-            {/* Desktop: Reference 3-Segment Overlapping Emerald Capsule */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: false, amount: 0.15 }}
-              variants={sectionReveal}
-              className="hidden md:block w-full max-w-6xl mx-auto"
-            >
-              <div className="relative w-full h-[270px] lg:h-[290px] rounded-full bg-[#c2ecd6] overflow-hidden shadow-[0_20px_50px_-15px_rgba(16,185,129,0.22),0_4px_16px_-4px_rgba(0,0,0,0.04)] border border-emerald-300/50 select-none">
-                {/* Segment 1: Lightest (Left) */}
-                <div className="absolute top-0 bottom-0 left-0 w-[38%] bg-[#f4fbf7] z-30 rounded-r-[140px] lg:rounded-r-[150px] flex flex-col justify-center pl-12 lg:pl-20 pr-6 shadow-[6px_0_24px_rgba(0,0,0,0.03)] border-r border-emerald-100/80">
-                  <div className="text-5xl lg:text-6xl font-black text-stone-950 tracking-tight mb-2.5">
-                    <AnimatedCounter
-                      target={statsPillData[0].target}
-                      suffix={statsPillData[0].suffix}
-                      duration={2000}
-                    />
-                  </div>
-                  <p className="text-stone-700 text-sm lg:text-[15px] font-medium leading-snug">
-                    <span className="block whitespace-nowrap">{statsPillData[0].line1}</span>
-                    <span className="block whitespace-nowrap">{statsPillData[0].line2}</span>
-                  </p>
-                </div>
-
-                {/* Segment 2: Medium (Center) */}
-                <div className="absolute top-0 bottom-0 left-0 w-[69%] bg-[#dbf4e7] z-20 rounded-r-[140px] lg:rounded-r-[150px] flex flex-col justify-center pl-[40%] pr-6 shadow-[6px_0_24px_rgba(0,0,0,0.03)] border-r border-emerald-200/80">
-                  <div className="text-5xl lg:text-6xl font-black text-stone-950 tracking-tight mb-2.5">
-                    <AnimatedCounter
-                      target={statsPillData[1].target}
-                      suffix={statsPillData[1].suffix}
-                      duration={2000}
-                    />
-                  </div>
-                  <p className="text-stone-700 text-sm lg:text-[15px] font-medium leading-snug">
-                    <span className="block whitespace-nowrap">{statsPillData[1].line1}</span>
-                    <span className="block whitespace-nowrap">{statsPillData[1].line2}</span>
-                  </p>
-                </div>
-
-                {/* Segment 3: Deepest (Right) */}
-                <div className="relative z-10 w-full h-full flex flex-col justify-center pl-[70%] pr-6 lg:pr-10">
-                  <div className="text-5xl lg:text-6xl font-black text-stone-950 tracking-tight mb-2.5">
-                    <AnimatedCounter
-                      target={statsPillData[2].target}
-                      suffix={statsPillData[2].suffix}
-                      duration={2000}
-                    />
-                  </div>
-                  <p className="text-stone-700 text-sm lg:text-[15px] font-medium leading-snug">
-                    <span className="block whitespace-nowrap">{statsPillData[2].line1}</span>
-                    <span className="block whitespace-nowrap">{statsPillData[2].line2}</span>
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Mobile: 3 Stacked Emerald Capsule Cards */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: false, amount: 0.15 }}
-              variants={cardStagger}
-              className="grid grid-cols-1 gap-4 md:hidden"
-            >
-              {statsPillData.map((stat, idx) => {
-                const bgColors = [
-                  'bg-[#f4fbf7] border-emerald-100/90 shadow-emerald-500/5',
-                  'bg-[#dbf4e7] border-emerald-200/90 shadow-emerald-500/10',
-                  'bg-[#c2ecd6] border-emerald-300/90 shadow-emerald-500/15',
-                ];
+              {platformStats.map((stat, idx) => {
+                const isLastDesktop = idx === 3;
+                const hasRightBorderMobile = idx % 2 === 0;
+                const hasBottomBorderMobile = idx < 2;
                 return (
-                  <motion.div
-                    key={idx}
-                    variants={cardItem}
-                    className={`rounded-3xl p-7 text-center border shadow-md ${bgColors[idx]}`}
+                  <div
+                    key={stat.label}
+                    className={`text-center py-3 sm:py-4 px-2 sm:px-6 
+                      ${!isLastDesktop ? 'md:border-r md:border-stone-300/70' : 'md:border-r-0'} 
+                      ${hasRightBorderMobile ? 'border-r border-stone-300/70' : ''} 
+                      ${hasBottomBorderMobile ? 'border-b border-stone-300/70 pb-6 md:border-b-0 md:pb-4' : 'pt-6 md:pt-4'}
+                    `}
                   >
-                    <div className="text-4xl font-black text-stone-950 tracking-tight mb-2">
+                    <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#27b99a] tracking-tight mb-1.5">
                       <AnimatedCounter
                         target={stat.target}
+                        decimals={stat.decimals}
                         suffix={stat.suffix}
                         duration={2000}
                       />
                     </div>
-                    <p className="text-stone-700 text-sm font-medium leading-snug">
-                      <span className="block">{stat.line1}</span>
-                      <span className="block">{stat.line2}</span>
-                    </p>
-                  </motion.div>
+                    <div className="text-stone-700 text-xs sm:text-sm lg:text-[15px] font-semibold tracking-tight">
+                      {stat.label}
+                    </div>
+                  </div>
                 );
               })}
             </motion.div>

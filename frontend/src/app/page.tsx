@@ -136,23 +136,31 @@ const statsData = [
 
 const missionPoints = [
   {
-    title: 'Scholar-Led Learning',
-    description: 'Learn directly from certified Sri Lankan scholars with verified Sanad lineage and authentic methodology.',
+    category: 'Scholar Faculty',
+    line1: 'Learn directly',
+    highlight: 'from verified scholars',
+    line3: 'with Sanad heritage.',
     icon: GraduationCap,
   },
   {
-    title: 'Parent-Visible Progress',
-    description: 'Real-time attendance, lesson-by-lesson feedback, recitation notes, and milestone evaluations.',
+    category: 'Parent Visibility',
+    line1: 'Track milestones',
+    highlight: 'with live reports',
+    line3: 'and lesson feedback.',
     icon: ShieldCheck,
   },
   {
-    title: 'Global Time-Zone Support',
-    description: 'Flexible scheduling coordinated seamlessly across UK, USA, Canada, Australia, and Gulf time zones.',
+    category: 'Global Scheduling',
+    line1: 'Coordinate classes',
+    highlight: 'across any time zone',
+    line3: 'for diaspora families.',
     icon: Globe,
   },
   {
-    title: 'One-on-One Correction',
-    description: 'Direct individual articulation correction for precise Makharij rules and confident, fluent recitation.',
+    category: '1:1 Articulation',
+    line1: 'Master Makharij',
+    highlight: 'with direct correction',
+    line3: 'and fluent recitation.',
     icon: UserCheck,
   },
 ];
@@ -522,29 +530,47 @@ export default function HomePage() {
               </p>
             </motion.div>
 
-            {/* 4 Key Pillars Grid — Clean Elevated Cards Without Verified Footer */}
+            {/* 4 Key Pillars Grid — Reference Dual-Tone Cards with Soft Emerald Gradient Wash */}
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: false, amount: 0.15 }}
               variants={cardStagger}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 items-stretch"
             >
               {missionPoints.map((item) => (
                 <motion.div
-                  key={item.title}
+                  key={item.category}
                   variants={cardItem}
-                  className="rounded-3xl bg-white/95 backdrop-blur-md border border-stone-200/90 p-5 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-lg hover:border-emerald-300 hover:-translate-y-1 transition-all duration-300 flex flex-col group"
+                  className="relative rounded-[28px] bg-white border border-stone-200/80 p-6 sm:p-7 shadow-[0_10px_30px_-5px_rgba(0,0,0,0.04),0_4px_12px_-2px_rgba(0,0,0,0.02)] hover:shadow-[0_20px_45px_-10px_rgba(16,185,129,0.16)] hover:border-emerald-300/80 hover:-translate-y-2 transition-all duration-300 flex flex-col justify-start min-h-[310px] sm:min-h-[330px] overflow-hidden group select-none h-full"
                 >
-                  <div className="w-11 h-11 rounded-2xl bg-emerald-500/10 text-emerald-700 border border-emerald-500/20 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-[hsl(var(--primary))] group-hover:to-emerald-600 group-hover:text-white transition-all duration-300 shadow-xs">
-                    <item.icon className="w-5 h-5 stroke-[2.2]" />
+                  {/* Soft Logo Emerald Gradient Wash on the right side matching reference */}
+                  <div
+                    className="absolute inset-0 pointer-events-none opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{
+                      background:
+                        'radial-gradient(ellipse at 92% 52%, rgba(16, 185, 129, 0.20) 0%, rgba(5, 150, 105, 0.08) 45%, rgba(255, 255, 255, 0) 72%)',
+                    }}
+                  />
+
+                  <div className="relative z-10 flex flex-col items-start">
+                    {/* Top-Left: Elevated White Circular Icon Badge */}
+                    <div className="w-12 h-12 rounded-full bg-white shadow-[0_4px_16px_rgba(0,0,0,0.06)] border border-stone-100/90 flex items-center justify-center mb-7 sm:mb-8 group-hover:scale-110 group-hover:border-emerald-200 group-hover:shadow-[0_6px_20px_rgba(16,185,129,0.18)] transition-all duration-300 shrink-0">
+                      <item.icon className="w-5 h-5 text-stone-900 group-hover:text-emerald-700 stroke-[1.9] transition-colors" />
+                    </div>
+
+                    {/* Category / Subtitle */}
+                    <div className="text-[11px] sm:text-xs font-semibold uppercase tracking-widest text-stone-400 mb-3">
+                      {item.category}
+                    </div>
+
+                    {/* Dual-Tone Bold Headline Matching Reference */}
+                    <h3 className="text-xl sm:text-[22px] font-black tracking-tight text-stone-900 leading-[1.28]">
+                      <span>{item.line1}</span>{' '}
+                      <span className="block text-stone-400 font-bold">{item.highlight}</span>{' '}
+                      <span>{item.line3}</span>
+                    </h3>
                   </div>
-                  <h3 className="text-sm sm:text-base font-bold text-stone-950 mb-1.5 tracking-tight group-hover:text-emerald-800 transition-colors">
-                    {item.title}
-                  </h3>
-                  <p className="text-stone-500 text-xs sm:text-[13px] leading-relaxed">
-                    {item.description}
-                  </p>
                 </motion.div>
               ))}
             </motion.div>

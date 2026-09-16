@@ -523,21 +523,17 @@ export default function HomePage() {
         {/* ========================================================================= */}
         <section
           id="mission"
-          className="relative z-20 py-16 sm:py-20 border-b border-stone-200/60 select-none"
+          className="relative z-20 py-14 sm:py-18 border-b border-stone-200/60 select-none"
         >
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-            {/* Header: Short Heading & Lead Narrative with Brand Pill */}
+            {/* Header: Clean Heading & Lead Narrative without Pill Badge */}
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: false, amount: 0.2 }}
               variants={sectionReveal}
-              className="text-center max-w-2xl mx-auto mb-12 sm:mb-16"
+              className="text-center max-w-2xl mx-auto mb-10 sm:mb-14"
             >
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-4 shadow-2xs">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                The IlmConnect Difference
-              </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-stone-950 mb-3.5">
                 Why IlmConnect
               </h2>
@@ -546,7 +542,7 @@ export default function HomePage() {
               </p>
             </motion.div>
 
-            {/* 4 Key Pillars Grid — Branded Cards with Emerald Accents */}
+            {/* 4 Key Pillars Grid — Balanced Branded Cards */}
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -558,7 +554,7 @@ export default function HomePage() {
                 <motion.div
                   key={item.category}
                   variants={cardItem}
-                  className="relative rounded-3xl bg-white border border-stone-200/90 p-7 sm:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.035)] hover:shadow-[0_20px_45px_rgba(16,185,129,0.14)] hover:border-emerald-300/80 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between overflow-hidden group select-none h-full"
+                  className="relative rounded-3xl bg-white border border-stone-200/90 p-7 sm:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.035)] hover:shadow-[0_20px_45px_rgba(16,185,129,0.14)] hover:border-emerald-300/80 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between min-h-[260px] sm:min-h-[280px] overflow-hidden group select-none h-full"
                 >
                   {/* Subtle top accent gradient */}
                   <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-emerald-500/20 via-emerald-500 to-teal-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -572,32 +568,22 @@ export default function HomePage() {
                     }}
                   />
 
-                  <div className="relative z-10 flex flex-col items-start flex-1">
+                  <div className="relative z-10 flex flex-col items-start">
                     {/* Top: Branded Emerald Squircle Icon Badge */}
                     <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 border border-emerald-500/20 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-emerald-500 group-hover:to-teal-600 group-hover:text-white transition-all duration-300 shadow-xs">
                       <item.icon className="w-6 h-6 stroke-[2]" />
                     </div>
 
-                    {/* Category Pill Tag */}
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-800 text-[11px] font-bold uppercase tracking-wider mb-3">
-                      {item.category}
-                    </div>
-
                     {/* Headline with Brand Emerald Highlight */}
-                    <h3 className="text-lg sm:text-xl font-black tracking-tight text-stone-950 mb-3 leading-snug">
+                    <h3 className="text-lg sm:text-xl font-black tracking-tight text-stone-950 leading-snug">
                       <span>{item.line1}</span>{' '}
                       <span className="text-emerald-600 block">{item.highlight}</span>{' '}
                       <span>{item.line3}</span>
                     </h3>
-
-                    {/* Description Explaining the Pillar Value */}
-                    <p className="text-xs sm:text-[13px] text-stone-500 leading-relaxed mb-6">
-                      {item.desc}
-                    </p>
                   </div>
 
-                  {/* Bottom Verified Feature Tag */}
-                  <div className="relative z-10 pt-4 border-t border-stone-100 flex items-center justify-between mt-auto text-[11px] font-bold text-stone-400 group-hover:text-emerald-700 transition-colors">
+                  {/* Bottom Verified Feature Tag with Number */}
+                  <div className="relative z-10 pt-5 border-t border-stone-100 flex items-center justify-between mt-auto text-[11px] font-bold text-stone-400 group-hover:text-emerald-700 transition-colors">
                     <span className="flex items-center gap-1.5 text-emerald-700 font-semibold">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                       {item.tag}

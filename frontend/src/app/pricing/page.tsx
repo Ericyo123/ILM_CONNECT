@@ -11,17 +11,30 @@ export default function PricingPage() {
   return (
     <div className="py-20 lg:py-28 min-h-screen text-stone-900 relative">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-14">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.2 }}
+          variants={fadeUp}
+          className="text-center mb-14"
+        >
           <h1 className="text-4xl lg:text-5xl font-extrabold mb-4 tracking-tight text-stone-950">Simple, Transparent Pricing</h1>
           <p className="text-base sm:text-lg text-stone-600 max-w-2xl mx-auto">
             Every learning path offers two paces: the Standard 8-session plan (2 per week) or the Fast Track 12-session plan (3 per week) to accelerate your progress.
           </p>
-        </div>
+        </motion.div>
 
         {/* Course Cards */}
         <div className="space-y-12 max-w-5xl mx-auto">
           {courseOfferings.filter(c => !c.comingSoon).map((course, i) => (
-            <motion.div key={course.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} transition={{ delay: i * 0.1 }}>
+            <motion.div
+              key={course.id}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.15 }}
+              variants={fadeUp}
+              transition={{ delay: i * 0.1 }}
+            >
               <div className="rounded-3xl border border-stone-200/90 bg-white/90 backdrop-blur-md p-6 sm:p-8 shadow-xl">
                 <div className="mb-6 pb-5 border-b border-stone-100">
                   <h2 className="text-2xl sm:text-3xl font-black text-stone-950 tracking-tight">{course.name}</h2>
@@ -130,7 +143,15 @@ export default function PricingPage() {
 
         {/* FAQ */}
         <div className="mt-20 max-w-3xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-10 text-stone-950">Frequently Asked Questions</h2>
+          <motion.h2
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.2 }}
+            variants={fadeUp}
+            className="text-2xl sm:text-3xl font-bold text-center mb-10 text-stone-950"
+          >
+            Frequently Asked Questions
+          </motion.h2>
           <div className="space-y-4">
             {[
               { q: 'Can I try before subscribing?', a: 'Yes! Every new student gets a free 30-minute trial session with one of our scholars. No payment information required.' },
@@ -140,13 +161,22 @@ export default function PricingPage() {
               { q: 'What is the cancellation policy?', a: 'Sessions can be rescheduled for free up to 12 hours before the start time. Cancellations within 12 hours count as a used session.' },
               { q: 'How do payments work?', a: 'We accept international cards via Stripe and local Sri Lankan payments via PayHere. All prices are displayed in your local currency.' },
             ].map((faq, i) => (
-              <details key={i} className="group rounded-2xl border border-stone-200/90 bg-white/90 backdrop-blur-sm overflow-hidden shadow-2xs">
-                <summary className="flex items-center justify-between cursor-pointer px-6 py-4 text-sm font-semibold text-stone-900 hover:text-stone-950">
-                  {faq.q}
-                  <ChevronRight className="h-4 w-4 text-stone-400 transition-transform group-open:rotate-90" />
-                </summary>
-                <div className="px-6 pb-4 text-sm text-stone-600 leading-relaxed border-t border-stone-100 pt-3">{faq.a}</div>
-              </details>
+              <motion.div
+                key={i}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: false, amount: 0.15 }}
+                variants={fadeUp}
+                transition={{ delay: i * 0.05 }}
+              >
+                <details className="group rounded-2xl border border-stone-200/90 bg-white/90 backdrop-blur-sm overflow-hidden shadow-2xs">
+                  <summary className="flex items-center justify-between cursor-pointer px-6 py-4 text-sm font-semibold text-stone-900 hover:text-stone-950">
+                    {faq.q}
+                    <ChevronRight className="h-4 w-4 text-stone-400 transition-transform group-open:rotate-90" />
+                  </summary>
+                  <div className="px-6 pb-4 text-sm text-stone-600 leading-relaxed border-t border-stone-100 pt-3">{faq.a}</div>
+                </details>
+              </motion.div>
             ))}
           </div>
         </div>

@@ -65,12 +65,12 @@ export default function AboutPage() {
 
       <section className="relative min-h-[72vh] overflow-hidden bg-stone-950 text-white">
         <Image
-          src="/images/hero-male-scholar.jpg"
-          alt="Islamic scholar teaching students"
+          src="/images/about-hero-scholar.jpg"
+          alt="Islamic scholar in traditional academy library"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-[center_30%] opacity-80"
+          className="object-cover object-[center_35%] opacity-80"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-stone-950/75 via-stone-950/35 to-stone-950/95" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,transparent_0%,rgba(12,20,18,0.24)_38%,rgba(12,20,18,0.88)_100%)]" />
@@ -89,13 +89,13 @@ export default function AboutPage() {
 
       <section className="relative z-10 py-16 sm:py-20 lg:py-24">
         <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="lg:col-span-5">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.2 }} variants={fadeUp} className="lg:col-span-5">
             <h2 className="text-3xl font-black tracking-tight text-stone-950 sm:text-4xl lg:text-5xl">
               Make serious Islamic education easier to access, and easier to stay with.
             </h2>
           </motion.div>
 
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="lg:col-span-7">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.2 }} variants={fadeUp} className="lg:col-span-7">
             <div className="rounded-3xl border border-stone-200/80 bg-white/78 p-6 shadow-xl backdrop-blur-md sm:p-8">
               <p className="text-base leading-relaxed text-stone-600">
                 We started with a simple problem: families in the diaspora often struggle to find qualified, trustworthy Islamic educators who can teach consistently online. IlmConnect brings verified Sri Lankan scholars, structured courses, scheduling, live classes, and progress visibility into one professional platform.
@@ -115,9 +115,15 @@ export default function AboutPage() {
 
       <section className="relative z-10 border-y border-stone-200/70 bg-white/35 py-16 backdrop-blur-sm sm:py-20 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto mb-10 max-w-2xl text-center">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.2 }}
+            variants={fadeUp}
+            className="mx-auto mb-10 max-w-2xl text-center"
+          >
             <h2 className="text-3xl font-black tracking-tight text-stone-950 sm:text-4xl">The platform standards</h2>
-          </div>
+          </motion.div>
 
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {values.map((v, i) => {
@@ -127,7 +133,7 @@ export default function AboutPage() {
                   key={v.title}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true }}
+                  viewport={{ once: false, amount: 0.15 }}
                   variants={fadeUp}
                   transition={{ delay: i * 0.06 }}
                   className="rounded-3xl border border-stone-200/80 bg-white/80 p-6 shadow-[0_10px_34px_rgba(15,76,68,0.06)] backdrop-blur-md transition-all hover:-translate-y-1 hover:shadow-xl"
@@ -146,7 +152,13 @@ export default function AboutPage() {
 
       <section className="relative z-10 py-16 sm:py-20 lg:py-24">
         <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
-          <div className="lg:col-span-5">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.2 }}
+            variants={fadeUp}
+            className="lg:col-span-5"
+          >
             <div className="relative overflow-hidden rounded-3xl border border-stone-800 bg-stone-950 p-7 text-white shadow-2xl">
               <div className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-emerald-400/20 blur-3xl" />
               <GraduationCap className="relative z-10 h-10 w-10 text-emerald-300" />
@@ -155,7 +167,7 @@ export default function AboutPage() {
                 The experience is intentionally simple: remove the friction, keep the scholar relationship strong, and make every next step obvious.
               </p>
             </div>
-          </div>
+          </motion.div>
 
           <div className="lg:col-span-7">
             <div className="space-y-4">
@@ -164,7 +176,7 @@ export default function AboutPage() {
                   key={item}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true }}
+                  viewport={{ once: false, amount: 0.15 }}
                   variants={fadeUp}
                   transition={{ delay: i * 0.08 }}
                   className="flex items-center gap-4 rounded-3xl border border-stone-200/80 bg-white/78 p-4 shadow-sm backdrop-blur-md"
@@ -181,7 +193,13 @@ export default function AboutPage() {
       </section>
 
       <section className="relative z-10 px-4 pb-16 sm:px-6 sm:pb-20 lg:px-8 lg:pb-24">
-        <div className="mx-auto max-w-5xl overflow-hidden rounded-3xl border border-stone-800/80 bg-gradient-to-br from-[#0c1618] via-[#0f2321] to-[#0a1b19] p-9 text-center text-white shadow-[0_20px_60px_rgba(5,35,30,0.18)] sm:p-12">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.2 }}
+          variants={fadeUp}
+          className="mx-auto max-w-5xl overflow-hidden rounded-3xl border border-stone-800/80 bg-gradient-to-br from-[#0c1618] via-[#0f2321] to-[#0a1b19] p-9 text-center text-white shadow-[0_20px_60px_rgba(5,35,30,0.18)] sm:p-12"
+        >
           <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-400/15 text-emerald-300">
             <BookOpen className="h-6 w-6" />
           </div>
@@ -197,7 +215,7 @@ export default function AboutPage() {
           >
             Start Free Trial <ChevronRight className="h-4 w-4" />
           </Link>
-        </div>
+        </motion.div>
       </section>
     </div>
   );

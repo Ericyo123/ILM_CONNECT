@@ -15,8 +15,41 @@ import {
   Menu,
   X,
   Globe,
+  UserCheck,
+  UserPlus,
+  Compass,
+  Video,
 } from 'lucide-react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
+
+const sectionReveal = {
+  hidden: { opacity: 0, y: 32 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const cardStagger = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.05,
+    },
+  },
+};
+
+const cardItem = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+  },
+};
 
 function AnimatedCounter({
   target,
@@ -31,10 +64,13 @@ function AnimatedCounter({
 }) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-20px' });
+  const inView = useInView(ref, { once: false, margin: '-20px' });
 
   useEffect(() => {
-    if (!inView) return;
+    if (!inView) {
+      setCount(0);
+      return;
+    }
 
     let start: number | null = null;
     let animationFrameId: number;
@@ -94,81 +130,58 @@ const statsData = [
   {
     target: 10000,
     suffix: '+',
-    label: 'Sessions Completed',
+    label: 'Teaching Hours Completed',
   },
 ];
 
-function ProcessStepIcon({ type, active }: { type: string; active?: boolean }) {
-  const iconClassName = active ? 'w-5 h-5' : 'w-5 h-5 opacity-80';
+const missionPoints = [
+  {
+    title: 'Scholar-Led Learning',
+    description: 'Learn directly from certified Sri Lankan scholars with verified Sanad lineage and authentic methodology.',
+    icon: GraduationCap,
+  },
+  {
+    title: 'Parent-Visible Progress',
+    description: 'Real-time attendance, lesson-by-lesson feedback, recitation notes, and milestone evaluations.',
+    icon: ShieldCheck,
+  },
+  {
+    title: 'Global Time-Zone Support',
+    description: 'Flexible scheduling coordinated seamlessly across UK, USA, Canada, Australia, and Gulf time zones.',
+    icon: Globe,
+  },
+  {
+    title: 'One-on-One Correction',
+    description: 'Direct individual articulation correction for precise Makharij rules and confident, fluent recitation.',
+    icon: UserCheck,
+  },
+];
 
-  if (type === 'circle-dot') {
-    return (
-      <svg className={iconClassName} viewBox="0 0 24 24" fill="currentColor">
-        <circle cx="10" cy="11" r="5.5" />
-        <circle cx="16.5" cy="16.5" r="2.5" />
-      </svg>
-    );
-  }
-  if (type === 'corners') {
-    return (
-      <svg className={iconClassName} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-        <rect x="3.5" y="3.5" width="4" height="4" rx="0.75" fill="currentColor" />
-        <rect x="16.5" y="3.5" width="4" height="4" rx="0.75" fill="currentColor" />
-        <rect x="3.5" y="16.5" width="4" height="4" rx="0.75" fill="currentColor" />
-        <rect x="16.5" y="16.5" width="4" height="4" rx="0.75" fill="currentColor" />
-        <line x1="7.5" y1="5.5" x2="16.5" y2="5.5" />
-        <line x1="7.5" y1="18.5" x2="16.5" y2="18.5" />
-        <line x1="5.5" y1="7.5" x2="5.5" y2="16.5" />
-        <line x1="18.5" y1="7.5" x2="18.5" y2="16.5" />
-      </svg>
-    );
-  }
-  if (type === 'gear') {
-    return (
-      <svg className={iconClassName} viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm0 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" />
-        <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58z" />
-      </svg>
-    );
-  }
-  return (
-    <svg className={iconClassName} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="9" />
-      <path d="M12 7a5 5 0 0 1 5 5" />
-      <path d="M12 10a2 2 0 0 1 2 2" />
-      <circle cx="12" cy="12" r="1.5" fill="currentColor" />
-    </svg>
-  );
-}
 
 const howItWorksSteps = [
   {
     num: '01',
     title: 'Sign Up',
-    desc: 'Create your account in minutes and tell us about your learning goals.',
-    iconType: 'circle-dot',
-    href: '/auth/signup',
+    desc: 'Create your free account in minutes, share your student background, and tell us about your personal Quranic learning goals.',
+    icon: UserPlus,
   },
   {
     num: '02',
     title: 'Choose Your Course',
-    desc: 'Select Tajweed for Quran recitation or Hifz for memorization.',
-    iconType: 'corners',
-    href: '#courses',
+    desc: 'Select from Noorani Qaida for fundamentals, Tajweed Mastery for accurate recitation, or intensive Hifz for Quran memorization.',
+    icon: Compass,
   },
   {
     num: '03',
-    title: 'Get Matched with a Maulavi',
-    desc: 'We assign a qualified scholar based on your needs and schedule.',
-    iconType: 'gear',
-    href: '/auth/signup',
+    title: 'Match With Scholar',
+    desc: 'We pair you with a verified Sri Lankan scholar tailored to your preferred time zone, native language, and learning pace.',
+    icon: GraduationCap,
   },
   {
     num: '04',
     title: 'Start Learning',
-    desc: 'Join 1:1 live sessions twice a week and track your progress.',
-    iconType: 'gauge',
-    href: '/auth/signup',
+    desc: 'Attend interactive 1:1 live sessions in our digital classroom, receive real-time feedback, and track milestones with session recordings.',
+    icon: Video,
   },
 ];
 
@@ -241,7 +254,6 @@ const diasporaTestimonials: TestimonialStory[] = [
 
 export default function HomePage() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
-  const [activeProcessStep, setActiveProcessStep] = useState(0);
   const sliderRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -287,9 +299,11 @@ export default function HomePage() {
             sizes="100vw"
             className="object-cover object-[center_32%] sm:object-[center_28%] brightness-[0.96] contrast-[1.04]"
           />
-          {/* Top gradient for header contrast, clear middle for scholar/students, dark gradient at bottom for text */}
-          <div className="absolute inset-0 bg-gradient-to-b from-stone-950/75 via-transparent to-stone-950/95" />
-          <div className="absolute inset-0 bg-radial-gradient from-transparent via-stone-950/15 to-stone-950/85 pointer-events-none" />
+          {/* Light black overlay across the entire picture for higher text visibility */}
+          <div className="absolute inset-0 bg-black/40" />
+          {/* Top gradient for header contrast and bottom gradient for hero text and CTA */}
+          <div className="absolute inset-0 bg-gradient-to-b from-stone-950/70 via-transparent to-stone-950/85" />
+          <div className="absolute inset-0 bg-radial-gradient from-transparent via-stone-950/15 to-stone-950/75 pointer-events-none" />
         </div>
 
         {/* ----------------------------------------------------------------------- */}
@@ -401,68 +415,10 @@ export default function HomePage() {
         </div>
 
         {/* ----------------------------------------------------------------------- */}
-        {/* Bottom-Center Hero Content with Floating Frosted Badges */}
+        {/* Bottom-Center Hero Content */}
         {/* ----------------------------------------------------------------------- */}
         <div className="relative z-20 mt-auto pb-10 sm:pb-14 pt-8 px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
           <div className="relative mx-auto max-w-4xl w-full">
-            {/* Floating Badge 1 — Top Left: 1:1 Live Tajweed (Cyan glow) */}
-            <motion.div
-              animate={{ y: [0, -6, 0] }}
-              transition={{ duration: 4.2, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute -top-14 sm:-top-16 left-0 sm:left-4 lg:left-8 z-20 hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-stone-950/60 border border-white/15 backdrop-blur-md shadow-[0_4px_24px_rgba(0,0,0,0.5)] hover:border-cyan-400/40 transition-colors"
-            >
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-cyan-400/20 text-cyan-300">
-                <BookOpen className="h-3 w-3" />
-              </span>
-              <span className="text-xs font-medium text-stone-200 tracking-wide">1:1 Tajweed</span>
-            </motion.div>
-
-            {/* Floating Badge 2 — Top Right: Certified Scholars (Emerald glow, positioned high to avoid text mixing) */}
-            <motion.div
-              animate={{ y: [0, 7, 0] }}
-              transition={{ duration: 4.8, repeat: Infinity, ease: 'easeInOut', delay: 0.4 }}
-              className="absolute -top-14 sm:-top-16 right-0 sm:right-4 lg:right-8 z-20 hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-stone-950/60 border border-white/15 backdrop-blur-md shadow-[0_4px_24px_rgba(0,0,0,0.5)] hover:border-emerald-400/40 transition-colors"
-            >
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-400/20 text-emerald-300">
-                <GraduationCap className="h-3 w-3" />
-              </span>
-              <span className="text-xs font-medium text-stone-200 tracking-wide">Certified Scholars</span>
-            </motion.div>
-
-            {/* Floating Badge 3 — Middle Left: Global Diaspora (Emerald glow) */}
-            <motion.div
-              animate={{ y: [0, -7, 0] }}
-              transition={{ duration: 5.2, repeat: Infinity, ease: 'easeInOut', delay: 0.9 }}
-              className="absolute top-1/2 -translate-y-1/2 -left-4 sm:-left-12 lg:-left-20 z-20 hidden md:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-stone-950/60 border border-white/15 backdrop-blur-md shadow-[0_4px_24px_rgba(0,0,0,0.5)] hover:border-emerald-400/40 transition-colors"
-            >
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-400/20 text-emerald-300">
-                <Globe className="h-3 w-3" />
-              </span>
-              <span className="text-xs font-medium text-stone-200 tracking-wide">Global Diaspora</span>
-            </motion.div>
-
-            {/* Floating Badge 4 — Middle Right: Structured Hifz (Rose glow) */}
-            <motion.div
-              animate={{ y: [0, 6, 0] }}
-              transition={{ duration: 4.6, repeat: Infinity, ease: 'easeInOut', delay: 1.3 }}
-              className="absolute top-1/3 -right-4 sm:-right-12 lg:-right-20 z-20 hidden md:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-stone-950/60 border border-white/15 backdrop-blur-md shadow-[0_4px_24px_rgba(0,0,0,0.5)] hover:border-rose-400/40 transition-colors"
-            >
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-rose-400/20 text-rose-300">
-                <ShieldCheck className="h-3 w-3" />
-              </span>
-              <span className="text-xs font-medium text-stone-200 tracking-wide">Structured Hifz</span>
-            </motion.div>
-
-            {/* Mobile Badges Row (Clean, responsive fallback on small devices) */}
-            <div className="sm:hidden flex flex-wrap justify-center gap-2 mb-5">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-900/70 border border-white/15 text-[11px] text-cyan-300 backdrop-blur-sm">
-                <BookOpen className="h-3 w-3" /> 1:1 Tajweed
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-900/70 border border-white/15 text-[11px] text-emerald-300 backdrop-blur-sm">
-                <GraduationCap className="h-3 w-3" /> Certified Scholars
-              </span>
-            </div>
-
             {/* Strictly 2-Line Headline */}
             <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.18] sm:leading-[1.15] drop-shadow-lg max-w-3xl sm:max-w-4xl mx-auto">
               <span className="block">Learn Islam from Qualified Scholars</span>
@@ -507,31 +463,174 @@ export default function HomePage() {
         <div className="absolute top-[75%] -left-[14%] w-[650px] h-[650px] rounded-full bg-emerald-200/25 blur-[130px] animate-ambient-orb-2 pointer-events-none" />
 
         {/* ========================================================================= */}
-        {/* STATS SECTION — Clean & Simple Real-Time Counters */}
+        {/* WHY ILMCONNECT & STATS SECTION — Unified in One Screen */}
         {/* ========================================================================= */}
-        <section className="relative z-20 py-10 sm:py-14 bg-white/40 backdrop-blur-xs border-b border-stone-200/60">
-          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 divide-y sm:divide-y-0 sm:divide-x divide-stone-200/70">
-              {statsData.map((s, idx) => (
-                <div
-                  key={s.label}
-                  className={`flex flex-col items-center justify-center text-center ${
-                    idx > 0 ? 'sm:pl-6 pt-4 sm:pt-0' : ''
-                  }`}
+        <section
+          id="mission"
+          className="relative z-20 py-10 sm:py-12 lg:py-14 lg:min-h-[88vh] flex flex-col justify-center border-b border-stone-200/60 select-none"
+        >
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            {/* Header: Short Heading & Lead Narrative */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.2 }}
+              variants={sectionReveal}
+              className="text-center max-w-2xl mx-auto mb-8 sm:mb-10 lg:mb-12"
+            >
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-stone-950 mb-3">
+                Why IlmConnect
+              </h2>
+              <p className="text-stone-500 font-normal text-xs sm:text-sm lg:text-base leading-relaxed max-w-xl mx-auto">
+                We started with a simple problem: families in the diaspora often struggle to find qualified, trustworthy Islamic educators who can teach consistently online.
+              </p>
+            </motion.div>
+
+            {/* 4 Key Pillars Grid — Clean Elevated Cards Without Verified Footer */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.15 }}
+              variants={cardStagger}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5"
+            >
+              {missionPoints.map((item) => (
+                <motion.div
+                  key={item.title}
+                  variants={cardItem}
+                  className="rounded-3xl bg-white/95 backdrop-blur-md border border-stone-200/90 p-5 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-lg hover:border-emerald-300 hover:-translate-y-1 transition-all duration-300 flex flex-col group"
                 >
-                  <div className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-gradient-primary">
-                    <AnimatedCounter
-                      target={s.target}
-                      decimals={s.decimals}
-                      suffix={s.suffix}
-                      duration={2000}
-                    />
+                  <div className="w-11 h-11 rounded-2xl bg-emerald-500/10 text-emerald-700 border border-emerald-500/20 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-[hsl(var(--primary))] group-hover:to-emerald-600 group-hover:text-white transition-all duration-300 shadow-xs">
+                    <item.icon className="w-5 h-5 stroke-[2.2]" />
                   </div>
-                  <div className="text-xs sm:text-sm font-medium text-stone-600 mt-1.5 tracking-wide">
-                    {s.label}
-                  </div>
-                </div>
+                  <h3 className="text-sm sm:text-base font-bold text-stone-950 mb-1.5 tracking-tight group-hover:text-emerald-800 transition-colors">
+                    {item.title}
+                  </h3>
+                  <p className="text-stone-500 text-xs sm:text-[13px] leading-relaxed">
+                    {item.description}
+                  </p>
+                </motion.div>
               ))}
+            </motion.div>
+
+            {/* Real-Time Stats Row — Integrated in Same View */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.2 }}
+              variants={sectionReveal}
+              className="mt-8 sm:mt-10 pt-7 sm:pt-9 border-t border-stone-200/70"
+            >
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 divide-y sm:divide-y-0 sm:divide-x divide-stone-200/70 max-w-5xl mx-auto">
+                {statsData.map((s, idx) => (
+                  <div
+                    key={s.label}
+                    className={`flex flex-col items-center justify-center text-center ${
+                      idx > 0 ? 'sm:pl-6 pt-4 sm:pt-0' : ''
+                    }`}
+                  >
+                    <div className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-gradient-primary">
+                      <AnimatedCounter
+                        target={s.target}
+                        decimals={s.decimals}
+                        suffix={s.suffix}
+                        duration={2000}
+                      />
+                    </div>
+                    <div className="text-xs sm:text-[13px] font-medium text-stone-600 mt-1 tracking-wide">
+                      {s.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* HOW IT WORKS SECTION — Full-Width Horizontal 4-Step Journey */}
+        {/* ========================================================================= */}
+        <section
+          id="how-it-works"
+          className="py-14 sm:py-18 lg:py-20 bg-white/35 backdrop-blur-xs text-stone-900 border-b border-stone-200/60 scroll-mt-16 select-none lg:min-h-[85vh] flex flex-col justify-center"
+        >
+          <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            {/* Section Header */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.2 }}
+              variants={sectionReveal}
+              className="text-center max-w-2xl mx-auto mb-10 sm:mb-14"
+            >
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-stone-950 mb-3">
+                How It Works
+              </h2>
+              <p className="text-stone-500 font-normal text-xs sm:text-sm lg:text-base max-w-xl mx-auto leading-relaxed">
+                Start learning in minutes — our streamlined process connects you with certified scholars seamlessly.
+              </p>
+            </motion.div>
+
+            {/* Horizontal 4 Steps Grid Across Full Screen */}
+            <div className="relative">
+              {/* Desktop Horizontal Connecting Guide Line behind cards */}
+              <div className="hidden lg:block absolute top-[52px] left-[10%] right-[10%] h-[1.5px] bg-gradient-to-r from-emerald-200/60 via-teal-300/70 to-emerald-200/60 pointer-events-none z-0" />
+
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: false, amount: 0.15 }}
+                variants={cardStagger}
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 relative z-10"
+              >
+                {howItWorksSteps.map((step, idx) => (
+                  <motion.div
+                    key={step.num}
+                    variants={cardItem}
+                    className="rounded-3xl bg-white/95 backdrop-blur-md border border-stone-200/90 p-6 sm:p-7 shadow-[0_6px_28px_rgba(0,0,0,0.035)] hover:shadow-[0_16px_40px_rgba(15,76,68,0.12)] hover:border-emerald-300/80 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group relative overflow-hidden"
+                  >
+                    {/* Top subtle luxury shimmer accent */}
+                    <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+
+                    <div>
+                      {/* Top Header in Card: Dark Squircle Icon + Connected Jewel Node & Mono Number */}
+                      <div className="flex items-center justify-between mb-5">
+                        <div className="w-12 h-12 rounded-[16px] bg-[#18181b] text-white shadow-md flex items-center justify-center border border-stone-800/80 group-hover:scale-105 group-hover:border-emerald-500/50 group-hover:shadow-[0_0_15px_rgba(16,185,129,0.2)] transition-all duration-300">
+                          <step.icon className="w-5 h-5 text-emerald-400 stroke-[2.2]" />
+                        </div>
+
+                        {/* Mono Step Token paired with Radiant Glowing Jewel Node */}
+                        <div className="flex items-center gap-2">
+                          <span className="px-2.5 py-1 rounded-full bg-stone-100 border border-stone-200/90 text-xs font-mono font-extrabold text-stone-700 tracking-wider shadow-2xs">
+                            {step.num}
+                          </span>
+                          <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-emerald-500 via-teal-400 to-amber-300 p-[2px] shadow-[0_0_12px_rgba(16,185,129,0.35)] flex items-center justify-center">
+                            <div className="w-full h-full bg-white rounded-full flex items-center justify-center">
+                              <div className="w-1.5 h-1.5 rounded-full bg-stone-900 group-hover:bg-emerald-600 transition-colors" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Step Title */}
+                      <h3 className="text-base sm:text-lg font-bold text-stone-950 mb-2.5 tracking-tight group-hover:text-emerald-800 transition-colors">
+                        {step.title}
+                      </h3>
+
+                      {/* 3-line rich description */}
+                      <p className="text-stone-500 text-xs sm:text-[13px] leading-relaxed">
+                        {step.desc}
+                      </p>
+                    </div>
+
+                    {/* Bottom Step Progress Footer */}
+                    <div className="mt-6 pt-4 border-t border-stone-100 flex items-center justify-between text-[11px] font-bold text-stone-400 group-hover:text-emerald-700 transition-colors">
+                      <span className="uppercase tracking-wider">Step {idx + 1} of 4</span>
+                      <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1 text-stone-400 group-hover:text-emerald-700" />
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
             </div>
           </div>
         </section>
@@ -541,23 +640,38 @@ export default function HomePage() {
         {/* ========================================================================= */}
         <section
           id="courses"
-          className="py-10 lg:py-14 bg-transparent text-stone-900 scroll-mt-16 relative overflow-hidden lg:min-h-[85vh] lg:max-h-[920px] flex flex-col justify-center select-none"
+          className="py-14 sm:py-18 lg:py-20 bg-transparent text-stone-900 scroll-mt-16 relative overflow-hidden border-b border-stone-200/60 select-none"
         >
           <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
             {/* Header matching user voice instructions & Reference */}
-            <div className="text-center max-w-2xl mx-auto mb-5 sm:mb-7">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-stone-950 mb-2">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.2 }}
+              variants={sectionReveal}
+              className="text-center max-w-2xl mx-auto mb-8 sm:mb-10 lg:mb-12"
+            >
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-stone-950 mb-3">
                 Our Courses
               </h2>
-              <p className="text-stone-500 font-normal text-xs sm:text-sm max-w-lg mx-auto leading-relaxed">
+              <p className="text-stone-500 font-normal text-xs sm:text-sm lg:text-base max-w-xl mx-auto leading-relaxed">
                 Choose the right course for your Islamic education journey
               </p>
-            </div>
+            </motion.div>
 
             {/* 3 Pricing & Course Cards Grid matching Reference Image */}
-            <div className="grid md:grid-cols-3 gap-4 lg:gap-6 items-stretch">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.15 }}
+              variants={cardStagger}
+              className="grid md:grid-cols-3 gap-4 lg:gap-6 items-stretch"
+            >
               {/* CARD 1: Beginner Plan (Noorani Qaida) */}
-              <div className="rounded-3xl bg-white/95 backdrop-blur-md border border-stone-200/90 p-5 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col justify-between hover:shadow-lg transition-all duration-300">
+              <motion.div
+                variants={cardItem}
+                className="rounded-3xl bg-white/95 backdrop-blur-md border border-stone-200/90 p-5 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col justify-between hover:shadow-lg transition-all duration-300"
+              >
                 <div>
                   <h3 className="text-xl sm:text-2xl font-black text-stone-950 tracking-tight mb-2">
                     Noorani Qaida
@@ -605,26 +719,24 @@ export default function HomePage() {
                     </li>
                   </ul>
                 </div>
-              </div>
+              </motion.div>
 
-              {/* CARD 2: Pro Plan (Tajweed Mastery) — Featured Center Card with Emerald Accent */}
-              <div className="rounded-3xl bg-[#0f1416] border border-stone-800 p-5 sm:p-6 shadow-2xl flex flex-col justify-between relative lg:-translate-y-1.5 transition-all">
-                {/* Popular Pill */}
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-0.5 rounded-full bg-emerald-400 text-stone-950 text-[10px] font-black uppercase tracking-wider shadow-md">
-                  Most Popular
-                </div>
-
+              {/* CARD 2: Intermediate Plan (Tajweed Mastery) — Matching Card Style */}
+              <motion.div
+                variants={cardItem}
+                className="rounded-3xl bg-white/95 backdrop-blur-md border border-stone-200/90 p-5 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col justify-between hover:shadow-lg transition-all duration-300"
+              >
                 <div>
-                  <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight mb-2">
+                  <h3 className="text-xl sm:text-2xl font-black text-stone-950 tracking-tight mb-2">
                     Tajweed Mastery
                   </h3>
-                  <p className="text-stone-400 text-xs sm:text-[13px] leading-relaxed mb-5">
+                  <p className="text-stone-500 text-xs sm:text-[13px] leading-relaxed mb-5">
                     Master the science of Tajweed, rules of elongation, stops, and beautiful melodic recitation with Sanad scholars.
                   </p>
 
                   {/* Price Tag */}
-                  <div className="flex items-baseline gap-1 mb-6 pb-5 border-b border-stone-800/80">
-                    <span className="text-3xl sm:text-4xl font-black tracking-tight text-white">
+                  <div className="flex items-baseline gap-1 mb-6 pb-5 border-b border-stone-100">
+                    <span className="text-3xl sm:text-4xl font-black tracking-tight text-stone-950">
                       $59
                     </span>
                     <span className="text-xs font-semibold text-stone-400">
@@ -634,7 +746,7 @@ export default function HomePage() {
 
                   <Link
                     href="/auth/signup"
-                    className="w-full py-2.5 px-4 rounded-xl text-xs font-black text-center text-white bg-gradient-to-r from-[hsl(var(--primary))] to-emerald-500 hover:from-emerald-800 hover:to-emerald-600 shadow-[0_0_24px_rgba(16,185,129,0.34)] active:scale-[0.99] transition-all block mb-6 uppercase tracking-wider"
+                    className="w-full py-2.5 px-4 rounded-xl text-xs font-bold text-center text-white bg-gradient-to-r from-[hsl(var(--primary))] to-emerald-600 hover:from-[hsl(var(--primary-hover))] hover:to-emerald-700 shadow-[0_10px_24px_rgba(15,118,110,0.22)] active:scale-[0.99] transition-all block mb-6 uppercase tracking-wider"
                   >
                     Select Plan
                   </Link>
@@ -642,33 +754,36 @@ export default function HomePage() {
                   <div className="text-[11px] font-bold uppercase tracking-wider text-stone-400 mb-3">
                     What&apos;s Included
                   </div>
-                  <ul className="space-y-2.5 text-xs text-stone-300 font-medium">
+                  <ul className="space-y-2.5 text-xs text-stone-600 font-medium">
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-3.5 h-3.5 text-emerald-300 shrink-0 stroke-[2.5]" />
+                      <Check className="w-3.5 h-3.5 text-stone-900 shrink-0 stroke-[2.5]" />
                       <span>8 sessions per month (2/week)</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-3.5 h-3.5 text-emerald-300 shrink-0 stroke-[2.5]" />
+                      <Check className="w-3.5 h-3.5 text-stone-900 shrink-0 stroke-[2.5]" />
                       <span>45-minute 1:1 live sessions</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-3.5 h-3.5 text-emerald-300 shrink-0 stroke-[2.5]" />
+                      <Check className="w-3.5 h-3.5 text-stone-900 shrink-0 stroke-[2.5]" />
                       <span>Comprehensive Tajweed theoretical rules</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-3.5 h-3.5 text-emerald-300 shrink-0 stroke-[2.5]" />
+                      <Check className="w-3.5 h-3.5 text-stone-900 shrink-0 stroke-[2.5]" />
                       <span>Melodic recitation &amp; Waqf guidance</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-3.5 h-3.5 text-emerald-300 shrink-0 stroke-[2.5]" />
+                      <Check className="w-3.5 h-3.5 text-stone-900 shrink-0 stroke-[2.5]" />
                       <span>Monthly progress evaluation</span>
                     </li>
                   </ul>
                 </div>
-              </div>
+              </motion.div>
 
               {/* CARD 3: Intensive Memorization (Hifz) */}
-              <div className="rounded-3xl bg-white/95 backdrop-blur-md border border-stone-200/90 p-5 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col justify-between hover:shadow-lg transition-all duration-300">
+              <motion.div
+                variants={cardItem}
+                className="rounded-3xl bg-white/95 backdrop-blur-md border border-stone-200/90 p-5 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col justify-between hover:shadow-lg transition-all duration-300"
+              >
                 <div>
                   <h3 className="text-xl sm:text-2xl font-black text-stone-950 tracking-tight mb-2">
                     Hifz Program
@@ -720,192 +835,40 @@ export default function HomePage() {
                     </li>
                   </ul>
                 </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ========================================================================= */}
-        {/* HOW IT WORKS SECTION — Modern Process Timeline & Front-Facing Laptop Preview */}
-        {/* ========================================================================= */}
-        <section
-          id="how-it-works"
-          className="py-16 sm:py-20 lg:py-24 relative overflow-hidden bg-white/35 backdrop-blur-xs text-stone-900 border-y border-stone-200/60 scroll-mt-16 select-none"
-        >
-          <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-            {/* Section Header: Centered Pill, Title, and Subtitle */}
-            <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-stone-950 mb-3">
-                How It Works
-              </h2>
-              <p className="text-stone-500 font-normal text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
-                Start learning in minutes — our streamlined process connects you with certified scholars seamlessly.
-              </p>
-            </div>
-
-            {/* DESKTOP VIEW: Left Timeline Steps & Right Front-Facing Laptop */}
-            <div className="hidden lg:grid lg:grid-cols-12 gap-8 xl:gap-12 items-center">
-              {/* Left Column: Process Steps with Connected Spine */}
-              <div className="lg:col-span-6 xl:col-span-6">
-                <div className="relative flex flex-col space-y-3">
-                  {/* Continuous Vertical Timeline Line */}
-                  <div className="absolute left-[138px] top-6 bottom-6 w-[2px] bg-stone-200/90 pointer-events-none z-0" />
-
-                  {howItWorksSteps.map((step, idx) => {
-                    const isActive = activeProcessStep === idx;
-                    return (
-                      <div
-                        key={step.num}
-                        onClick={() => setActiveProcessStep(idx)}
-                        onMouseEnter={() => setActiveProcessStep(idx)}
-                        className={`group relative z-10 flex items-center gap-3.5 sm:gap-4 p-3.5 sm:p-4 rounded-[26px] cursor-pointer transition-all duration-300 ${
-                          isActive
-                            ? 'bg-white/95 border border-stone-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.04)] backdrop-blur-md'
-                            : 'bg-transparent hover:bg-white/60 border border-transparent'
-                        }`}
-                      >
-                        {/* Left: Squircle Icon & Number Badge */}
-                        <div className="flex items-center gap-2.5 shrink-0 w-[84px]">
-                          <div
-                            className={`w-12 h-12 rounded-[16px] flex items-center justify-center transition-all duration-300 shrink-0 ${
-                              isActive
-                                ? 'bg-[#18181b] text-white shadow-md'
-                                : 'bg-[#f2f2f4] text-stone-700 group-hover:bg-stone-200/80'
-                            }`}
-                          >
-                            <ProcessStepIcon type={step.iconType} active={isActive} />
-                          </div>
-                          <span className="px-2 py-0.5 rounded-full bg-white border border-stone-200/90 text-[10px] font-mono font-bold text-stone-600 shadow-2xs shrink-0">
-                            {step.num}
-                          </span>
-                        </div>
-
-                        {/* Center: Connector Line Segment & Node */}
-                        <div className="relative flex items-center justify-center shrink-0 w-8">
-                          <div className="w-full h-[1.5px] bg-stone-200/90" />
-                          {isActive ? (
-                            <div className="absolute w-5 h-5 rounded-full bg-gradient-to-tr from-indigo-500 via-pink-400 to-amber-300 p-[2px] shadow-[0_0_12px_rgba(236,72,153,0.4)] flex items-center justify-center">
-                              <div className="w-full h-full bg-white rounded-full flex items-center justify-center">
-                                <div className="w-1.5 h-1.5 rounded-full bg-stone-900" />
-                              </div>
-                            </div>
-                          ) : (
-                            <div className="absolute w-3.5 h-3.5 rounded-full border-2 border-stone-300 bg-white group-hover:border-stone-400 transition-colors" />
-                          )}
-                        </div>
-
-                        {/* Right: Step Title and Description */}
-                        <div className="flex-1 min-w-0 pl-1">
-                          <h3 className="text-[15px] sm:text-base font-extrabold text-stone-950 tracking-tight mb-1">
-                            {step.title}
-                          </h3>
-                          <p className="text-xs sm:text-[13px] text-stone-500 leading-relaxed">
-                            {step.desc}
-                          </p>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Right Column: Front-Facing Laptop Preview */}
-              <div className="lg:col-span-6 xl:col-span-6 flex flex-col items-center justify-center">
-                <div className="relative w-full max-w-[560px] xl:max-w-[620px]">
-                  {/* Subtle soft backdrop glow */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px] h-[380px] rounded-full bg-stone-100/70 blur-[50px] pointer-events-none -z-10" />
-
-                  <div className="relative w-full">
-                    <Image
-                      src="/images/how-it-works-front-laptop.jpg"
-                      alt="Online Quran lesson on front-facing laptop held in hand"
-                      width={1376}
-                      height={768}
-                      className="w-full h-auto object-contain select-none pointer-events-none"
-                      priority
-                    />
-                    {/* White smoke blurred effect at base of hand & wrist */}
-                    <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white via-white/85 to-transparent pointer-events-none backdrop-blur-[1px]" />
-                    <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-[320px] h-[60px] rounded-full bg-white/95 blur-[16px] pointer-events-none" />
-                  </div>
-
-                  {/* Subtitle tag beneath the laptop */}
-                  <div className="text-center mt-3">
-                    <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-stone-50 border border-stone-200/80 text-[11px] font-medium text-stone-600 shadow-2xs">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                      <span>Noor Academy Quran Recitation Classroom</span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* MOBILE & TABLET VIEW: Responsive Stack */}
-            <div className="block lg:hidden">
-              {/* Center Front-Facing Laptop */}
-              <div className="relative w-full max-w-[380px] mx-auto mb-8">
-                <div className="relative">
-                  <Image
-                    src="/images/how-it-works-front-laptop.jpg"
-                    alt="Online Quran lesson on front-facing laptop held in hand"
-                    width={1376}
-                    height={768}
-                    className="relative z-10 w-full h-auto object-contain"
-                    priority
-                  />
-                  <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent pointer-events-none" />
-                </div>
-              </div>
-
-              {/* Steps Timeline Stack */}
-              <div className="space-y-3 max-w-lg mx-auto">
-                {howItWorksSteps.map((step, idx) => {
-                  const isActive = activeProcessStep === idx;
-                  return (
-                    <div
-                      key={step.num}
-                      onClick={() => setActiveProcessStep(idx)}
-                      className={`flex items-start gap-3.5 p-4 rounded-2xl border transition-all ${
-                        isActive
-                          ? 'bg-white border-stone-200 shadow-xs'
-                          : 'bg-white/80 border-stone-100 hover:border-stone-200'
-                      }`}
-                    >
-                      <div
-                        className={`w-11 h-11 rounded-[14px] flex items-center justify-center shrink-0 ${
-                          isActive ? 'bg-[#18181b] text-white shadow-sm' : 'bg-[#f2f2f4] text-stone-700'
-                        }`}
-                      >
-                        <ProcessStepIcon type={step.iconType} active={isActive} />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="px-1.5 py-0.2 rounded-full bg-stone-100 text-[10px] font-mono font-bold text-stone-500">
-                            {step.num}
-                          </span>
-                          <h3 className="text-xs sm:text-sm font-extrabold text-stone-900 uppercase tracking-wider">
-                            {step.title}
-                          </h3>
-                        </div>
-                        <p className="text-[11px] sm:text-xs text-stone-500 leading-relaxed">
-                          {step.desc}
-                        </p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
         </section>
 
         {/* ========================================================================= */}
         {/* TESTIMONIALS SECTION — Reference Layout with Rating Summary & Horizontal Stories */}
         {/* ========================================================================= */}
-        <section id="testimonials" className="py-20 lg:py-28 bg-transparent scroll-mt-16 text-stone-900 select-none">
+        <section id="testimonials" className="py-14 sm:py-18 lg:py-20 bg-transparent scroll-mt-16 text-stone-900 border-b border-stone-200/60 select-none">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            {/* Attractive Testimonials Section Header */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.2 }}
+              variants={sectionReveal}
+              className="text-center max-w-2xl mx-auto mb-8 sm:mb-10 lg:mb-12"
+            >
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-stone-950 mb-3">
+                What Our Community Says
+              </h2>
+              <p className="text-stone-500 font-normal text-xs sm:text-sm lg:text-base max-w-xl mx-auto leading-relaxed">
+                Trusted by families, scholars, and students across the globe for authentic, transformative Islamic education.
+              </p>
+            </motion.div>
+
             {/* Main Card Container */}
-            <div className="rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-white/90 backdrop-blur-md overflow-hidden shadow-[0_10px_35px_rgba(0,0,0,0.03)] flex flex-col md:flex-row">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.15 }}
+              variants={sectionReveal}
+              className="rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-white/90 backdrop-blur-md overflow-hidden shadow-[0_10px_35px_rgba(0,0,0,0.03)] flex flex-col md:flex-row"
+            >
               {/* Left Column: Rating Block */}
               <div className="w-full md:w-[280px] lg:w-[320px] shrink-0 p-8 sm:p-10 flex flex-col items-center justify-center text-center bg-white/90 border-b md:border-b-0 md:border-r border-stone-200/80">
                 <span className="text-6xl sm:text-7xl font-bold tracking-tight text-stone-950 mb-3">
@@ -969,7 +932,7 @@ export default function HomePage() {
                   </div>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
             {/* Navigation Arrows Below the Box (Bottom-Left) */}
             <div className="mt-5 flex items-center gap-2.5">
@@ -1050,7 +1013,13 @@ export default function HomePage() {
         {/* ========================================================================= */}
         <section className="py-16 sm:py-20 lg:py-24 relative">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[#0c1618] via-[#0f2321] to-[#0a1b19] text-white p-10 sm:p-14 lg:p-16 shadow-[0_20px_60px_rgba(5,35,30,0.18)] border border-stone-800/80 text-center">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.2 }}
+              variants={sectionReveal}
+              className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[#0c1618] via-[#0f2321] to-[#0a1b19] text-white p-10 sm:p-14 lg:p-16 shadow-[0_20px_60px_rgba(5,35,30,0.18)] border border-stone-800/80 text-center"
+            >
               {/* Ambient lighting inside card */}
               <div className="absolute -top-20 -right-20 w-80 h-80 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" />
               <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-emerald-400/10 rounded-full blur-3xl pointer-events-none" />
@@ -1069,7 +1038,7 @@ export default function HomePage() {
                   Start Free Trial Today <ChevronRight className="h-4 w-4" />
                 </Link>
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
       </div>

@@ -12,7 +12,7 @@ import {
 
 const navLinks = [
   { href: '/', label: 'Home' },
-  { href: '/about', label: 'About' },
+  { href: '/about', label: 'About Us' },
   { href: '/pricing', label: 'Pricing' },
 ];
 
@@ -43,30 +43,30 @@ export default function Header() {
   if (isHome && !scrolled) return null;
 
   return (
-    <header className="sticky top-0 z-50 border-b border-emerald-900/10 bg-[linear-gradient(120deg,rgba(240,250,246,0.82),rgba(226,241,236,0.72),rgba(249,247,240,0.76))] backdrop-blur-2xl shadow-[0_10px_34px_rgba(15,76,68,0.08)] transition-all duration-300 animate-fade-in supports-[backdrop-filter]:bg-[linear-gradient(120deg,rgba(240,250,246,0.72),rgba(226,241,236,0.58),rgba(249,247,240,0.62))]">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-50 border-b border-emerald-900/10 bg-[linear-gradient(120deg,rgba(240,250,246,0.85),rgba(226,241,236,0.78),rgba(249,247,240,0.8))] backdrop-blur-2xl shadow-[0_10px_34px_rgba(15,76,68,0.06)] transition-all duration-300 animate-fade-in supports-[backdrop-filter]:bg-[linear-gradient(120deg,rgba(240,250,246,0.78),rgba(226,241,236,0.68),rgba(249,247,240,0.7))]">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)] shadow-md transition-transform group-hover:scale-105">
-              <BookOpen className="h-5 w-5 text-white" strokeWidth={2.5} />
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-700 border border-emerald-500/30 shadow-xs transition-transform group-hover:scale-105">
+              <BookOpen className="h-5 w-5" strokeWidth={2.5} />
             </div>
             <span className="text-xl font-bold tracking-tight">
-              <span className="text-gradient-primary">Ilm</span>
-              <span className="text-[hsl(var(--foreground))]">Connect</span>
+              <span className="text-stone-950">Ilm</span>
+              <span className="text-emerald-700">Connect</span>
             </span>
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${
+                className={`text-xs uppercase tracking-widest font-semibold transition-colors ${
                   pathname === link.href
-                    ? 'text-[hsl(var(--primary))] bg-white/65 shadow-sm'
-                    : 'text-stone-600 hover:text-stone-950 hover:bg-white/45'
+                    ? 'text-emerald-700 font-bold'
+                    : 'text-stone-600 hover:text-stone-950'
                 }`}
               >
                 {link.label}
@@ -74,18 +74,17 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Actions */}
-          <div className="hidden md:flex items-center gap-2">
+          {/* Actions: Sign In (No Icon) + Pill Get Started Button */}
+          <div className="hidden md:flex items-center gap-4">
             <Link
               href="/auth/signin"
-              className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium text-stone-600 hover:text-stone-950 hover:bg-white/45 transition-colors"
+              className="text-xs uppercase tracking-widest font-semibold text-stone-600 hover:text-stone-950 transition-colors"
             >
-              <LogIn className="h-4 w-4" />
               Sign In
             </Link>
             <Link
               href="/auth/signup"
-              className="flex items-center gap-1.5 px-5 py-2 rounded-lg text-sm font-semibold text-white bg-gradient-to-r from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)] hover:from-[hsl(168,80%,22%)] hover:to-[hsl(168,60%,30%)] shadow-md hover:shadow-lg transition-all"
+              className="px-5 py-2 rounded-full text-xs uppercase tracking-wider font-bold text-white bg-gradient-to-r from-[hsl(var(--primary))] to-emerald-600 hover:from-[hsl(var(--primary-hover))] hover:to-emerald-700 shadow-[0_2px_12px_rgba(15,118,110,0.22)] hover:scale-105 active:scale-100 transition-all duration-200"
             >
               Get Started
             </Link>
@@ -120,18 +119,18 @@ export default function Header() {
                 {link.label}
               </Link>
             ))}
-            <div className="pt-3 mt-3 border-t border-emerald-900/10 flex flex-col gap-2">
+            <div className="pt-3 mt-3 border-t border-emerald-900/10 flex gap-2">
               <Link
                 href="/auth/signin"
                 onClick={() => setMobileOpen(false)}
-                className="block px-3 py-2.5 rounded-lg text-sm font-medium text-center text-[hsl(var(--muted-foreground))] hover:bg-[hsl(var(--muted))]"
+                className="flex-1 py-2.5 text-center rounded-xl text-xs font-semibold text-stone-700 bg-stone-100 hover:bg-stone-200 transition-colors uppercase tracking-wider"
               >
                 Sign In
               </Link>
               <Link
                 href="/auth/signup"
                 onClick={() => setMobileOpen(false)}
-                className="block px-3 py-2.5 rounded-lg text-sm font-semibold text-center text-white bg-gradient-to-r from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)]"
+                className="flex-1 py-2.5 text-center rounded-full text-xs font-bold text-white bg-gradient-to-r from-[hsl(var(--primary))] to-emerald-600 shadow-md uppercase tracking-wider"
               >
                 Get Started
               </Link>

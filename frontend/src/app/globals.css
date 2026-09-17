@@ -8,10 +8,10 @@
 
 /* ---- CSS Custom Properties (Design Tokens) ---- */
 :root {
-  /* Primary — Deep Teal/Emerald */
-  --primary: 168 80% 26%;
-  --primary-hover: 168 80% 22%;
-  --primary-light: 168 60% 94%;
+  /* Primary — User Brand Green #095F46 */
+  --primary: 163 83% 20%;
+  --primary-hover: 163 83% 16%;
+  --primary-light: 163 45% 94%;
   --primary-foreground: 0 0% 100%;
 
   /* Accent — Gold (used sparingly) */
@@ -20,84 +20,85 @@
   --accent-light: 45 80% 95%;
   --accent-foreground: 0 0% 10%;
 
-  /* Neutrals — Warm Grays */
-  --background: 40 20% 99%;
-  --foreground: 220 20% 10%;
+  /* Neutrals — Crisp Clean White & High-Contrast Black */
+  --background: 0 0% 100%;
+  --foreground: 220 25% 10%;
   --card: 0 0% 100%;
-  --card-foreground: 220 20% 10%;
+  --card-foreground: 220 25% 10%;
   --popover: 0 0% 100%;
-  --popover-foreground: 220 20% 10%;
-  --muted: 40 10% 96%;
-  --muted-foreground: 220 10% 45%;
-  --border: 40 10% 90%;
-  --input: 40 10% 90%;
-  --ring: 168 80% 26%;
+  --popover-foreground: 220 25% 10%;
+  --muted: 163 20% 96%;
+  --muted-foreground: 220 15% 38%;
+  --border: 220 13% 90%;
+  --input: 220 13% 90%;
+  --ring: 163 83% 20%;
 
   /* Semantic */
   --destructive: 0 72% 51%;
   --destructive-foreground: 0 0% 100%;
-  --success: 142 72% 29%;
+  --success: 163 83% 20%;
   --success-foreground: 0 0% 100%;
   --warning: 38 92% 50%;
   --warning-foreground: 0 0% 10%;
   --info: 199 89% 48%;
   --info-foreground: 0 0% 100%;
 
-  /* Sidebar */
-  --sidebar: 168 30% 12%;
-  --sidebar-foreground: 168 10% 90%;
-  --sidebar-accent: 168 40% 18%;
-  --sidebar-accent-foreground: 168 10% 95%;
-  --sidebar-border: 168 20% 20%;
+  /* Sidebar — Clean White with #095F46 Accents */
+  --sidebar: 0 0% 100%;
+  --sidebar-foreground: 220 25% 12%;
+  --sidebar-accent: 163 45% 94%;
+  --sidebar-accent-foreground: 163 83% 20%;
+  --sidebar-border: 220 13% 90%;
 
   /* Radius */
   --radius: 0.625rem;
 
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.06);
 }
 
 .dark {
-  --primary: 168 65% 45%;
-  --primary-hover: 168 65% 50%;
-  --primary-light: 168 40% 15%;
+  /* Prevent dark-mode illegibility: keep high-contrast white & #095F46 palette */
+  --primary: 163 83% 20%;
+  --primary-hover: 163 83% 16%;
+  --primary-light: 163 45% 94%;
   --primary-foreground: 0 0% 100%;
 
-  --accent: 45 84% 50%;
-  --accent-hover: 45 84% 55%;
-  --accent-light: 45 40% 15%;
-  --accent-foreground: 0 0% 100%;
+  --accent: 45 84% 40%;
+  --accent-hover: 45 84% 35%;
+  --accent-light: 45 80% 95%;
+  --accent-foreground: 0 0% 10%;
 
-  --background: 220 20% 7%;
-  --foreground: 40 10% 93%;
-  --card: 220 18% 10%;
-  --card-foreground: 40 10% 93%;
-  --popover: 220 18% 10%;
-  --popover-foreground: 40 10% 93%;
-  --muted: 220 15% 15%;
-  --muted-foreground: 220 10% 55%;
-  --border: 220 15% 18%;
-  --input: 220 15% 18%;
-  --ring: 168 65% 45%;
+  --background: 0 0% 100%;
+  --foreground: 220 25% 10%;
+  --card: 0 0% 100%;
+  --card-foreground: 220 25% 10%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 220 25% 10%;
+  --muted: 163 20% 96%;
+  --muted-foreground: 220 15% 38%;
+  --border: 220 13% 90%;
+  --input: 220 13% 90%;
+  --ring: 163 83% 20%;
 
-  --destructive: 0 62% 55%;
-  --success: 142 60% 45%;
-  --warning: 38 80% 55%;
-  --info: 199 80% 55%;
+  --destructive: 0 72% 51%;
+  --success: 163 83% 20%;
+  --warning: 38 92% 50%;
+  --info: 199 89% 48%;
 
-  --sidebar: 220 20% 6%;
-  --sidebar-foreground: 168 10% 90%;
-  --sidebar-accent: 168 30% 15%;
-  --sidebar-accent-foreground: 168 10% 95%;
-  --sidebar-border: 220 15% 15%;
+  --sidebar: 0 0% 100%;
+  --sidebar-foreground: 220 25% 12%;
+  --sidebar-accent: 163 45% 94%;
+  --sidebar-accent-foreground: 163 83% 20%;
+  --sidebar-border: 220 13% 90%;
 
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px -1px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.06);
 }
 
 /* ---- Base Reset ---- */
@@ -128,7 +129,7 @@ body {
 }
 
 .text-gradient-primary {
-  background: linear-gradient(135deg, hsl(168 80% 26%), hsl(168 60% 40%));
+  background: linear-gradient(135deg, #095F46, #0d7a5b);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -142,7 +143,7 @@ body {
 }
 
 .dark .text-gradient-primary {
-  background: linear-gradient(135deg, hsl(168 65% 45%), hsl(168 50% 60%));
+  background: linear-gradient(135deg, #095F46, #0d7a5b);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -312,4 +313,57 @@ body {
 
 .animate-ambient-orb-2 {
   animation: ambientOrb2 25s ease-in-out infinite;
+}
+
+/* ========================================================================= */
+/* How It Works Reference Card: Scooped Top-Right Notched Design */
+/* ========================================================================= */
+.hiw-notch-card {
+  position: relative;
+  background-color: #ffffff;
+  border-radius: 28px;
+  border-top-right-radius: 0;
+  border: 1px solid rgba(229, 231, 235, 0.95);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.04), 0 4px 12px -2px rgba(0, 0, 0, 0.02);
+}
+
+.hiw-notch-cutout {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 102px;
+  height: 42px;
+  background-color: #f6f8f6;
+  border-bottom-left-radius: 20px;
+  border-left: 1px solid rgba(229, 231, 235, 0.95);
+  border-bottom: 1px solid rgba(229, 231, 235, 0.95);
+  z-index: 10;
+}
+
+/* Fillet on the top-left of the cutout notch */
+.hiw-notch-cutout::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -16px;
+  width: 16px;
+  height: 16px;
+  background: transparent;
+  border-top-right-radius: 16px;
+  box-shadow: 5px -5px 0 5px #f6f8f6;
+  pointer-events: none;
+}
+
+/* Fillet on the bottom-right of the cutout notch */
+.hiw-notch-cutout::after {
+  content: '';
+  position: absolute;
+  bottom: -16px;
+  right: 0;
+  width: 16px;
+  height: 16px;
+  background: transparent;
+  border-top-right-radius: 16px;
+  box-shadow: 5px -5px 0 5px #f6f8f6;
+  pointer-events: none;
 }

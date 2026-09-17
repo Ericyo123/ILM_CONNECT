@@ -46,13 +46,13 @@ export default function SignInPage() {
       <div className="grid min-h-screen w-full gap-0 lg:grid-cols-[1fr_1.06fr]">
         <section className="flex min-h-screen flex-col justify-between bg-white px-7 py-8 sm:px-12 lg:px-20">
           <div className="flex items-center justify-between gap-4">
-            <Link href="/" className="flex w-fit items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-emerald-100 bg-emerald-50 text-[hsl(var(--primary))]">
+            <Link href="/" className="flex items-center gap-2.5 group">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-700 border border-emerald-500/30 shadow-xs transition-transform group-hover:scale-105">
                 <BookOpen className="h-5 w-5" strokeWidth={2.5} />
               </div>
-              <span className="text-lg font-black tracking-tight">
-                <span>Ilm</span>
-                <span className="text-[hsl(var(--primary))]">Connect</span>
+              <span className="text-xl font-bold tracking-tight">
+                <span className="text-stone-950">Ilm</span>
+                <span className="text-emerald-700">Connect</span>
               </span>
             </Link>
             <Link
@@ -149,7 +149,7 @@ export default function SignInPage() {
           <p className="text-xs font-medium text-stone-400">Secure scholar-led learning, wherever you are.</p>
         </section>
 
-        <aside className="relative hidden min-h-screen overflow-hidden rounded-bl-[3rem] rounded-tl-[3rem] bg-stone-950 lg:block">
+        <aside className="relative hidden min-h-screen overflow-hidden bg-stone-950 lg:block">
           <Image
             src="/images/signin-side.png"
             alt="Islamic learning environment"
@@ -158,7 +158,9 @@ export default function SignInPage() {
             sizes="50vw"
             className="object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-stone-950/94 via-stone-950/38 to-stone-950/8" />
+          {/* Light black overlay across picture for higher text visibility like hero */}
+          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-stone-950/95 via-stone-950/50 to-stone-950/20" />
           <div className="absolute inset-x-10 bottom-16 text-center text-white">
             <blockquote className="mx-auto max-w-2xl text-4xl font-black leading-tight tracking-tight drop-shadow-[0_4px_18px_rgba(0,0,0,0.65)]">
               &ldquo;Seek knowledge from the cradle to the grave&rdquo;

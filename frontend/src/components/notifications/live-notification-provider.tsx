@@ -365,7 +365,7 @@ export function LiveNotificationProvider({ children }: { children: React.ReactNo
                       dismissToast(toast.id);
                       router.push(toast.actionUrl!);
                     }}
-                    className="px-2.5 py-1 rounded-md text-[11px] font-semibold text-white bg-gradient-to-r from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)] hover:shadow-sm transition-all flex items-center gap-1"
+                    className="px-2.5 py-1 rounded-md text-[11px] font-semibold text-white bg-[#095F46] hover:bg-[#074c38] shadow-xs transition-all flex items-center gap-1"
                   >
                     {isLecturerJoined ? 'Join Classroom' : 'View'} <ExternalLink className="h-2.5 w-2.5" />
                   </button>

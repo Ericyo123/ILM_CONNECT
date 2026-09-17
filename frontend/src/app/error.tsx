@@ -29,7 +29,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
           <button
             onClick={reset}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)] hover:shadow-lg transition-all"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white bg-[#095F46] hover:bg-[#074c38] shadow-sm hover:shadow-md transition-all"
           >
             <RefreshCw className="h-4 w-4" /> Try Again
           </button>

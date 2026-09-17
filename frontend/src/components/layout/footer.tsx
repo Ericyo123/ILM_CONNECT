@@ -37,7 +37,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-2.5 mb-4">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)] shadow-xs">
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#095F46] shadow-xs">
                 <BookOpen className="h-5 w-5 text-white" strokeWidth={2.5} />
               </div>
               <span className="text-xl font-bold tracking-tight text-white">

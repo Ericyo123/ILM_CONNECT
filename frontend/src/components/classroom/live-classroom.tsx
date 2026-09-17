@@ -306,9 +306,6 @@ export function LiveClassroom({ sessionInfo, userRole, courseId, onLeave }: Live
                 /* 2. Interactive Study Materials View */
                 <div className="flex h-full flex-col bg-[#fbf9f4] text-[#141e19]">
                   <div className="flex flex-1 flex-col items-center justify-center px-6 py-8 text-center sm:px-14 overflow-y-auto">
-                    <span className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-emerald-900/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-emerald-900">
-                      <Sparkles className="h-3.5 w-3.5 text-emerald-700" /> Lesson Slide {activeSlide.slideNumber}
-                    </span>
                     <h1 className="max-w-3xl text-2xl sm:text-4xl font-bold tracking-tight text-emerald-950 mb-4">
                       {activeSlide.title}
                     </h1>
@@ -372,10 +369,9 @@ export function LiveClassroom({ sessionInfo, userRole, courseId, onLeave }: Live
                       </div>
                     </div>
 
-                    <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/25 bg-emerald-400/10 px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-emerald-300 mb-3.5">
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                      Waiting for {counterpartRole}
-                    </div>
+                    <p className="text-xs font-medium text-emerald-300/80 mb-2.5">
+                      Waiting for {counterpartRole} to join...
+                    </p>
 
                     <h2 className="text-2xl font-bold tracking-tight text-white mb-2">
                       {counterpart}

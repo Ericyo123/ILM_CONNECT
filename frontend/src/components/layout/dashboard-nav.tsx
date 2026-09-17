@@ -134,11 +134,11 @@ export function DashboardTopbar() {
       <div className="sticky top-0 z-40 flex items-center justify-between h-16 px-4 lg:px-6 border-b border-[hsl(var(--border))] bg-[hsl(var(--card))/0.9] backdrop-blur-sm">
         <div className="flex items-center gap-3">
           <Link href="/" className="lg:hidden flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)]">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#095F46]">
               <BookOpen className="h-4 w-4 text-white" strokeWidth={2.5} />
             </div>
           </Link>
-          <h1 className="text-lg font-semibold">{pageTitle}</h1>
+          <h1 className="text-lg font-bold text-stone-950">{pageTitle}</h1>
         </div>
         <div className="flex items-center gap-2">
 

@@ -19,8 +19,10 @@ import {
   UserPlus,
   Compass,
   Video,
+  Zap,
 } from 'lucide-react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
+import WaitlistModal from '@/components/waitlist-modal';
 
 const sectionReveal = {
   hidden: { opacity: 0, y: 32 },
@@ -180,66 +182,48 @@ const missionPoints = [
 
 const howItWorksSteps = [
   {
-    num: '01',
+    num: '1',
     badge: 'STEP 01',
-    title: 'Sign Up & Profile',
-    desc: 'Create your free student profile in minutes, share your background, and outline your personal Quranic learning goals.',
-    icon: UserPlus,
-    meta: [
-      { label: 'Format', value: 'Online LMS' },
-      { label: 'Time', value: '2 Mins' },
-      { label: 'Cost', value: '100% Free' },
-    ],
-    highlight: 'Free Trial',
+    title: 'Create Your Account',
+    desc: 'Register in under 2 minutes, personalize your student profile, and begin your Islamic learning journey.',
+    image: '/images/how-it-works-step-1-v3.jpg',
+    imageAlt: 'IlmConnect student account registration on laptop screen',
     buttonText: 'Get Started',
     buttonLink: '/auth/signup',
   },
   {
-    num: '02',
+    num: '2',
     badge: 'STEP 02',
-    title: 'Choose Your Course',
-    desc: 'Select from Noorani Qaida fundamentals, Tajweed recitation mastery, or comprehensive Hifz memorization tracks.',
-    icon: Compass,
-    meta: [
-      { label: 'Levels', value: 'All Ages' },
-      { label: 'Focus', value: 'Tajweed' },
-      { label: 'Pacing', value: 'Flexible' },
-    ],
-    highlight: 'From $49/mo',
-    buttonText: 'Explore Plans',
+    title: 'Choose Course Plan',
+    desc: 'Select your learning path from beginner Qaida to Tajweed, with flexible Standard or Fast Track 1:1 plans.',
+    image: '/images/how-it-works-step-2-v3.jpg',
+    imageAlt: 'IlmConnect course plans and pricing on laptop screen',
+    buttonText: 'View Plans',
     buttonLink: '#courses',
   },
   {
-    num: '03',
+    num: '3',
     badge: 'STEP 03',
-    title: 'Match With Scholar',
-    desc: 'We pair you with a verified Sri Lankan scholar tailored to your preferred time zone, native language, and learning pace.',
-    icon: GraduationCap,
-    meta: [
-      { label: 'Faculty', value: 'Sanad Alim' },
-      { label: 'Ratio', value: '1:1 Private' },
-      { label: 'Schedule', value: 'Global 24/7' },
-    ],
-    highlight: 'Sanad Certified',
-    buttonText: 'Meet Scholars',
-    buttonLink: '/auth/signup',
+    title: 'Get Matched With Scholar',
+    desc: 'Our academic team reviews your goals to pair you with an ideal verified, Sanad-certified Islamic scholar.',
+    image: '/images/how-it-works-step-3-v4.jpg',
+    imageAlt: 'Academic team matches student with verified Islamic scholar on IlmConnect laptop screen',
+    buttonText: 'How Matching Works',
+    buttonLink: '/about',
   },
   {
-    num: '04',
+    num: '4',
     badge: 'STEP 04',
-    title: 'Start Learning',
-    desc: 'Attend interactive 1:1 live sessions in our digital classroom, receive real-time feedback, and track milestones with recordings.',
-    icon: Video,
-    meta: [
-      { label: 'Format', value: 'Live 1:1 HD' },
-      { label: 'Sessions', value: '2-3x / Wk' },
-      { label: 'Archive', value: 'Full HD' },
-    ],
-    highlight: 'Live 1:1 Room',
-    buttonText: 'Join Room',
+    title: 'Start 1:1 Learning',
+    desc: 'Attend interactive 1:1 online sessions with your scholar, practicing Quran recitation with Tajweed correction.',
+    image: '/images/how-it-works-step-4-v4.jpg',
+    imageAlt: 'Student actively learning Quran 1:1 online with certified scholar on laptop screen',
+    buttonText: 'Join Classroom',
     buttonLink: '/auth/signup',
   },
 ];
+
+
 
 interface TestimonialStory {
   name: string;
@@ -314,6 +298,7 @@ export default function HomePage() {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [selectedStory, setSelectedStory] = useState<TestimonialStory | null>(null);
+  const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
 
   const checkScrollButtons = () => {
     if (!sliderRef.current) return;
@@ -475,28 +460,30 @@ export default function HomePage() {
         {/* ----------------------------------------------------------------------- */}
         <div className="relative z-20 mt-auto pb-10 sm:pb-14 pt-8 px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
           <div className="relative mx-auto max-w-4xl w-full">
-            {/* Strictly 2-Line Headline */}
-            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.18] sm:leading-[1.15] drop-shadow-lg max-w-3xl sm:max-w-4xl mx-auto">
-              <span className="block">Learn Islam from Qualified Scholars</span>
-              <span className="block">Anywhere in the World</span>
+            {/* Concise 2-Line Headline */}
+            <h1 className="text-xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white leading-snug drop-shadow-md max-w-2xl mx-auto">
+              <span className="block">Learn Quran &amp; Islamic Studies</span>
+              <span className="block text-stone-200 font-medium text-base sm:text-2xl lg:text-[28px] mt-1">
+                from Qualified Scholars Worldwide
+              </span>
             </h1>
 
             {/* Subtitle */}
-            <p className="mt-4 sm:mt-5 text-xs sm:text-sm md:text-base text-stone-300 max-w-2xl mx-auto leading-relaxed drop-shadow-md font-normal">
-              Personalized 1:1 online Tajweed and Hifz sessions with certified Sri Lankan Islamic scholars. Structured, professional, and designed for the Muslim diaspora.
+            <p className="mt-3.5 sm:mt-4 text-xs sm:text-sm text-stone-300 max-w-xl mx-auto leading-relaxed drop-shadow-md font-normal">
+              Personalized 1:1 online Tajweed and Islamic studies with verified Sanad-certified scholars, tailored for diaspora families.
             </p>
 
             {/* Dual Pill CTA Buttons */}
-            <div className="mt-7 sm:mt-8 flex flex-wrap items-center justify-center gap-3.5 sm:gap-4">
+            <div className="mt-6 sm:mt-7 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
               <Link
                 href="#courses"
-                className="px-7 py-3 rounded-full text-xs sm:text-sm font-semibold tracking-wider uppercase text-stone-200 bg-white/10 hover:bg-white/15 border border-white/20 backdrop-blur-md shadow-md transition-all duration-200"
+                className="px-6 sm:px-7 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-semibold tracking-wider uppercase text-stone-200 bg-white/10 hover:bg-white/15 border border-white/20 backdrop-blur-md shadow-md transition-all duration-200"
               >
                 View Courses
               </Link>
               <Link
                 href="/auth/signup"
-                className="px-8 py-3 rounded-full text-xs sm:text-sm font-bold tracking-wider uppercase text-white bg-gradient-to-r from-[hsl(var(--primary))] to-emerald-600 hover:from-[hsl(var(--primary-hover))] hover:to-emerald-700 shadow-[0_0_28px_rgba(15,118,110,0.42)] hover:shadow-[0_0_38px_rgba(15,118,110,0.62)] hover:scale-105 active:scale-100 transition-all duration-200"
+                className="px-7 sm:px-8 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-bold tracking-wider uppercase text-white bg-[#095F46] hover:bg-[#074c38] shadow-[0_4px_20px_rgba(9,95,70,0.4)] hover:shadow-[0_6px_28px_rgba(9,95,70,0.6)] hover:scale-105 active:scale-100 transition-all duration-200"
               >
                 Book Free Trial
               </Link>
@@ -519,80 +506,151 @@ export default function HomePage() {
         <div className="absolute top-[75%] -left-[14%] w-[650px] h-[650px] rounded-full bg-emerald-200/25 blur-[130px] animate-ambient-orb-2 pointer-events-none" />
 
         {/* ========================================================================= */}
-        {/* WHY ILMCONNECT SECTION — Dedicated Full-Screen Narrative */}
+        {/* WHY ILMCONNECT SECTION — Editorial Split Showcase Matching Reference */}
         {/* ========================================================================= */}
         <section
           id="mission"
-          className="relative z-20 py-14 sm:py-18 border-b border-stone-200/60 select-none"
+          className="relative z-20 py-16 sm:py-24 border-b border-stone-200/60 select-none overflow-hidden"
         >
+          {/* Subtle decorative curved arrow bottom right */}
+          <svg
+            className="absolute bottom-6 right-6 sm:right-16 w-20 h-20 text-stone-300 pointer-events-none hidden sm:block opacity-60"
+            viewBox="0 0 100 100"
+            fill="none"
+          >
+            <path
+              d="M 30 85 C 42 45, 68 28, 82 15"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeDasharray="4 4"
+              strokeLinecap="round"
+            />
+            <path
+              d="M 72 18 L 82 14 L 86 25"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-            {/* Header: Clean Heading & Lead Narrative without Pill Badge */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: false, amount: 0.2 }}
-              variants={sectionReveal}
-              className="text-center max-w-2xl mx-auto mb-10 sm:mb-14"
-            >
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-stone-950 mb-3.5">
-                Why IlmConnect
-              </h2>
-              <p className="text-stone-500 font-normal text-xs sm:text-sm lg:text-base leading-relaxed max-w-xl mx-auto">
-                We started with a simple problem: families in the diaspora often struggle to find qualified, trustworthy Islamic educators who can teach consistently online.
-              </p>
-            </motion.div>
-
-            {/* 4 Key Pillars Grid — Balanced Branded Cards */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: false, amount: 0.15 }}
-              variants={cardStagger}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch"
-            >
-              {missionPoints.map((item, idx) => (
-                <motion.div
-                  key={item.category}
-                  variants={cardItem}
-                  className="relative rounded-3xl bg-white border border-stone-200/90 p-7 sm:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.035)] hover:shadow-[0_20px_45px_rgba(16,185,129,0.14)] hover:border-emerald-300/80 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between min-h-[260px] sm:min-h-[280px] overflow-hidden group select-none h-full"
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+              {/* Left Column: Overlapping Organic Shaped Photo Composition */}
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: false, amount: 0.2 }}
+                variants={sectionReveal}
+                className="lg:col-span-6 relative pb-10 sm:pb-12 pl-4 sm:pl-8 pr-2"
+              >
+                {/* Subtle top-left decorative flourish arrow */}
+                <svg
+                  className="absolute -top-10 left-0 w-16 h-16 text-stone-300 pointer-events-none hidden sm:block opacity-60 -rotate-12"
+                  viewBox="0 0 100 100"
+                  fill="none"
                 >
-                  {/* Subtle top accent gradient */}
-                  <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-emerald-500/20 via-emerald-500 to-teal-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                  {/* Soft Logo Emerald Gradient Wash on the right side */}
-                  <div
-                    className="absolute inset-0 pointer-events-none opacity-80 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{
-                      background:
-                        'radial-gradient(ellipse at 92% 52%, rgba(16, 185, 129, 0.16) 0%, rgba(5, 150, 105, 0.05) 45%, rgba(255, 255, 255, 0) 72%)',
-                    }}
+                  <path
+                    d="M 20 20 C 50 15, 68 38, 58 72"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeDasharray="4 4"
+                    strokeLinecap="round"
                   />
+                  <path
+                    d="M 48 68 L 58 74 L 66 64"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
 
-                  <div className="relative z-10 flex flex-col items-start">
-                    {/* Top: Branded Emerald Squircle Icon Badge */}
-                    <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 border border-emerald-500/20 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-emerald-500 group-hover:to-teal-600 group-hover:text-white transition-all duration-300 shadow-xs">
-                      <item.icon className="w-6 h-6 stroke-[2]" />
+                {/* Main Scholar Photo Frame */}
+                <div className="relative w-full max-w-[490px] mx-auto aspect-[4/3] rounded-t-[36px] sm:rounded-t-[44px] rounded-br-[110px] sm:rounded-br-[150px] rounded-bl-[36px] overflow-hidden shadow-[0_16px_45px_rgba(0,0,0,0.09)] border border-stone-200/80 bg-stone-100">
+                  <Image
+                    src="/images/why-ilm-scholar.jpg"
+                    alt="Islamic scholar teaching Quran online via laptop"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 490px"
+                  />
+                  {/* Soft inner vignette */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-stone-900/10 via-transparent to-transparent pointer-events-none" />
+                </div>
+
+                {/* Small Lime Accent Dot on Right Outer Border */}
+                <div className="absolute right-0 sm:right-4 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-[#84cc16] shadow-sm z-20" />
+
+                {/* Overlapping Inset Student Hands / Quran Photo at Bottom-Left */}
+                <div className="absolute bottom-0 left-0 sm:left-2 w-44 sm:w-56 md:w-60 aspect-[4/3] rounded-[28px] sm:rounded-[36px] border-[6px] sm:border-[8px] border-white shadow-[0_20px_45px_rgba(0,0,0,0.16)] overflow-hidden bg-stone-100 z-10">
+                  <Image
+                    src="/images/why-ilm-quran-hands.jpg"
+                    alt="Student following Holy Quran recitation with wooden pointer"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 176px, 240px"
+                  />
+                </div>
+              </motion.div>
+
+              {/* Right Column: Narrative, Value Proposition & Checklist */}
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: false, amount: 0.2 }}
+                variants={sectionReveal}
+                className="lg:col-span-6 flex flex-col justify-center lg:pl-4"
+              >
+                {/* High-Impact Heading with Brand Green Accent */}
+                <h2 className="text-3xl sm:text-4xl lg:text-[42px] xl:text-[46px] font-black tracking-tight text-stone-950 leading-[1.16] mb-5">
+                  Grow In Sacred Knowledge So You Can{' '}
+                  <span className="text-[#095F46] block sm:inline">Live With Purpose &amp; Iman</span>
+                </h2>
+
+                {/* Narrative Paragraph */}
+                <p className="text-stone-500 font-normal text-sm sm:text-base leading-relaxed mb-7 max-w-xl">
+                  Finding verified, authentic Islamic teachers who can guide your family with patience and consistency shouldn&apos;t be difficult. IlmConnect bridges you directly with qualified scholars for structured 1-on-1 online learning tailored to your timezone and personal pace.
+                </p>
+
+                {/* Clean Feature Checklist with Brand Green Checkmarks */}
+                <div className="space-y-3.5 mb-9">
+                  {[
+                    'Flexible 1-on-1 training programs',
+                    'Experienced scholars & certified teachers',
+                    'Free incoming trial lesson',
+                  ].map((feature, idx) => (
+                    <div key={idx} className="flex items-center gap-3.5">
+                      <div className="w-5 h-5 rounded-full flex items-center justify-center text-[#095F46] bg-[#095F46]/10 shrink-0">
+                        <svg
+                          className="w-3.5 h-3.5 stroke-[2.5]"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                      </div>
+                      <span className="font-semibold text-stone-800 text-sm sm:text-base">
+                        {feature}
+                      </span>
                     </div>
+                  ))}
+                </div>
 
-                    {/* Headline with Brand Emerald Highlight */}
-                    <h3 className="text-lg sm:text-xl font-black tracking-tight text-stone-950 leading-snug">
-                      <span>{item.line1}</span>{' '}
-                      <span className="text-emerald-600 block">{item.highlight}</span>{' '}
-                      <span>{item.line3}</span>
-                    </h3>
-                  </div>
-
-                  {/* Bottom Verified Feature Tag with Number */}
-                  <div className="relative z-10 pt-5 border-t border-stone-100 flex items-center justify-between mt-auto text-[11px] font-bold text-stone-400 group-hover:text-emerald-700 transition-colors">
-                    <span className="flex items-center gap-1.5 text-emerald-700 font-semibold">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                      {item.tag}
-                    </span>
-                    <span className="font-mono text-stone-400">0{idx + 1}</span>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
+                {/* CTA Button — Redirects to /about with Brand Green #095F46 */}
+                <div className="flex items-center">
+                  <Link
+                    href="/about"
+                    className="inline-flex items-center justify-center px-9 py-3.5 rounded-full bg-[#095F46] hover:bg-[#074c38] text-white font-bold text-sm sm:text-base shadow-[0_4px_16px_rgba(9,95,70,0.25)] hover:shadow-[0_8px_24px_rgba(9,95,70,0.38)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300"
+                  >
+                    Learn More
+                  </Link>
+                </div>
+              </motion.div>
+            </div>
           </div>
         </section>
 
@@ -624,7 +682,7 @@ export default function HomePage() {
                       ${hasBottomBorderMobile ? 'border-b border-stone-300/70 pb-6 md:border-b-0 md:pb-4' : 'pt-6 md:pt-4'}
                     `}
                   >
-                    <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#27b99a] tracking-tight mb-1.5">
+                    <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#095F46] tracking-tight mb-1.5">
                       <AnimatedCounter
                         target={stat.target}
                         decimals={stat.decimals}
@@ -643,11 +701,11 @@ export default function HomePage() {
         </section>
 
         {/* ========================================================================= */}
-        {/* HOW IT WORKS SECTION — Reference Scooped-Notch White Cards */}
+        {/* HOW IT WORKS SECTION — Alternating Horizontal Timeline (Reference Inspired) */}
         {/* ========================================================================= */}
         <section
           id="how-it-works"
-          className="py-14 sm:py-18 lg:py-20 bg-[#f6f8f6] text-stone-900 border-b border-stone-200/60 scroll-mt-16 select-none lg:min-h-[85vh] flex flex-col justify-center relative overflow-hidden"
+          className="py-16 sm:py-20 lg:py-24 bg-[#f6f8f6] text-stone-900 border-b border-stone-200/60 scroll-mt-16 select-none relative overflow-hidden"
         >
           <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             {/* Section Header */}
@@ -656,63 +714,251 @@ export default function HomePage() {
               whileInView="visible"
               viewport={{ once: false, amount: 0.2 }}
               variants={sectionReveal}
-              className="text-center max-w-2xl mx-auto mb-10 sm:mb-14"
+              className="text-center max-w-3xl mx-auto mb-10 sm:mb-14"
             >
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-stone-950 mb-3">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-stone-950 mb-3 sm:mb-4">
                 How It Works
               </h2>
-              <p className="text-stone-500 font-normal text-xs sm:text-sm lg:text-base max-w-xl mx-auto leading-relaxed">
+              <p className="text-stone-600 font-normal text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
                 Start learning in minutes — our streamlined process connects you with certified scholars seamlessly.
               </p>
             </motion.div>
 
-            {/* Horizontal 4 Steps Grid Across Full Screen */}
-            <div className="relative">
-              <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: false, amount: 0.15 }}
-                variants={cardStagger}
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10 items-stretch"
-              >
-                {howItWorksSteps.map((step) => (
+            {/* =================================================================== */}
+            {/* DESKTOP TIMELINE: 4-Column Staggered Layout Matching Reference Image */}
+            {/* =================================================================== */}
+            <div className="hidden lg:block relative py-6">
+              {/* Continuous Horizontal Background Axis Line across all 4 columns */}
+              <div className="absolute top-[48%] left-8 right-8 h-[2px] bg-stone-300 -translate-y-1/2 z-0" />
+
+              {/* 4 Staggered Columns */}
+              <div className="grid grid-cols-4 gap-6 xl:gap-8 relative z-10 items-start">
+                {/* ----------------- STEP 1 (High / Top aligned) ----------------- */}
+                <div className="flex flex-col items-center">
                   <motion.div
-                    key={step.num}
-                    variants={cardItem}
-                    className="hiw-notch-card p-6 pt-6 hover:shadow-[0_20px_45px_rgba(16,185,129,0.12)] hover:border-emerald-300/80 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between h-full group"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: false, amount: 0.2 }}
+                    variants={sectionReveal}
+                    className="w-full bg-white rounded-3xl border border-stone-200/90 p-5 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_16px_36px_rgba(9,95,70,0.12)] hover:border-[#095F46]/50 transition-all duration-300 flex flex-col group"
                   >
-                    {/* Stepped Scooped Notch in Top Right */}
-                    <div className="hiw-notch-cutout flex items-center justify-end pr-2 pt-1">
-                      <div className="px-2.5 py-1 rounded-full bg-stone-950 text-white text-[10px] font-mono font-bold tracking-wider flex items-center gap-1.5 shadow-xs">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                        {step.badge}
-                      </div>
+                    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-stone-100 mb-4 bg-stone-50">
+                      <Image
+                        src={howItWorksSteps[0].image}
+                        alt={howItWorksSteps[0].imageAlt}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        sizes="(max-width: 1200px) 25vw, 320px"
+                      />
                     </div>
-
-                    <div>
-                      {/* Step Title with consistent baseline height */}
-                      <h3 className="text-xl font-extrabold text-stone-950 mb-3 tracking-tight group-hover:text-emerald-900 transition-colors pt-2 pr-16 min-h-[56px]">
-                        {step.title}
-                      </h3>
-
-                      {/* Description Paragraph */}
-                      <p className="text-sm text-stone-600 leading-relaxed mb-6">
-                        {step.desc}
-                      </p>
+                    <div className="text-xs font-mono font-bold text-[#095F46] uppercase tracking-wider mb-1.5">
+                      {howItWorksSteps[0].badge}
                     </div>
-
-                    {/* Bottom Bar: Centered Pill CTA Button */}
-                    <div className="flex items-center justify-center pt-5 border-t border-stone-100/80 mt-auto">
-                      <Link
-                        href={step.buttonLink}
-                        className="inline-flex items-center justify-center px-7 py-2.5 rounded-full text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 shadow-md shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:scale-105 active:scale-95 transition-all duration-200"
-                      >
-                        {step.buttonText}
-                      </Link>
-                    </div>
+                    <h3 className="text-lg sm:text-xl font-bold text-stone-900 mb-2 tracking-tight group-hover:text-[#095F46] transition-colors leading-snug">
+                      {howItWorksSteps[0].title}
+                    </h3>
+                    <p className="text-sm text-stone-500 leading-relaxed mb-3.5">
+                      {howItWorksSteps[0].desc}
+                    </p>
+                    <Link
+                      href={howItWorksSteps[0].buttonLink}
+                      className="inline-flex items-center text-sm font-bold text-[#095F46] hover:text-[#074c38] gap-1.5 group-hover:translate-x-1.5 transition-all"
+                    >
+                      {howItWorksSteps[0].buttonText}
+                      <span>→</span>
+                    </Link>
                   </motion.div>
-                ))}
-              </motion.div>
+                  {/* Vertical connector line down from Card 1 */}
+                  <div className="w-[2px] h-8 bg-stone-300" />
+                  {/* Badge 1 Circle */}
+                  <div className="w-10 h-10 rounded-full bg-[#095F46] text-white font-black text-sm flex items-center justify-center shadow-md ring-4 ring-[#f6f8f6]">
+                    1
+                  </div>
+                </div>
+
+                {/* ----------------- STEP 2 (Shifted Down / Staggered) ----------------- */}
+                <div className="flex flex-col items-center pt-20">
+                  {/* Badge 2 Circle */}
+                  <div className="w-10 h-10 rounded-full bg-[#095F46] text-white font-black text-sm flex items-center justify-center shadow-md ring-4 ring-[#f6f8f6]">
+                    2
+                  </div>
+                  {/* Vertical connector line down to Card 2 */}
+                  <div className="w-[2px] h-8 bg-stone-300" />
+                  <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: false, amount: 0.2 }}
+                    variants={sectionReveal}
+                    className="w-full bg-white rounded-3xl border border-stone-200/90 p-5 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_16px_36px_rgba(9,95,70,0.12)] hover:border-[#095F46]/50 transition-all duration-300 flex flex-col group"
+                  >
+                    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-stone-100 mb-4 bg-stone-50">
+                      <Image
+                        src={howItWorksSteps[1].image}
+                        alt={howItWorksSteps[1].imageAlt}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        sizes="(max-width: 1200px) 25vw, 320px"
+                      />
+                    </div>
+                    <div className="text-xs font-mono font-bold text-[#095F46] uppercase tracking-wider mb-1.5">
+                      {howItWorksSteps[1].badge}
+                    </div>
+                    <h3 className="text-lg sm:text-xl font-bold text-stone-900 mb-2 tracking-tight group-hover:text-[#095F46] transition-colors leading-snug">
+                      {howItWorksSteps[1].title}
+                    </h3>
+                    <p className="text-sm text-stone-500 leading-relaxed mb-3.5">
+                      {howItWorksSteps[1].desc}
+                    </p>
+                    <Link
+                      href={howItWorksSteps[1].buttonLink}
+                      className="inline-flex items-center text-sm font-bold text-[#095F46] hover:text-[#074c38] gap-1.5 group-hover:translate-x-1.5 transition-all"
+                    >
+                      {howItWorksSteps[1].buttonText}
+                      <span>→</span>
+                    </Link>
+                  </motion.div>
+                </div>
+
+                {/* ----------------- STEP 3 (High / Top aligned) ----------------- */}
+                <div className="flex flex-col items-center">
+                  <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: false, amount: 0.2 }}
+                    variants={sectionReveal}
+                    className="w-full bg-white rounded-3xl border border-stone-200/90 p-5 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_16px_36px_rgba(9,95,70,0.12)] hover:border-[#095F46]/50 transition-all duration-300 flex flex-col group"
+                  >
+                    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-stone-100 mb-4 bg-stone-50">
+                      <Image
+                        src={howItWorksSteps[2].image}
+                        alt={howItWorksSteps[2].imageAlt}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        sizes="(max-width: 1200px) 25vw, 320px"
+                      />
+                    </div>
+                    <div className="text-xs font-mono font-bold text-[#095F46] uppercase tracking-wider mb-1.5">
+                      {howItWorksSteps[2].badge}
+                    </div>
+                    <h3 className="text-lg sm:text-xl font-bold text-stone-900 mb-2 tracking-tight group-hover:text-[#095F46] transition-colors leading-snug">
+                      {howItWorksSteps[2].title}
+                    </h3>
+                    <p className="text-sm text-stone-500 leading-relaxed mb-3.5">
+                      {howItWorksSteps[2].desc}
+                    </p>
+                    <Link
+                      href={howItWorksSteps[2].buttonLink}
+                      className="inline-flex items-center text-sm font-bold text-[#095F46] hover:text-[#074c38] gap-1.5 group-hover:translate-x-1.5 transition-all"
+                    >
+                      {howItWorksSteps[2].buttonText}
+                      <span>→</span>
+                    </Link>
+                  </motion.div>
+                  {/* Vertical connector line down from Card 3 */}
+                  <div className="w-[2px] h-8 bg-stone-300" />
+                  {/* Badge 3 Circle */}
+                  <div className="w-10 h-10 rounded-full bg-[#095F46] text-white font-black text-sm flex items-center justify-center shadow-md ring-4 ring-[#f6f8f6]">
+                    3
+                  </div>
+                </div>
+
+                {/* ----------------- STEP 4 (Shifted Down / Staggered) ----------------- */}
+                <div className="flex flex-col items-center pt-20">
+                  {/* Badge 4 Circle */}
+                  <div className="w-10 h-10 rounded-full bg-[#095F46] text-white font-black text-sm flex items-center justify-center shadow-md ring-4 ring-[#f6f8f6]">
+                    4
+                  </div>
+                  {/* Vertical connector line down to Card 4 */}
+                  <div className="w-[2px] h-8 bg-stone-300" />
+                  <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: false, amount: 0.2 }}
+                    variants={sectionReveal}
+                    className="w-full bg-white rounded-3xl border border-stone-200/90 p-5 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_16px_36px_rgba(9,95,70,0.12)] hover:border-[#095F46]/50 transition-all duration-300 flex flex-col group"
+                  >
+                    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-stone-100 mb-4 bg-stone-50">
+                      <Image
+                        src={howItWorksSteps[3].image}
+                        alt={howItWorksSteps[3].imageAlt}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        sizes="(max-width: 1200px) 25vw, 320px"
+                      />
+                    </div>
+                    <div className="text-xs font-mono font-bold text-[#095F46] uppercase tracking-wider mb-1.5">
+                      {howItWorksSteps[3].badge}
+                    </div>
+                    <h3 className="text-lg sm:text-xl font-bold text-stone-900 mb-2 tracking-tight group-hover:text-[#095F46] transition-colors leading-snug">
+                      {howItWorksSteps[3].title}
+                    </h3>
+                    <p className="text-sm text-stone-500 leading-relaxed mb-3.5">
+                      {howItWorksSteps[3].desc}
+                    </p>
+                    <Link
+                      href={howItWorksSteps[3].buttonLink}
+                      className="inline-flex items-center text-sm font-bold text-[#095F46] hover:text-[#074c38] gap-1.5 group-hover:translate-x-1.5 transition-all"
+                    >
+                      {howItWorksSteps[3].buttonText}
+                      <span>→</span>
+                    </Link>
+                  </motion.div>
+                </div>
+              </div>
+            </div>
+
+            {/* =================================================================== */}
+            {/* MOBILE / TABLET TIMELINE: Responsive Vertical Axis (< lg) */}
+            {/* =================================================================== */}
+            <div className="lg:hidden relative pl-8 sm:pl-10 space-y-8 max-w-xl mx-auto">
+              {/* Vertical Axis Line */}
+              <div className="absolute top-4 bottom-4 left-3.5 sm:left-4 w-[2px] bg-stone-300" />
+              <div className="absolute top-2 left-2.5 sm:left-3 w-2 h-2 rounded-full bg-[#095F46]" />
+              <div className="absolute bottom-2 left-2.5 sm:left-3 w-2 h-2 rounded-full bg-[#095F46]" />
+
+              {howItWorksSteps.map((step) => (
+                <div key={step.num} className="relative">
+                  {/* Numbered Node on the vertical axis */}
+                  <div className="absolute -left-8 sm:-left-10 top-4 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#095F46] text-white font-black text-xs sm:text-sm flex items-center justify-center shadow-md ring-4 ring-[#f8fafc] z-10">
+                    {step.num}
+                  </div>
+
+                  {/* Mobile Card */}
+                  <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: false, amount: 0.15 }}
+                    variants={sectionReveal}
+                    className="bg-white rounded-3xl border border-stone-200/90 p-5 sm:p-6 shadow-[0_4px_16px_rgba(0,0,0,0.04)] flex flex-col"
+                  >
+                    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-stone-100 mb-4 bg-stone-50">
+                      <Image
+                        src={step.image}
+                        alt={step.imageAlt}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 90vw, 400px"
+                      />
+                    </div>
+                    <div className="text-xs font-mono font-bold text-[#095F46] uppercase tracking-wider mb-1.5">
+                      {step.badge}
+                    </div>
+                    <h3 className="text-lg font-bold text-stone-950 mb-2 tracking-tight">
+                      {step.title}
+                    </h3>
+                    <p className="text-sm text-stone-500 leading-relaxed mb-3.5">
+                      {step.desc}
+                    </p>
+                    <Link
+                      href={step.buttonLink}
+                      className="inline-flex items-center text-sm font-bold text-[#095F46] hover:text-[#074c38] gap-1.5"
+                    >
+                      {step.buttonText}
+                      <span>→</span>
+                    </Link>
+                  </motion.div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -800,6 +1046,27 @@ export default function HomePage() {
                       <span>Session recordings &amp; notes</span>
                     </li>
                   </ul>
+
+                  {/* Fast Track Hook Box */}
+                  <div className="mt-5 pt-4 border-t border-stone-100">
+                    <div className="rounded-2xl bg-emerald-50/70 border border-emerald-100/90 p-3 sm:p-3.5 flex flex-col gap-2">
+                      <div className="flex items-center gap-1.5">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#095F46] text-white text-[10px] font-extrabold uppercase tracking-wider">
+                          <Zap className="w-2.5 h-2.5 fill-current" /> Fast Track Plan
+                        </span>
+                      </div>
+                      <p className="text-[11px] sm:text-xs text-stone-800 font-bold leading-snug">
+                        Want your child to start reading the Holy Quran twice as fast with 3 weekly sessions?
+                      </p>
+                      <Link
+                        href="/pricing#fast-track-plans"
+                        className="inline-flex items-center justify-between w-full py-2 px-3 rounded-xl bg-white hover:bg-[#095F46] text-[#095F46] hover:text-white border border-[#095F46]/25 hover:border-[#095F46] text-xs font-bold transition-all shadow-2xs group"
+                      >
+                        <span>Explore Fast Track Plan</span>
+                        <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                      </Link>
+                    </div>
+                  </div>
                 </div>
               </motion.div>
 
@@ -858,6 +1125,27 @@ export default function HomePage() {
                       <span>Monthly progress evaluation</span>
                     </li>
                   </ul>
+
+                  {/* Fast Track Hook Box */}
+                  <div className="mt-5 pt-4 border-t border-stone-100">
+                    <div className="rounded-2xl bg-emerald-50/70 border border-emerald-100/90 p-3 sm:p-3.5 flex flex-col gap-2">
+                      <div className="flex items-center gap-1.5">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#095F46] text-white text-[10px] font-extrabold uppercase tracking-wider">
+                          <Zap className="w-2.5 h-2.5 fill-current" /> Fast Track Plan
+                        </span>
+                      </div>
+                      <p className="text-[11px] sm:text-xs text-stone-800 font-bold leading-snug">
+                        Master melodic Tajweed faster with 12 monthly sessions and recorded scholar feedback.
+                      </p>
+                      <Link
+                        href="/pricing#fast-track-plans"
+                        className="inline-flex items-center justify-between w-full py-2 px-3 rounded-xl bg-white hover:bg-[#095F46] text-[#095F46] hover:text-white border border-[#095F46]/25 hover:border-[#095F46] text-xs font-bold transition-all shadow-2xs group"
+                      >
+                        <span>Explore Fast Track Plan</span>
+                        <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                      </Link>
+                    </div>
+                  </div>
                 </div>
               </motion.div>
 
@@ -916,6 +1204,27 @@ export default function HomePage() {
                       <span>Revision tracking &amp; lecturer messaging</span>
                     </li>
                   </ul>
+
+                  {/* Fast Track Hook Box */}
+                  <div className="mt-5 pt-4 border-t border-stone-100">
+                    <div className="rounded-2xl bg-emerald-50/70 border border-emerald-100/90 p-3 sm:p-3.5 flex flex-col gap-2">
+                      <div className="flex items-center gap-1.5">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#095F46] text-white text-[10px] font-extrabold uppercase tracking-wider">
+                          <Zap className="w-2.5 h-2.5 fill-current" /> Fast Track Plan
+                        </span>
+                      </div>
+                      <p className="text-[11px] sm:text-xs text-stone-800 font-bold leading-snug">
+                        Accelerate your Quran memorization with intensive 3x/week coaching and daily revision.
+                      </p>
+                      <Link
+                        href="/pricing#fast-track-plans"
+                        className="inline-flex items-center justify-between w-full py-2 px-3 rounded-xl bg-white hover:bg-[#095F46] text-[#095F46] hover:text-white border border-[#095F46]/25 hover:border-[#095F46] text-xs font-bold transition-all shadow-2xs group"
+                      >
+                        <span>Explore Fast Track Plan</span>
+                        <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                      </Link>
+                    </div>
+                  </div>
                 </div>
               </motion.div>
             </motion.div>
@@ -1111,18 +1420,26 @@ export default function HomePage() {
                   Begin Your Sacred Journey of Knowledge
                 </h2>
                 <p className="text-sm sm:text-base lg:text-lg text-stone-300 mb-8 leading-relaxed max-w-xl mx-auto">
-                  Book a complimentary 30-minute 1:1 trial session with one of our certified Sri Lankan scholars. No credit card required.
+                  Join our priority waitlist for personalized 1:1 sessions with certified Sri Lankan scholars. Reserve early matching with a complimentary 30-minute trial session.
                 </p>
-                <Link
-                  href="/auth/signup"
-                  className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full text-xs sm:text-sm font-bold tracking-wider uppercase bg-gradient-to-r from-[hsl(var(--primary))] to-emerald-500 text-white hover:from-emerald-800 hover:to-emerald-600 shadow-[0_0_28px_rgba(16,185,129,0.34)] hover:shadow-[0_0_38px_rgba(16,185,129,0.52)] transition-all hover:scale-105 active:scale-100"
+                <button
+                  type="button"
+                  onClick={() => setIsWaitlistOpen(true)}
+                  className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full text-xs sm:text-sm font-bold tracking-wider uppercase bg-gradient-to-r from-[hsl(var(--primary))] to-emerald-500 text-white hover:from-emerald-800 hover:to-emerald-600 shadow-[0_0_28px_rgba(16,185,129,0.34)] hover:shadow-[0_0_38px_rgba(16,185,129,0.52)] transition-all hover:scale-105 active:scale-100 cursor-pointer"
                 >
-                  Start Free Trial Today <ChevronRight className="h-4 w-4" />
-                </Link>
+                  <span>Join the Waitlist</span>
+                  <ChevronRight className="h-4 w-4" />
+                </button>
               </div>
             </motion.div>
           </div>
         </section>
+
+        {/* Priority Waitlist Pop-up Modal */}
+        <WaitlistModal
+          isOpen={isWaitlistOpen}
+          onClose={() => setIsWaitlistOpen(false)}
+        />
       </div>
     </>
   );

@@ -680,7 +680,7 @@ function LecturerMessagesContent() {
             <div className="flex-1 overflow-y-auto px-4 py-4 space-y-2">
               <div className="flex items-center gap-2 mx-auto max-w-sm px-3 py-2 rounded-xl bg-[hsl(var(--muted))] text-[hsl(var(--muted-foreground))] text-xs text-center mb-4">
                 <Info className="h-3.5 w-3.5 flex-shrink-0" />
-                <span>All messages are kept within the IlmConnect platform for safeguarding compliance.</span>
+                <span>All messages are kept within the Ilmbit platform for safeguarding compliance.</span>
               </div>
 
               {messagesLoading ? (

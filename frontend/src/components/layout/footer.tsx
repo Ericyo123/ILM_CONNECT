@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { BookOpen, Mail, MapPin } from 'lucide-react';
+import Image from 'next/image';
+import { Mail, MapPin } from 'lucide-react';
 
 const footerLinks = {
   Platform: [
@@ -36,13 +37,19 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-2.5 mb-4">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#095F46] shadow-xs">
-                <BookOpen className="h-5 w-5 text-white" strokeWidth={2.5} />
+            <Link href="/" className="flex items-center gap-3 mb-4 group">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#095F46] p-2 shadow-sm transition-transform group-hover:scale-105 flex-shrink-0">
+                <Image
+                  src="/images/ilmbit-icon-white.png"
+                  alt="Ilmbit Logo"
+                  width={34}
+                  height={34}
+                  className="object-contain"
+                />
               </div>
-              <span className="text-xl font-bold tracking-tight text-white">
-                <span className="text-gradient-primary">Ilm</span>
-                <span>Connect</span>
+              <span className="text-2xl font-bold tracking-tight text-white">
+                <span>Ilm</span>
+                <span className="text-emerald-400">bit</span>
               </span>
             </Link>
             <p className="text-sm text-emerald-50/68 max-w-sm mb-6 leading-relaxed">
@@ -52,7 +59,7 @@ export default function Footer() {
             <div className="space-y-2 text-sm text-emerald-50/72">
               <div className="flex items-center gap-2">
                 <Mail className="h-4 w-4 text-emerald-300/80" />
-                <span>support@ilmconnect.com</span>
+                <span>support@ilmbit.com</span>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="h-4 w-4 text-emerald-300/80" />
@@ -84,7 +91,7 @@ export default function Footer() {
         {/* Bottom */}
         <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-emerald-50/45" suppressHydrationWarning>
-            © {new Date().getFullYear()} IlmConnect. All rights reserved.
+            © {new Date().getFullYear()} Ilmbit. All rights reserved.
           </p>
           <p className="text-xs text-emerald-50/45 font-arabic">
             بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ

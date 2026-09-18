@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { X, Check, BookOpen, Sparkles, Loader2, ArrowRight } from 'lucide-react';
+import Image from 'next/image';
+import { X, Check, Sparkles, Loader2, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Portal } from '@/components/ui/portal';
 
@@ -102,8 +103,14 @@ export default function WaitlistModal({
             <div>
               {/* Header */}
               <div className="flex items-center gap-3 mb-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#095F46] text-white shadow-xs">
-                  <BookOpen className="h-5 w-5" strokeWidth={2.5} />
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#095F46] p-2 text-white shadow-sm flex-shrink-0">
+                  <Image
+                    src="/images/ilmbit-icon-white.png"
+                    alt="Ilmbit Logo"
+                    width={34}
+                    height={34}
+                    className="object-contain"
+                  />
                 </div>
                 <div>
                   <h3 className="text-xl sm:text-2xl font-black text-stone-950 tracking-tight">

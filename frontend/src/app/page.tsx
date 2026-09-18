@@ -187,7 +187,7 @@ const howItWorksSteps = [
     title: 'Create Your Account',
     desc: 'Register in under 2 minutes, personalize your student profile, and begin your Islamic learning journey.',
     image: '/images/how-it-works-step-1-v3.jpg',
-    imageAlt: 'IlmConnect student account registration on laptop screen',
+    imageAlt: 'Ilmbit student account registration on laptop screen',
     buttonText: 'Get Started',
     buttonLink: '/auth/signup',
   },
@@ -197,7 +197,7 @@ const howItWorksSteps = [
     title: 'Choose Course Plan',
     desc: 'Select your learning path from beginner Qaida to Tajweed, with flexible Standard or Fast Track 1:1 plans.',
     image: '/images/how-it-works-step-2-v3.jpg',
-    imageAlt: 'IlmConnect course plans and pricing on laptop screen',
+    imageAlt: 'Ilmbit course plans and pricing on laptop screen',
     buttonText: 'View Plans',
     buttonLink: '#courses',
   },
@@ -207,7 +207,7 @@ const howItWorksSteps = [
     title: 'Get Matched With Scholar',
     desc: 'Our academic team reviews your goals to pair you with an ideal verified, Sanad-certified Islamic scholar.',
     image: '/images/how-it-works-step-3-v4.jpg',
-    imageAlt: 'Academic team matches student with verified Islamic scholar on IlmConnect laptop screen',
+    imageAlt: 'Academic team matches student with verified Islamic scholar on Ilmbit laptop screen',
     buttonText: 'How Matching Works',
     buttonLink: '/about',
   },
@@ -240,8 +240,8 @@ const diasporaTestimonials: TestimonialStory[] = [
     name: 'Sarah Ahmed',
     role: 'Parent of 2',
     location: 'London, UK',
-    quote: 'IlmConnect has boosted our children’s Quran fluency astronomically, transforming how they engage with the Holy Quran.',
-    fullStory: 'IlmConnect has boosted our children’s Quran fluency astronomically, transforming how they engage with the Holy Quran. Finding punctual, gentle teachers in London with high Tajweed standards was always a challenge. Now my 8-year-old and 11-year-old look forward to their classes with Maulavi Ismail.',
+    quote: 'Ilmbit has boosted our children’s Quran fluency astronomically, transforming how they engage with the Holy Quran.',
+    fullStory: 'Ilmbit has boosted our children’s Quran fluency astronomically, transforming how they engage with the Holy Quran. Finding punctual, gentle teachers in London with high Tajweed standards was always a challenge. Now my 8-year-old and 11-year-old look forward to their classes with Maulavi Ismail.',
     course: '1:1 Tajweed Recitation',
     avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=120&h=120&fit=crop&crop=face',
   },
@@ -249,8 +249,8 @@ const diasporaTestimonials: TestimonialStory[] = [
     name: 'Dr. Tariq Mansoor',
     role: 'Father & Physician',
     location: 'Toronto, Canada',
-    quote: 'IlmConnect is more essential to our family routine than our local weekend school. It’s a powerful solution to diaspora education.',
-    fullStory: 'IlmConnect is more essential to our family routine than our local weekend school. It’s a powerful solution to diaspora education. With my unpredictable hospital shifts, being able to reschedule and get reliable one-on-one attention for my sons has been an absolute game changer.',
+    quote: 'Ilmbit is more essential to our family routine than our local weekend school. It’s a powerful solution to diaspora education.',
+    fullStory: 'Ilmbit is more essential to our family routine than our local weekend school. It’s a powerful solution to diaspora education. With my unpredictable hospital shifts, being able to reschedule and get reliable one-on-one attention for my sons has been an absolute game changer.',
     course: 'Hifz Memorization',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&h=120&fit=crop&crop=face',
   },
@@ -258,8 +258,8 @@ const diasporaTestimonials: TestimonialStory[] = [
     name: 'Muhammad Rashid',
     role: 'Adult Revert Student',
     location: 'Sydney, Australia',
-    quote: 'Finding patient, authentic Sri Lankan scholars was nearly impossible until IlmConnect. My recitation confidence has reached a whole new level.',
-    fullStory: 'Finding patient, authentic Sri Lankan scholars was nearly impossible until IlmConnect. As a revert learning Arabic phonetics from scratch, Sheikh Ahmed’s patience and encouragement gave me the confidence to recite accurately in daily prayers without hesitation.',
+    quote: 'Finding patient, authentic Sri Lankan scholars was nearly impossible until Ilmbit. My recitation confidence has reached a whole new level.',
+    fullStory: 'Finding patient, authentic Sri Lankan scholars was nearly impossible until Ilmbit. As a revert learning Arabic phonetics from scratch, Sheikh Ahmed’s patience and encouragement gave me the confidence to recite accurately in daily prayers without hesitation.',
     course: 'Noorani Qaida & Tajweed',
     avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&h=120&fit=crop&crop=face',
   },
@@ -348,18 +348,25 @@ export default function HomePage() {
         </div>
 
         {/* ----------------------------------------------------------------------- */}
-        {/* Top Header & Navigation Bar */}
+        {/* Top Header & Navigation Bar (Fully Transparent in Hero) */}
         {/* ----------------------------------------------------------------------- */}
         <div className="relative z-30 w-full pt-5 sm:pt-7 px-4 sm:px-6 lg:px-12">
           <div className="mx-auto max-w-7xl flex items-center justify-between h-16">
             {/* Left: Logo */}
-            <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 shadow-md backdrop-blur-sm transition-transform group-hover:scale-105">
-                <BookOpen className="h-5 w-5" strokeWidth={2.5} />
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-xl bg-[#095F46]/50 border border-[#095F46]/70 p-2 shadow-md backdrop-blur-sm transition-transform group-hover:scale-105 flex-shrink-0">
+                <Image
+                  src="/images/ilmbit-icon-white.png"
+                  alt="Ilmbit Logo"
+                  width={32}
+                  height={32}
+                  className="object-contain"
+                  priority
+                />
               </div>
-              <span className="text-xl font-bold tracking-tight">
+              <span className="text-xl sm:text-2xl font-bold tracking-tight">
                 <span className="text-white">Ilm</span>
-                <span className="text-emerald-400">Connect</span>
+                <span className="text-emerald-400">bit</span>
               </span>
             </Link>
 
@@ -385,7 +392,7 @@ export default function HomePage() {
               </Link>
             </nav>
 
-            {/* Right: Sign In + Top Pill Button */}
+            {/* Right: Sign In + Solid Brand Green Pill Get Started */}
             <div className="hidden md:flex items-center gap-4">
               <Link
                 href="/auth/signin"
@@ -395,7 +402,7 @@ export default function HomePage() {
               </Link>
               <Link
                 href="/auth/signup"
-                className="px-5 py-2 rounded-full text-xs uppercase tracking-wider font-bold bg-white text-stone-950 hover:bg-stone-100 shadow-[0_2px_12px_rgba(255,255,255,0.2)] hover:scale-105 active:scale-100 transition-all duration-200"
+                className="px-5 sm:px-6 py-2 rounded-full text-xs uppercase tracking-wider font-bold text-white bg-[#095F46] hover:bg-[#074c38] shadow-sm hover:scale-105 active:scale-100 transition-all duration-200"
               >
                 Get Started
               </Link>
@@ -446,7 +453,7 @@ export default function HomePage() {
                 <Link
                   href="/auth/signup"
                   onClick={() => setMobileNavOpen(false)}
-                  className="flex-1 py-2 text-center rounded-full text-xs font-bold text-stone-950 bg-white"
+                  className="flex-1 py-2 text-center rounded-full text-xs font-bold text-white bg-[#095F46] hover:bg-[#074c38]"
                 >
                   Get Started
                 </Link>
@@ -458,7 +465,13 @@ export default function HomePage() {
         {/* ----------------------------------------------------------------------- */}
         {/* Bottom-Center Hero Content */}
         {/* ----------------------------------------------------------------------- */}
-        <div className="relative z-20 mt-auto pb-10 sm:pb-14 pt-8 px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.2 }}
+          variants={sectionReveal}
+          className="relative z-20 mt-auto pb-10 sm:pb-14 pt-8 px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center"
+        >
           <div className="relative mx-auto max-w-4xl w-full">
             {/* Concise 2-Line Headline */}
             <h1 className="text-xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white leading-snug drop-shadow-md max-w-2xl mx-auto">
@@ -483,13 +496,13 @@ export default function HomePage() {
               </Link>
               <Link
                 href="/auth/signup"
-                className="px-7 sm:px-8 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-bold tracking-wider uppercase text-white bg-[#095F46] hover:bg-[#074c38] shadow-[0_4px_20px_rgba(9,95,70,0.4)] hover:shadow-[0_6px_28px_rgba(9,95,70,0.6)] hover:scale-105 active:scale-100 transition-all duration-200"
+                className="px-7 sm:px-8 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-bold tracking-wider uppercase text-white bg-[#095F46] hover:bg-[#074c38] shadow-md hover:shadow-lg hover:scale-105 active:scale-100 transition-all duration-200"
               >
                 Book Free Trial
               </Link>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Subtle Bottom Ambient Spacer */}
         <div className="relative z-20 pb-2" />
@@ -506,7 +519,7 @@ export default function HomePage() {
         <div className="absolute top-[75%] -left-[14%] w-[650px] h-[650px] rounded-full bg-emerald-200/25 blur-[130px] animate-ambient-orb-2 pointer-events-none" />
 
         {/* ========================================================================= */}
-        {/* WHY ILMCONNECT SECTION — Editorial Split Showcase Matching Reference */}
+        {/* WHY ILMBIT SECTION — Editorial Split Showcase Matching Reference */}
         {/* ========================================================================= */}
         <section
           id="mission"
@@ -610,7 +623,7 @@ export default function HomePage() {
 
                 {/* Narrative Paragraph */}
                 <p className="text-stone-500 font-normal text-sm sm:text-base leading-relaxed mb-7 max-w-xl">
-                  Finding verified, authentic Islamic teachers who can guide your family with patience and consistency shouldn&apos;t be difficult. IlmConnect bridges you directly with qualified scholars for structured 1-on-1 online learning tailored to your timezone and personal pace.
+                  Finding verified, authentic Islamic teachers who can guide your family with patience and consistency shouldn&apos;t be difficult. Ilmbit bridges you directly with qualified scholars for structured 1-on-1 online learning tailored to your timezone and personal pace.
                 </p>
 
                 {/* Clean Feature Checklist with Brand Green Checkmarks */}
@@ -644,7 +657,7 @@ export default function HomePage() {
                 <div className="flex items-center">
                   <Link
                     href="/about"
-                    className="inline-flex items-center justify-center px-9 py-3.5 rounded-full bg-[#095F46] hover:bg-[#074c38] text-white font-bold text-sm sm:text-base shadow-[0_4px_16px_rgba(9,95,70,0.25)] hover:shadow-[0_8px_24px_rgba(9,95,70,0.38)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300"
+                    className="inline-flex items-center justify-center px-9 py-3.5 rounded-full bg-[#095F46] hover:bg-[#074c38] text-white font-bold text-sm sm:text-base shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300"
                   >
                     Learn More
                   </Link>
@@ -655,7 +668,7 @@ export default function HomePage() {
         </section>
 
         {/* ========================================================================= */}
-        {/* PLATFORM STATS STRIP — Compact 4 Metrics Directly Below Why IlmConnect */}
+        {/* PLATFORM STATS STRIP — Compact 4 Metrics Directly Below Why Ilmbit */}
         {/* ========================================================================= */}
         <section
           id="stats"
@@ -1020,7 +1033,7 @@ export default function HomePage() {
 
                   <Link
                     href="/auth/signup"
-                    className="w-full py-2.5 px-4 rounded-xl text-xs font-bold text-center text-white bg-gradient-to-r from-[hsl(var(--primary))] to-emerald-600 hover:from-[hsl(var(--primary-hover))] hover:to-emerald-700 shadow-[0_10px_24px_rgba(15,118,110,0.22)] active:scale-[0.99] transition-all block mb-6 uppercase tracking-wider"
+                    className="w-full py-2.5 px-4 rounded-xl text-xs font-bold text-center text-white bg-[#095F46] hover:bg-[#074c38] shadow-sm hover:shadow-md active:scale-[0.99] transition-all block mb-6 uppercase tracking-wider"
                   >
                     Select Plan
                   </Link>
@@ -1095,7 +1108,7 @@ export default function HomePage() {
 
                   <Link
                     href="/auth/signup"
-                    className="w-full py-2.5 px-4 rounded-xl text-xs font-bold text-center text-white bg-gradient-to-r from-[hsl(var(--primary))] to-emerald-600 hover:from-[hsl(var(--primary-hover))] hover:to-emerald-700 shadow-[0_10px_24px_rgba(15,118,110,0.22)] active:scale-[0.99] transition-all block mb-6 uppercase tracking-wider"
+                    className="w-full py-2.5 px-4 rounded-xl text-xs font-bold text-center text-white bg-[#095F46] hover:bg-[#074c38] shadow-sm hover:shadow-md active:scale-[0.99] transition-all block mb-6 uppercase tracking-wider"
                   >
                     Select Plan
                   </Link>
@@ -1174,7 +1187,7 @@ export default function HomePage() {
 
                   <Link
                     href="/auth/signup"
-                    className="w-full py-2.5 px-4 rounded-xl text-xs font-bold text-center text-white bg-gradient-to-r from-[hsl(var(--primary))] to-emerald-600 hover:from-[hsl(var(--primary-hover))] hover:to-emerald-700 shadow-[0_10px_24px_rgba(15,118,110,0.22)] active:scale-[0.99] transition-all block mb-6 uppercase tracking-wider"
+                    className="w-full py-2.5 px-4 rounded-xl text-xs font-bold text-center text-white bg-[#095F46] hover:bg-[#074c38] shadow-sm hover:shadow-md active:scale-[0.99] transition-all block mb-6 uppercase tracking-wider"
                   >
                     Select Plan
                   </Link>
@@ -1425,7 +1438,7 @@ export default function HomePage() {
                 <button
                   type="button"
                   onClick={() => setIsWaitlistOpen(true)}
-                  className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full text-xs sm:text-sm font-bold tracking-wider uppercase bg-gradient-to-r from-[hsl(var(--primary))] to-emerald-500 text-white hover:from-emerald-800 hover:to-emerald-600 shadow-[0_0_28px_rgba(16,185,129,0.34)] hover:shadow-[0_0_38px_rgba(16,185,129,0.52)] transition-all hover:scale-105 active:scale-100 cursor-pointer"
+                  className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full text-xs sm:text-sm font-bold tracking-wider uppercase bg-[#095F46] hover:bg-[#074c38] text-white shadow-md hover:shadow-lg transition-all hover:scale-105 active:scale-100 cursor-pointer"
                 >
                   <span>Join the Waitlist</span>
                   <ChevronRight className="h-4 w-4" />

@@ -597,20 +597,20 @@ export default function AdminUsersPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-3 py-2 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] text-sm focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
-                  placeholder="ahmed.scholar@ilmconnect.com"
+                  placeholder="ahmed.scholar@ilmbit.com"
                 />
               </div>
 
               <div>
                 <label className="block text-xs font-semibold mb-1.5 text-[hsl(var(--foreground))]">
-                  Initial Password <span className="text-[hsl(var(--muted-foreground))] font-normal">(Optional, defaults to ilmconnect123)</span>
+                  Initial Password <span className="text-[hsl(var(--muted-foreground))] font-normal">(Optional, defaults to ilmbit123)</span>
                 </label>
                 <input
                   type="text"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full px-3 py-2 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] text-sm focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
-                  placeholder="ilmconnect123"
+                  placeholder="ilmbit123"
                 />
               </div>
 

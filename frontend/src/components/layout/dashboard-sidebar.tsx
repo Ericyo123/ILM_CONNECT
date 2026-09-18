@@ -6,6 +6,7 @@ import { useAuth } from '@/lib/auth-context';
 import { useRole } from '@/lib/role-context';
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import {
   BookOpen,
@@ -175,12 +176,18 @@ export default function DashboardSidebar() {
     >
       {/* Logo */}
       <div className="flex items-center gap-2.5 h-16 px-4 border-b border-[hsl(var(--sidebar-border))] bg-white">
-        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#095F46] text-white flex-shrink-0 shadow-sm">
-          <BookOpen className="h-5 w-5 text-white" strokeWidth={2.5} />
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#095F46] p-1.5 text-white flex-shrink-0 shadow-sm">
+          <Image
+            src="/images/ilmbit-icon-white.png"
+            alt="Ilmbit Logo"
+            width={28}
+            height={28}
+            className="object-contain"
+          />
         </div>
         {!collapsed && (
-          <span className="text-lg font-extrabold text-stone-950 tracking-tight">
-            Ilm<span className="text-[#095F46]">Connect</span>
+          <span className="text-xl font-extrabold text-stone-950 tracking-tight">
+            Ilm<span className="text-[#095F46]">bit</span>
           </span>
         )}
       </div>

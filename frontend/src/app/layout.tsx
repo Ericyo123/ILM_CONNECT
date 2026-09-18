@@ -26,8 +26,8 @@ const amiri = Amiri({
 
 export const metadata: Metadata = {
   title: {
-    default: 'IlmConnect — Online Islamic Education Platform',
-    template: '%s | IlmConnect',
+    default: 'Ilmbit — Online Islamic Education Platform',
+    template: '%s | Ilmbit',
   },
   description:
     'Connect with qualified Islamic scholars for personalized 1:1 Quran, Hadith, Fiqh, and Arabic lessons. Structured learning from the comfort of your home.',
@@ -43,11 +43,11 @@ export const metadata: Metadata = {
     'Tajweed',
     'Muslim education',
   ],
-  authors: [{ name: 'IlmConnect' }],
+  authors: [{ name: 'Ilmbit' }],
   openGraph: {
-    title: 'IlmConnect — Online Islamic Education Platform',
+    title: 'Ilmbit — Online Islamic Education Platform',
     description: 'Connect with qualified Islamic scholars for personalized 1:1 lessons.',
-    siteName: 'IlmConnect',
+    siteName: 'Ilmbit',
     type: 'website',
   },
 };

@@ -62,13 +62,19 @@ export default function SignUpPage() {
       <div className="grid min-h-screen w-full gap-0 lg:grid-cols-[1fr_1.06fr]">
         <section className="flex min-h-screen flex-col justify-between bg-white px-7 py-8 sm:px-12 lg:px-20">
           <div className="flex items-center justify-between gap-4">
-            <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-700 border border-emerald-500/30 shadow-xs transition-transform group-hover:scale-105">
-                <BookOpen className="h-5 w-5" strokeWidth={2.5} />
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#095F46] p-2 text-white shadow-sm transition-transform group-hover:scale-105 flex-shrink-0">
+                <Image
+                  src="/images/ilmbit-icon-white.png"
+                  alt="Ilmbit Logo"
+                  width={30}
+                  height={30}
+                  className="object-contain"
+                />
               </div>
-              <span className="text-xl font-bold tracking-tight">
+              <span className="text-2xl font-bold tracking-tight">
                 <span className="text-stone-950">Ilm</span>
-                <span className="text-emerald-700">Connect</span>
+                <span className="text-[#095F46]">bit</span>
               </span>
             </Link>
             <Link

@@ -134,7 +134,7 @@ const faqs = [
 
 export default function PricingPage() {
   return (
-    <div className="relative min-h-screen bg-sanctuary-light text-stone-900 select-none overflow-hidden py-16 sm:py-20 lg:py-24">
+    <div className="relative min-h-screen bg-sanctuary-light text-stone-900 select-none overflow-hidden pt-28 sm:pt-32 pb-16 sm:pb-20 lg:pb-24">
       {/* Background Ambience */}
       <div className="absolute top-12 -right-24 h-96 w-96 rounded-full bg-emerald-200/40 blur-3xl pointer-events-none" />
       <div className="absolute top-[35%] -left-28 h-[32rem] w-[32rem] rounded-full bg-teal-100/50 blur-3xl pointer-events-none" />
@@ -144,7 +144,8 @@ export default function PricingPage() {
         {/* Clean, Minimal Page Header */}
         <motion.div
           initial="hidden"
-          animate="visible"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.2 }}
           variants={fadeUp}
           className="text-center max-w-3xl mx-auto"
         >

@@ -204,7 +204,7 @@ export default function AboutPage() {
       <div className="absolute top-16 -right-24 h-96 w-96 rounded-full bg-emerald-200/45 blur-3xl pointer-events-none" />
       <div className="absolute top-[42%] -left-28 h-[32rem] w-[32rem] rounded-full bg-teal-100/60 blur-3xl pointer-events-none" />
 
-      <section className="relative overflow-hidden bg-stone-950 text-white py-16 sm:py-20 lg:py-24 min-h-[38vh] sm:min-h-[42vh] flex items-center justify-center">
+      <section className="relative overflow-hidden bg-stone-950 text-white pt-28 sm:pt-32 pb-16 sm:pb-20 min-h-[42vh] sm:min-h-[46vh] flex items-center justify-center">
         <Image
           src="/images/about-hero-scholar.jpg"
           alt="Islamic scholar in traditional academy library"
@@ -216,19 +216,15 @@ export default function AboutPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-stone-950/60 via-stone-950/30 to-stone-950/70" />
 
         <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8">
-          <motion.div initial="hidden" animate="visible" variants={fadeUp} className="flex flex-col items-center">
-            {/* Hooking center-aligned headline (smaller font size) */}
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.2 }} variants={fadeUp} className="flex flex-col items-center">
+            {/* Hooking center-aligned headline */}
             <h1 className="text-2xl sm:text-3xl lg:text-[36px] font-black leading-[1.2] tracking-tight text-white mb-3 max-w-2xl">
-              A Trusted Bridge Between{' '}
-              <span className="text-[#095F46] text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-emerald-400 to-[#095F46]">
-                Scholars &amp; Students
-              </span>{' '}
-              Worldwide
+              A Trusted Bridge Between Scholars &amp; Students Worldwide
             </h1>
 
             {/* Centered concise description with smaller font */}
             <p className="max-w-xl mx-auto text-xs sm:text-sm text-stone-200/90 leading-relaxed font-normal">
-              IlmConnect exists for Muslim families who want authentic, structured Islamic learning without losing the warmth and discipline of traditional scholarship.
+              Ilmbit exists for Muslim families who want authentic, structured Islamic learning without losing the warmth and discipline of traditional scholarship.
             </p>
           </motion.div>
         </div>
@@ -265,7 +261,7 @@ export default function AboutPage() {
               className="lg:col-span-5 text-stone-600 text-xs sm:text-sm leading-relaxed"
             >
               <p>
-                IlmConnect bridges authentic traditional scholarship with modern 1-on-1 virtual classrooms and flexible scheduling designed specifically for diaspora families.
+                Ilmbit bridges authentic traditional scholarship with modern 1-on-1 virtual classrooms and flexible scheduling designed specifically for diaspora families.
               </p>
             </motion.div>
           </div>
@@ -677,7 +673,7 @@ export default function AboutPage() {
                   <button
                     type="submit"
                     disabled={isWaitlistSubmitting}
-                    className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full text-xs sm:text-sm font-bold tracking-wider uppercase bg-gradient-to-r from-[hsl(var(--primary))] to-emerald-500 text-white hover:from-emerald-800 hover:to-emerald-600 shadow-[0_0_28px_rgba(16,185,129,0.34)] hover:shadow-[0_0_38px_rgba(16,185,129,0.52)] transition-all hover:scale-105 active:scale-100 disabled:opacity-70 cursor-pointer"
+                    className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full text-xs sm:text-sm font-bold tracking-wider uppercase bg-[#095F46] hover:bg-[#074c38] text-white shadow-md hover:shadow-lg transition-all hover:scale-105 active:scale-100 disabled:opacity-70 cursor-pointer"
                   >
                     <span>{isWaitlistSubmitting ? 'Joining Waitlist...' : 'Join the Priority Waitlist'}</span>
                     <ChevronRight className="h-4 w-4" />

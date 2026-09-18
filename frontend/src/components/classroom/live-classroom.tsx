@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import Image from 'next/image';
 import {
   ParticipantTile,
   RoomAudioRenderer,
@@ -202,14 +203,20 @@ export function LiveClassroom({ sessionInfo, userRole, courseId, onLeave }: Live
       <div className="relative flex min-w-0 flex-1 flex-col">
         {/* Luxury Minimal Header */}
         <header className="z-20 flex min-h-16 items-center justify-between gap-3 border-b border-white/[0.08] bg-[#070e0a]/90 px-4 backdrop-blur-xl sm:px-6">
-          {/* Top Left: Official IlmConnect Icon & Branding */}
+          {/* Top Left: Official Ilmbit Icon & Branding */}
           <div className="flex min-w-0 items-center gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)] shadow-md shadow-emerald-950/50 border border-emerald-400/25">
-              <BookOpen className="h-5 w-5 text-white" strokeWidth={2.5} />
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#095F46] p-2 shadow-md shadow-emerald-950/50 border border-emerald-400/25">
+              <Image
+                src="/images/ilmbit-icon-white.png"
+                alt="Ilmbit Logo"
+                width={30}
+                height={30}
+                className="object-contain"
+              />
             </div>
             <div className="min-w-0 flex flex-col">
               <div className="flex items-center gap-2">
-                <span className="text-sm font-bold tracking-tight text-white">IlmConnect</span>
+                <span className="text-sm font-bold tracking-tight text-white">Ilmbit</span>
                 <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-emerald-300">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" /> Live
                 </span>

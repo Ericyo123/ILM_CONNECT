@@ -506,7 +506,7 @@ function StudentSupportContent() {
                 <div className="space-y-3 text-xs text-[hsl(var(--muted-foreground))]">
                   <div>
                     <p className="font-semibold text-[hsl(var(--foreground))] mb-0.5">Camera or Microphone Issues?</p>
-                    <p className="leading-relaxed">Check your browser site permissions to allow audio/video for IlmConnect before entering the room.</p>
+                    <p className="leading-relaxed">Check your browser site permissions to allow audio/video for Ilmbit before entering the room.</p>
                   </div>
                   <div>
                     <p className="font-semibold text-[hsl(var(--foreground))] mb-0.5">Need to Reschedule a Class?</p>
@@ -587,10 +587,10 @@ function StudentSupportContent() {
               <div className="pt-2 border-t border-[hsl(var(--border))] flex items-center justify-between text-xs">
                 <span className="text-[hsl(var(--muted-foreground))]">Official Support Email:</span>
                 <a
-                  href="mailto:support@ilmconnect.com"
+                  href="mailto:support@ilmbit.com"
                   className="font-semibold text-[hsl(var(--primary))] hover:underline"
                 >
-                  support@ilmconnect.com
+                  support@ilmbit.com
                 </a>
               </div>
             </div>

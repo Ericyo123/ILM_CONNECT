@@ -1,18 +1,28 @@
 'use client';
 
 import Link from 'next/link';
-import { BookOpen, Mail, ChevronRight, ArrowLeft } from 'lucide-react';
+import Image from 'next/image';
+import { Mail, ChevronRight, ArrowLeft } from 'lucide-react';
 
 export default function ForgotPasswordPage() {
   return (
     <div className="min-h-[80vh] flex items-center justify-center py-12 px-4 pattern-islamic">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2 mb-6">
-            <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)] flex items-center justify-center">
-              <BookOpen className="h-5 w-5 text-white" strokeWidth={2.5} />
+          <Link href="/" className="inline-flex items-center gap-3 mb-6 group">
+            <div className="h-12 w-12 rounded-xl bg-[#095F46] p-2 flex items-center justify-center shadow-sm transition-transform group-hover:scale-105 flex-shrink-0">
+              <Image
+                src="/images/ilmbit-icon-white.png"
+                alt="Ilmbit Logo"
+                width={34}
+                height={34}
+                className="object-contain"
+              />
             </div>
-            <span className="text-2xl font-bold"><span className="text-gradient-primary">Ilm</span>Connect</span>
+            <span className="text-2xl font-bold">
+              <span>Ilm</span>
+              <span className="text-[#095F46]">bit</span>
+            </span>
           </Link>
           <h1 className="text-2xl font-bold mb-2">Reset Your Password</h1>
           <p className="text-sm text-[hsl(var(--muted-foreground))]">Enter your email and we&apos;ll send you a reset link</p>

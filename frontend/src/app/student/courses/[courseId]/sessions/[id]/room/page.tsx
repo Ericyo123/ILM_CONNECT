@@ -120,7 +120,7 @@ function PreJoinScreen({ onJoin, onBack, sessionInfo }: { onJoin: (mic: boolean,
         </button>
         <div className="flex items-center gap-2 text-sm font-semibold">
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-300 text-[#10201c]"><Camera className="h-4 w-4" /></span>
-          IlmConnect Classroom
+          Ilmbit Classroom
         </div>
         <span className="hidden items-center gap-1.5 text-xs text-white/45 sm:flex"><Wifi className="h-3.5 w-3.5" /> Secure room</span>
       </header>

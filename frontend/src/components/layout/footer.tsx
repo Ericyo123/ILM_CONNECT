@@ -15,10 +15,9 @@ const footerLinks = {
 
   Support: [
     { label: 'About Us', href: '/about' },
-    { label: 'Help Center', href: '#' },
-    { label: 'Contact Us', href: '#' },
-    { label: 'Privacy Policy', href: '#' },
-    { label: 'Terms of Service', href: '#' },
+    { label: 'Contact Us', href: 'mailto:support@ilmbit.com' },
+    { label: 'Privacy Policy', href: '/privacy' },
+    { label: 'Terms of Service', href: '/terms' },
   ],
 };
 
@@ -57,12 +56,15 @@ export default function Footer() {
               Structured, professional, one-on-one Islamic education from the comfort of your home.
             </p>
             <div className="space-y-2 text-sm text-emerald-50/72">
-              <div className="flex items-center gap-2">
-                <Mail className="h-4 w-4 text-emerald-300/80" />
+              <a
+                href="mailto:support@ilmbit.com"
+                className="flex w-fit items-center gap-2 transition-colors hover:text-white"
+              >
+                <Mail className="h-4 w-4 text-emerald-300/80" aria-hidden="true" />
                 <span>support@ilmbit.com</span>
-              </div>
+              </a>
               <div className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-emerald-300/80" />
+                <MapPin className="h-4 w-4 text-emerald-300/80" aria-hidden="true" />
                 <span>Colombo, Sri Lanka</span>
               </div>
             </div>

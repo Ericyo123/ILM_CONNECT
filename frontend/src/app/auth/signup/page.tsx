@@ -1,10 +1,10 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft, BookOpen, Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { AuthShell } from '@/components/auth/auth-shell';
 import { apiFetch } from '@/lib/api';
 import { useAuth } from '@/lib/auth-context';
 
@@ -12,10 +12,12 @@ function getErrorMessage(error: unknown, fallback: string) {
   return error instanceof Error ? error.message : fallback;
 }
 
+const inputClassName =
+  'h-12 w-full rounded-[4px] border border-[#bdb8ad] bg-[#fffefb] px-4 text-[15px] text-stone-950 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] outline-none transition-[border-color,box-shadow,background-color] placeholder:text-stone-400 hover:border-stone-500 focus:border-[#095F46] focus:bg-white focus:ring-2 focus:ring-[#095F46]/20';
+
 export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -23,8 +25,8 @@ export default function SignUpPage() {
   const router = useRouter();
   const { login } = useAuth();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
     setError('');
     setIsLoading(true);
 
@@ -36,199 +38,139 @@ export default function SignUpPage() {
           email: cleanEmail,
           password,
           role: 'STUDENT',
-          fullName: `${firstName} ${lastName}`.trim(),
+          fullName: fullName.trim(),
           phone: '000000000',
           country: 'Unknown',
           timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         }),
       });
 
-      const loginRes = await apiFetch('/auth/login', {
+      const loginResponse = await apiFetch('/auth/login', {
         method: 'POST',
         body: JSON.stringify({ email: cleanEmail, password }),
       });
 
-      login(loginRes.user, loginRes.token);
-      router.push(`/student/dashboard`);
+      login(loginResponse.user, loginResponse.token);
+      router.push('/student/dashboard');
     } catch (err) {
-      setError(getErrorMessage(err, 'Failed to create account'));
+      setError(getErrorMessage(err, 'Failed to create account. Please try again.'));
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <main className="min-h-screen bg-[#f7f8f5] text-stone-950">
-      <div className="grid min-h-screen w-full gap-0 lg:grid-cols-[1fr_1.06fr]">
-        <section className="flex min-h-screen flex-col justify-between bg-white px-7 py-8 sm:px-12 lg:px-20">
-          <div className="flex items-center justify-between gap-4">
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#095F46] p-2 text-white shadow-sm transition-transform group-hover:scale-105 flex-shrink-0">
-                <Image
-                  src="/images/ilmbit-icon-white.png"
-                  alt="Ilmbit Logo"
-                  width={30}
-                  height={30}
-                  className="object-contain"
-                />
-              </div>
-              <span className="text-2xl font-bold tracking-tight">
-                <span className="text-stone-950">Ilm</span>
-                <span className="text-[#095F46]">bit</span>
-              </span>
-            </Link>
-            <Link
-              href="/"
-              className="inline-flex h-9 items-center gap-2 rounded-full border border-stone-200 px-3 text-xs font-bold text-stone-600 transition-colors hover:border-emerald-200 hover:bg-emerald-50 hover:text-[hsl(var(--primary))]"
-            >
-              <ArrowLeft className="h-3.5 w-3.5" />
-              Home
-            </Link>
-          </div>
+    <AuthShell
+      title="Create an account"
+      description="Begin your Islamic learning journey with a dedicated scholar."
+      quote="The ink of the scholar is more sacred than the blood of the martyr"
+      attribution="— Prophet Muhammad ﷺ"
+      footer={
+        <>
+          Already have an account?{' '}
+          <Link href="/auth/signin" className="font-bold text-[#095F46] underline-offset-4 hover:underline">
+            Log in
+          </Link>
+        </>
+      }
+    >
+      {error ? (
+        <div
+          role="alert"
+          className="mb-5 rounded-[10px] border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700"
+        >
+          {error}
+        </div>
+      ) : null}
 
-          <div className="mx-auto w-full max-w-md py-8 lg:-mt-4">
-            <div className="mb-8">
-              <h1 className="text-4xl font-black tracking-tight text-stone-950">Create your account</h1>
-              <p className="mt-3 text-base font-medium text-stone-500">
-                Start your Islamic education journey today
-              </p>
-            </div>
-
-            {error && (
-              <div className="mb-5 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">
-                {error}
-              </div>
-            )}
-
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid gap-3 sm:grid-cols-2">
-                <div>
-                  <label htmlFor="first-name" className="mb-2 block text-sm font-bold text-stone-800">
-                    First name*
-                  </label>
-                  <input
-                    id="first-name"
-                    required
-                    type="text"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    placeholder="Aisha"
-                    className="h-14 w-full rounded-full border border-stone-200 bg-white px-5 text-base text-stone-900 shadow-sm outline-none transition-all placeholder:text-stone-400 focus:border-[hsl(var(--primary))] focus:ring-4 focus:ring-emerald-100"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="last-name" className="mb-2 block text-sm font-bold text-stone-800">
-                    Last name*
-                  </label>
-                  <input
-                    id="last-name"
-                    required
-                    type="text"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    placeholder="Khan"
-                    className="h-14 w-full rounded-full border border-stone-200 bg-white px-5 text-base text-stone-900 shadow-sm outline-none transition-all placeholder:text-stone-400 focus:border-[hsl(var(--primary))] focus:ring-4 focus:ring-emerald-100"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="email" className="mb-2 block text-sm font-bold text-stone-800">
-                  Email address*
-                </label>
-                <input
-                  id="email"
-                  required
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@example.com"
-                  className="h-14 w-full rounded-full border border-stone-200 bg-white px-5 text-base text-stone-900 shadow-sm outline-none transition-all placeholder:text-stone-400 focus:border-[hsl(var(--primary))] focus:ring-4 focus:ring-emerald-100"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="password" className="mb-2 block text-sm font-bold text-stone-800">
-                  Password*
-                </label>
-                <div className="relative">
-                  <input
-                    id="password"
-                    required
-                    type={showPassword ? 'text' : 'password'}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Min 8 characters"
-                    minLength={6}
-                    className="h-14 w-full rounded-full border border-stone-200 bg-white px-5 pr-12 text-base text-stone-900 shadow-sm outline-none transition-all placeholder:text-stone-400 focus:border-[hsl(var(--primary))] focus:ring-4 focus:ring-emerald-100"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full text-stone-400 transition-colors hover:bg-stone-100 hover:text-stone-900"
-                    aria-label={showPassword ? 'Hide password' : 'Show password'}
-                  >
-                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                  </button>
-                </div>
-              </div>
-
-              <label className="flex items-start gap-2 pt-1 text-xs font-medium leading-relaxed text-stone-600">
-                <input required type="checkbox" className="mt-0.5 h-4 w-4 rounded border-stone-300 text-[hsl(var(--primary))]" />
-                <span>
-                  I agree to the{' '}
-                  <Link href="#" className="font-bold text-stone-900 hover:text-[hsl(var(--primary))]">
-                    Terms of Service
-                  </Link>{' '}
-                  and{' '}
-                  <Link href="#" className="font-bold text-stone-900 hover:text-[hsl(var(--primary))]">
-                    Privacy Policy
-                  </Link>
-                </span>
-              </label>
-
-              <button
-                disabled={isLoading}
-                type="submit"
-                className="mt-3 h-14 w-full rounded-full bg-stone-950 text-base font-bold text-white shadow-[0_18px_36px_rgba(15,23,42,0.2)] transition-all hover:-translate-y-0.5 hover:bg-[hsl(var(--primary))] disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                {isLoading ? 'Creating Account...' : 'Create Account'}
-              </button>
-            </form>
-
-            <p className="mt-5 text-sm font-medium text-stone-500">
-              Already have an account?{' '}
-              <Link href="/auth/signin" className="font-bold text-[hsl(var(--primary))] hover:underline">
-                Sign in
-              </Link>
-            </p>
-          </div>
-
-          <p className="text-xs font-medium text-stone-400">Your free trial starts with a live 1:1 session.</p>
-        </section>
-
-        <aside className="relative hidden min-h-screen overflow-hidden bg-stone-950 lg:block">
-          <Image
-            src="/images/signin-side.png"
-            alt="Islamic learning environment"
-            fill
-            priority
-            sizes="50vw"
-            className="object-cover object-center"
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label htmlFor="full-name" className="mb-1.5 block text-[13px] font-bold text-stone-800">
+            Full name
+          </label>
+          <input
+            id="full-name"
+            required
+            type="text"
+            autoComplete="name"
+            value={fullName}
+            onChange={(event) => setFullName(event.target.value)}
+            placeholder="Enter your name"
+            className={inputClassName}
           />
-          {/* Light black overlay across picture for higher text visibility like hero */}
-          <div className="absolute inset-0 bg-black/40" />
-          <div className="absolute inset-0 bg-gradient-to-t from-stone-950/95 via-stone-950/50 to-stone-950/20" />
-          <div className="absolute inset-x-10 bottom-16 text-center text-white">
-            <blockquote className="mx-auto max-w-2xl text-4xl font-black leading-tight tracking-tight drop-shadow-[0_4px_18px_rgba(0,0,0,0.65)]">
-              &ldquo;The ink of the scholar is more sacred than the blood of the martyr&rdquo;
-            </blockquote>
-            <p className="mt-5 text-lg font-semibold text-white drop-shadow-[0_3px_14px_rgba(0,0,0,0.65)]">
-              — Prophet Muhammad ﷺ
-            </p>
+        </div>
+
+        <div>
+          <label htmlFor="email" className="mb-1.5 block text-[13px] font-bold text-stone-800">
+            Email address
+          </label>
+          <input
+            id="email"
+            required
+            type="email"
+            autoComplete="email"
+            inputMode="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            placeholder="Enter your email address"
+            className={inputClassName}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="password" className="mb-1.5 block text-[13px] font-bold text-stone-800">
+            Password
+          </label>
+          <div className="relative">
+            <input
+              id="password"
+              required
+              minLength={6}
+              type={showPassword ? 'text' : 'password'}
+              autoComplete="new-password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              placeholder="Enter your password"
+              className={`${inputClassName} pr-14`}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((visible) => !visible)}
+              className="absolute right-1 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-[3px] text-stone-400 transition-colors hover:bg-[#f3efe6] hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#095F46]"
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+              aria-pressed={showPassword}
+            >
+              {showPassword ? <EyeOff className="h-4 w-4" aria-hidden="true" /> : <Eye className="h-4 w-4" aria-hidden="true" />}
+            </button>
           </div>
-        </aside>
-      </div>
-    </main>
+        </div>
+
+        <label className="flex items-start gap-2.5 pt-0.5 text-[13px] font-medium leading-5 text-stone-600">
+          <input
+            required
+            type="checkbox"
+            className="mt-0.5 h-4 w-4 shrink-0 rounded-[2px] border-stone-400 text-[#095F46] focus:ring-[#095F46]"
+          />
+          <span>
+            I agree to the{' '}
+            <Link href="/terms" className="font-bold text-stone-950 underline-offset-4 hover:underline">
+              Terms of Service
+            </Link>{' '}
+            and{' '}
+            <Link href="/privacy" className="font-bold text-stone-950 underline-offset-4 hover:underline">
+              Privacy Policy
+            </Link>
+          </span>
+        </label>
+
+        <button
+          disabled={isLoading}
+          type="submit"
+          className="mt-2 flex h-12 w-full items-center justify-center rounded-[4px] border border-[#064132] bg-[#095F46] px-6 text-sm font-bold text-white shadow-[inset_0_1px_0_rgba(228,207,143,0.35)] transition-colors hover:bg-[#064b38] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#095F46] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f3efe6] disabled:cursor-not-allowed disabled:opacity-55"
+        >
+          {isLoading ? 'Creating account...' : 'Create account'}
+        </button>
+      </form>
+    </AuthShell>
   );
 }

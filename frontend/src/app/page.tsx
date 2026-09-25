@@ -4,36 +4,24 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
-  BookOpen,
-  Star,
   ChevronRight,
-  GraduationCap,
-  ShieldCheck,
   ArrowLeft,
   ArrowRight,
   Check,
-  Menu,
   X,
-  Globe,
-  UserCheck,
-  UserPlus,
-  Compass,
-  Video,
-  Zap,
 } from 'lucide-react';
-import { motion, AnimatePresence, useInView } from 'framer-motion';
-import WaitlistModal from '@/components/waitlist-modal';
+import { motion, AnimatePresence, useInView, type Variants } from 'framer-motion';
 
-const sectionReveal = {
+const sectionReveal: Variants = {
   hidden: { opacity: 0, y: 32 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] as const },
   },
 };
 
-const cardStagger = {
+const cardStagger: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -44,12 +32,12 @@ const cardStagger = {
   },
 };
 
-const cardItem = {
+const cardItem: Variants = {
   hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const },
   },
 };
 
@@ -140,60 +128,18 @@ const platformStats = [
 ];
 
 
-const missionPoints = [
-  {
-    category: 'Scholar Faculty',
-    line1: 'Learn directly',
-    highlight: 'from verified scholars',
-    line3: 'with Sanad heritage.',
-    desc: 'Hand-vetted teachers rooted in traditional Islamic institutions, carrying authentic Sanad lineage.',
-    tag: 'Authentic Sanad',
-    icon: GraduationCap,
-  },
-  {
-    category: 'Parent Visibility',
-    line1: 'Track milestones',
-    highlight: 'with live reports',
-    line3: 'and lesson feedback.',
-    desc: 'Transparent session summaries, attendance logs, and Tajweed milestones delivered after every class.',
-    tag: 'Live Reports',
-    icon: ShieldCheck,
-  },
-  {
-    category: 'Global Scheduling',
-    line1: 'Coordinate classes',
-    highlight: 'across any time zone',
-    line3: 'for diaspora families.',
-    desc: 'Flexible 1-on-1 scheduling coordinated across UK, US, Canada, Australia, and Middle East time zones.',
-    tag: 'Global 24/7',
-    icon: Globe,
-  },
-  {
-    category: '1:1 Articulation',
-    line1: 'Master Makharij',
-    highlight: 'with direct correction',
-    line3: 'and fluent recitation.',
-    desc: 'Personalized vocal correction with real-time video feedback so students recite with true Tajweed excellence.',
-    tag: 'Makharij Precision',
-    icon: UserCheck,
-  },
-];
-
-
 const howItWorksSteps = [
   {
     num: '1',
-    badge: 'STEP 01',
     title: 'Create Your Account',
     desc: 'Register in under 2 minutes, personalize your student profile, and begin your Islamic learning journey.',
     image: '/images/how-it-works-step-1-v3.jpg',
     imageAlt: 'Ilmbit student account registration on laptop screen',
     buttonText: 'Get Started',
-    buttonLink: '/auth/signup',
+    buttonLink: '/about#waitlist',
   },
   {
     num: '2',
-    badge: 'STEP 02',
     title: 'Choose Course Plan',
     desc: 'Select your learning path from beginner Qaida to Tajweed, with flexible Standard or Fast Track 1:1 plans.',
     image: '/images/how-it-works-step-2-v3.jpg',
@@ -203,7 +149,6 @@ const howItWorksSteps = [
   },
   {
     num: '3',
-    badge: 'STEP 03',
     title: 'Get Matched With Scholar',
     desc: 'Our academic team reviews your goals to pair you with an ideal verified, Sanad-certified Islamic scholar.',
     image: '/images/how-it-works-step-3-v4.jpg',
@@ -213,13 +158,12 @@ const howItWorksSteps = [
   },
   {
     num: '4',
-    badge: 'STEP 04',
     title: 'Start 1:1 Learning',
     desc: 'Attend interactive 1:1 online sessions with your scholar, practicing Quran recitation with Tajweed correction.',
     image: '/images/how-it-works-step-4-v4.jpg',
     imageAlt: 'Student actively learning Quran 1:1 online with certified scholar on laptop screen',
     buttonText: 'Join Classroom',
-    buttonLink: '/auth/signup',
+    buttonLink: '/about#waitlist',
   },
 ];
 
@@ -250,7 +194,7 @@ const diasporaTestimonials: TestimonialStory[] = [
     role: 'Father & Physician',
     location: 'Toronto, Canada',
     quote: 'Ilmbit is more essential to our family routine than our local weekend school. It’s a powerful solution to diaspora education.',
-    fullStory: 'Ilmbit is more essential to our family routine than our local weekend school. It’s a powerful solution to diaspora education. With my unpredictable hospital shifts, being able to reschedule and get reliable one-on-one attention for my sons has been an absolute game changer.',
+    fullStory: 'Ilmbit is more essential to our family routine than our local weekend school. It’s a powerful solution to diaspora education. With my unpredictable hospital shifts, being able to reschedule and get reliable 1:1 attention for my sons has been an absolute game changer.',
     course: 'Hifz Memorization',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&h=120&fit=crop&crop=face',
   },
@@ -267,8 +211,8 @@ const diasporaTestimonials: TestimonialStory[] = [
     name: 'Amina Diallo',
     role: 'Mother of 9yo student',
     location: 'Paris, France',
-    quote: 'The one-on-one Tajweed coaching from Maulavi Ismail is exceptional. My daughter eagerly prepares for her live sessions twice every week.',
-    fullStory: 'The one-on-one Tajweed coaching from Maulavi Ismail is exceptional. My daughter eagerly prepares for her live sessions twice every week. Her pronunciation and rhythm have blossomed in just three months, and the progress feedback keeps our whole family motivated.',
+    quote: 'The 1:1 Tajweed coaching from Maulavi Ismail is exceptional. My daughter eagerly prepares for her live sessions twice every week.',
+    fullStory: 'The 1:1 Tajweed coaching from Maulavi Ismail is exceptional. My daughter eagerly prepares for her live sessions twice every week. Her pronunciation and rhythm have blossomed in just three months, and the progress feedback keeps our whole family motivated.',
     course: 'Tajweed Recitation',
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&h=120&fit=crop&crop=face',
   },
@@ -293,34 +237,21 @@ const diasporaTestimonials: TestimonialStory[] = [
 ];
 
 export default function HomePage() {
-  const [mobileNavOpen, setMobileNavOpen] = useState(false);
-  const sliderRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
+  const [testimonialIndex, setTestimonialIndex] = useState(0);
   const [selectedStory, setSelectedStory] = useState<TestimonialStory | null>(null);
-  const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
 
-  const checkScrollButtons = () => {
-    if (!sliderRef.current) return;
-    const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
-    setCanScrollLeft(scrollLeft > 10);
-    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
-  };
+  const visibleTestimonials = [0, 1, 2].map(
+    (offset) => diasporaTestimonials[(testimonialIndex + offset) % diasporaTestimonials.length],
+  );
 
-  const handleScroll = (direction: 'left' | 'right') => {
-    if (!sliderRef.current) return;
-    const scrollAmount = 380;
-    sliderRef.current.scrollBy({
-      left: direction === 'left' ? -scrollAmount : scrollAmount,
-      behavior: 'smooth',
+  const changeTestimonial = (direction: 'previous' | 'next') => {
+    setTestimonialIndex((current) => {
+      if (direction === 'previous') {
+        return (current - 1 + diasporaTestimonials.length) % diasporaTestimonials.length;
+      }
+      return (current + 1) % diasporaTestimonials.length;
     });
   };
-
-  useEffect(() => {
-    checkScrollButtons();
-    window.addEventListener('resize', checkScrollButtons);
-    return () => window.removeEventListener('resize', checkScrollButtons);
-  }, []);
 
   return (
     <>
@@ -330,137 +261,30 @@ export default function HomePage() {
       {/* HERO SECTION — Ultra-Modern Minimal Glassmorphic Layout Matching Reference */}
       {/* ========================================================================= */}
       <section className="relative min-h-[92vh] sm:min-h-[96vh] lg:min-h-[100vh] flex flex-col justify-between overflow-hidden bg-stone-950 text-white select-none">
-        {/* Background Image: Dignified male scholar with students centered with bottom emerald blur wave */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/hero-male-scholar.jpg"
-            alt="Dignified Islamic scholar and young students reciting the Holy Quran in a modern educational sanctuary"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-[center_32%] sm:object-[center_28%] brightness-[0.96] contrast-[1.04]"
-          />
-          {/* Light black overlay across the entire picture for higher text visibility */}
-          <div className="absolute inset-0 bg-black/40" />
-          {/* Top gradient for header contrast and bottom gradient for hero text and CTA */}
-          <div className="absolute inset-0 bg-gradient-to-b from-stone-950/70 via-transparent to-stone-950/85" />
-          <div className="absolute inset-0 bg-radial-gradient from-transparent via-stone-950/15 to-stone-950/75 pointer-events-none" />
+        <div
+          className="absolute inset-0 z-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/images/ilmbit-hero-poster.jpg')" }}
+        >
+          <video
+            className="hero-brand-video h-full w-full object-cover object-center"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster="/images/ilmbit-hero-poster.jpg"
+            aria-hidden="true"
+          >
+            <source src="/ilmbit-hero-boomerang.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/10 to-black/75" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_22%,rgba(0,0,0,0.35)_100%)]" />
         </div>
 
         {/* ----------------------------------------------------------------------- */}
-        {/* Top Header & Navigation Bar (Fully Transparent in Hero) */}
+        {/* Top spacer for fixed header alignment */}
         {/* ----------------------------------------------------------------------- */}
-        <div className="relative z-30 w-full pt-5 sm:pt-7 px-4 sm:px-6 lg:px-12">
-          <div className="mx-auto max-w-7xl flex items-center justify-between h-16">
-            {/* Left: Logo */}
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-xl bg-[#095F46]/50 border border-[#095F46]/70 p-2 shadow-md backdrop-blur-sm transition-transform group-hover:scale-105 flex-shrink-0">
-                <Image
-                  src="/images/ilmbit-icon-white.png"
-                  alt="Ilmbit Logo"
-                  width={32}
-                  height={32}
-                  className="object-contain"
-                  priority
-                />
-              </div>
-              <span className="text-xl sm:text-2xl font-bold tracking-tight">
-                <span className="text-white">Ilm</span>
-                <span className="text-emerald-400">bit</span>
-              </span>
-            </Link>
-
-            {/* Center: Home, About, Pricing */}
-            <nav className="hidden md:flex items-center gap-8">
-              <Link
-                href="/"
-                className="text-xs uppercase tracking-widest font-semibold text-emerald-400 transition-colors"
-              >
-                Home
-              </Link>
-              <Link
-                href="/about"
-                className="text-xs uppercase tracking-widest font-semibold text-stone-300 hover:text-white transition-colors"
-              >
-                About Us
-              </Link>
-              <Link
-                href="/pricing"
-                className="text-xs uppercase tracking-widest font-semibold text-stone-300 hover:text-white transition-colors"
-              >
-                Pricing
-              </Link>
-            </nav>
-
-            {/* Right: Sign In + Solid Brand Green Pill Get Started */}
-            <div className="hidden md:flex items-center gap-4">
-              <Link
-                href="/auth/signin"
-                className="text-xs uppercase tracking-widest font-semibold text-stone-300 hover:text-white transition-colors"
-              >
-                Sign In
-              </Link>
-              <Link
-                href="/auth/signup"
-                className="px-5 sm:px-6 py-2 rounded-full text-xs uppercase tracking-wider font-bold text-white bg-[#095F46] hover:bg-[#074c38] shadow-sm hover:scale-105 active:scale-100 transition-all duration-200"
-              >
-                Get Started
-              </Link>
-            </div>
-
-            {/* Mobile hamburger menu */}
-            <button
-              onClick={() => setMobileNavOpen(!mobileNavOpen)}
-              className="md:hidden p-2 rounded-lg text-stone-300 hover:text-white hover:bg-white/10 transition-colors"
-              aria-label="Toggle navigation menu"
-            >
-              {mobileNavOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </button>
-          </div>
-
-          {/* Mobile Navigation Dropdown */}
-          {mobileNavOpen && (
-            <div className="md:hidden mx-auto max-w-7xl mt-2 p-4 rounded-xl bg-stone-950/95 border border-stone-800 backdrop-blur-xl animate-fade-in flex flex-col gap-2">
-              <Link
-                href="/"
-                onClick={() => setMobileNavOpen(false)}
-                className="px-3 py-2 rounded-lg text-sm font-medium text-emerald-400 bg-emerald-950/80"
-              >
-                Home
-              </Link>
-              <Link
-                href="/about"
-                onClick={() => setMobileNavOpen(false)}
-                className="px-3 py-2 rounded-lg text-sm font-medium text-stone-300 hover:text-white"
-              >
-                About Us
-              </Link>
-              <Link
-                href="/pricing"
-                onClick={() => setMobileNavOpen(false)}
-                className="px-3 py-2 rounded-lg text-sm font-medium text-stone-300 hover:text-white"
-              >
-                Pricing
-              </Link>
-              <div className="pt-2 mt-1 border-t border-stone-800 flex gap-2">
-                <Link
-                  href="/auth/signin"
-                  onClick={() => setMobileNavOpen(false)}
-                  className="flex-1 py-2 text-center rounded-lg text-xs font-medium text-stone-300 bg-stone-800"
-                >
-                  Sign In
-                </Link>
-                <Link
-                  href="/auth/signup"
-                  onClick={() => setMobileNavOpen(false)}
-                  className="flex-1 py-2 text-center rounded-full text-xs font-bold text-white bg-[#095F46] hover:bg-[#074c38]"
-                >
-                  Get Started
-                </Link>
-              </div>
-            </div>
-          )}
-        </div>
+        <div className="w-full h-16 sm:h-20 pointer-events-none" aria-hidden="true" />
 
         {/* ----------------------------------------------------------------------- */}
         {/* Bottom-Center Hero Content */}
@@ -476,7 +300,7 @@ export default function HomePage() {
             {/* Concise 2-Line Headline */}
             <h1 className="text-xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white leading-snug drop-shadow-md max-w-2xl mx-auto">
               <span className="block">Learn Quran &amp; Islamic Studies</span>
-              <span className="block text-stone-200 font-medium text-base sm:text-2xl lg:text-[28px] mt-1">
+              <span className="block text-emerald-50 font-semibold text-base sm:text-2xl lg:text-[28px] mt-1">
                 from Qualified Scholars Worldwide
               </span>
             </h1>
@@ -490,13 +314,13 @@ export default function HomePage() {
             <div className="mt-6 sm:mt-7 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
               <Link
                 href="#courses"
-                className="px-6 sm:px-7 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-semibold tracking-wider uppercase text-stone-200 bg-white/10 hover:bg-white/15 border border-white/20 backdrop-blur-md shadow-md transition-all duration-200"
+                className="brand-button brand-button-inverse px-7"
               >
                 View Courses
               </Link>
               <Link
-                href="/auth/signup"
-                className="px-7 sm:px-8 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-bold tracking-wider uppercase text-white bg-[#095F46] hover:bg-[#074c38] shadow-md hover:shadow-lg hover:scale-105 active:scale-100 transition-all duration-200"
+                href="/about#waitlist"
+                className="brand-button brand-button-primary px-8"
               >
                 Book Free Trial
               </Link>
@@ -616,20 +440,20 @@ export default function HomePage() {
                 className="lg:col-span-6 flex flex-col justify-center lg:pl-4"
               >
                 {/* High-Impact Heading with Brand Green Accent */}
-                <h2 className="text-3xl sm:text-4xl lg:text-[42px] xl:text-[46px] font-black tracking-tight text-stone-950 leading-[1.16] mb-5">
+                <h2 className="text-3xl sm:text-4xl lg:text-[42px] xl:text-[46px] font-bold sm:font-extrabold tracking-tight text-stone-950 leading-[1.32] sm:leading-[1.36] mb-5">
                   Grow In Sacred Knowledge So You Can{' '}
-                  <span className="text-[#095F46] block sm:inline">Live With Purpose &amp; Iman</span>
+                  <span className="text-[#095F46] block sm:inline mt-1 sm:mt-0">Live With Purpose &amp; Iman</span>
                 </h2>
 
                 {/* Narrative Paragraph */}
                 <p className="text-stone-500 font-normal text-sm sm:text-base leading-relaxed mb-7 max-w-xl">
-                  Finding verified, authentic Islamic teachers who can guide your family with patience and consistency shouldn&apos;t be difficult. Ilmbit bridges you directly with qualified scholars for structured 1-on-1 online learning tailored to your timezone and personal pace.
+                  Finding verified, authentic Islamic teachers who can guide your family with patience and consistency shouldn&apos;t be difficult. Ilmbit bridges you directly with qualified scholars for structured 1:1 online learning tailored to your timezone and personal pace.
                 </p>
 
                 {/* Clean Feature Checklist with Brand Green Checkmarks */}
                 <div className="space-y-3.5 mb-9">
                   {[
-                    'Flexible 1-on-1 training programs',
+                    'Flexible 1:1 training programs',
                     'Experienced scholars & certified teachers',
                     'Free incoming trial lesson',
                   ].map((feature, idx) => (
@@ -657,7 +481,7 @@ export default function HomePage() {
                 <div className="flex items-center">
                   <Link
                     href="/about"
-                    className="inline-flex items-center justify-center px-9 py-3.5 rounded-full bg-[#095F46] hover:bg-[#074c38] text-white font-bold text-sm sm:text-base shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300"
+                    className="brand-button brand-button-primary px-9"
                   >
                     Learn More
                   </Link>
@@ -689,7 +513,7 @@ export default function HomePage() {
                 return (
                   <div
                     key={stat.label}
-                    className={`text-center py-3 sm:py-4 px-2 sm:px-6 
+                    className={`text-center py-3 sm:py-4 px-2 sm:px-6
                       ${!isLastDesktop ? 'md:border-r md:border-stone-300/70' : 'md:border-r-0'} 
                       ${hasRightBorderMobile ? 'border-r border-stone-300/70' : ''} 
                       ${hasBottomBorderMobile ? 'border-b border-stone-300/70 pb-6 md:border-b-0 md:pb-4' : 'pt-6 md:pt-4'}
@@ -733,242 +557,73 @@ export default function HomePage() {
                 How It Works
               </h2>
               <p className="text-stone-600 font-normal text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
-                Start learning in minutes — our streamlined process connects you with certified scholars seamlessly.
+                Start learning in minutes. Our streamlined process connects you with certified scholars seamlessly.
               </p>
             </motion.div>
 
-            {/* =================================================================== */}
-            {/* DESKTOP TIMELINE: 4-Column Staggered Layout Matching Reference Image */}
-            {/* =================================================================== */}
             <div className="hidden lg:block relative py-6">
-              {/* Continuous Horizontal Background Axis Line across all 4 columns */}
               <div className="absolute top-[48%] left-8 right-8 h-[2px] bg-stone-300 -translate-y-1/2 z-0" />
-
-              {/* 4 Staggered Columns */}
               <div className="grid grid-cols-4 gap-6 xl:gap-8 relative z-10 items-start">
-                {/* ----------------- STEP 1 (High / Top aligned) ----------------- */}
                 <div className="flex flex-col items-center">
-                  <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: false, amount: 0.2 }}
-                    variants={sectionReveal}
-                    className="w-full bg-white rounded-3xl border border-stone-200/90 p-5 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_16px_36px_rgba(9,95,70,0.12)] hover:border-[#095F46]/50 transition-all duration-300 flex flex-col group"
-                  >
+                  <motion.div initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.2 }} variants={sectionReveal} className="w-full bg-white rounded-3xl border border-stone-200/90 p-5 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_16px_36px_rgba(9,95,70,0.12)] hover:border-[#095F46]/50 transition-all duration-300 flex flex-col group">
                     <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-stone-100 mb-4 bg-stone-50">
-                      <Image
-                        src={howItWorksSteps[0].image}
-                        alt={howItWorksSteps[0].imageAlt}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-300"
-                        sizes="(max-width: 1200px) 25vw, 320px"
-                      />
+                      <Image src={howItWorksSteps[0].image} alt={howItWorksSteps[0].imageAlt} fill className="object-cover group-hover:scale-105 transition-transform duration-300" sizes="(max-width: 1200px) 25vw, 320px" />
                     </div>
-                    <div className="text-xs font-mono font-bold text-[#095F46] uppercase tracking-wider mb-1.5">
-                      {howItWorksSteps[0].badge}
-                    </div>
-                    <h3 className="text-lg sm:text-xl font-bold text-stone-900 mb-2 tracking-tight group-hover:text-[#095F46] transition-colors leading-snug">
-                      {howItWorksSteps[0].title}
-                    </h3>
-                    <p className="text-sm text-stone-500 leading-relaxed mb-3.5">
-                      {howItWorksSteps[0].desc}
-                    </p>
-                    <Link
-                      href={howItWorksSteps[0].buttonLink}
-                      className="inline-flex items-center text-sm font-bold text-[#095F46] hover:text-[#074c38] gap-1.5 group-hover:translate-x-1.5 transition-all"
-                    >
-                      {howItWorksSteps[0].buttonText}
-                      <span>→</span>
-                    </Link>
+                    <h3 className="text-lg sm:text-xl font-bold text-stone-900 mb-2 tracking-tight group-hover:text-[#095F46] transition-colors leading-snug">{howItWorksSteps[0].title}</h3>
+                    <p className="text-sm text-stone-500 leading-relaxed mb-3.5">{howItWorksSteps[0].desc}</p>
+                    <Link href={howItWorksSteps[0].buttonLink} className="inline-flex items-center text-sm font-bold text-[#095F46] hover:text-[#074c38] gap-1.5 group-hover:translate-x-1.5 transition-all">{howItWorksSteps[0].buttonText}<ChevronRight className="h-4 w-4" aria-hidden="true" /></Link>
                   </motion.div>
-                  {/* Vertical connector line down from Card 1 */}
                   <div className="w-[2px] h-8 bg-stone-300" />
-                  {/* Badge 1 Circle */}
-                  <div className="w-10 h-10 rounded-full bg-[#095F46] text-white font-black text-sm flex items-center justify-center shadow-md ring-4 ring-[#f6f8f6]">
-                    1
-                  </div>
+                  <div className="w-10 h-10 rounded-full bg-[#095F46] text-white font-black text-sm flex items-center justify-center shadow-md ring-4 ring-[#f6f8f6]">1</div>
                 </div>
 
-                {/* ----------------- STEP 2 (Shifted Down / Staggered) ----------------- */}
                 <div className="flex flex-col items-center pt-20">
-                  {/* Badge 2 Circle */}
-                  <div className="w-10 h-10 rounded-full bg-[#095F46] text-white font-black text-sm flex items-center justify-center shadow-md ring-4 ring-[#f6f8f6]">
-                    2
-                  </div>
-                  {/* Vertical connector line down to Card 2 */}
+                  <div className="w-10 h-10 rounded-full bg-[#095F46] text-white font-black text-sm flex items-center justify-center shadow-md ring-4 ring-[#f6f8f6]">2</div>
                   <div className="w-[2px] h-8 bg-stone-300" />
-                  <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: false, amount: 0.2 }}
-                    variants={sectionReveal}
-                    className="w-full bg-white rounded-3xl border border-stone-200/90 p-5 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_16px_36px_rgba(9,95,70,0.12)] hover:border-[#095F46]/50 transition-all duration-300 flex flex-col group"
-                  >
-                    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-stone-100 mb-4 bg-stone-50">
-                      <Image
-                        src={howItWorksSteps[1].image}
-                        alt={howItWorksSteps[1].imageAlt}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-300"
-                        sizes="(max-width: 1200px) 25vw, 320px"
-                      />
-                    </div>
-                    <div className="text-xs font-mono font-bold text-[#095F46] uppercase tracking-wider mb-1.5">
-                      {howItWorksSteps[1].badge}
-                    </div>
-                    <h3 className="text-lg sm:text-xl font-bold text-stone-900 mb-2 tracking-tight group-hover:text-[#095F46] transition-colors leading-snug">
-                      {howItWorksSteps[1].title}
-                    </h3>
-                    <p className="text-sm text-stone-500 leading-relaxed mb-3.5">
-                      {howItWorksSteps[1].desc}
-                    </p>
-                    <Link
-                      href={howItWorksSteps[1].buttonLink}
-                      className="inline-flex items-center text-sm font-bold text-[#095F46] hover:text-[#074c38] gap-1.5 group-hover:translate-x-1.5 transition-all"
-                    >
-                      {howItWorksSteps[1].buttonText}
-                      <span>→</span>
-                    </Link>
+                  <motion.div initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.2 }} variants={sectionReveal} className="w-full bg-white rounded-3xl border border-stone-200/90 p-5 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_16px_36px_rgba(9,95,70,0.12)] hover:border-[#095F46]/50 transition-all duration-300 flex flex-col group">
+                    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-stone-100 mb-4 bg-stone-50"><Image src={howItWorksSteps[1].image} alt={howItWorksSteps[1].imageAlt} fill className="object-cover group-hover:scale-105 transition-transform duration-300" sizes="(max-width: 1200px) 25vw, 320px" /></div>
+                    <h3 className="text-lg sm:text-xl font-bold text-stone-900 mb-2 tracking-tight group-hover:text-[#095F46] transition-colors leading-snug">{howItWorksSteps[1].title}</h3>
+                    <p className="text-sm text-stone-500 leading-relaxed mb-3.5">{howItWorksSteps[1].desc}</p>
+                    <Link href={howItWorksSteps[1].buttonLink} className="inline-flex items-center text-sm font-bold text-[#095F46] hover:text-[#074c38] gap-1.5 group-hover:translate-x-1.5 transition-all">{howItWorksSteps[1].buttonText}<ChevronRight className="h-4 w-4" aria-hidden="true" /></Link>
                   </motion.div>
                 </div>
 
-                {/* ----------------- STEP 3 (High / Top aligned) ----------------- */}
                 <div className="flex flex-col items-center">
-                  <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: false, amount: 0.2 }}
-                    variants={sectionReveal}
-                    className="w-full bg-white rounded-3xl border border-stone-200/90 p-5 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_16px_36px_rgba(9,95,70,0.12)] hover:border-[#095F46]/50 transition-all duration-300 flex flex-col group"
-                  >
-                    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-stone-100 mb-4 bg-stone-50">
-                      <Image
-                        src={howItWorksSteps[2].image}
-                        alt={howItWorksSteps[2].imageAlt}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-300"
-                        sizes="(max-width: 1200px) 25vw, 320px"
-                      />
-                    </div>
-                    <div className="text-xs font-mono font-bold text-[#095F46] uppercase tracking-wider mb-1.5">
-                      {howItWorksSteps[2].badge}
-                    </div>
-                    <h3 className="text-lg sm:text-xl font-bold text-stone-900 mb-2 tracking-tight group-hover:text-[#095F46] transition-colors leading-snug">
-                      {howItWorksSteps[2].title}
-                    </h3>
-                    <p className="text-sm text-stone-500 leading-relaxed mb-3.5">
-                      {howItWorksSteps[2].desc}
-                    </p>
-                    <Link
-                      href={howItWorksSteps[2].buttonLink}
-                      className="inline-flex items-center text-sm font-bold text-[#095F46] hover:text-[#074c38] gap-1.5 group-hover:translate-x-1.5 transition-all"
-                    >
-                      {howItWorksSteps[2].buttonText}
-                      <span>→</span>
-                    </Link>
+                  <motion.div initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.2 }} variants={sectionReveal} className="w-full bg-white rounded-3xl border border-stone-200/90 p-5 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_16px_36px_rgba(9,95,70,0.12)] hover:border-[#095F46]/50 transition-all duration-300 flex flex-col group">
+                    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-stone-100 mb-4 bg-stone-50"><Image src={howItWorksSteps[2].image} alt={howItWorksSteps[2].imageAlt} fill className="object-cover group-hover:scale-105 transition-transform duration-300" sizes="(max-width: 1200px) 25vw, 320px" /></div>
+                    <h3 className="text-lg sm:text-xl font-bold text-stone-900 mb-2 tracking-tight group-hover:text-[#095F46] transition-colors leading-snug">{howItWorksSteps[2].title}</h3>
+                    <p className="text-sm text-stone-500 leading-relaxed mb-3.5">{howItWorksSteps[2].desc}</p>
+                    <Link href={howItWorksSteps[2].buttonLink} className="inline-flex items-center text-sm font-bold text-[#095F46] hover:text-[#074c38] gap-1.5 group-hover:translate-x-1.5 transition-all">{howItWorksSteps[2].buttonText}<ChevronRight className="h-4 w-4" aria-hidden="true" /></Link>
                   </motion.div>
-                  {/* Vertical connector line down from Card 3 */}
                   <div className="w-[2px] h-8 bg-stone-300" />
-                  {/* Badge 3 Circle */}
-                  <div className="w-10 h-10 rounded-full bg-[#095F46] text-white font-black text-sm flex items-center justify-center shadow-md ring-4 ring-[#f6f8f6]">
-                    3
-                  </div>
+                  <div className="w-10 h-10 rounded-full bg-[#095F46] text-white font-black text-sm flex items-center justify-center shadow-md ring-4 ring-[#f6f8f6]">3</div>
                 </div>
 
-                {/* ----------------- STEP 4 (Shifted Down / Staggered) ----------------- */}
                 <div className="flex flex-col items-center pt-20">
-                  {/* Badge 4 Circle */}
-                  <div className="w-10 h-10 rounded-full bg-[#095F46] text-white font-black text-sm flex items-center justify-center shadow-md ring-4 ring-[#f6f8f6]">
-                    4
-                  </div>
-                  {/* Vertical connector line down to Card 4 */}
+                  <div className="w-10 h-10 rounded-full bg-[#095F46] text-white font-black text-sm flex items-center justify-center shadow-md ring-4 ring-[#f6f8f6]">4</div>
                   <div className="w-[2px] h-8 bg-stone-300" />
-                  <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: false, amount: 0.2 }}
-                    variants={sectionReveal}
-                    className="w-full bg-white rounded-3xl border border-stone-200/90 p-5 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_16px_36px_rgba(9,95,70,0.12)] hover:border-[#095F46]/50 transition-all duration-300 flex flex-col group"
-                  >
-                    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-stone-100 mb-4 bg-stone-50">
-                      <Image
-                        src={howItWorksSteps[3].image}
-                        alt={howItWorksSteps[3].imageAlt}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-300"
-                        sizes="(max-width: 1200px) 25vw, 320px"
-                      />
-                    </div>
-                    <div className="text-xs font-mono font-bold text-[#095F46] uppercase tracking-wider mb-1.5">
-                      {howItWorksSteps[3].badge}
-                    </div>
-                    <h3 className="text-lg sm:text-xl font-bold text-stone-900 mb-2 tracking-tight group-hover:text-[#095F46] transition-colors leading-snug">
-                      {howItWorksSteps[3].title}
-                    </h3>
-                    <p className="text-sm text-stone-500 leading-relaxed mb-3.5">
-                      {howItWorksSteps[3].desc}
-                    </p>
-                    <Link
-                      href={howItWorksSteps[3].buttonLink}
-                      className="inline-flex items-center text-sm font-bold text-[#095F46] hover:text-[#074c38] gap-1.5 group-hover:translate-x-1.5 transition-all"
-                    >
-                      {howItWorksSteps[3].buttonText}
-                      <span>→</span>
-                    </Link>
+                  <motion.div initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.2 }} variants={sectionReveal} className="w-full bg-white rounded-3xl border border-stone-200/90 p-5 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_16px_36px_rgba(9,95,70,0.12)] hover:border-[#095F46]/50 transition-all duration-300 flex flex-col group">
+                    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-stone-100 mb-4 bg-stone-50"><Image src={howItWorksSteps[3].image} alt={howItWorksSteps[3].imageAlt} fill className="object-cover group-hover:scale-105 transition-transform duration-300" sizes="(max-width: 1200px) 25vw, 320px" /></div>
+                    <h3 className="text-lg sm:text-xl font-bold text-stone-900 mb-2 tracking-tight group-hover:text-[#095F46] transition-colors leading-snug">{howItWorksSteps[3].title}</h3>
+                    <p className="text-sm text-stone-500 leading-relaxed mb-3.5">{howItWorksSteps[3].desc}</p>
+                    <Link href={howItWorksSteps[3].buttonLink} className="inline-flex items-center text-sm font-bold text-[#095F46] hover:text-[#074c38] gap-1.5 group-hover:translate-x-1.5 transition-all">{howItWorksSteps[3].buttonText}<ChevronRight className="h-4 w-4" aria-hidden="true" /></Link>
                   </motion.div>
                 </div>
               </div>
             </div>
 
-            {/* =================================================================== */}
-            {/* MOBILE / TABLET TIMELINE: Responsive Vertical Axis (< lg) */}
-            {/* =================================================================== */}
             <div className="lg:hidden relative pl-8 sm:pl-10 space-y-8 max-w-xl mx-auto">
-              {/* Vertical Axis Line */}
               <div className="absolute top-4 bottom-4 left-3.5 sm:left-4 w-[2px] bg-stone-300" />
               <div className="absolute top-2 left-2.5 sm:left-3 w-2 h-2 rounded-full bg-[#095F46]" />
               <div className="absolute bottom-2 left-2.5 sm:left-3 w-2 h-2 rounded-full bg-[#095F46]" />
-
               {howItWorksSteps.map((step) => (
                 <div key={step.num} className="relative">
-                  {/* Numbered Node on the vertical axis */}
-                  <div className="absolute -left-8 sm:-left-10 top-4 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#095F46] text-white font-black text-xs sm:text-sm flex items-center justify-center shadow-md ring-4 ring-[#f8fafc] z-10">
-                    {step.num}
-                  </div>
-
-                  {/* Mobile Card */}
-                  <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: false, amount: 0.15 }}
-                    variants={sectionReveal}
-                    className="bg-white rounded-3xl border border-stone-200/90 p-5 sm:p-6 shadow-[0_4px_16px_rgba(0,0,0,0.04)] flex flex-col"
-                  >
-                    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-stone-100 mb-4 bg-stone-50">
-                      <Image
-                        src={step.image}
-                        alt={step.imageAlt}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 90vw, 400px"
-                      />
-                    </div>
-                    <div className="text-xs font-mono font-bold text-[#095F46] uppercase tracking-wider mb-1.5">
-                      {step.badge}
-                    </div>
-                    <h3 className="text-lg font-bold text-stone-950 mb-2 tracking-tight">
-                      {step.title}
-                    </h3>
-                    <p className="text-sm text-stone-500 leading-relaxed mb-3.5">
-                      {step.desc}
-                    </p>
-                    <Link
-                      href={step.buttonLink}
-                      className="inline-flex items-center text-sm font-bold text-[#095F46] hover:text-[#074c38] gap-1.5"
-                    >
-                      {step.buttonText}
-                      <span>→</span>
-                    </Link>
+                  <div className="absolute -left-8 sm:-left-10 top-4 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#095F46] text-white font-black text-xs sm:text-sm flex items-center justify-center shadow-md ring-4 ring-[#f8fafc] z-10">{step.num}</div>
+                  <motion.div initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.15 }} variants={sectionReveal} className="bg-white rounded-3xl border border-stone-200/90 p-5 sm:p-6 shadow-[0_4px_16px_rgba(0,0,0,0.04)] flex flex-col">
+                    <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-stone-100 mb-4 bg-stone-50"><Image src={step.image} alt={step.imageAlt} fill className="object-cover" sizes="(max-width: 768px) 90vw, 400px" /></div>
+                    <h3 className="text-lg font-bold text-stone-950 mb-2 tracking-tight">{step.title}</h3>
+                    <p className="text-sm text-stone-500 leading-relaxed mb-3.5">{step.desc}</p>
+                    <Link href={step.buttonLink} className="inline-flex items-center text-sm font-bold text-[#095F46] hover:text-[#074c38] gap-1.5">{step.buttonText}<ChevronRight className="h-4 w-4" aria-hidden="true" /></Link>
                   </motion.div>
                 </div>
               ))}
@@ -1032,8 +687,8 @@ export default function HomePage() {
                   </div>
 
                   <Link
-                    href="/auth/signup"
-                    className="w-full py-2.5 px-4 rounded-xl text-xs font-bold text-center text-white bg-[#095F46] hover:bg-[#074c38] shadow-sm hover:shadow-md active:scale-[0.99] transition-all block mb-6 uppercase tracking-wider"
+                    href="/about#waitlist"
+                    className="brand-button brand-button-primary mb-6 w-full"
                   >
                     Select Plan
                   </Link>
@@ -1060,21 +715,12 @@ export default function HomePage() {
                     </li>
                   </ul>
 
-                  {/* Fast Track Hook Box */}
                   <div className="mt-5 pt-4 border-t border-stone-100">
                     <div className="rounded-2xl bg-emerald-50/70 border border-emerald-100/90 p-3 sm:p-3.5 flex flex-col gap-2">
-                      <div className="flex items-center gap-1.5">
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#095F46] text-white text-[10px] font-extrabold uppercase tracking-wider">
-                          <Zap className="w-2.5 h-2.5 fill-current" /> Fast Track Plan
-                        </span>
-                      </div>
-                      <p className="text-[11px] sm:text-xs text-stone-800 font-bold leading-snug">
-                        Want your child to start reading the Holy Quran twice as fast with 3 weekly sessions?
+                      <p className="text-sm font-bold text-stone-900">
+                        Start Strong
                       </p>
-                      <Link
-                        href="/pricing#fast-track-plans"
-                        className="inline-flex items-center justify-between w-full py-2 px-3 rounded-xl bg-white hover:bg-[#095F46] text-[#095F46] hover:text-white border border-[#095F46]/25 hover:border-[#095F46] text-xs font-bold transition-all shadow-2xs group"
-                      >
+                      <Link href="/pricing#fast-track-plans" className="brand-button brand-button-secondary w-full justify-between px-4 text-xs">
                         <span>Explore Fast Track Plan</span>
                         <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                       </Link>
@@ -1107,8 +753,8 @@ export default function HomePage() {
                   </div>
 
                   <Link
-                    href="/auth/signup"
-                    className="w-full py-2.5 px-4 rounded-xl text-xs font-bold text-center text-white bg-[#095F46] hover:bg-[#074c38] shadow-sm hover:shadow-md active:scale-[0.99] transition-all block mb-6 uppercase tracking-wider"
+                    href="/about#waitlist"
+                    className="brand-button brand-button-primary mb-6 w-full"
                   >
                     Select Plan
                   </Link>
@@ -1139,21 +785,12 @@ export default function HomePage() {
                     </li>
                   </ul>
 
-                  {/* Fast Track Hook Box */}
                   <div className="mt-5 pt-4 border-t border-stone-100">
                     <div className="rounded-2xl bg-emerald-50/70 border border-emerald-100/90 p-3 sm:p-3.5 flex flex-col gap-2">
-                      <div className="flex items-center gap-1.5">
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#095F46] text-white text-[10px] font-extrabold uppercase tracking-wider">
-                          <Zap className="w-2.5 h-2.5 fill-current" /> Fast Track Plan
-                        </span>
-                      </div>
-                      <p className="text-[11px] sm:text-xs text-stone-800 font-bold leading-snug">
-                        Master melodic Tajweed faster with 12 monthly sessions and recorded scholar feedback.
+                      <p className="text-sm font-bold text-stone-900">
+                        Recite Better
                       </p>
-                      <Link
-                        href="/pricing#fast-track-plans"
-                        className="inline-flex items-center justify-between w-full py-2 px-3 rounded-xl bg-white hover:bg-[#095F46] text-[#095F46] hover:text-white border border-[#095F46]/25 hover:border-[#095F46] text-xs font-bold transition-all shadow-2xs group"
-                      >
+                      <Link href="/pricing#fast-track-plans" className="brand-button brand-button-secondary w-full justify-between px-4 text-xs">
                         <span>Explore Fast Track Plan</span>
                         <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                       </Link>
@@ -1186,8 +823,8 @@ export default function HomePage() {
                   </div>
 
                   <Link
-                    href="/auth/signup"
-                    className="w-full py-2.5 px-4 rounded-xl text-xs font-bold text-center text-white bg-[#095F46] hover:bg-[#074c38] shadow-sm hover:shadow-md active:scale-[0.99] transition-all block mb-6 uppercase tracking-wider"
+                    href="/about#waitlist"
+                    className="brand-button brand-button-primary mb-6 w-full"
                   >
                     Select Plan
                   </Link>
@@ -1218,21 +855,12 @@ export default function HomePage() {
                     </li>
                   </ul>
 
-                  {/* Fast Track Hook Box */}
                   <div className="mt-5 pt-4 border-t border-stone-100">
                     <div className="rounded-2xl bg-emerald-50/70 border border-emerald-100/90 p-3 sm:p-3.5 flex flex-col gap-2">
-                      <div className="flex items-center gap-1.5">
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#095F46] text-white text-[10px] font-extrabold uppercase tracking-wider">
-                          <Zap className="w-2.5 h-2.5 fill-current" /> Fast Track Plan
-                        </span>
-                      </div>
-                      <p className="text-[11px] sm:text-xs text-stone-800 font-bold leading-snug">
-                        Accelerate your Quran memorization with intensive 3x/week coaching and daily revision.
+                      <p className="text-sm font-bold text-stone-900">
+                        Memorize More
                       </p>
-                      <Link
-                        href="/pricing#fast-track-plans"
-                        className="inline-flex items-center justify-between w-full py-2 px-3 rounded-xl bg-white hover:bg-[#095F46] text-[#095F46] hover:text-white border border-[#095F46]/25 hover:border-[#095F46] text-xs font-bold transition-all shadow-2xs group"
-                      >
+                      <Link href="/pricing#fast-track-plans" className="brand-button brand-button-secondary w-full justify-between px-4 text-xs">
                         <span>Explore Fast Track Plan</span>
                         <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                       </Link>
@@ -1245,118 +873,121 @@ export default function HomePage() {
         </section>
 
         {/* ========================================================================= */}
-        {/* TESTIMONIALS SECTION — Reference Layout with Rating Summary & Horizontal Stories */}
+        {/* TESTIMONIALS SECTION — Brand-aligned speech cards */}
         {/* ========================================================================= */}
         <section id="testimonials" className="py-14 sm:py-18 lg:py-20 bg-transparent scroll-mt-16 text-stone-900 border-b border-stone-200/60 select-none">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            {/* Attractive Testimonials Section Header */}
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: false, amount: 0.2 }}
               variants={sectionReveal}
-              className="text-center max-w-2xl mx-auto mb-8 sm:mb-10 lg:mb-12"
+              className="mx-auto mb-9 max-w-2xl text-center sm:mb-11"
             >
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-stone-950 mb-3">
+              <h2 className="mb-3 text-3xl font-black tracking-tight text-stone-950 sm:text-4xl lg:text-5xl">
                 What Our Community Says
               </h2>
-              <p className="text-stone-500 font-normal text-xs sm:text-sm lg:text-base max-w-xl mx-auto leading-relaxed">
-                Trusted by families, scholars, and students across the globe for authentic, transformative Islamic education.
+              <p className="mx-auto max-w-xl text-sm leading-relaxed text-stone-500 sm:text-base">
+                From families and students learning with Ilmbit around the world.
               </p>
+              <div className="mt-4 flex items-center justify-center gap-2 text-xs sm:text-sm">
+                <span className="tracking-[0.12em] text-[#a66b13]" aria-label="Five out of five stars">★★★★★</span>
+                <span className="font-bold text-stone-800">4.8</span>
+                <span className="text-stone-400">from 500+ family reviews</span>
+              </div>
             </motion.div>
 
-            {/* Main Card Container */}
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: false, amount: 0.15 }}
               variants={sectionReveal}
-              className="rounded-2xl sm:rounded-3xl border border-stone-200/90 bg-white/90 backdrop-blur-md overflow-hidden shadow-[0_10px_35px_rgba(0,0,0,0.03)] flex flex-col md:flex-row"
+              className="relative mx-auto"
             >
-              {/* Left Column: Rating Block */}
-              <div className="w-full md:w-[280px] lg:w-[320px] shrink-0 p-8 sm:p-10 flex flex-col items-center justify-center text-center bg-white/90 border-b md:border-b-0 md:border-r border-stone-200/80">
-                <span className="text-6xl sm:text-7xl font-bold tracking-tight text-stone-950 mb-3">
-                  4.8
-                </span>
-                <div className="flex items-center gap-1.5 text-amber-500 mb-2">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-amber-400 text-amber-400" />
-                  ))}
-                </div>
-                <span className="text-sm font-bold text-stone-950 mb-1">
-                  500+ reviews
-                </span>
-                <span className="text-xs text-stone-400 font-medium">
-                  Across G2, Capterra and TrustPilot
-                </span>
-              </div>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={testimonialIndex}
+                  initial={{ opacity: 0, x: 16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -16 }}
+                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                  className="grid gap-5 md:grid-cols-3 lg:gap-6"
+                >
+                  {visibleTestimonials.map((testimonial, index) => (
+                    <button
+                      key={testimonial.name}
+                      type="button"
+                      onClick={() => setSelectedStory(testimonial)}
+                      aria-label={`Read ${testimonial.name}'s story`}
+                      className={`${index > 0 ? 'hidden md:flex' : 'flex'} group relative min-h-[405px] !rounded-[28px] flex-col overflow-hidden border border-[#095f46]/10 bg-[#eef3f1] text-left shadow-[0_8px_28px_rgba(9,95,70,0.07)] transition-all duration-300 hover:-translate-y-1 hover:border-[#095f46]/25 hover:shadow-[0_18px_38px_rgba(9,95,70,0.13)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#095f46] focus-visible:ring-offset-3`}
+                    >
+                      <Image
+                        src="/images/ilmbit-mark-green.png"
+                        alt=""
+                        width={190}
+                        height={190}
+                        aria-hidden="true"
+                        className="pointer-events-none absolute -right-8 top-8 w-40 opacity-[0.09] transition-opacity duration-300 group-hover:opacity-[0.13]"
+                      />
 
-              {/* Right Part: Testimonial Cards Carousel Track */}
-              <div
-                ref={sliderRef}
-                onScroll={checkScrollButtons}
-                className="flex-1 flex overflow-x-auto scrollbar-none scroll-smooth"
-                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-              >
-                {diasporaTestimonials.map((t, idx) => (
-                  <div
-                    key={idx}
-                    className="w-[300px] sm:w-[350px] lg:w-[390px] shrink-0 p-7 sm:p-9 flex flex-col justify-between border-r border-stone-200/80 bg-white/85"
-                  >
-                    <p className="text-base sm:text-[17px] font-bold text-stone-950 leading-snug mb-8">
-                      &ldquo;{t.quote}&rdquo;
-                    </p>
-                    <div>
-                      <div className="flex items-center gap-3 mb-6">
-                        <div className="relative w-10 h-10 rounded-full overflow-hidden shrink-0 bg-stone-100 border border-stone-200">
-                          <Image
-                            src={t.avatar}
-                            alt={t.name}
-                            fill
-                            unoptimized
-                            className="object-cover"
-                          />
-                        </div>
-                        <div className="min-w-0">
-                          <h4 className="text-sm font-bold text-stone-950 truncate">
-                            {t.name}
-                          </h4>
-                          <p className="text-xs text-stone-500 truncate">
-                            {t.role}
-                          </p>
+                      <div className="relative flex flex-1 flex-col px-7 pb-9 pt-6 sm:px-8">
+                        <span className="font-serif text-7xl font-bold leading-none text-[#10bf8d]/45" aria-hidden="true">“</span>
+                        <p className="mt-1 text-lg font-semibold leading-[1.48] tracking-[-0.02em] text-stone-950 lg:text-xl">
+                          {testimonial.quote}
+                        </p>
+                      </div>
+
+                      <div className="relative mt-auto w-[82%] rounded-tr-[34px] bg-white px-5 py-5 shadow-[8px_-8px_24px_rgba(9,95,70,0.04)] sm:w-[76%] lg:w-[72%]">
+                        <div className="flex items-center gap-3.5">
+                          <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border-2 border-[#095f46]/10 bg-stone-100">
+                            <Image
+                              src={testimonial.avatar}
+                              alt=""
+                              fill
+                              unoptimized
+                              className="object-cover"
+                            />
+                          </div>
+                          <div className="min-w-0">
+                            <p className="truncate text-sm font-bold text-stone-950">{testimonial.name}</p>
+                            <p className="mt-1 truncate text-xs text-stone-500">{testimonial.role}</p>
+                          </div>
                         </div>
                       </div>
-                      <button
-                        onClick={() => setSelectedStory(t)}
-                        className="px-4 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-xs font-bold text-stone-900 transition-colors inline-block cursor-pointer"
-                      >
-                        Read Story
-                      </button>
-                    </div>
-                  </div>
-                ))}
+                    </button>
+                  ))}
+                </motion.div>
+              </AnimatePresence>
+
+              <div className="mt-7 flex items-center justify-center gap-4">
+                <button
+                  onClick={() => changeTestimonial('previous')}
+                  aria-label="Previous testimonials"
+                  className="brand-icon-button h-10 w-10 flex-none border border-stone-200 bg-white text-stone-700 shadow-sm hover:border-[#095f46] hover:bg-[#095f46] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#095f46] focus-visible:ring-offset-2"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                </button>
+                <div className="flex items-center gap-1.5" aria-label={`Testimonial ${testimonialIndex + 1} of ${diasporaTestimonials.length}`}>
+                  {diasporaTestimonials.map((testimonial, index) => (
+                    <button
+                      key={testimonial.name}
+                      type="button"
+                      onClick={() => setTestimonialIndex(index)}
+                      aria-label={`Show testimonials starting with ${testimonial.name}`}
+                      aria-current={index === testimonialIndex ? 'true' : undefined}
+                      className={`h-1.5 transition-all duration-200 ${index === testimonialIndex ? 'w-7 bg-[#095f46]' : 'w-2 bg-[#b3b3b3]/55 hover:bg-[#0b8663]'}`}
+                    />
+                  ))}
+                </div>
+                <button
+                  onClick={() => changeTestimonial('next')}
+                  aria-label="Next testimonials"
+                  className="brand-icon-button h-10 w-10 flex-none border border-stone-200 bg-white text-stone-700 shadow-sm hover:border-[#095f46] hover:bg-[#095f46] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#095f46] focus-visible:ring-offset-2"
+                >
+                  <ArrowRight className="h-4 w-4" />
+                </button>
               </div>
             </motion.div>
-
-            {/* Navigation Arrows Below the Box (Bottom-Left) */}
-            <div className="mt-5 flex items-center gap-2.5">
-              <button
-                onClick={() => handleScroll('left')}
-                disabled={!canScrollLeft}
-                aria-label="Previous testimonial"
-                className="w-10 h-10 rounded-xl bg-white hover:bg-stone-100 border border-stone-200/80 flex items-center justify-center text-stone-800 transition-colors disabled:opacity-35 disabled:cursor-not-allowed cursor-pointer shadow-xs"
-              >
-                <ArrowLeft className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => handleScroll('right')}
-                disabled={!canScrollRight}
-                aria-label="Next testimonial"
-                className="w-10 h-10 rounded-xl bg-white hover:bg-stone-100 border border-stone-200/80 flex items-center justify-center text-stone-800 transition-colors disabled:opacity-35 disabled:cursor-not-allowed cursor-pointer shadow-xs"
-              >
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
           </div>
 
           {/* Read Story Modal Dialog */}
@@ -1364,6 +995,9 @@ export default function HomePage() {
             {selectedStory && (
               <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/60 backdrop-blur-xs">
                 <motion.div
+                  role="dialog"
+                  aria-modal="true"
+                  aria-labelledby="testimonial-dialog-title"
                   initial={{ opacity: 0, scale: 0.95, y: 10 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95, y: 10 }}
@@ -1371,31 +1005,16 @@ export default function HomePage() {
                 >
                   <button
                     onClick={() => setSelectedStory(null)}
+                    aria-label="Close story"
                     className="absolute top-4 right-4 p-2 rounded-full hover:bg-stone-100 text-stone-400 hover:text-stone-700 transition-colors cursor-pointer"
                   >
                     <X className="w-5 h-5" />
                   </button>
 
-                  <div className="flex items-center gap-3.5 mb-5">
-                    <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0 bg-stone-100 border border-stone-200">
-                      <Image
-                        src={selectedStory.avatar}
-                        alt={selectedStory.name}
-                        fill
-                        unoptimized
-                        className="object-cover"
-                      />
-                    </div>
-                    <div>
-                      <h3 className="text-base font-bold text-stone-950">{selectedStory.name}</h3>
-                      <p className="text-xs text-stone-500">{selectedStory.role} · {selectedStory.location}</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-1 text-amber-500 mb-4">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
-                    ))}
+                  <div className="mb-6 border-b border-stone-200 pb-5">
+                    <p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#095f46]">Community story</p>
+                    <h3 id="testimonial-dialog-title" className="mt-3 text-xl font-bold tracking-tight text-stone-950">{selectedStory.name}</h3>
+                    <p className="mt-1 text-sm text-stone-500">{selectedStory.role} · {selectedStory.location}</p>
                   </div>
 
                   <p className="text-stone-800 text-sm sm:text-base leading-relaxed mb-6 font-medium">
@@ -1422,37 +1041,36 @@ export default function HomePage() {
               whileInView="visible"
               viewport={{ once: false, amount: 0.2 }}
               variants={sectionReveal}
-              className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[#0c1618] via-[#0f2321] to-[#0a1b19] text-white p-10 sm:p-14 lg:p-16 shadow-[0_20px_60px_rgba(5,35,30,0.18)] border border-stone-800/80 text-center"
+              className="relative rounded-3xl overflow-hidden bg-[#083f33] text-white p-10 sm:p-14 lg:p-16 shadow-[0_22px_70px_rgba(20,32,27,0.10)] border border-[#095F46]/15 text-center"
             >
-              {/* Ambient lighting inside card */}
-              <div className="absolute -top-20 -right-20 w-80 h-80 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" />
-              <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-emerald-400/10 rounded-full blur-3xl pointer-events-none" />
+              <Image
+                src="/images/ilmbit-mark-white.png"
+                alt=""
+                width={360}
+                height={360}
+                aria-hidden="true"
+                className="pointer-events-none absolute -bottom-24 -right-20 h-72 w-72 select-none object-contain opacity-[0.075] sm:h-80 sm:w-80 lg:-bottom-20 lg:-right-24"
+              />
 
               <div className="relative z-10 max-w-2xl mx-auto">
-                <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 tracking-wide text-white">
+                <h2 className="mb-4 text-3xl font-bold tracking-[-0.035em] text-white sm:text-4xl lg:text-5xl">
                   Begin Your Sacred Journey of Knowledge
                 </h2>
-                <p className="text-sm sm:text-base lg:text-lg text-stone-300 mb-8 leading-relaxed max-w-xl mx-auto">
+                <p className="text-sm sm:text-base lg:text-lg text-emerald-50/75 mb-8 leading-relaxed max-w-xl mx-auto">
                   Join our priority waitlist for personalized 1:1 sessions with certified Sri Lankan scholars. Reserve early matching with a complimentary 30-minute trial session.
                 </p>
-                <button
-                  type="button"
-                  onClick={() => setIsWaitlistOpen(true)}
-                  className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full text-xs sm:text-sm font-bold tracking-wider uppercase bg-[#095F46] hover:bg-[#074c38] text-white shadow-md hover:shadow-lg transition-all hover:scale-105 active:scale-100 cursor-pointer"
+                <Link
+                  href="/about#waitlist"
+                  className="brand-button brand-button-inverse px-8"
                 >
                   <span>Join the Waitlist</span>
                   <ChevronRight className="h-4 w-4" />
-                </button>
+                </Link>
               </div>
             </motion.div>
           </div>
         </section>
 
-        {/* Priority Waitlist Pop-up Modal */}
-        <WaitlistModal
-          isOpen={isWaitlistOpen}
-          onClose={() => setIsWaitlistOpen(false)}
-        />
       </div>
     </>
   );

@@ -10,7 +10,7 @@ const footerLinks = {
     { label: 'How It Works', href: '/#how-it-works' },
     { label: 'Courses', href: '/#courses' },
     { label: 'Pricing', href: '/pricing' },
-    { label: 'Free Trial', href: '/auth/signup' },
+    { label: 'Free Trial', href: '/about#waitlist' },
   ],
 
   Support: [
@@ -36,24 +36,18 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-3 mb-4 group">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#095F46] p-2 shadow-sm transition-transform group-hover:scale-105 flex-shrink-0">
-                <Image
-                  src="/images/ilmbit-icon-white.png"
-                  alt="Ilmbit Logo"
-                  width={34}
-                  height={34}
-                  className="object-contain"
-                />
-              </div>
-              <span className="text-2xl font-bold tracking-tight text-white">
-                <span>Ilm</span>
-                <span className="text-emerald-400">bit</span>
-              </span>
+            <Link href="/" className="inline-flex items-center mb-5 group" aria-label="ILMBIT home">
+              <Image
+                src="/images/ilmbit-logo-white.png"
+                alt="ILMBIT"
+                width={54}
+                height={71}
+                className="h-[66px] w-auto object-contain transition-transform group-hover:scale-[1.03]"
+              />
             </Link>
             <p className="text-sm text-emerald-50/68 max-w-sm mb-6 leading-relaxed">
               Connecting qualified Islamic scholars with students worldwide. 
-              Structured, professional, one-on-one Islamic education from the comfort of your home.
+              Structured, professional, 1:1 Islamic education from the comfort of your home.
             </p>
             <div className="space-y-2 text-sm text-emerald-50/72">
               <a

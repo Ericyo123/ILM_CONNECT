@@ -1,10 +1,11 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { Check, ChevronRight } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
 
-const fadeUp = { hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } };
+const fadeUp: Variants = { hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } };
 
 interface CourseCardData {
   id: string;
@@ -120,7 +121,7 @@ const faqs = [
   },
   {
     q: 'How are sessions conducted?',
-    a: 'All sessions are conducted via our built-in live video platform in a private, one-on-one classroom with your dedicated scholar. Simply click "Join" when your session begins.',
+    a: 'All sessions are conducted via our built-in live video platform in a private 1:1 classroom with your dedicated scholar. Simply click "Join" when your session begins.',
   },
   {
     q: 'Can I change my lecturer if needed?',
@@ -133,6 +134,14 @@ const faqs = [
 ];
 
 export default function PricingPage() {
+  const [openFaqs, setOpenFaqs] = useState<number[]>([]);
+
+  const toggleFaq = (index: number) => {
+    setOpenFaqs((prev) =>
+      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
+    );
+  };
+
   return (
     <div className="relative min-h-screen bg-sanctuary-light text-stone-900 select-none overflow-hidden pt-28 sm:pt-32 pb-16 sm:pb-20 lg:pb-24">
       {/* Background Ambience */}
@@ -194,7 +203,7 @@ export default function PricingPage() {
                   </h3>
 
                   {/* Level Sub-label (Smaller Font) */}
-                  <div className="text-xs font-semibold text-[#095F46] uppercase tracking-wider font-mono mb-3">
+                  <div className="mb-3 text-xs font-semibold tracking-[0.04em] text-[#095F46]">
                     {course.levelLabel}
                   </div>
 
@@ -232,8 +241,8 @@ export default function PricingPage() {
                     Includes complimentary 30-min trial session.
                   </div>
                   <Link
-                    href={`/auth/signup?plan=standard&course=${course.id}`}
-                    className="w-full block py-3.5 px-6 rounded-full text-center text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-200 bg-[#095F46] hover:bg-[#074c38] text-white shadow-sm hover:shadow-md active:scale-[0.99]"
+                    href="/about#waitlist"
+                    className="brand-button brand-button-primary w-full"
                   >
                     Start Free Trial
                   </Link>
@@ -280,7 +289,7 @@ export default function PricingPage() {
                   </h3>
 
                   {/* Level Sub-label (Smaller Font) */}
-                  <div className="text-xs font-semibold text-[#095F46] uppercase tracking-wider font-mono mb-3">
+                  <div className="mb-3 text-xs font-semibold tracking-[0.04em] text-[#095F46]">
                     {course.levelLabel}
                   </div>
 
@@ -324,8 +333,8 @@ export default function PricingPage() {
                     Direct monthly subscription. Cancel anytime.
                   </div>
                   <Link
-                    href={`/auth/signup?plan=fast-track&course=${course.id}`}
-                    className="w-full block py-3.5 px-6 rounded-full text-center text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-200 bg-[#095F46] hover:bg-[#074c38] text-white shadow-sm hover:shadow-md active:scale-[0.99]"
+                    href="/about#waitlist"
+                    className="brand-button brand-button-primary w-full"
                   >
                     Enroll in Fast Track
                   </Link>
@@ -352,26 +361,80 @@ export default function PricingPage() {
           </motion.div>
 
           <div className="space-y-3.5">
-            {faqs.map((faq, i) => (
-              <motion.div
-                key={faq.q}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: false, amount: 0.15 }}
-                variants={fadeUp}
-                transition={{ delay: i * 0.05 }}
-              >
-                <details className="group rounded-2xl border border-stone-200/90 bg-white shadow-2xs overflow-hidden transition-colors hover:border-stone-300">
-                  <summary className="flex items-center justify-between cursor-pointer px-6 py-4 text-xs sm:text-sm font-bold text-stone-900 hover:text-stone-950 transition-colors">
-                    {faq.q}
-                    <ChevronRight className="h-4 w-4 text-stone-400 transition-transform duration-300 group-open:rotate-90 group-open:text-[#095F46]" />
-                  </summary>
-                  <div className="px-6 pb-4 text-xs sm:text-sm text-stone-600 leading-relaxed border-t border-stone-100 pt-3">
-                    {faq.a}
-                  </div>
-                </details>
-              </motion.div>
-            ))}
+            {faqs.map((faq, i) => {
+              const isOpen = openFaqs.includes(i);
+              return (
+                <motion.div
+                  key={faq.q}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: false, amount: 0.15 }}
+                  variants={fadeUp}
+                  transition={{ delay: i * 0.05 }}
+                  className={`group rounded-2xl border transition-all duration-300 overflow-hidden ${
+                    isOpen
+                      ? 'border-[#095F46]/45 bg-white shadow-[0_8px_30px_rgba(9,95,70,0.08)] ring-1 ring-[#095F46]/20'
+                      : 'border-stone-200/90 bg-white shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:border-[#095F46]/35 hover:shadow-[0_8px_24px_rgba(9,95,70,0.08)] hover:-translate-y-0.5'
+                  }`}
+                >
+                  <button
+                    type="button"
+                    onClick={() => toggleFaq(i)}
+                    aria-expanded={isOpen}
+                    className="w-full flex items-center justify-between text-left px-6 py-4.5 sm:py-5 cursor-pointer select-none transition-colors"
+                  >
+                    <span
+                      className={`text-xs sm:text-sm font-bold tracking-tight transition-colors duration-200 ${
+                        isOpen
+                          ? 'text-[#095F46]'
+                          : 'text-stone-900 group-hover:text-stone-950'
+                      }`}
+                    >
+                      {faq.q}
+                    </span>
+                    <div
+                      className={`shrink-0 ml-4 flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300 ${
+                        isOpen
+                          ? 'bg-[#095F46] text-white rotate-90 shadow-[0_2px_8px_rgba(9,95,70,0.25)]'
+                          : 'bg-stone-100 text-stone-500 group-hover:bg-[#095F46]/10 group-hover:text-[#095F46] group-hover:scale-105 group-hover:translate-x-0.5'
+                      }`}
+                    >
+                      <ChevronRight className="h-4 w-4 stroke-[2.5]" />
+                    </div>
+                  </button>
+
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        key="faq-content"
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{
+                          height: 'auto',
+                          opacity: 1,
+                          transition: {
+                            height: { duration: 0.32, ease: [0.22, 1, 0.36, 1] },
+                            opacity: { duration: 0.22, delay: 0.05 },
+                          },
+                        }}
+                        exit={{
+                          height: 0,
+                          opacity: 0,
+                          transition: {
+                            height: { duration: 0.26, ease: [0.22, 1, 0.36, 1] },
+                            opacity: { duration: 0.15 },
+                          },
+                        }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-6 pb-5 pt-1 text-xs sm:text-sm text-stone-600 leading-relaxed border-t border-stone-100/90">
+                          {faq.a}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </div>

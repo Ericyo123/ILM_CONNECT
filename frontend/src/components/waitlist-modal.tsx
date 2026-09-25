@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { X, Check, Sparkles, Loader2, ArrowRight } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { X, Check, Loader2, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { Portal } from '@/components/ui/portal';
 
 interface WaitlistModalProps {
@@ -103,15 +103,13 @@ export default function WaitlistModal({
             <div>
               {/* Header */}
               <div className="flex items-center gap-3 mb-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#095F46] p-2 text-white shadow-sm flex-shrink-0">
-                  <Image
-                    src="/images/ilmbit-icon-white.png"
-                    alt="Ilmbit Logo"
-                    width={34}
-                    height={34}
-                    className="object-contain"
-                  />
-                </div>
+                <Image
+                  src="/images/ilmbit-logo-green.png"
+                  alt="ILMBIT"
+                  width={40}
+                  height={52}
+                  className="h-[52px] w-auto flex-shrink-0 object-contain"
+                />
                 <div>
                   <h3 className="text-xl sm:text-2xl font-black text-stone-950 tracking-tight">
                     Join Priority Waitlist
@@ -219,7 +217,7 @@ export default function WaitlistModal({
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full flex items-center justify-center gap-2 py-3.5 px-6 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider text-white bg-[#095F46] hover:bg-[#074c38] shadow-md shadow-[#095F46]/25 transition-all disabled:opacity-70 active:scale-[0.99]"
+                    className="brand-button brand-button-primary h-12 w-full"
                   >
                     {isSubmitting ? (
                       <>
@@ -260,7 +258,7 @@ export default function WaitlistModal({
               <button
                 type="button"
                 onClick={handleResetAndClose}
-                className="inline-flex items-center gap-2 py-2.5 px-7 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider text-white bg-stone-900 hover:bg-stone-800 transition-all shadow-sm"
+                className="brand-button bg-stone-900 px-7 text-white hover:bg-stone-800"
               >
                 Close Window
               </button>

@@ -9,7 +9,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import {
-  BookOpen,
   LayoutDashboard,
   Calendar,
   GraduationCap,
@@ -24,17 +23,13 @@ import {
   ClipboardList,
   DollarSign,
   CalendarClock,
-  Star,
-  LogOut,
   ChevronLeft,
   ChevronRight,
-  User,
   Library,
   MessageSquare,
   Award,
   HelpCircle,
   BookCheck,
-  Unlock,
 } from 'lucide-react';
 
 interface NavItem {
@@ -42,6 +37,10 @@ interface NavItem {
   label: string;
   icon: React.ElementType;
   badge?: string;
+}
+
+interface SupportTicketSummary {
+  status: string;
 }
 
 const globalStudentNav: NavItem[] = [
@@ -115,31 +114,29 @@ export default function DashboardSidebar() {
 
   // Live admin pending requests count — polls every 30s
   const isAdminRoute = pathname.startsWith('/admin');
-  const { data: adminTickets } = useQuery<any[]>({
+  const { data: adminTickets } = useQuery<SupportTicketSummary[]>({
     queryKey: ['adminSupportTickets'],
     queryFn: () => apiFetch('/support/tickets'),
     enabled: !!user && isAdminRoute,
     refetchInterval: 30000,
   });
   const pendingRequestsCount = adminTickets?.filter(
-    (t: any) => t.status === 'PENDING' || t.status === 'IN_REVIEW'
+    (ticket) => ticket.status === 'PENDING' || ticket.status === 'IN_REVIEW'
   ).length ?? 0;
   
   let navItems: NavItem[] = [];
   let roleName = '';
   let userName = '';
-  let initials = 'AK';
   
   let adminRole = 'owner';
   try {
     const context = useRole();
     adminRole = context.role;
-  } catch(e) {}
+  } catch {}
 
   if (pathname.startsWith('/student')) {
     roleName = 'Student';
     userName = profile?.fullName || 'Student';
-    initials = profile?.fullName?.split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase() || 'ST';
     
     // Check if we are inside a specific course (e.g., /student/courses/beginner-qaida/...)
     const courseMatch = pathname.match(/^\/student\/courses\/([^/]+)/);
@@ -151,7 +148,6 @@ export default function DashboardSidebar() {
   } else if (pathname.startsWith('/lecturer')) {
     roleName = 'Lecturer';
     userName = profile?.fullName || 'Maulavi Ahmed Raza';
-    initials = profile?.fullName ? profile.fullName.split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase() : 'MA';
     // Check if inside a specific lecturer course
     const lecturerCourseMatch = pathname.match(/^\/lecturer\/courses\/([^/]+)/);
     if (lecturerCourseMatch) {
@@ -165,7 +161,6 @@ export default function DashboardSidebar() {
       : adminNav;
     roleName = adminRole === 'staff' ? 'Staff' : 'Administrator';
     userName = adminRole === 'staff' ? 'Support Rep' : 'Super Admin';
-    initials = 'AD';
   }
 
   return (
@@ -175,21 +170,16 @@ export default function DashboardSidebar() {
       }`}
     >
       {/* Logo */}
-      <div className="flex items-center gap-2.5 h-16 px-4 border-b border-[hsl(var(--sidebar-border))] bg-white">
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#095F46] p-1.5 text-white flex-shrink-0 shadow-sm">
+      <div className="flex h-16 items-center border-b border-[hsl(var(--sidebar-border))] bg-white px-4">
+        <Link href="/" className="flex items-center" aria-label="ILMBIT home">
           <Image
-            src="/images/ilmbit-icon-white.png"
-            alt="Ilmbit Logo"
-            width={28}
-            height={28}
-            className="object-contain"
+            src="/images/ilmbit-logo-green.png"
+            alt="ILMBIT"
+            width={34}
+            height={45}
+            className="h-10 w-auto object-contain"
           />
-        </div>
-        {!collapsed && (
-          <span className="text-xl font-extrabold text-stone-950 tracking-tight">
-            Ilm<span className="text-[#095F46]">bit</span>
-          </span>
-        )}
+        </Link>
       </div>
 
       {/* Nav Items */}

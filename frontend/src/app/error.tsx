@@ -29,13 +29,13 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
           <button
             onClick={reset}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white bg-[#095F46] hover:bg-[#074c38] shadow-sm hover:shadow-md transition-all"
+            className="brand-button brand-button-primary w-full sm:w-auto"
           >
             <RefreshCw className="h-4 w-4" /> Try Again
           </button>
           <Link
             href="/student/dashboard"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-medium border border-[hsl(var(--border))] hover:bg-[hsl(var(--muted))] transition-colors"
+            className="brand-button brand-button-secondary w-full sm:w-auto"
           >
             <Home className="h-4 w-4" /> Go to Dashboard
           </Link>

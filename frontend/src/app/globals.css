@@ -8,17 +8,25 @@
 
 /* ---- CSS Custom Properties (Design Tokens) ---- */
 :root {
-  /* Primary — User Brand Green #095F46 */
+  --brand-primary: #095f46;
+  --brand-secondary: #0b8663;
+  --brand-bright: #10bf8d;
+  --brand-gray: #b3b3b3;
+  --font-brand: 'Sharp Sans', var(--font-manrope), system-ui, -apple-system, sans-serif;
+  --radius-control: 0.875rem;
+  --radius-action: 999px;
+
+  /* Primary — ILMBIT Brand Green #095F46 */
   --primary: 163 83% 20%;
-  --primary-hover: 163 83% 16%;
-  --primary-light: 163 45% 94%;
+  --primary-hover: 163 85% 16%;
+  --primary-light: 161 48% 94%;
   --primary-foreground: 0 0% 100%;
 
-  /* Accent — Gold (used sparingly) */
-  --accent: 45 84% 40%;
-  --accent-hover: 45 84% 35%;
-  --accent-light: 45 80% 95%;
-  --accent-foreground: 0 0% 10%;
+  /* Accent — ILMBIT Bright Green #10BF8D */
+  --accent: 161 85% 41%;
+  --accent-hover: 161 85% 35%;
+  --accent-light: 161 55% 94%;
+  --accent-foreground: 164 83% 14%;
 
   /* Neutrals — Crisp Clean White & High-Contrast Black */
   --background: 0 0% 100%;
@@ -28,7 +36,7 @@
   --popover: 0 0% 100%;
   --popover-foreground: 220 25% 10%;
   --muted: 163 20% 96%;
-  --muted-foreground: 220 15% 38%;
+  --muted-foreground: 0 0% 42%;
   --border: 220 13% 90%;
   --input: 220 13% 90%;
   --ring: 163 83% 20%;
@@ -51,7 +59,7 @@
   --sidebar-border: 220 13% 90%;
 
   /* Radius */
-  --radius: 0.625rem;
+  --radius: 0.875rem;
 
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -118,9 +126,118 @@ html {
 body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: var(--font-brand);
   line-height: 1.6;
   min-height: 100vh;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  border-radius: var(--radius-action);
+}
+
+a[class*="bg-[#095F46]"],
+a[class*="bg-[hsl(var(--primary))]"] {
+  border-radius: var(--radius-action);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-brand);
+  text-wrap: balance;
+}
+
+.brand-button {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-action);
+  padding: 0.625rem 1.5rem;
+  font-family: var(--font-brand);
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-align: center;
+  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease, opacity 180ms ease, transform 180ms ease;
+}
+
+.brand-button:hover {
+  text-decoration: none;
+}
+
+.brand-button:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.brand-button:disabled,
+.brand-button[aria-disabled='true'] {
+  cursor: not-allowed;
+  opacity: 0.52;
+}
+
+.brand-button-primary {
+  background: var(--brand-primary);
+  color: #fff;
+}
+
+.brand-button-primary:hover {
+  background: #043f2e;
+  border-color: #043f2e;
+  box-shadow: 0 9px 24px rgba(4, 63, 46, 0.28);
+  transform: translateY(-2px);
+}
+
+.brand-button-secondary {
+  border-color: rgba(9, 95, 70, 0.24);
+  background: #fff;
+  color: var(--brand-primary);
+}
+
+.brand-button-secondary:hover {
+  border-color: var(--brand-primary);
+  background: var(--brand-primary);
+  color: #fff;
+  box-shadow: 0 7px 20px rgba(9, 95, 70, 0.18);
+  transform: translateY(-2px);
+}
+
+.brand-button-inverse {
+  border-color: rgba(255, 255, 255, 0.36);
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.brand-button-inverse:hover {
+  border-color: #fff;
+  background: #fff;
+  color: var(--brand-primary);
+  box-shadow: 0 9px 24px rgba(0, 0, 0, 0.16);
+  transform: translateY(-2px);
+}
+
+.brand-icon-button {
+  display: inline-flex;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: 0 0 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, opacity 180ms ease;
 }
 
 /* ---- Typography Utilities ---- */
@@ -129,21 +246,21 @@ body {
 }
 
 .text-gradient-primary {
-  background: linear-gradient(135deg, #095F46, #0d7a5b);
+  background: linear-gradient(135deg, #095F46, #0B8663, #10BF8D);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .text-gradient-gold {
-  background: linear-gradient(135deg, hsl(45 84% 40%), hsl(38 92% 50%));
+  background: linear-gradient(135deg, #0B8663, #10BF8D);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .dark .text-gradient-primary {
-  background: linear-gradient(135deg, #095F46, #0d7a5b);
+  background: linear-gradient(135deg, #095F46, #0B8663, #10BF8D);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -288,6 +405,10 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .hero-brand-video {
+    display: none;
   }
 }
 

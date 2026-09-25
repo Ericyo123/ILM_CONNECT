@@ -10,7 +10,7 @@ interface LogoProps {
 }
 
 export default function Logo({
-  variant = 'horizontal',
+  variant = 'stacked',
   color = 'auto',
   size = 'md',
   href = '/',
@@ -24,15 +24,18 @@ export default function Logo({
     xl: { box: 'h-16 w-16 rounded-2xl', img: 48, text: 'text-2xl sm:text-3xl' },
   }[size];
 
+  const fullLogoWidth = size === 'xl' ? 58 : size === 'lg' ? 50 : size === 'md' ? 42 : 34;
+  const fullLogoHeight = size === 'xl' ? 76 : size === 'lg' ? 65 : size === 'md' ? 55 : 44;
+
   const content = (
     <div className={`inline-flex items-center gap-2.5 select-none ${className}`}>
       {variant === 'stacked' ? (
         <Image
           src={color === 'white' ? '/images/ilmbit-logo-white.png' : '/images/ilmbit-logo-green.png'}
           alt="Ilmbit Logo"
-          width={size === 'xl' ? 140 : size === 'lg' ? 110 : 85}
-          height={size === 'xl' ? 180 : size === 'lg' ? 140 : 110}
-          className="object-contain"
+          width={fullLogoWidth}
+          height={fullLogoHeight}
+          className="h-auto w-auto object-contain"
           priority
         />
       ) : (
@@ -54,9 +57,8 @@ export default function Logo({
             />
           </div>
           {variant === 'horizontal' && (
-            <span className={`${iconSizes.text} font-bold tracking-tight`}>
-              <span className={color === 'white' ? 'text-white' : 'text-stone-950'}>Ilm</span>
-              <span className={color === 'white' ? 'text-emerald-400' : 'text-[#095F46]'}>bit</span>
+            <span className={`${iconSizes.text} font-extrabold tracking-tight uppercase`}>
+              <span className={color === 'white' ? 'text-white' : 'text-[#095F46]'}>ILMBIT</span>
             </span>
           )}
         </>

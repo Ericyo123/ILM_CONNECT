@@ -13,7 +13,7 @@ function getErrorMessage(error: unknown, fallback: string) {
 }
 
 const inputClassName =
-  'h-12 w-full rounded-[4px] border border-[#bdb8ad] bg-[#fffefb] px-4 text-[15px] text-stone-950 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] outline-none transition-[border-color,box-shadow,background-color] placeholder:text-stone-400 hover:border-stone-500 focus:border-[#095F46] focus:bg-white focus:ring-2 focus:ring-[#095F46]/20';
+  'h-12 w-full rounded-[var(--radius-control)] border border-stone-300 bg-white px-4 text-[15px] text-stone-950 outline-none transition-[border-color,box-shadow,background-color] placeholder:text-stone-400 hover:border-stone-400 focus:border-[#095F46] focus:ring-2 focus:ring-[#095F46]/20';
 
 export default function SignInPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -113,7 +113,7 @@ export default function SignInPage() {
             <button
               type="button"
               onClick={() => setShowPassword((visible) => !visible)}
-              className="absolute right-1 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-[3px] text-stone-400 transition-colors hover:bg-[#f3efe6] hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#095F46]"
+              className="brand-icon-button absolute right-1 top-1/2 h-10 w-10 -translate-y-1/2 flex-none text-stone-400 hover:bg-emerald-50 hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#095F46]"
               aria-label={showPassword ? 'Hide password' : 'Show password'}
               aria-pressed={showPassword}
             >
@@ -125,7 +125,7 @@ export default function SignInPage() {
         <button
           disabled={isLoading}
           type="submit"
-          className="mt-2 flex h-12 w-full items-center justify-center rounded-[4px] border border-[#064132] bg-[#095F46] px-6 text-sm font-bold text-white shadow-[inset_0_1px_0_rgba(228,207,143,0.35)] transition-colors hover:bg-[#064b38] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#095F46] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f3efe6] disabled:cursor-not-allowed disabled:opacity-55"
+          className="brand-button brand-button-primary mt-2 h-12 w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#095F46] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f7faf8]"
         >
           {isLoading ? 'Logging in...' : 'Log in'}
         </button>

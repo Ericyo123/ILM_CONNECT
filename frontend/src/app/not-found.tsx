@@ -11,7 +11,7 @@ export default function NotFound() {
           The page you&apos;re looking for doesn&apos;t exist or has been moved. Let us guide you back.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-          <Link href="/" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white bg-[#095F46] hover:bg-[#074c38] shadow-sm transition-all">
+          <Link href="/" className="brand-button brand-button-primary">
             <Home className="h-4 w-4" /> Go Home
           </Link>
 

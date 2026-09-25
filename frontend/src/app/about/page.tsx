@@ -3,28 +3,22 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import {
-  Award,
-  BookOpen,
-  Check,
-  ChevronRight,
-  Clock,
-  Compass,
-  Globe,
-  GraduationCap,
-  ShieldCheck,
-  Star,
-  TrendingUp,
-  Users,
-  Video,
-} from 'lucide-react';
-import { motion, useInView } from 'framer-motion';
+import { Check, ChevronRight } from 'lucide-react';
+import { motion, useInView, type Variants } from 'framer-motion';
 
-const fadeUp = { hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } };
+const fadeUp: Variants = { hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0 } };
+const sectionReveal: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
+  },
+};
 
 function AnimatedCounter({
   target,
-  duration = 1800,
+  duration = 2000,
   decimals = 0,
   suffix = '',
 }: {
@@ -87,28 +81,24 @@ const platformStats = [
     suffix: '+',
     decimals: 0,
     label: 'Qualified Scholars',
-    icon: GraduationCap,
   },
   {
     target: 150,
     suffix: '+',
     decimals: 0,
     label: 'Active Students',
-    icon: Users,
   },
   {
     target: 4.85,
     suffix: '',
     decimals: 2,
     label: 'Average Rating',
-    icon: Star,
   },
   {
     target: 10000,
     suffix: '+',
     decimals: 0,
     label: 'Teaching Hours Completed',
-    icon: Clock,
   },
 ];
 
@@ -143,22 +133,18 @@ const journey = [
   {
     title: 'Share Goals & Level',
     desc: 'Share the student’s goals and current level',
-    icon: Compass,
   },
   {
     title: 'Choose Learning Path',
     desc: 'Choose a learning path or request guidance',
-    icon: BookOpen,
   },
   {
     title: 'Scholar Matching',
     desc: 'Get matched with a qualified scholar',
-    icon: Users,
   },
   {
     title: 'Steady Progress',
     desc: 'Begin weekly sessions with tracked progress',
-    icon: TrendingUp,
   },
 ];
 
@@ -204,30 +190,70 @@ export default function AboutPage() {
       <div className="absolute top-16 -right-24 h-96 w-96 rounded-full bg-emerald-200/45 blur-3xl pointer-events-none" />
       <div className="absolute top-[42%] -left-28 h-[32rem] w-[32rem] rounded-full bg-teal-100/60 blur-3xl pointer-events-none" />
 
-      <section className="relative overflow-hidden bg-stone-950 text-white pt-28 sm:pt-32 pb-16 sm:pb-20 min-h-[42vh] sm:min-h-[46vh] flex items-center justify-center">
-        <Image
-          src="/images/about-hero-scholar.jpg"
-          alt="Islamic scholar in traditional academy library"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-[center_35%] opacity-85"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-stone-950/60 via-stone-950/30 to-stone-950/70" />
+      {/* ========================================================================= */}
+      {/* HERO SECTION — Matching Site UI Standard & Aesthetic                      */}
+      {/* ========================================================================= */}
+      <section className="relative min-h-[54vh] sm:min-h-[58vh] lg:min-h-[62vh] flex flex-col justify-between overflow-hidden bg-stone-950 text-white select-none">
+        {/* Background Visual with Signature Multi-Layer Ambient Lighting */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/about-hero-scholar.jpg"
+            alt="Islamic scholar in traditional academy library"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[center_28%] opacity-85"
+          />
+          <div className="absolute inset-0 bg-[#095F46]/45 mix-blend-multiply" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#031e18]/85 via-[#095F46]/20 to-[#031e18]/95" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,rgba(3,30,24,0.65)_100%)]" />
+        </div>
 
-        <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: false, amount: 0.2 }} variants={fadeUp} className="flex flex-col items-center">
-            {/* Hooking center-aligned headline */}
-            <h1 className="text-2xl sm:text-3xl lg:text-[36px] font-black leading-[1.2] tracking-tight text-white mb-3 max-w-2xl">
-              A Trusted Bridge Between Scholars &amp; Students Worldwide
+        {/* Top spacer for fixed header alignment */}
+        <div className="w-full h-16 sm:h-20 pointer-events-none" aria-hidden="true" />
+
+        {/* Bottom-Center Hero Content matching Home Hero standard */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.2 }}
+          variants={fadeUp}
+          className="relative z-20 mt-auto pb-10 sm:pb-14 pt-8 px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center"
+        >
+          <div className="relative mx-auto max-w-4xl w-full">
+            {/* 2-Tone Headline matching Home Hero standard */}
+            <h1 className="text-xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white leading-snug drop-shadow-md max-w-2xl mx-auto">
+              <span className="block">A Trusted Bridge Between</span>
+              <span className="block text-emerald-50 font-semibold text-base sm:text-2xl lg:text-[28px] mt-1">
+                Scholars &amp; Students Worldwide
+              </span>
             </h1>
 
-            {/* Centered concise description with smaller font */}
-            <p className="max-w-xl mx-auto text-xs sm:text-sm text-stone-200/90 leading-relaxed font-normal">
+            {/* Subtitle with drop-shadow and refined line-height */}
+            <p className="mt-3.5 sm:mt-4 text-xs sm:text-sm text-stone-200 max-w-xl mx-auto leading-relaxed drop-shadow-md font-normal">
               Ilmbit exists for Muslim families who want authentic, structured Islamic learning without losing the warmth and discipline of traditional scholarship.
             </p>
-          </motion.div>
-        </div>
+
+            {/* Dual Pill CTA Buttons matching Site Standard */}
+            <div className="mt-6 sm:mt-7 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+              <Link
+                href="/about#waitlist"
+                className="brand-button brand-button-primary px-8"
+              >
+                Start Free Trial
+              </Link>
+              <Link
+                href="#standards"
+                className="brand-button brand-button-inverse px-7"
+              >
+                Our Standards
+              </Link>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Subtle Bottom Ambient Spacer */}
+        <div className="relative z-20 pb-2" />
       </section>
 
       {/* ========================================================================= */}
@@ -261,104 +287,87 @@ export default function AboutPage() {
               className="lg:col-span-5 text-stone-600 text-xs sm:text-sm leading-relaxed"
             >
               <p>
-                Ilmbit bridges authentic traditional scholarship with modern 1-on-1 virtual classrooms and flexible scheduling designed specifically for diaspora families.
+                Ilmbit bridges authentic traditional scholarship with modern 1:1 virtual classrooms and flexible scheduling designed specifically for diaspora families.
               </p>
             </motion.div>
           </div>
 
-          {/* Middle Row: 3 Feature Pill Cards (Compact, as in reference image) */}
+          {/* Learning principles */}
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.2 }}
             variants={fadeUp}
-            className="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-4"
+            className="grid gap-4 lg:grid-cols-12 lg:grid-rows-2"
           >
-            {/* Feature 1: Verified Sanad Scholars */}
-            <div className="bg-white rounded-2xl border border-stone-200/80 p-3.5 sm:p-4 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(9,95,70,0.08)] hover:border-[#095F46]/40 transition-all duration-300 flex items-center gap-3.5">
-              <div className="w-11 h-11 rounded-xl bg-[#095F46] text-white flex items-center justify-center shrink-0 shadow-sm">
-                <ShieldCheck className="w-5 h-5" />
-              </div>
-              <div className="min-w-0">
-                <h3 className="text-sm sm:text-[15px] font-bold text-stone-900 mb-0.5 tracking-tight truncate">
+            <article className="group relative min-h-[390px] overflow-hidden rounded-3xl bg-stone-900 lg:col-span-7 lg:row-span-2 lg:min-h-[500px]">
+              <Image
+                src="/images/about-verified-scholars-v2.png"
+                alt="Sanad-qualified Islamic scholar teaching a live online Quran lesson"
+                fill
+                className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.025]"
+                sizes="(max-width: 1024px) 100vw, 58vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#052d23]/95 via-[#052d23]/20 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-7 text-white sm:p-9">
+                <h3 className="max-w-md text-3xl font-bold tracking-[-0.035em] sm:text-4xl">
                   Verified Scholars
                 </h3>
-                <p className="text-xs text-stone-500 leading-snug line-clamp-2">
-                  Sanad-certified educators vetted for Islamic depth &amp; teaching adab.
+                <p className="mt-3 max-w-md text-sm leading-relaxed text-emerald-50/85 sm:text-base">
+                  Sanad-certified educators selected for Islamic depth and teaching adab.
                 </p>
               </div>
-            </div>
+            </article>
 
-            {/* Feature 2: 1:1 Personalized Learning */}
-            <div className="bg-white rounded-2xl border border-stone-200/80 p-3.5 sm:p-4 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(9,95,70,0.08)] hover:border-[#095F46]/40 transition-all duration-300 flex items-center gap-3.5">
-              <div className="w-11 h-11 rounded-xl bg-stone-950 text-white flex items-center justify-center shrink-0 shadow-sm">
-                <Video className="w-5 h-5" />
-              </div>
-              <div className="min-w-0">
-                <h3 className="text-sm sm:text-[15px] font-bold text-stone-900 mb-0.5 tracking-tight truncate">
-                  1-on-1 Focused Care
-                </h3>
-                <p className="text-xs text-stone-500 leading-snug line-clamp-2">
-                  Private live sessions paced with direct Tajweed recitation correction.
-                </p>
-              </div>
-            </div>
-
-            {/* Feature 3: Global Time-Zone Ease */}
-            <div className="bg-white rounded-2xl border border-stone-200/80 p-3.5 sm:p-4 shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(9,95,70,0.08)] hover:border-[#095F46]/40 transition-all duration-300 flex items-center gap-3.5">
-              <div className="w-11 h-11 rounded-xl bg-[#095F46] text-white flex items-center justify-center shrink-0 shadow-sm">
-                <Globe className="w-5 h-5" />
-              </div>
-              <div className="min-w-0">
-                <h3 className="text-sm sm:text-[15px] font-bold text-stone-900 mb-0.5 tracking-tight truncate">
-                  Global Availability
-                </h3>
-                <p className="text-xs text-stone-500 leading-snug line-clamp-2">
-                  Seamless scheduling across UK, Europe, Australia, and US time zones.
-                </p>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Bottom Row: Two Connected Overlapping Photos (Male Scholar & Male Student on Laptop) */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: false, amount: 0.2 }}
-            variants={fadeUp}
-            className="relative pt-2 pb-5 sm:pb-7 max-w-5xl mx-auto"
-          >
-            {/* Main Image (Left / Base): Male Scholar teaching live 1:1 on laptop */}
-            <div className="relative w-full lg:w-[75%] h-[240px] sm:h-[300px] lg:h-[330px] rounded-2xl sm:rounded-3xl overflow-hidden border-4 sm:border-6 border-white shadow-[0_12px_36px_rgba(0,0,0,0.1)] bg-stone-100">
+            <article className="group relative min-h-[270px] overflow-hidden rounded-3xl bg-stone-900 lg:col-span-5 lg:min-h-0">
               <Image
-                src="/images/about-scholar-male-laptop.jpg"
-                alt="Sanad-certified male Islamic scholar teaching online live on laptop with Holy Quran"
+                src="/images/about-personal-attention-v2.png"
+                alt="Student receiving focused one-to-one online Quran instruction"
                 fill
-                className="object-cover object-[center_20%]"
-                sizes="(max-width: 1024px) 100vw, 760px"
+                className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.035]"
+                sizes="(max-width: 1024px) 100vw, 42vw"
               />
-            </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-950/15 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-6 text-white sm:p-7">
+                <h3 className="text-2xl font-bold tracking-tight">Personal Attention</h3>
+                <p className="mt-2 max-w-lg text-sm leading-relaxed text-stone-200">
+                  Private sessions paced around the student, with direct Tajweed correction.
+                </p>
+              </div>
+            </article>
 
-            {/* Overlapping Inset Image (Right): Male Student attending live 1:1 lesson on laptop */}
-            <div className="absolute -bottom-2 sm:-bottom-4 right-0 sm:right-2 lg:right-0 w-[55%] sm:w-[44%] lg:w-[40%] h-[180px] sm:h-[225px] lg:h-[245px] rounded-xl sm:rounded-2xl overflow-hidden border-4 sm:border-6 border-white shadow-[0_18px_45px_rgba(0,0,0,0.18)] bg-stone-100 z-10 hover:scale-[1.02] transition-transform duration-300">
+            <article className="group relative flex min-h-[230px] flex-col justify-end overflow-hidden rounded-3xl bg-stone-900 lg:col-span-5 lg:min-h-0">
               <Image
-                src="/images/about-student-male-laptop.jpg"
-                alt="Young male student engaged in live 1-on-1 online Quran session with male scholar on laptop"
+                src="/images/about-built-around-you.png"
+                alt="Mother and child preparing for a flexible online Quran lesson at home"
                 fill
-                className="object-cover object-[center_15%]"
-                sizes="(max-width: 640px) 240px, (max-width: 1024px) 360px, 440px"
+                className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.035]"
+                sizes="(max-width: 1024px) 100vw, 42vw"
               />
-            </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#052d23]/95 via-[#052d23]/35 to-transparent" />
+              <div className="relative p-6 text-white sm:p-7">
+                <h3 className="text-2xl font-bold tracking-tight">Built Around You</h3>
+                <p className="mt-2 max-w-lg text-sm leading-relaxed text-emerald-50/85">
+                  Scheduling that works across UK, Europe, Australia, and US time zones.
+                </p>
+                <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-xs font-semibold uppercase tracking-[0.08em] text-emerald-50/80">
+                  <span>UK</span>
+                  <span>Europe</span>
+                  <span>Australia</span>
+                  <span>US</span>
+                </div>
+              </div>
+            </article>
           </motion.div>
 
         </div>
       </section>
 
       {/* ========================================================================= */}
-      {/* THE PLATFORM STANDARDS — Replicating Reference Layout with Stats Row */}
+      {/* THE PLATFORM STANDARDS — Replicating Reference Layout */}
       {/* ========================================================================= */}
-      <section className="relative z-10 border-y border-stone-200/70 bg-white/50 py-14 sm:py-16 lg:py-20 backdrop-blur-sm">
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-10 sm:space-y-12">
+      <section id="standards" className="relative z-10 border-y border-stone-200/70 bg-white/50 py-14 sm:py-16 lg:py-20 backdrop-blur-sm scroll-mt-20">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           
           {/* Top Row: Left Image with Badge vs Right Content */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
@@ -381,7 +390,7 @@ export default function AboutPage() {
               <div className="relative w-full aspect-[4/3] rounded-3xl rounded-bl-[50px] sm:rounded-bl-[72px] overflow-hidden border-4 sm:border-6 border-white shadow-[0_16px_40px_rgba(0,0,0,0.08)] bg-stone-100">
                 <Image
                   src="/images/about-platform-standards-scholar.jpg"
-                  alt="Sanad-certified Islamic scholar conducting online 1-on-1 Quran recitation session"
+                  alt="Sanad-certified Islamic scholar conducting online 1:1 Quran recitation session"
                   fill
                   className="object-cover object-[center_20%]"
                   sizes="(max-width: 1024px) 100vw, 520px"
@@ -397,11 +406,6 @@ export default function AboutPage() {
               variants={fadeUp}
               className="lg:col-span-7 flex flex-col justify-center"
             >
-              {/* Small category kicker in brand green */}
-              <div className="text-xs font-bold uppercase tracking-wider text-[#095F46] mb-1.5 font-mono">
-                The Platform Standards
-              </div>
-
               {/* Bold Main Heading - font size matched to Section 2 */}
               <h2 className="text-2xl sm:text-3xl lg:text-[32px] font-bold tracking-tight text-stone-950 leading-[1.2] mb-3">
                 Elevating Islamic Education With Uncompromising Standards
@@ -434,50 +438,60 @@ export default function AboutPage() {
               {/* CTA Button */}
               <div>
                 <Link
-                  href="/auth/signup"
-                  className="inline-flex items-center justify-center px-7 py-3 rounded-full bg-[#095F46] hover:bg-[#074c38] text-white font-bold text-xs uppercase tracking-wider shadow-[0_4px_16px_rgba(9,95,70,0.25)] hover:shadow-[0_8px_24px_rgba(9,95,70,0.38)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300"
+                  href="/about#waitlist"
+                  className="brand-button brand-button-primary px-7"
                 >
-                  Start Free Trial →
+                  Start Free Trial
                 </Link>
               </div>
             </motion.div>
           </div>
+        </div>
+      </section>
 
-          {/* Bottom Part: Platform Stats Row */}
+      {/* ========================================================================= */}
+      {/* PLATFORM STATS STRIP — Compact 4 Metrics Directly Below Platform Standards (Matches Homepage) */}
+      {/* ========================================================================= */}
+      <section
+        id="stats"
+        className="relative z-20 py-8 sm:py-10 border-b border-stone-200/60 select-none bg-[#f8faf8]"
+      >
+        <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, amount: 0.2 }}
-            variants={fadeUp}
-            className="pt-8 sm:pt-10 border-t border-stone-200/80"
+            viewport={{ once: false, amount: 0.3 }}
+            variants={sectionReveal}
+            className="grid grid-cols-2 md:grid-cols-4 items-center"
           >
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 items-center">
-              {platformStats.map((stat) => {
-                const Icon = stat.icon;
-                return (
-                  <div key={stat.label} className="flex items-center gap-4 group">
-                    <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-2xl bg-[#095F46]/10 text-[#095F46] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300">
-                      <Icon className="w-6 h-6 sm:w-7 sm:h-7 stroke-[2.2]" />
-                    </div>
-                    <div>
-                      <div className="text-2xl sm:text-3xl lg:text-4xl font-black text-stone-950 tracking-tight">
-                        <AnimatedCounter
-                          target={stat.target}
-                          decimals={stat.decimals}
-                          suffix={stat.suffix}
-                          duration={2000}
-                        />
-                      </div>
-                      <div className="text-xs sm:text-sm font-semibold text-stone-500 tracking-tight mt-0.5">
-                        {stat.label}
-                      </div>
-                    </div>
+            {platformStats.map((stat, idx) => {
+              const isLastDesktop = idx === 3;
+              const hasRightBorderMobile = idx % 2 === 0;
+              const hasBottomBorderMobile = idx < 2;
+              return (
+                <div
+                  key={stat.label}
+                  className={`text-center py-3 sm:py-4 px-2 sm:px-6
+                    ${!isLastDesktop ? 'md:border-r md:border-stone-300/70' : 'md:border-r-0'}
+                    ${hasRightBorderMobile ? 'border-r border-stone-300/70' : ''}
+                    ${hasBottomBorderMobile ? 'border-b border-stone-300/70 pb-6 md:border-b-0 md:pb-4' : 'pt-6 md:pt-4'}
+                  `}
+                >
+                  <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#095F46] tracking-tight mb-1.5">
+                    <AnimatedCounter
+                      target={stat.target}
+                      decimals={stat.decimals}
+                      suffix={stat.suffix}
+                      duration={2000}
+                    />
                   </div>
-                );
-              })}
-            </div>
+                  <div className="text-stone-700 text-xs sm:text-sm lg:text-[15px] font-semibold tracking-tight">
+                    {stat.label}
+                  </div>
+                </div>
+              );
+            })}
           </motion.div>
-
         </div>
       </section>
 
@@ -490,10 +504,7 @@ export default function AboutPage() {
             variants={fadeUp}
             className="lg:col-span-5"
           >
-            <span className="font-serif italic text-sm sm:text-base text-[#095F46] font-semibold tracking-wide">
-              The Learning Journey
-            </span>
-            <h2 className="mt-2 text-2xl sm:text-3xl lg:text-[32px] font-bold tracking-tight text-stone-950 leading-[1.2]">
+            <h2 className="text-2xl sm:text-3xl lg:text-[32px] font-bold tracking-tight text-stone-950 leading-[1.2]">
               A calmer path from signup to steady learning.
             </h2>
             <p className="mt-3 text-xs sm:text-sm leading-relaxed text-stone-600 max-w-md">
@@ -501,198 +512,217 @@ export default function AboutPage() {
             </p>
             <div className="mt-6">
               <Link
-                href="/auth/signup"
-                className="inline-flex items-center gap-2 rounded-full bg-[#095F46] hover:bg-[#074c38] px-7 py-3 text-xs font-bold uppercase tracking-wider text-white shadow-[0_4px_16px_rgba(9,95,70,0.25)] transition-all hover:scale-105"
+                href="/about#waitlist"
+                className="brand-button brand-button-primary px-7"
               >
                 Get Started <ChevronRight className="h-4 w-4" />
               </Link>
             </div>
           </motion.div>
 
-          <div className="lg:col-span-7">
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
+          <div className="lg:col-span-7 lg:pl-4">
+            <ol className="border-y border-stone-300/80">
               {journey.map((item, i) => {
-                const IconComponent = item.icon;
                 return (
-                  <motion.div
+                  <motion.li
                     key={item.title}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: false, amount: 0.15 }}
                     variants={fadeUp}
                     transition={{ delay: i * 0.08 }}
-                    className="group relative flex flex-col justify-between rounded-2xl border border-stone-200/90 bg-white p-5 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.04)] border-b-4 border-b-[#095F46] hover:shadow-[0_12px_30px_rgba(9,95,70,0.1)] hover:-translate-y-1 transition-all duration-300"
+                    className={`grid grid-cols-[52px_1fr] gap-4 border-b border-stone-300/80 py-5 last:border-b-0 sm:grid-cols-[64px_1fr] sm:gap-6 sm:py-6 ${
+                      i === 1
+                        ? 'lg:ml-8'
+                        : i === 2
+                          ? 'lg:ml-16'
+                          : i === 3
+                            ? 'lg:ml-24'
+                            : ''
+                    }`}
                   >
-                    <div>
-                      <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-[#095F46] group-hover:bg-[#095F46] group-hover:text-white transition-colors duration-300">
-                        <IconComponent className="h-5 w-5 stroke-[2.2]" />
-                      </div>
-                      <h3 className="text-base font-bold text-stone-900 tracking-tight">
+                    <span className="pt-0.5 text-2xl font-semibold tabular-nums tracking-[-0.04em] text-[#095F46]/45 sm:text-3xl">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <div className="grid gap-1 sm:grid-cols-[minmax(165px,0.8fr)_1.2fr] sm:items-baseline sm:gap-7">
+                      <h3 className="text-base font-bold tracking-tight text-stone-950 sm:text-lg">
                         {item.title}
                       </h3>
-                      <p className="mt-1.5 text-xs text-stone-500 leading-relaxed">
+                      <p className="text-xs leading-relaxed text-stone-500 sm:text-sm">
                         {item.desc}
                       </p>
                     </div>
-                  </motion.div>
+                  </motion.li>
                 );
               })}
-            </div>
+            </ol>
           </div>
         </div>
       </section>
 
-      <section className="relative z-10 px-4 pb-14 sm:px-6 sm:pb-16 lg:px-8 lg:pb-20">
+      <section id="waitlist" className="relative z-10 scroll-mt-28 px-4 pb-10 sm:px-6 sm:pb-14 lg:px-8 lg:pb-16">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: false, amount: 0.2 }}
           variants={fadeUp}
-          className="relative mx-auto max-w-5xl overflow-hidden rounded-3xl border border-stone-800/80 bg-gradient-to-br from-[#0c1618] via-[#0f2321] to-[#0a1b19] p-8 sm:p-12 lg:p-14 text-center text-white shadow-[0_20px_60px_rgba(5,35,30,0.18)]"
+          className="relative mx-auto grid max-w-6xl overflow-hidden rounded-[2rem] border border-stone-200 bg-[#f7f7f3] shadow-[0_22px_70px_rgba(20,32,27,0.10)] lg:grid-cols-[0.82fr_1.18fr]"
         >
-          {/* Ambient lighting inside card matching homepage */}
-          <div className="absolute -top-20 -right-20 w-80 h-80 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-emerald-400/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="relative flex min-h-[320px] flex-col justify-between overflow-hidden bg-[#083f33] p-7 text-white sm:p-9 lg:min-h-0 lg:p-10">
+            <Image
+              src="/images/ilmbit-mark-white.png"
+              alt=""
+              width={360}
+              height={360}
+              aria-hidden="true"
+              className="pointer-events-none absolute -bottom-24 -right-20 h-72 w-72 select-none object-contain opacity-[0.075] sm:h-80 sm:w-80 lg:-bottom-20 lg:-right-24"
+            />
+            <div className="relative z-10">
+              <h2 className="max-w-md text-3xl font-bold leading-[1.08] tracking-[-0.04em] text-white sm:text-4xl lg:text-[42px]">
+                Begin Your Sacred Journey of Knowledge
+              </h2>
+              <p className="mt-5 max-w-sm text-sm leading-relaxed text-emerald-50/75 sm:text-base">
+                Tell us what you want to learn. We will use it to prepare the right scholar match and schedule.
+              </p>
+            </div>
 
-          <div className="relative z-10 max-w-2xl mx-auto">
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 tracking-wide text-white">
-              Begin Your Sacred Journey of Knowledge
-            </h2>
-            <p className="text-sm sm:text-base lg:text-lg text-stone-300 mb-8 leading-relaxed max-w-xl mx-auto">
-              Join our priority waitlist for personalized 1:1 sessions with certified Sri Lankan scholars. Reserve early matching with priority cohort placement.
-            </p>
+            <div className="relative z-10 mt-12 border-t border-white/20 pt-5">
+              <p className="text-sm font-semibold text-white">Priority matching</p>
+              <p className="mt-1 text-xs leading-relaxed text-emerald-50/65">
+                No credit card required. We will contact you when a suitable scholar schedule opens.
+              </p>
+            </div>
+          </div>
 
-            {/* Embedded Priority Waitlist Form inside the card */}
+          <div className="relative bg-[#f7f7f3] p-6 sm:p-8 lg:p-9">
+            <div className="mb-6 flex items-end justify-between gap-4">
+              <div>
+                <p className="text-sm font-semibold text-[#095F46]">Join the waitlist</p>
+                <h3 className="mt-1 text-2xl font-bold tracking-tight text-stone-950">Your learning preferences</h3>
+              </div>
+              <span className="hidden text-xs text-stone-500 sm:block">Takes about a minute</span>
+            </div>
+
             {!isWaitlistSubmitted ? (
-              <form onSubmit={handleWaitlistSubmit} className="space-y-4 text-left max-w-xl mx-auto">
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-[11px] font-bold text-stone-300 uppercase tracking-wider mb-1.5 font-mono">
-                      Full Name <span className="text-emerald-400">*</span>
-                    </label>
+              <form onSubmit={handleWaitlistSubmit} className="space-y-5 text-left">
+                <div className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
+                  <label className="block text-xs font-semibold text-stone-700">
+                    Full name <span className="text-[#095F46]">*</span>
                     <input
                       type="text"
                       required
                       value={waitlistName}
                       onChange={(e) => setWaitlistName(e.target.value)}
-                      placeholder="e.g. Sarah Ahmed"
-                      className="w-full px-4 py-2.5 rounded-xl border border-stone-700/80 bg-stone-900/80 text-sm text-white placeholder:text-stone-500 focus:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      placeholder="Sarah Ahmed"
+                      className="mt-1 block w-full border-0 border-b border-stone-300 bg-transparent px-0 py-2 text-sm text-stone-950 placeholder:text-stone-400 focus:border-[#095F46] focus:outline-none focus:ring-0"
                     />
-                  </div>
-                  <div>
-                    <label className="block text-[11px] font-bold text-stone-300 uppercase tracking-wider mb-1.5 font-mono">
-                      Email Address <span className="text-emerald-400">*</span>
-                    </label>
+                  </label>
+                  <label className="block text-xs font-semibold text-stone-700">
+                    Email address <span className="text-[#095F46]">*</span>
                     <input
                       type="email"
                       required
                       value={waitlistEmail}
                       onChange={(e) => setWaitlistEmail(e.target.value)}
                       placeholder="name@example.com"
-                      className="w-full px-4 py-2.5 rounded-xl border border-stone-700/80 bg-stone-900/80 text-sm text-white placeholder:text-stone-500 focus:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      className="mt-1 block w-full border-0 border-b border-stone-300 bg-transparent px-0 py-2 text-sm text-stone-950 placeholder:text-stone-400 focus:border-[#095F46] focus:outline-none focus:ring-0"
                     />
-                  </div>
-                </div>
-
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-[11px] font-bold text-stone-300 uppercase tracking-wider mb-1.5 font-mono">
-                      Discipline of Interest
-                    </label>
+                  </label>
+                  <label className="block text-xs font-semibold text-stone-700">
+                    Discipline of interest
                     <select
                       value={waitlistCourse}
                       onChange={(e) => setWaitlistCourse(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-stone-700/80 bg-stone-900/80 text-sm text-white focus:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      className="mt-1 block w-full border-0 border-b border-stone-300 bg-transparent px-0 py-2 text-sm text-stone-950 focus:border-[#095F46] focus:outline-none focus:ring-0"
                     >
                       <option value="Noorani Qaida">Noorani Qaida (Beginner)</option>
                       <option value="Tajweed Quran Recitation">Tajweed Quran Recitation</option>
                       <option value="Hifz Memorization">Hifz Memorization (Advanced)</option>
                     </select>
-                  </div>
-                  <div>
-                    <label className="block text-[11px] font-bold text-stone-300 uppercase tracking-wider mb-1.5 font-mono">
-                      Phone / WhatsApp
-                    </label>
+                  </label>
+                  <label className="block text-xs font-semibold text-stone-700">
+                    Phone or WhatsApp
                     <input
                       type="tel"
                       value={waitlistPhone}
                       onChange={(e) => setWaitlistPhone(e.target.value)}
                       placeholder="+1 (555) 000-0000"
-                      className="w-full px-4 py-2.5 rounded-xl border border-stone-700/80 bg-stone-900/80 text-sm text-white placeholder:text-stone-500 focus:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      className="mt-1 block w-full border-0 border-b border-stone-300 bg-transparent px-0 py-2 text-sm text-stone-950 placeholder:text-stone-400 focus:border-[#095F46] focus:outline-none focus:ring-0"
                     />
-                  </div>
+                  </label>
                 </div>
 
-                {/* Preferred Learning Pace */}
-                <div>
-                  <label className="block text-[11px] font-bold text-stone-300 uppercase tracking-wider mb-2 font-mono">
-                    Preferred Learning Pace
-                  </label>
-                  <div className="grid grid-cols-2 gap-3">
+                <fieldset>
+                  <legend className="mb-2 text-xs font-semibold text-stone-700">Preferred learning pace</legend>
+                  <div className="grid grid-cols-2 gap-1 rounded-2xl border border-stone-200 bg-white p-1.5 shadow-[0_2px_10px_rgba(0,0,0,0.025)]">
                     <button
                       type="button"
+                      aria-pressed={waitlistPace === 'standard'}
                       onClick={() => setWaitlistPace('standard')}
-                      className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
+                      className={`rounded-xl px-3 py-2.5 text-left transition-colors ${
                         waitlistPace === 'standard'
-                          ? 'border-emerald-500 bg-emerald-950/40 ring-1 ring-emerald-500/30'
-                          : 'border-stone-700/80 bg-stone-900/60 hover:bg-stone-900 text-stone-300'
+                          ? 'bg-[#095F46] text-white'
+                          : 'text-stone-700 hover:bg-stone-100'
                       }`}
                     >
-                      <div className="text-xs font-bold text-white">Standard Plan</div>
-                      <div className="text-[11px] text-stone-400">2 sessions / wk · $59/mo</div>
+                      <span className="block text-xs font-bold">Standard</span>
+                      <span className={`mt-0.5 block text-[11px] ${waitlistPace === 'standard' ? 'text-emerald-50/75' : 'text-stone-500'}`}>
+                        2 sessions / wk · $59/mo
+                      </span>
                     </button>
                     <button
                       type="button"
+                      aria-pressed={waitlistPace === 'fast-track'}
                       onClick={() => setWaitlistPace('fast-track')}
-                      className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
+                      className={`rounded-xl px-3 py-2.5 text-left transition-colors ${
                         waitlistPace === 'fast-track'
-                          ? 'border-emerald-500 bg-emerald-950/40 ring-1 ring-emerald-500/30'
-                          : 'border-stone-700/80 bg-stone-900/60 hover:bg-stone-900 text-stone-300'
+                          ? 'bg-[#095F46] text-white'
+                          : 'text-stone-700 hover:bg-stone-100'
                       }`}
                     >
-                      <div className="text-xs font-bold text-white">Fast Track Plan</div>
-                      <div className="text-[11px] text-stone-400">3 sessions / wk · $89/mo</div>
+                      <span className="block text-xs font-bold">Fast Track</span>
+                      <span className={`mt-0.5 block text-[11px] ${waitlistPace === 'fast-track' ? 'text-emerald-50/75' : 'text-stone-500'}`}>
+                        3 sessions / wk · $89/mo
+                      </span>
                     </button>
                   </div>
-                </div>
+                </fieldset>
 
-                <div>
-                  <label className="block text-[11px] font-bold text-stone-300 uppercase tracking-wider mb-1.5 font-mono">
-                    Notes / Goals (Optional)
-                  </label>
+                <label className="block text-xs font-semibold text-stone-700">
+                  Notes or goals <span className="font-normal text-stone-400">(optional)</span>
                   <textarea
                     rows={2}
                     value={waitlistNotes}
                     onChange={(e) => setWaitlistNotes(e.target.value)}
-                    placeholder="e.g. Schedule preferences, student age, or learning goals"
-                    className="w-full px-4 py-2 rounded-xl border border-stone-700/80 bg-stone-900/80 text-sm text-white placeholder:text-stone-500 focus:bg-stone-900 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    placeholder="Schedule preferences, student age, or learning goals"
+                    className="mt-1 block w-full resize-none border-0 border-b border-stone-300 bg-transparent px-0 py-2 text-sm text-stone-950 placeholder:text-stone-400 focus:border-[#095F46] focus:outline-none focus:ring-0"
                   />
-                </div>
+                </label>
 
-                <div className="pt-2 text-center">
+                <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:items-center">
                   <button
                     type="submit"
                     disabled={isWaitlistSubmitting}
-                    className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full text-xs sm:text-sm font-bold tracking-wider uppercase bg-[#095F46] hover:bg-[#074c38] text-white shadow-md hover:shadow-lg transition-all hover:scale-105 active:scale-100 disabled:opacity-70 cursor-pointer"
+                    className="brand-button brand-button-primary justify-center px-7"
                   >
                     <span>{isWaitlistSubmitting ? 'Joining Waitlist...' : 'Join the Priority Waitlist'}</span>
                     <ChevronRight className="h-4 w-4" />
                   </button>
-                  <div className="text-[11px] text-stone-400 mt-2">
-                    Priority cohort placement when matching scholars open up. No credit card required.
-                  </div>
+                  <p className="text-[11px] leading-relaxed text-stone-500">
+                    We only use these details to arrange your scholar match.
+                  </p>
                 </div>
               </form>
             ) : (
-              <div className="py-8 text-center">
-                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 shadow-inner">
+              <div className="flex min-h-[360px] flex-col items-center justify-center text-center">
+                <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#e3f0ea] text-[#095F46] ring-1 ring-[#cce1d8]">
                   <Check className="h-7 w-7 stroke-[3]" />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-2">
+                <h3 className="text-2xl font-bold text-stone-950">
                   Alhamdulillah, You&apos;re on the Waitlist!
                 </h3>
-                <p className="text-sm text-stone-300 max-w-md mx-auto leading-relaxed">
-                  We have reserved your priority place for <span className="font-bold text-white">{waitlistCourse}</span> ({waitlistPace === 'fast-track' ? 'Fast Track · 3 sessions/wk' : 'Standard · 2 sessions/wk'}). We will reach out to <span className="font-bold text-emerald-400">{waitlistEmail}</span> as soon as your matching scholar schedule opens up.
+                <p className="mt-3 max-w-md text-sm leading-relaxed text-stone-600">
+                  We have reserved your priority place for <span className="font-bold text-stone-900">{waitlistCourse}</span> ({waitlistPace === 'fast-track' ? 'Fast Track · 3 sessions/wk' : 'Standard · 2 sessions/wk'}). We will reach out to <span className="font-bold text-[#095F46]">{waitlistEmail}</span> as soon as your matching scholar schedule opens up.
                 </p>
               </div>
             )}

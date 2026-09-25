@@ -3,8 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
-import { Bell, BookOpen, LogOut, Inbox, MessageSquare, CheckCheck, CalendarCheck, CalendarX, CalendarClock } from 'lucide-react';
-import WhatsAppIcon from '@/components/icons/whatsapp-icon';
+import { Bell, LogOut, Inbox, MessageSquare, CheckCheck, CalendarCheck, CalendarX, CalendarClock } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiFetch } from '@/lib/api';
@@ -21,7 +20,7 @@ interface Notification {
     senderName?: string;
     preview?: string;
     messageId?: string;
-    [key: string]: any;
+    [key: string]: unknown;
   };
   readAt: string | null;
   createdAt: string;
@@ -134,16 +133,14 @@ export function DashboardTopbar() {
     <>
       <div className="sticky top-0 z-40 flex items-center justify-between h-16 px-4 lg:px-6 border-b border-[hsl(var(--border))] bg-[hsl(var(--card))/0.9] backdrop-blur-sm">
         <div className="flex items-center gap-3">
-          <Link href="/" className="lg:hidden flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#095F46] p-1.5 shadow-xs flex-shrink-0">
-              <Image
-                src="/images/ilmbit-icon-white.png"
-                alt="Ilmbit Logo"
-                width={24}
-                height={24}
-                className="object-contain"
-              />
-            </div>
+          <Link href="/" className="flex items-center lg:hidden" aria-label="ILMBIT home">
+            <Image
+              src="/images/ilmbit-logo-green.png"
+              alt="ILMBIT"
+              width={30}
+              height={39}
+              className="h-9 w-auto object-contain"
+            />
           </Link>
           <h1 className="text-lg font-bold text-stone-950">{pageTitle}</h1>
         </div>
@@ -302,5 +299,3 @@ export function DashboardTopbar() {
     </>
   );
 }
-
-

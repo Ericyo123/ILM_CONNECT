@@ -20,16 +20,16 @@ export function AuthShell({
   attribution,
 }: AuthShellProps) {
   return (
-    <main className="min-h-dvh bg-[#f3efe6] text-stone-950">
+    <main className="min-h-dvh bg-[#f7faf8] text-stone-950">
       <div className="grid min-h-dvh w-full lg:grid-cols-[1fr_1.06fr]">
         <section
-          className="relative flex overflow-hidden border-t-[6px] border-[#095F46] bg-[#f3efe6] px-6 py-7 sm:border-t-0 sm:px-12 sm:py-8 sm:pl-24 lg:px-14 lg:pl-28 xl:px-20 xl:pl-32"
+          className="relative flex overflow-hidden border-t-[6px] border-[#095F46] bg-[#f7faf8] px-6 py-7 sm:border-t-0 sm:px-12 sm:py-8 sm:pl-24 lg:px-14 lg:pl-28 xl:px-20 xl:pl-32"
           aria-labelledby="auth-title"
         >
           <div className="pattern-islamic pointer-events-none absolute inset-0 opacity-60" aria-hidden="true" />
 
           <div
-            className="absolute inset-y-0 left-0 hidden w-14 flex-col items-center justify-between bg-[#073f31] py-8 text-[#e4cf8f] sm:flex"
+            className="absolute inset-y-0 left-0 hidden w-14 flex-col items-center justify-between bg-[#095F46] py-8 text-[#10BF8D] sm:flex"
             aria-hidden="true"
           >
             <svg viewBox="0 0 28 28" className="h-7 w-7" fill="none">
@@ -39,7 +39,7 @@ export function AuthShell({
             <span className="[writing-mode:vertical-rl] rotate-180 text-[10px] font-semibold tracking-[0.24em]">
               ILMBIT · ONLINE ISLAMIC EDUCATION
             </span>
-            <span className="h-10 w-px bg-[#e4cf8f]/60" />
+            <span className="h-10 w-px bg-[#10BF8D]/60" />
           </div>
 
           <div className="relative mx-auto flex w-full max-w-[29rem] flex-col">
@@ -51,13 +51,13 @@ export function AuthShell({
             <div className="my-auto py-10 sm:py-12">
               <header className="max-w-md">
                 <div className="mb-5 flex items-center gap-3" aria-hidden="true">
-                  <span className="h-px w-10 bg-[#b39a54]" />
-                  <span className="h-2 w-2 rotate-45 border border-[#b39a54]" />
-                  <span className="h-px w-4 bg-[#b39a54]" />
+                  <span className="h-px w-10 bg-[#0B8663]" />
+                  <span className="h-2 w-2 rotate-45 border border-[#10BF8D]" />
+                  <span className="h-px w-4 bg-[#0B8663]" />
                 </div>
                 <h1
                   id="auth-title"
-                  className="font-serif text-[2rem] font-bold leading-[1.12] tracking-[-0.035em] text-[#171713] sm:text-[2.45rem]"
+                  className="font-display text-[2rem] font-bold leading-[1.12] tracking-[-0.035em] text-stone-950 sm:text-[2.45rem]"
                 >
                   {title}
                 </h1>
@@ -93,7 +93,7 @@ export function AuthShell({
           <div className="absolute inset-0 bg-black/40" />
           <div className="absolute inset-0 bg-gradient-to-t from-stone-950/95 via-stone-950/50 to-stone-950/20" />
           <div className="absolute inset-x-10 bottom-16 text-center text-white">
-            <blockquote className="mx-auto max-w-2xl text-4xl font-black leading-tight tracking-tight drop-shadow-[0_4px_18px_rgba(0,0,0,0.65)]">
+            <blockquote className="mx-auto max-w-2xl text-4xl font-bold leading-tight tracking-[-0.03em] drop-shadow-[0_4px_18px_rgba(0,0,0,0.65)]">
               &ldquo;{quote}&rdquo;
             </blockquote>
             <p className="mt-5 text-lg font-semibold text-white drop-shadow-[0_3px_14px_rgba(0,0,0,0.65)]">

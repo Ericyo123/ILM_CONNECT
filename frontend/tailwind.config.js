@@ -7,9 +7,45 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
-        serif: ['var(--font-cinzel)', 'Georgia', 'serif'],
+        sans: ['"Sharp Sans"', 'var(--font-manrope)', 'system-ui', 'sans-serif'],
+        display: ['"Sharp Sans"', 'var(--font-manrope)', 'system-ui', 'sans-serif'],
+        serif: ['"Sharp Sans"', 'var(--font-manrope)', 'system-ui', 'sans-serif'],
         arabic: ['var(--font-amiri)', 'Noto Naskh Arabic', 'serif'],
+      },
+      colors: {
+        brand: {
+          DEFAULT: '#095F46',
+          primary: '#095F46',
+          secondary: '#0B8663',
+          bright: '#10BF8D',
+          gray: '#B3B3B3',
+        },
+        emerald: {
+          50: '#eefaf6',
+          100: '#d7f4e9',
+          200: '#afe9d4',
+          300: '#77d8b8',
+          400: '#10BF8D',
+          500: '#0B8663',
+          600: '#095F46',
+          700: '#084e3b',
+          800: '#073f31',
+          900: '#06342a',
+          950: '#031e18',
+        },
+        teal: {
+          50: '#eefaf6',
+          100: '#d7f4e9',
+          200: '#afe9d4',
+          300: '#77d8b8',
+          400: '#10BF8D',
+          500: '#0B8663',
+          600: '#095F46',
+          700: '#084e3b',
+          800: '#073f31',
+          900: '#06342a',
+          950: '#031e18',
+        },
       },
       borderRadius: {
         xl: '0.75rem',

@@ -227,21 +227,21 @@ export default function LecturerCourseDetailPage() {
         <div className="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-[hsl(var(--primary)/0.06)] blur-3xl pointer-events-none" />
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 relative z-10">
           <div className="space-y-3 max-w-2xl">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[hsl(var(--primary)/0.12)] text-[hsl(var(--primary))]">
+            <h1 className="text-2xl lg:text-3xl font-bold tracking-tight text-[hsl(var(--foreground))]">
+              {course.title}
+            </h1>
+
+            <div className="flex flex-wrap items-center gap-2 pt-0.5">
+              <span className="text-xs font-medium px-2.5 py-1 rounded-md bg-[hsl(var(--muted))] text-[hsl(var(--muted-foreground))]">
                 {course.level || 'Curriculum'}
               </span>
-              <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
+              <span className="text-xs font-medium px-2.5 py-1 rounded-md bg-[hsl(var(--muted))] text-[hsl(var(--muted-foreground))]">
                 {course.difficulty || 'All Levels'}
               </span>
               <span className="text-xs text-[hsl(var(--muted-foreground))] flex items-center gap-1 ml-1">
                 <Clock className="h-3.5 w-3.5" /> 45 min lessons
               </span>
             </div>
-
-            <h1 className="text-2xl lg:text-3xl font-bold tracking-tight text-[hsl(var(--foreground))]">
-              {course.title}
-            </h1>
             <p className="text-sm text-[hsl(var(--muted-foreground))] leading-relaxed">
               {course.description || 'Comprehensive learning path with interactive lessons and assigned student materials.'}
             </p>

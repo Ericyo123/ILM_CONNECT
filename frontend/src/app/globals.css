@@ -12,8 +12,9 @@
   --brand-secondary: #0b8663;
   --brand-bright: #10bf8d;
   --brand-gray: #b3b3b3;
-  --font-brand: 'Sharp Sans', var(--font-manrope), system-ui, -apple-system, sans-serif;
-  --font-heading: var(--font-poppins), 'Poppins', var(--font-manrope), system-ui, -apple-system, sans-serif;
+  --font-brand: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-subtext: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-heading: var(--font-bricolage), 'Bricolage Grotesque', system-ui, sans-serif;
   --radius-control: 0.875rem;
   --radius-action: 999px;
 
@@ -159,9 +160,26 @@ h6 {
   text-wrap: balance;
 }
 
+h1 span,
+h2 span,
+h3 span,
+h4 span,
+h5 span,
+h6 span,
+.font-heading span,
+.font-display span {
+  font-family: inherit;
+}
+
 .font-heading,
 .font-display {
   font-family: var(--font-heading);
+}
+
+.font-subtext,
+.subtext,
+p {
+  font-family: var(--font-subtext);
 }
 
 .brand-button {

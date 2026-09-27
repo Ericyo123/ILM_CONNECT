@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { X, Check, Loader2, ArrowRight } from 'lucide-react';
+import { X, Check, Loader2, ArrowRight, ChevronDown } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Portal } from '@/components/ui/portal';
 import CountryPhoneInput from '@/components/country-phone-input';
@@ -149,7 +149,7 @@ export default function WaitlistModal({
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="e.g. Sarah Ahmed"
-                    className="w-full px-4 py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-sm text-stone-900 placeholder:text-stone-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#095F46]"
+                    className="w-full px-4 py-3 sm:py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-base sm:text-sm text-stone-900 placeholder:text-stone-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#095F46] min-h-[46px]"
                   />
                 </div>
 
@@ -164,7 +164,7 @@ export default function WaitlistModal({
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="name@example.com"
-                      className="w-full px-4 py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-sm text-stone-900 placeholder:text-stone-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#095F46]"
+                      className="w-full px-4 py-3 sm:py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-base sm:text-sm text-stone-900 placeholder:text-stone-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#095F46] min-h-[46px]"
                     />
                   </div>
 
@@ -186,29 +186,39 @@ export default function WaitlistModal({
                     <label className="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">
                       Learning Discipline
                     </label>
-                    <select
-                      value={course}
-                      onChange={(e) => setCourse(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-sm text-stone-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#095F46]"
-                    >
-                      <option value="Noorani Qaida">Noorani Qaida (Beginner)</option>
-                      <option value="Tajweed Quran Recitation">Tajweed Quran Recitation</option>
-                      <option value="Hifz Memorization">Hifz Memorization (Advanced)</option>
-                    </select>
+                    <div className="relative">
+                      <select
+                        value={course}
+                        onChange={(e) => setCourse(e.target.value)}
+                        className="w-full appearance-none px-3.5 pr-10 py-3 sm:py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-base sm:text-sm font-semibold text-stone-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#095F46] min-h-[46px] cursor-pointer"
+                      >
+                        <option value="Noorani Qaida">Noorani Qaida (Beginner)</option>
+                        <option value="Tajweed Quran Recitation">Tajweed Quran Recitation</option>
+                        <option value="Hifz Memorization">Hifz Memorization (Advanced)</option>
+                      </select>
+                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-stone-400">
+                        <ChevronDown className="h-4 w-4 stroke-[2]" />
+                      </div>
+                    </div>
                   </div>
 
                   <div>
                     <label className="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">
                       Preferred Pace
                     </label>
-                    <select
-                      value={pace}
-                      onChange={(e) => setPace(e.target.value as 'standard' | 'fast-track')}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-sm text-stone-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#095F46]"
-                    >
-                      <option value="standard">Standard (2 sessions / wk)</option>
-                      <option value="fast-track">Fast Track (3 sessions / wk)</option>
-                    </select>
+                    <div className="relative">
+                      <select
+                        value={pace}
+                        onChange={(e) => setPace(e.target.value as 'standard' | 'fast-track')}
+                        className="w-full appearance-none px-3.5 pr-10 py-3 sm:py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-base sm:text-sm font-semibold text-stone-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#095F46] min-h-[46px] cursor-pointer"
+                      >
+                        <option value="standard">Standard (2 sessions / wk)</option>
+                        <option value="fast-track">Fast Track (3 sessions / wk)</option>
+                      </select>
+                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-stone-400">
+                        <ChevronDown className="h-4 w-4 stroke-[2]" />
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -221,7 +231,7 @@ export default function WaitlistModal({
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
                     placeholder="e.g. Learning for an 8-year-old, prefer weekend mornings EST"
-                    className="w-full px-4 py-2 rounded-xl border border-stone-200 bg-stone-50/50 text-sm text-stone-900 placeholder:text-stone-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#095F46]"
+                    className="w-full px-4 py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-base sm:text-sm text-stone-900 placeholder:text-stone-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#095F46]"
                   />
                 </div>
 

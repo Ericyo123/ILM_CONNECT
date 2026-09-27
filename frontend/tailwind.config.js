@@ -7,10 +7,11 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Sharp Sans"', 'var(--font-manrope)', 'system-ui', 'sans-serif'],
-        heading: ['var(--font-poppins)', '"Poppins"', 'var(--font-manrope)', 'system-ui', 'sans-serif'],
-        display: ['var(--font-poppins)', '"Poppins"', 'var(--font-manrope)', 'system-ui', 'sans-serif'],
-        serif: ['"Sharp Sans"', 'var(--font-manrope)', 'system-ui', 'sans-serif'],
+        sans: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
+        subtext: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
+        heading: ['var(--font-bricolage)', '"Bricolage Grotesque"', 'system-ui', 'sans-serif'],
+        display: ['var(--font-bricolage)', '"Bricolage Grotesque"', 'system-ui', 'sans-serif'],
+        serif: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
         arabic: ['var(--font-amiri)', 'Noto Naskh Arabic', 'serif'],
       },
       colors: {

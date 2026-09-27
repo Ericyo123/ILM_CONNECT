@@ -57,13 +57,10 @@ function AnimatedCounter({
 }) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: false, margin: '-20px' });
+  const inView = useInView(ref, { once: true, margin: '-20px' });
 
   useEffect(() => {
-    if (!inView) {
-      setCount(0);
-      return;
-    }
+    if (!inView) return;
 
     let start: number | null = null;
     let animationFrameId: number;
@@ -238,9 +235,7 @@ export default function HomePage() {
   return (
     <>
       {/* ========================================================================= */}
-      {/* ========================================================================= */}
-      {/* ========================================================================= */}
-      {/* HERO SECTION — Ultra-Modern Minimal Glassmorphic Layout Matching Reference */}
+      {/* 1. HERO SECTION — Background Video, Headline & Dual CTAs */}
       {/* ========================================================================= */}
       <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-stone-950 text-white select-none">
         <div
@@ -270,7 +265,7 @@ export default function HomePage() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.15 }}
           variants={sectionReveal}
           className="relative z-20 my-auto py-12 sm:py-16 px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-center max-w-4xl mx-auto w-full"
         >
@@ -321,7 +316,7 @@ export default function HomePage() {
         <div className="absolute top-[75%] -left-[14%] w-[650px] h-[650px] rounded-full bg-emerald-200/25 blur-[130px] animate-ambient-orb-2 pointer-events-none" />
 
         {/* ========================================================================= */}
-        {/* WHY ILMBIT SECTION — Editorial Split Showcase Matching Reference */}
+        {/* 2. WHY ILMBIT / MISSION SECTION — Editorial Split Showcase */}
         {/* ========================================================================= */}
         <section
           id="mission"
@@ -355,7 +350,7 @@ export default function HomePage() {
               <motion.div
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: false, amount: 0.2 }}
+                viewport={{ once: true, amount: 0.15 }}
                 variants={sectionReveal}
                 className="lg:col-span-6 relative pb-10 sm:pb-12 pl-4 sm:pl-8 pr-2"
               >
@@ -413,7 +408,7 @@ export default function HomePage() {
               <motion.div
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: false, amount: 0.2 }}
+                viewport={{ once: true, amount: 0.15 }}
                 variants={sectionReveal}
                 className="lg:col-span-6 flex flex-col justify-center lg:pl-4"
               >
@@ -470,8 +465,9 @@ export default function HomePage() {
         </section>
 
         {/* ========================================================================= */}
-        {/* PLATFORM STATS STRIP — Compact 4 Metrics Directly Below Why Ilmbit */}
+        {/* 3. PLATFORM STATS SECTION (Commented out for waitlist release) */}
         {/* ========================================================================= */}
+        {/*
         <section
           id="stats"
           className="relative z-20 py-8 sm:py-10 border-b border-stone-200/60 select-none bg-[#f8faf8]"
@@ -480,7 +476,7 @@ export default function HomePage() {
             <motion.div
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: false, amount: 0.3 }}
+              viewport={{ once: true, amount: 0.15 }}
               variants={sectionReveal}
               className="grid grid-cols-2 md:grid-cols-4 items-center"
             >
@@ -514,9 +510,10 @@ export default function HomePage() {
             </motion.div>
           </div>
         </section>
+        */}
 
         {/* ========================================================================= */}
-        {/* HOW IT WORKS SECTION — Interactive four-step guide */}
+        {/* 4. HOW IT WORKS SECTION — Interactive 4-Step Student Guide */}
         {/* ========================================================================= */}
         <section
           id="how-it-works"
@@ -527,7 +524,7 @@ export default function HomePage() {
             <motion.div
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: false, amount: 0.2 }}
+              viewport={{ once: true, amount: 0.15 }}
               variants={sectionReveal}
               className="text-center max-w-3xl mx-auto mb-10 sm:mb-14"
             >
@@ -544,7 +541,7 @@ export default function HomePage() {
         </section>
 
         {/* ========================================================================= */}
-        {/* COURSES SECTION — Reference Minimalist 3-Card Layout Fitting In One Screen */}
+        {/* 5. COURSES & PRICING SECTION — Minimalist 3-Card Grid */}
         {/* ========================================================================= */}
         <section
           id="courses"
@@ -555,7 +552,7 @@ export default function HomePage() {
             <motion.div
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: false, amount: 0.2 }}
+              viewport={{ once: true, amount: 0.15 }}
               variants={sectionReveal}
               className="text-center max-w-2xl mx-auto mb-8 sm:mb-10 lg:mb-12"
             >
@@ -571,7 +568,7 @@ export default function HomePage() {
             <motion.div
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: false, amount: 0.15 }}
+              viewport={{ once: true, amount: 0.15 }}
               variants={cardStagger}
               className="grid md:grid-cols-3 gap-4 lg:gap-6 items-stretch"
             >
@@ -785,14 +782,15 @@ export default function HomePage() {
         </section>
 
         {/* ========================================================================= */}
-        {/* TESTIMONIALS SECTION — Brand-aligned speech cards */}
+        {/* 6. TESTIMONIALS SECTION (Commented out for waitlist release) */}
         {/* ========================================================================= */}
+        {/*
         <section id="testimonials" className="py-14 sm:py-18 lg:py-20 bg-transparent scroll-mt-16 text-stone-900 border-b border-stone-200/60 select-none">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <motion.div
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: false, amount: 0.2 }}
+              viewport={{ once: true, amount: 0.15 }}
               variants={sectionReveal}
               className="mx-auto mb-9 max-w-2xl text-center sm:mb-11"
             >
@@ -812,7 +810,7 @@ export default function HomePage() {
             <motion.div
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: false, amount: 0.15 }}
+              viewport={{ once: true, amount: 0.15 }}
               variants={sectionReveal}
               ref={testimonialRef}
               className="relative mx-auto max-w-4xl"
@@ -900,7 +898,7 @@ export default function HomePage() {
             </motion.div>
           </div>
 
-          {/* Read Story Modal Dialog */}
+          -- Read Story Modal Dialog --
           <AnimatePresence>
             {selectedStory && (
               <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/60 backdrop-blur-xs">
@@ -940,62 +938,66 @@ export default function HomePage() {
             )}
           </AnimatePresence>
         </section>
-
-        {/* ========================================================================= */}
-        {/* BOTTOM CALL TO ACTION — Floating Sanctuary Card */}
-        {/* ========================================================================= */}
-        <section className="py-16 sm:py-20 lg:py-24 relative">
-          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: false, amount: 0.2 }}
-              variants={sectionReveal}
-              className="relative min-h-[390px] overflow-hidden rounded-[34px] border border-[#095F46]/15 bg-[#083f33] p-7 text-white shadow-[0_22px_70px_rgba(20,32,27,0.12)] sm:min-h-[420px] sm:p-10 lg:min-h-[430px] lg:p-12"
-            >
-              <Image
-                src="/images/home-cta-quran.jpg"
-                alt=""
-                fill
-                aria-hidden="true"
-                className="object-cover object-[center_52%]"
-                sizes="(max-width: 1024px) 100vw, 960px"
-              />
-              <div className="absolute inset-0 bg-[#063f33]/90" />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#02120f]/98 via-[#063f33]/92 to-[#063f33]/78" />
-              <div className="absolute inset-0 bg-gradient-to-b from-[#041f19]/62 via-[#063f33]/28 to-[#041f19]/78" />
-              <Image
-                src="/images/ilmbit-mark-white.png"
-                alt=""
-                width={290}
-                height={290}
-                aria-hidden="true"
-                className="pointer-events-none absolute -right-8 bottom-0 w-44 select-none object-contain opacity-[0.10] sm:w-56 lg:-right-6 lg:w-64"
-              />
-
-              <div className="relative z-10 flex min-h-[326px] flex-col justify-center sm:min-h-[340px] lg:min-h-[334px]">
-                <div className="max-w-[620px]">
-                  <h2 className="mb-5 text-4xl font-black leading-[0.94] tracking-[-0.045em] text-white drop-shadow-[0_2px_18px_rgba(0,0,0,0.38)] sm:text-5xl lg:text-6xl">
-                    Begin Your Sacred Journey of Knowledge
-                  </h2>
-                  <p className="max-w-xl text-base leading-relaxed text-emerald-50/88 drop-shadow-[0_1px_10px_rgba(0,0,0,0.32)] sm:text-lg">
-                    Tell us what you want to learn. We will use it to prepare the right scholar match and schedule.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => setIsWaitlistOpen(true)}
-                    className="brand-button brand-button-inverse mt-8 px-8"
-                  >
-                    <span>Join the Waitlist</span>
-                    <ChevronRight className="h-4 w-4" />
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
+        */}
       </div>
+
+      {/* ========================================================================= */}
+      {/* 7. BOTTOM CALL TO ACTION / WAITLIST BANNER SECTION */}
+      {/* ========================================================================= */}
+      <section className="relative w-full overflow-hidden bg-[#f5f7f6] py-20 sm:py-24 lg:py-28 text-stone-900 select-none border-t border-stone-200/70">
+        <Image
+          src="/images/home-cta-quran.jpg"
+          alt=""
+          fill
+          aria-hidden="true"
+          className="object-cover object-[center_52%] opacity-[0.05] mix-blend-multiply"
+          sizes="100vw"
+        />
+        {/* Soft atmospheric gradients matching site standards */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#f5f7f6] via-[#f5f7f6]/95 to-[#eaf2ee]/85" />
+        <div className="absolute -top-32 right-1/4 h-96 w-96 rounded-full bg-emerald-200/25 blur-3xl pointer-events-none" />
+
+        {/* Brand Mark Watermark */}
+        <Image
+          src="/images/ilmbit-mark-green.png"
+          alt=""
+          width={380}
+          height={380}
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-8 bottom-0 w-52 select-none object-contain opacity-[0.07] sm:w-72 lg:right-10 lg:w-96"
+        />
+
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.15 }}
+            variants={sectionReveal}
+            className="flex flex-col justify-center max-w-[640px]"
+          >
+            <h2 className="mb-4 text-4xl font-black leading-[0.96] tracking-[-0.04em] text-stone-950 sm:text-5xl lg:text-6xl">
+              Begin Your Sacred Journey of Knowledge
+            </h2>
+            <p className="max-w-xl text-base leading-relaxed text-stone-600 sm:text-lg">
+              Tell us what you want to learn. We will use it to prepare the right scholar match and schedule.
+            </p>
+
+            <div className="mt-8">
+              <Link
+                href="/about#waitlist"
+                className="brand-button brand-button-primary px-8 text-base shadow-sm"
+              >
+                <span>Join the Waitlist</span>
+                <ChevronRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* 8. WAITLIST MODAL POPUP COMPONENT */}
+      {/* ========================================================================= */}
       <WaitlistModal
         isOpen={isWaitlistOpen}
         onClose={() => setIsWaitlistOpen(false)}

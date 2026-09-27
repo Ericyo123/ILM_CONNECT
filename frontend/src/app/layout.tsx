@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Manrope, Amiri, Poppins } from 'next/font/google';
+import { Manrope, Amiri, Bricolage_Grotesque } from 'next/font/google';
 import './globals.css';
 import './color-refresh.css';
 import { Providers } from '@/lib/providers';
@@ -19,10 +19,9 @@ const amiri = Amiri({
   display: 'swap',
 });
 
-const poppins = Poppins({
+const bricolageGrotesque = Bricolage_Grotesque({
   subsets: ['latin'],
-  weight: ['600', '700'],
-  variable: '--font-poppins',
+  variable: '--font-bricolage',
   display: 'swap',
 });
 
@@ -58,7 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${manrope.variable} ${amiri.variable} ${poppins.variable}`}
+      className={`${manrope.variable} ${amiri.variable} ${bricolageGrotesque.variable}`}
       suppressHydrationWarning
     >
       <body className="font-sans antialiased bg-white text-stone-900 min-h-screen" suppressHydrationWarning>

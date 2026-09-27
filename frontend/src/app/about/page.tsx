@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Check, ChevronRight } from 'lucide-react';
+import { Check, ChevronRight, ChevronDown } from 'lucide-react';
 import { motion, useInView, type Variants } from 'framer-motion';
 import CountryPhoneInput from '@/components/country-phone-input';
 import {
@@ -35,13 +35,10 @@ function AnimatedCounter({
 }) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: false, margin: '-20px' });
+  const inView = useInView(ref, { once: true, margin: '-20px' });
 
   useEffect(() => {
-    if (!inView) {
-      setCount(0);
-      return;
-    }
+    if (!inView) return;
 
     let start: number | null = null;
     let animationFrameId: number;
@@ -286,7 +283,7 @@ export default function AboutPage() {
       <div className="absolute top-[42%] -left-28 h-[32rem] w-[32rem] rounded-full bg-teal-100/60 blur-3xl pointer-events-none" />
 
       {/* ========================================================================= */}
-      {/* HERO SECTION — Matching Site UI Standard & Aesthetic                      */}
+      {/* 1. HERO SECTION — Headline, Scholars & Students Worldwide */}
       {/* ========================================================================= */}
       <section className="relative min-h-[54vh] sm:min-h-[58vh] lg:min-h-[62vh] flex flex-col justify-between overflow-hidden bg-stone-950 text-white select-none">
         {/* Background Visual with Signature Multi-Layer Ambient Lighting */}
@@ -311,7 +308,7 @@ export default function AboutPage() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.15 }}
           variants={fadeUp}
           className="relative z-20 mt-auto pb-10 sm:pb-14 pt-8 px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center"
         >
@@ -332,7 +329,7 @@ export default function AboutPage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* INTRODUCTION SECTION — Replicating Reference Image Layout (Fits in 1 Page) */}
+      {/* 2. CORE PHILOSOPHY & PILLARS — Verified Scholars, Personal Attention, Global */}
       {/* ========================================================================= */}
       <section className="relative z-10 py-14 sm:py-16 lg:py-20 bg-[#f8faf8] border-b border-stone-200/60 select-none">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-7 sm:space-y-8">
@@ -343,7 +340,7 @@ export default function AboutPage() {
             <motion.div
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: false, amount: 0.2 }}
+              viewport={{ once: true, amount: 0.15 }}
               variants={fadeUp}
               className="lg:col-span-7"
             >
@@ -357,7 +354,7 @@ export default function AboutPage() {
             <motion.div
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: false, amount: 0.2 }}
+              viewport={{ once: true, amount: 0.15 }}
               variants={fadeUp}
               className="lg:col-span-5 text-stone-600 text-xs sm:text-sm leading-relaxed"
             >
@@ -371,7 +368,7 @@ export default function AboutPage() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.15 }}
             variants={fadeUp}
             className="grid gap-4 lg:grid-cols-12 lg:grid-rows-2"
           >
@@ -434,7 +431,7 @@ export default function AboutPage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* THE PLATFORM STANDARDS — Replicating Reference Layout */}
+      {/* 3. PLATFORM STANDARDS SECTION — Sanad Verification & Quality Benchmarks */}
       {/* ========================================================================= */}
       <section id="standards" className="relative z-10 border-y border-stone-200/70 bg-white/50 py-14 sm:py-16 lg:py-20 backdrop-blur-sm scroll-mt-20">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -446,7 +443,7 @@ export default function AboutPage() {
             <motion.div
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: false, amount: 0.2 }}
+              viewport={{ once: true, amount: 0.15 }}
               variants={fadeUp}
               className="lg:col-span-5 relative"
             >
@@ -472,7 +469,7 @@ export default function AboutPage() {
             <motion.div
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: false, amount: 0.2 }}
+              viewport={{ once: true, amount: 0.15 }}
               variants={fadeUp}
               className="lg:col-span-7 flex flex-col justify-center"
             >
@@ -520,8 +517,9 @@ export default function AboutPage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* PLATFORM STATS STRIP — Compact 4 Metrics Directly Below Platform Standards (Matches Homepage) */}
+      {/* 4. PLATFORM STATS STRIP (Commented out for waitlist release) */}
       {/* ========================================================================= */}
+      {/*
       <section
         id="stats"
         className="relative z-20 py-8 sm:py-10 border-b border-stone-200/60 select-none bg-[#f8faf8]"
@@ -530,7 +528,7 @@ export default function AboutPage() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.15 }}
             variants={sectionReveal}
             className="grid grid-cols-2 md:grid-cols-4 items-center"
           >
@@ -564,13 +562,17 @@ export default function AboutPage() {
           </motion.div>
         </div>
       </section>
+      */}
 
+      {/* ========================================================================= */}
+      {/* 5. LEARNING JOURNEY / CALMER PATH — 4-Step Structured Process */}
+      {/* ========================================================================= */}
       <section className="relative z-10 py-14 sm:py-16 lg:py-20">
         <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:gap-14 lg:px-8">
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.15 }}
             variants={fadeUp}
             className="group relative flex min-h-[390px] flex-col justify-end overflow-hidden rounded-3xl bg-stone-900 p-7 text-white sm:p-9 lg:col-span-5 lg:min-h-[460px]"
           >
@@ -608,7 +610,7 @@ export default function AboutPage() {
                     key={item.title}
                     initial="hidden"
                     whileInView="visible"
-                    viewport={{ once: false, amount: 0.15 }}
+                    viewport={{ once: true, amount: 0.15 }}
                     variants={fadeUp}
                     transition={{ delay: i * 0.08 }}
                     className={`grid grid-cols-[52px_1fr] gap-4 border-b border-stone-300/80 py-5 last:border-b-0 sm:grid-cols-[64px_1fr] sm:gap-6 sm:py-6 ${
@@ -640,15 +642,19 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section id="waitlist" className="relative z-10 scroll-mt-28 px-4 pb-10 sm:px-6 sm:pb-14 lg:px-8 lg:pb-16">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: false, amount: 0.2 }}
-          variants={fadeUp}
-          className="relative mx-auto grid max-w-6xl overflow-hidden rounded-[2rem] border border-stone-200 bg-[#f7f7f3] shadow-[0_22px_70px_rgba(20,32,27,0.10)] lg:grid-cols-[0.82fr_1.18fr]"
-        >
-          <div className="relative flex min-h-[320px] flex-col justify-between overflow-hidden bg-[#083f33] p-7 text-white sm:p-9 lg:min-h-0 lg:p-10">
+      {/* ========================================================================= */}
+      {/* 6. PRIORITY WAITLIST REGISTRATION FORM SECTION */}
+      {/* ========================================================================= */}
+      <section id="waitlist" className="relative z-10 scroll-mt-24 sm:scroll-mt-28 pb-10 sm:pb-14 lg:pb-16">
+        <div className="mx-auto w-full max-w-7xl px-3 sm:px-6 lg:px-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.15 }}
+            variants={fadeUp}
+            className="relative grid w-full max-w-6xl overflow-hidden rounded-2xl sm:rounded-[2rem] border border-stone-200 bg-[#f7f7f3] shadow-[0_22px_70px_rgba(20,32,27,0.10)] lg:grid-cols-[0.82fr_1.18fr]"
+          >
+          <div className="relative flex min-h-[280px] sm:min-h-[320px] flex-col justify-between overflow-hidden bg-[#083f33] p-6 sm:p-9 lg:min-h-0 lg:p-10 text-white">
             <Image
               src="/images/about-waitlist-quran.jpg"
               alt=""
@@ -670,12 +676,12 @@ export default function AboutPage() {
               <h2 className="max-w-md text-3xl font-bold leading-[1.08] tracking-[-0.04em] text-white sm:text-4xl lg:text-[42px]">
                 Begin Your Sacred Journey of Knowledge
               </h2>
-              <p className="mt-5 max-w-sm text-sm leading-relaxed text-emerald-50/75 sm:text-base">
+              <p className="mt-4 sm:mt-5 max-w-sm text-sm leading-relaxed text-emerald-50/75 sm:text-base">
                 Tell us what you want to learn. We will use it to prepare the right scholar match and schedule.
               </p>
             </div>
 
-            <div className="relative z-10 mt-12 border-t border-white/20 pt-5">
+            <div className="relative z-10 mt-8 sm:mt-12 border-t border-white/20 pt-4 sm:pt-5">
               <p className="text-sm font-semibold text-white">Priority matching</p>
               <p className="mt-1 text-xs leading-relaxed text-emerald-50/65">
                 No credit card required. We will contact you when a suitable scholar schedule opens.
@@ -683,81 +689,104 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="relative bg-[#f7f7f3] p-6 sm:p-8 lg:p-9">
-            <div className="mb-6 flex items-end justify-between gap-4">
+          <div className="relative bg-[#fcfcf9] p-5 sm:p-8 lg:p-10">
+            <div className="mb-6 sm:mb-7 flex items-end justify-between gap-4 border-b border-stone-200/60 pb-4 sm:pb-5">
               <div>
-                <p className="text-sm font-semibold text-[#095F46]">Join the waitlist</p>
-                <h3 className="mt-1 text-2xl font-bold tracking-tight text-stone-950">Your learning preferences</h3>
+                <p className="text-xs font-bold uppercase tracking-wider text-[#095F46]">Join the waitlist</p>
+                <h3 className="mt-1 text-2xl font-black tracking-tight text-stone-950 sm:text-[26px]">
+                  Your learning preferences
+                </h3>
               </div>
-              <span className="hidden text-xs text-stone-500 sm:block">Takes about a minute</span>
             </div>
 
             {!isWaitlistSubmitted ? (
-              <form onSubmit={handleWaitlistSubmit} className="space-y-5 text-left">
-                <div className="grid gap-x-6 gap-y-4 sm:grid-cols-2">
-                  <label className="block text-xs font-semibold text-stone-700">
-                    Full name <span className="text-[#095F46]">*</span>
+              <form onSubmit={handleWaitlistSubmit} className="space-y-4 sm:space-y-5 text-left">
+                {/* Form Fields: Full Name & Email */}
+                <div className="grid gap-x-5 gap-y-4 sm:grid-cols-2">
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">
+                      Full name <span className="text-[#095F46]">*</span>
+                    </label>
                     <input
                       type="text"
                       required
                       value={waitlistName}
                       onChange={(e) => setWaitlistName(e.target.value)}
-                      placeholder="Sarah Ahmed"
-                      className="mt-1 block w-full border-0 border-b border-stone-300 bg-transparent px-0 py-2 text-sm text-stone-950 placeholder:text-stone-400 focus:border-[#095F46] focus:outline-none focus:ring-0"
+                      placeholder="e.g. Sarah Ahmed"
+                      className="w-full rounded-xl border border-stone-200 bg-white px-3.5 py-3 sm:py-2.5 text-base sm:text-sm text-stone-900 placeholder:text-stone-400 shadow-[0_1px_2px_rgba(0,0,0,0.03)] focus:border-[#095F46] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#095F46]/15 transition-all min-h-[46px]"
                     />
-                  </label>
-                  <label className="block text-xs font-semibold text-stone-700">
-                    Email address <span className="text-[#095F46]">*</span>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">
+                      Email address <span className="text-[#095F46]">*</span>
+                    </label>
                     <input
                       type="email"
                       required
                       value={waitlistEmail}
                       onChange={(e) => setWaitlistEmail(e.target.value)}
-                      placeholder="name@example.com"
-                      className="mt-1 block w-full border-0 border-b border-stone-300 bg-transparent px-0 py-2 text-sm text-stone-950 placeholder:text-stone-400 focus:border-[#095F46] focus:outline-none focus:ring-0"
+                      placeholder="e.g. sarah@example.com"
+                      className="w-full rounded-xl border border-stone-200 bg-white px-3.5 py-3 sm:py-2.5 text-base sm:text-sm text-stone-900 placeholder:text-stone-400 shadow-[0_1px_2px_rgba(0,0,0,0.03)] focus:border-[#095F46] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#095F46]/15 transition-all min-h-[46px]"
                     />
-                  </label>
-                  <label className="block text-xs font-semibold text-stone-700">
-                    Discipline of interest
-                    <select
-                      value={waitlistCourse}
-                      onChange={(e) => setWaitlistCourse(e.target.value)}
-                      className="mt-1 block w-full border-0 border-b border-stone-300 bg-transparent px-0 py-2 text-sm text-stone-950 focus:border-[#095F46] focus:outline-none focus:ring-0"
-                    >
-                      <option value="Noorani Qaida">Noorani Qaida (Beginner)</option>
-                      <option value="Tajweed Quran Recitation">Tajweed Quran Recitation</option>
-                      <option value="Hifz Memorization">Hifz Memorization (Advanced)</option>
-                    </select>
-                  </label>
-                  <label className="block text-xs font-semibold text-stone-700">
-                    Phone or WhatsApp
+                  </div>
+
+                  {/* Form Field: Phone or WhatsApp */}
+                  <div className="sm:col-span-2">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">
+                      Phone or WhatsApp <span className="text-[#095F46]">*</span>
+                    </label>
                     <CountryPhoneInput
                       value={waitlistPhone}
                       onChange={setWaitlistPhone}
                       selectedIso={waitlistPhoneCountry.iso2}
                       onCountryChange={setWaitlistPhoneCountry}
-                      wrapperClassName="rounded-none border-0 border-b border-stone-300 bg-transparent focus-within:ring-0 focus-within:border-[#095F46]"
-                      selectClassName="w-[118px] px-0 pr-2 py-2 border-stone-200 bg-transparent"
-                      inputClassName="px-3 py-2 bg-transparent"
                     />
-                  </label>
+                  </div>
+
+                  {/* Form Field: Discipline of Interest Dropdown */}
+                  <div className="sm:col-span-2">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">
+                      Discipline of interest
+                    </label>
+                    <div className="relative">
+                      <select
+                        value={waitlistCourse}
+                        onChange={(e) => setWaitlistCourse(e.target.value)}
+                        className="w-full appearance-none rounded-xl border border-stone-200 bg-white pl-3.5 pr-10 py-3 sm:py-2.5 text-base sm:text-sm font-semibold text-stone-900 shadow-[0_1px_2px_rgba(0,0,0,0.03)] focus:border-[#095F46] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#095F46]/15 transition-all cursor-pointer min-h-[46px]"
+                      >
+                        <option value="Noorani Qaida">Noorani Qaida (Beginner)</option>
+                        <option value="Tajweed Quran Recitation">Tajweed Quran Recitation</option>
+                        <option value="Hifz Memorization">Hifz Memorization (Advanced)</option>
+                      </select>
+                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-stone-400">
+                        <ChevronDown className="h-4 w-4 stroke-[2]" />
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                <fieldset>
-                  <legend className="mb-2 text-xs font-semibold text-stone-700">Preferred learning pace</legend>
-                  <div className="grid grid-cols-2 gap-1 rounded-2xl border border-stone-200 bg-white p-1.5 shadow-[0_2px_10px_rgba(0,0,0,0.025)]">
+                {/* Form Field: Preferred Learning Pace */}
+                <fieldset className="pt-1">
+                  <legend className="mb-2 text-xs font-bold uppercase tracking-wider text-stone-700">
+                    Preferred learning pace
+                  </legend>
+                  <div className="grid grid-cols-2 gap-2 sm:gap-2.5 rounded-2xl border border-stone-200/90 bg-stone-100/60 p-1.5">
                     <button
                       type="button"
                       aria-pressed={waitlistPace === 'standard'}
                       onClick={() => setWaitlistPace('standard')}
-                      className={`rounded-xl px-3 py-2.5 text-left transition-colors ${
+                      className={`rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 text-left transition-all ${
                         waitlistPace === 'standard'
-                          ? 'bg-[#095F46] text-white'
-                          : 'text-stone-700 hover:bg-stone-100'
+                          ? 'bg-[#095F46] text-white shadow-md shadow-[#095F46]/20'
+                          : 'bg-white text-stone-800 hover:bg-stone-50 border border-stone-200/60'
                       }`}
                     >
-                      <span className="block text-xs font-bold">Standard</span>
-                      <span className={`mt-0.5 block text-[11px] ${waitlistPace === 'standard' ? 'text-emerald-50/75' : 'text-stone-500'}`}>
+                      <div className="flex items-center justify-between">
+                        <span className="block text-xs font-bold">Standard</span>
+                        {waitlistPace === 'standard' && <span className="h-2 w-2 rounded-full bg-emerald-300" />}
+                      </div>
+                      <span className={`mt-0.5 block text-[11px] ${waitlistPace === 'standard' ? 'text-emerald-50/80 font-medium' : 'text-stone-500'}`}>
                         2 sessions / wk · $59/mo
                       </span>
                     </button>
@@ -765,46 +794,55 @@ export default function AboutPage() {
                       type="button"
                       aria-pressed={waitlistPace === 'fast-track'}
                       onClick={() => setWaitlistPace('fast-track')}
-                      className={`rounded-xl px-3 py-2.5 text-left transition-colors ${
+                      className={`rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 text-left transition-all ${
                         waitlistPace === 'fast-track'
-                          ? 'bg-[#095F46] text-white'
-                          : 'text-stone-700 hover:bg-stone-100'
+                          ? 'bg-[#095F46] text-white shadow-md shadow-[#095F46]/20'
+                          : 'bg-white text-stone-800 hover:bg-stone-50 border border-stone-200/60'
                       }`}
                     >
-                      <span className="block text-xs font-bold">Fast Track</span>
-                      <span className={`mt-0.5 block text-[11px] ${waitlistPace === 'fast-track' ? 'text-emerald-50/75' : 'text-stone-500'}`}>
+                      <div className="flex items-center justify-between">
+                        <span className="block text-xs font-bold">Fast Track</span>
+                        {waitlistPace === 'fast-track' && <span className="h-2 w-2 rounded-full bg-emerald-300" />}
+                      </div>
+                      <span className={`mt-0.5 block text-[11px] ${waitlistPace === 'fast-track' ? 'text-emerald-50/80 font-medium' : 'text-stone-500'}`}>
                         3 sessions / wk · $89/mo
                       </span>
                     </button>
                   </div>
                 </fieldset>
 
-                <label className="block text-xs font-semibold text-stone-700">
-                  Notes or goals <span className="font-normal text-stone-400">(optional)</span>
+                {/* Form Field: Notes or Goals */}
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">
+                    Notes or goals <span className="font-normal text-stone-400 normal-case">(optional)</span>
+                  </label>
                   <textarea
                     rows={2}
                     value={waitlistNotes}
                     onChange={(e) => setWaitlistNotes(e.target.value)}
                     placeholder="Schedule preferences, student age, or learning goals"
-                    className="mt-1 block w-full resize-none border-0 border-b border-stone-300 bg-transparent px-0 py-2 text-sm text-stone-950 placeholder:text-stone-400 focus:border-[#095F46] focus:outline-none focus:ring-0"
+                    className="w-full rounded-xl border border-stone-200 bg-white px-3.5 py-3 sm:py-2.5 text-base sm:text-sm text-stone-900 placeholder:text-stone-400 shadow-[0_1px_2px_rgba(0,0,0,0.03)] focus:border-[#095F46] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#095F46]/15 transition-all resize-none min-h-[68px]"
                   />
-                </label>
+                </div>
 
-                <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:items-center">
+                {/* Form Submit Button & Priority Matching Guarantee */}
+                <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:items-center justify-between">
                   <button
                     type="submit"
                     disabled={isWaitlistSubmitting}
-                    className="brand-button brand-button-primary justify-center px-7"
+                    className="brand-button brand-button-primary justify-center w-full sm:w-auto px-8 py-3 text-base sm:text-sm font-bold shadow-md shadow-[#095F46]/15 hover:shadow-lg transition-all min-h-[46px]"
                   >
                     <span>{isWaitlistSubmitting ? 'Joining Waitlist...' : 'Join the Priority Waitlist'}</span>
                     <ChevronRight className="h-4 w-4" />
                   </button>
-                  <p className="text-[11px] leading-relaxed text-stone-500">
-                    We only use these details to arrange your scholar match.
+                  <p className="text-[11px] font-medium leading-relaxed text-stone-500 flex items-center justify-center sm:justify-start gap-1.5">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#10bf8d] shrink-0" />
+                    <span>Priority matching · No credit card required</span>
                   </p>
                 </div>
               </form>
             ) : (
+              /* Success Confirmation State */
               <div className="flex min-h-[360px] flex-col items-center justify-center text-center">
                 <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#e3f0ea] text-[#095F46] ring-1 ring-[#cce1d8]">
                   <Check className="h-7 w-7 stroke-[3]" />
@@ -819,6 +857,7 @@ export default function AboutPage() {
             )}
           </div>
         </motion.div>
+        </div>
       </section>
     </div>
   );

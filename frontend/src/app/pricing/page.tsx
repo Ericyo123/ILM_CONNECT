@@ -154,7 +154,7 @@ export default function PricingPage() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.15 }}
           variants={fadeUp}
           className="text-center max-w-3xl mx-auto"
         >
@@ -173,7 +173,7 @@ export default function PricingPage() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.15 }}
             variants={fadeUp}
             className="text-center max-w-2xl mx-auto"
           >
@@ -191,7 +191,7 @@ export default function PricingPage() {
                 key={`standard-${course.id}`}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: false, amount: 0.2 }}
+                viewport={{ once: true, amount: 0.15 }}
                 variants={fadeUp}
                 transition={{ delay: i * 0.1 }}
                 className="group relative flex flex-col justify-between rounded-3xl p-7 sm:p-8 transition-all duration-200 bg-white border border-stone-200/90 hover:border-stone-300 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-lg"
@@ -259,7 +259,7 @@ export default function PricingPage() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.15 }}
             variants={fadeUp}
             className="text-center max-w-2xl mx-auto"
           >
@@ -277,7 +277,7 @@ export default function PricingPage() {
                 key={`fasttrack-${course.id}`}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: false, amount: 0.2 }}
+                viewport={{ once: true, amount: 0.15 }}
                 variants={fadeUp}
                 transition={{ delay: i * 0.1 }}
                 className="group relative flex flex-col justify-between rounded-3xl p-7 sm:p-8 transition-all duration-200 bg-white border border-stone-200/90 hover:border-emerald-500/50 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-lg ring-1 ring-emerald-500/10"
@@ -351,7 +351,7 @@ export default function PricingPage() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.15 }}
             variants={fadeUp}
             className="text-center mb-10"
           >
@@ -368,7 +368,7 @@ export default function PricingPage() {
                   key={faq.q}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: false, amount: 0.15 }}
+                  viewport={{ once: true, amount: 0.15 }}
                   variants={fadeUp}
                   transition={{ delay: i * 0.05 }}
                   className={`group rounded-2xl border transition-all duration-300 overflow-hidden ${

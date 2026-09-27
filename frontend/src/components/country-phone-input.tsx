@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useId } from 'react';
+import { ChevronDown } from 'lucide-react';
 import {
   COUNTRY_CALLING_CODES,
   DEFAULT_COUNTRY_ISO,
@@ -61,29 +62,36 @@ export default function CountryPhoneInput({
   }, [onCountryChange, value]);
 
   return (
-    <div className={`mt-1 flex min-w-0 overflow-hidden rounded-xl border border-stone-200 bg-stone-50/50 focus-within:bg-white focus-within:ring-2 focus-within:ring-[#095F46] ${wrapperClassName}`}>
+    <div
+      className={`flex flex-col sm:flex-row min-w-0 overflow-hidden rounded-xl border border-stone-200 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.03)] focus-within:border-[#095F46] focus-within:ring-2 focus-within:ring-[#095F46]/15 transition-all ${wrapperClassName}`}
+    >
       <label className="sr-only" htmlFor={countrySelectId}>
         Country code
       </label>
-      <select
-        id={countrySelectId}
-        value={selectedCountry.iso2}
-        onChange={(event) => onCountryChange(getCountryCallingCode(event.target.value))}
-        className={`w-[126px] shrink-0 border-0 border-r border-stone-200 bg-transparent px-2.5 py-2.5 text-sm font-semibold text-stone-900 focus:outline-none ${selectClassName}`}
-        aria-label="Phone country code"
-      >
-        {COUNTRY_CALLING_CODES.map((country) => (
-          <option key={country.iso2} value={country.iso2}>
-            {countryFlag(country.iso2)} {country.dialCode} {country.name}
-          </option>
-        ))}
-      </select>
+      <div className="relative shrink-0 w-full sm:w-auto">
+        <select
+          id={countrySelectId}
+          value={selectedCountry.iso2}
+          onChange={(event) => onCountryChange(getCountryCallingCode(event.target.value))}
+          className={`w-full sm:w-auto sm:min-w-[195px] sm:max-w-[280px] appearance-none border-0 border-b sm:border-b-0 sm:border-r border-stone-200 bg-stone-50/70 pl-3.5 pr-8 py-3 sm:py-2.5 text-base sm:text-sm font-semibold text-stone-900 focus:outline-none cursor-pointer min-h-[46px] ${selectClassName}`}
+          aria-label="Phone country code"
+        >
+          {COUNTRY_CALLING_CODES.map((country) => (
+            <option key={country.iso2} value={country.iso2}>
+              {countryFlag(country.iso2)} {country.dialCode} {country.name}
+            </option>
+          ))}
+        </select>
+        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2.5 text-stone-400">
+          <ChevronDown className="h-4 w-4 stroke-[2]" />
+        </div>
+      </div>
       <input
         type="tel"
         value={value}
         onChange={(event) => onChange(event.target.value)}
         placeholder={placeholder}
-        className={`min-w-0 flex-1 border-0 bg-transparent px-3.5 py-2.5 text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none ${inputClassName}`}
+        className={`min-w-0 flex-1 border-0 bg-transparent px-3.5 py-3 sm:py-2.5 text-base sm:text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none min-h-[46px] ${inputClassName}`}
         aria-label={`Phone or WhatsApp number, ${selectedCountry.name} ${selectedCountry.dialCode}`}
         inputMode="tel"
       />

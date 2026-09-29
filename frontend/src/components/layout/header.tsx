@@ -2,17 +2,13 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState, useEffect } from 'react';
-import {
-  BookOpen,
-  Menu,
-  X,
-  LogIn,
-} from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
+import { Menu, X } from 'lucide-react';
 
 const navLinks = [
   { href: '/', label: 'Home' },
-  { href: '/about', label: 'About' },
+  { href: '/about', label: 'About Us' },
   { href: '/pricing', label: 'Pricing' },
 ];
 
@@ -20,15 +16,42 @@ export default function Header() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const scrolledRef = useRef(false);
+
+  const isDarkHero = pathname === '/' || pathname === '/about';
 
   useEffect(() => {
+    let frameId = 0;
+
     const handleScroll = () => {
-      setScrolled(window.scrollY > 400);
+      if (frameId) return;
+
+      frameId = window.requestAnimationFrame(() => {
+        frameId = 0;
+        const nextScrolled = scrolledRef.current
+          ? window.scrollY > 12
+          : window.scrollY > 48;
+
+        if (nextScrolled !== scrolledRef.current) {
+          scrolledRef.current = nextScrolled;
+          setScrolled(nextScrolled);
+        }
+      });
     };
+
+    scrolledRef.current = window.scrollY > 48;
+    setScrolled(scrolledRef.current);
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (frameId) window.cancelAnimationFrame(frameId);
+    };
+  }, [pathname]);
+
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
 
   const shouldHideHeader =
     pathname.startsWith('/student') ||
@@ -38,100 +61,170 @@ export default function Header() {
 
   if (shouldHideHeader) return null;
 
-  // On home page, hide default header while at top so the hero's navigation is showcased
-  const isHome = pathname === '/';
-  if (isHome && !scrolled) return null;
+  // When not scrolled, pages with dark hero (Home & About) use white text/logo, while light pages use green/dark styling
+  const showWhiteNav = !scrolled && isDarkHero;
 
   return (
-    <header className="sticky top-0 z-50 border-b border-emerald-900/10 bg-[linear-gradient(120deg,rgba(240,250,246,0.82),rgba(226,241,236,0.72),rgba(249,247,240,0.76))] backdrop-blur-2xl shadow-[0_10px_34px_rgba(15,76,68,0.08)] transition-all duration-300 animate-fade-in supports-[backdrop-filter]:bg-[linear-gradient(120deg,rgba(240,250,246,0.72),rgba(226,241,236,0.58),rgba(249,247,240,0.62))]">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)] shadow-md transition-transform group-hover:scale-105">
-              <BookOpen className="h-5 w-5 text-white" strokeWidth={2.5} />
-            </div>
-            <span className="text-xl font-bold tracking-tight">
-              <span className="text-gradient-primary">Ilm</span>
-              <span className="text-[hsl(var(--foreground))]">Connect</span>
-            </span>
-          </Link>
+    <div className="fixed top-4 sm:top-5 inset-x-0 z-50 flex flex-col items-center px-4 sm:px-6 lg:px-12 pointer-events-none">
+      {/* Floating Liquid Glass Pill Navbar (Transparent at top, rounded white pill on scroll across all pages) */}
+      <header
+        style={
+          scrolled
+            ? {
+                backdropFilter: 'blur(24px) saturate(180%)',
+                WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+                backgroundColor: 'rgba(255, 255, 255, 0.95)',
+              }
+            : {
+                backdropFilter: 'none',
+                WebkitBackdropFilter: 'none',
+                backgroundColor: 'transparent',
+              }
+        }
+        className={`pointer-events-auto grid w-full max-w-7xl grid-cols-[1fr_auto_1fr] items-center rounded-full px-5 transition-all duration-300 sm:px-7 ${
+          scrolled
+            ? 'min-h-[62px] border border-white/90 shadow-[0_12px_36px_rgba(0,0,0,0.10),0_2px_6px_rgba(0,0,0,0.04),inset_0_1px_1.5px_rgba(255,255,255,1)] sm:min-h-[64px]'
+            : 'min-h-[66px] border border-transparent shadow-none sm:min-h-[68px]'
+        }`}
+      >
+        <Link href="/" className="col-start-1 row-start-1 flex items-center justify-self-start" aria-label="ILMBIT home">
+          <span className="relative block h-[52px] w-[40px] sm:h-[56px] sm:w-[42px]">
+            <Image
+              src="/images/ilmbit-logo-white.png"
+              alt="ILMBIT"
+              width={56}
+              height={74}
+              className={`absolute inset-0 h-full w-auto object-contain transition-[height,opacity] duration-300 ${
+                showWhiteNav ? 'opacity-100' : 'opacity-0'
+              } ${scrolled ? 'h-[44px] sm:h-[48px]' : 'h-[52px] sm:h-[56px]'}`}
+              loading="eager"
+              priority
+            />
+            <Image
+              src="/images/ilmbit-logo-green.png"
+              alt=""
+              aria-hidden="true"
+              width={56}
+              height={74}
+              className={`absolute inset-0 h-full w-auto object-contain transition-[height,opacity] duration-300 ${
+                showWhiteNav ? 'opacity-0' : 'opacity-100'
+              } ${scrolled ? 'h-[44px] sm:h-[48px]' : 'h-[52px] sm:h-[56px]'}`}
+              loading="eager"
+              priority
+            />
+          </span>
+        </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
+        {/* Center: Desktop Navigation Links */}
+        <nav className="col-start-2 row-start-1 hidden h-11 items-center gap-8 justify-self-center md:flex">
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href;
+            let linkColorClass = '';
+            if (showWhiteNav) {
+              linkColorClass = isActive
+                ? 'font-bold text-[#10BF8D]'
+                : 'font-semibold text-white/80 hover:text-white';
+            } else if (scrolled) {
+              linkColorClass = isActive
+                ? 'font-bold text-[#095F46]'
+                : 'font-semibold text-stone-600 hover:text-stone-950';
+            } else {
+              // Transparent on light page
+              linkColorClass = isActive
+                ? 'font-bold text-[#095F46]'
+                : 'font-semibold text-stone-700 hover:text-stone-950';
+            }
+
+            return (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  pathname === link.href
-                    ? 'text-[hsl(var(--primary))] bg-white/65 shadow-sm'
-                    : 'text-stone-600 hover:text-stone-950 hover:bg-white/45'
-                }`}
+                className={`inline-flex h-11 items-center text-sm tracking-[-0.01em] transition-colors ${linkColorClass}`}
               >
                 {link.label}
               </Link>
-            ))}
-          </nav>
+            );
+          })}
+        </nav>
 
-          {/* Actions */}
-          <div className="hidden md:flex items-center gap-2">
-            <Link
-              href="/auth/signin"
-              className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium text-stone-600 hover:text-stone-950 hover:bg-white/45 transition-colors"
-            >
-              <LogIn className="h-4 w-4" />
-              Sign In
-            </Link>
-            <Link
-              href="/auth/signup"
-              className="flex items-center gap-1.5 px-5 py-2 rounded-lg text-sm font-semibold text-white bg-gradient-to-r from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)] hover:from-[hsl(168,80%,22%)] hover:to-[hsl(168,60%,30%)] shadow-md hover:shadow-lg transition-all"
-            >
-              Get Started
-            </Link>
-          </div>
-
-          {/* Mobile toggle */}
-          <button
-            className="md:hidden p-2 rounded-lg text-stone-800 hover:bg-white/55"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
+        {/* Right: Actions */}
+        <div className="col-start-3 row-start-1 hidden items-center justify-self-end md:flex">
+          <Link
+            href="/about#waitlist"
+            className="brand-button brand-button-primary min-h-10 px-5 text-[13px]"
           >
-            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
+            Get Started
+          </Link>
         </div>
-      </div>
 
-      {/* Mobile menu */}
+        {/* Mobile menu toggle */}
+        <button
+          className={`brand-icon-button col-start-3 row-start-1 justify-self-end transition-colors md:hidden ${
+            showWhiteNav
+              ? 'text-white/80 hover:bg-white/10 hover:text-white'
+              : 'text-stone-800 hover:bg-stone-100/80'
+          }`}
+          onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label="Toggle navigation menu"
+        >
+          {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
+      </header>
+
+      {/* Mobile Dropdown Menu with Glass Effect */}
       {mobileOpen && (
-        <div className="md:hidden border-t border-emerald-900/10 bg-white/75 backdrop-blur-2xl animate-fade-in">
-          <div className="px-4 py-3 space-y-1">
-            {navLinks.map((link) => (
+        <div
+          style={
+            showWhiteNav
+              ? {
+                  backdropFilter: 'blur(24px) saturate(180%)',
+                  WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+                  backgroundColor: 'rgba(12, 16, 15, 0.95)',
+                }
+              : {
+                  backdropFilter: 'blur(24px) saturate(180%)',
+                  WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+                  backgroundColor: 'rgba(255, 255, 255, 0.96)',
+                }
+          }
+          className={`pointer-events-auto w-full max-w-7xl mt-2 rounded-2xl border shadow-xl p-4 md:hidden animate-fade-in ${
+            showWhiteNav ? 'border-stone-800 text-white' : 'border-white/90 text-stone-900'
+          }`}
+        >
+          <div className="space-y-1">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              let itemClass = '';
+              if (showWhiteNav) {
+                itemClass = isActive
+                  ? 'text-emerald-400 bg-emerald-950/80 font-bold'
+                  : 'text-stone-300 hover:text-white hover:bg-white/10';
+              } else {
+                itemClass = isActive
+                  ? 'text-stone-950 bg-stone-200/60 font-bold'
+                  : 'text-stone-700 hover:bg-stone-100/70';
+              }
+
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  className={`block px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors ${itemClass}`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+            <div
+              className={`pt-3 mt-2 border-t ${
+                showWhiteNav ? 'border-stone-800' : 'border-stone-200/60'
+              }`}
+            >
               <Link
-                key={link.href}
-                href={link.href}
+                href="/about#waitlist"
                 onClick={() => setMobileOpen(false)}
-                className={`block px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                  pathname === link.href
-                    ? 'text-[hsl(var(--primary))] bg-emerald-50'
-                    : 'text-stone-600 hover:bg-white/70'
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-            <div className="pt-3 mt-3 border-t border-emerald-900/10 flex flex-col gap-2">
-              <Link
-                href="/auth/signin"
-                onClick={() => setMobileOpen(false)}
-                className="block px-3 py-2.5 rounded-lg text-sm font-medium text-center text-[hsl(var(--muted-foreground))] hover:bg-[hsl(var(--muted))]"
-              >
-                Sign In
-              </Link>
-              <Link
-                href="/auth/signup"
-                onClick={() => setMobileOpen(false)}
-                className="block px-3 py-2.5 rounded-lg text-sm font-semibold text-center text-white bg-gradient-to-r from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)]"
+                className="brand-button brand-button-primary w-full"
               >
                 Get Started
               </Link>
@@ -139,6 +232,6 @@ export default function Header() {
           </div>
         </div>
       )}
-    </header>
+    </div>
   );
 }

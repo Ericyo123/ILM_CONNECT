@@ -2,22 +2,22 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { BookOpen, Mail, MapPin } from 'lucide-react';
+import Image from 'next/image';
+import { Mail, MapPin } from 'lucide-react';
 
 const footerLinks = {
   Platform: [
     { label: 'How It Works', href: '/#how-it-works' },
     { label: 'Courses', href: '/#courses' },
     { label: 'Pricing', href: '/pricing' },
-    { label: 'Free Trial', href: '/auth/signup' },
+    { label: 'Free Trial', href: '/about#waitlist' },
   ],
 
   Support: [
     { label: 'About Us', href: '/about' },
-    { label: 'Help Center', href: '#' },
-    { label: 'Contact Us', href: '#' },
-    { label: 'Privacy Policy', href: '#' },
-    { label: 'Terms of Service', href: '#' },
+    { label: 'Contact Us', href: 'mailto:support@ilmbit.com' },
+    { label: 'Privacy Policy', href: '/privacy' },
+    { label: 'Terms of Service', href: '/terms' },
   ],
 };
 
@@ -36,26 +36,29 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-2.5 mb-4">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-[hsl(168,80%,26%)] to-[hsl(168,60%,35%)] shadow-xs">
-                <BookOpen className="h-5 w-5 text-white" strokeWidth={2.5} />
-              </div>
-              <span className="text-xl font-bold tracking-tight text-white">
-                <span className="text-gradient-primary">Ilm</span>
-                <span>Connect</span>
-              </span>
+            <Link href="/" className="inline-flex items-center mb-5 group" aria-label="ILMBIT home">
+              <Image
+                src="/images/ilmbit-logo-white.png"
+                alt="ILMBIT"
+                width={54}
+                height={71}
+                className="h-[66px] w-auto object-contain transition-transform group-hover:scale-[1.03]"
+              />
             </Link>
             <p className="text-sm text-emerald-50/68 max-w-sm mb-6 leading-relaxed">
               Connecting qualified Islamic scholars with students worldwide. 
-              Structured, professional, one-on-one Islamic education from the comfort of your home.
+              Structured, professional, 1:1 Islamic education from the comfort of your home.
             </p>
             <div className="space-y-2 text-sm text-emerald-50/72">
+              <a
+                href="mailto:support@ilmbit.com"
+                className="flex w-fit items-center gap-2 transition-colors hover:text-white"
+              >
+                <Mail className="h-4 w-4 text-emerald-300/80" aria-hidden="true" />
+                <span>support@ilmbit.com</span>
+              </a>
               <div className="flex items-center gap-2">
-                <Mail className="h-4 w-4 text-emerald-300/80" />
-                <span>support@ilmconnect.com</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-emerald-300/80" />
+                <MapPin className="h-4 w-4 text-emerald-300/80" aria-hidden="true" />
                 <span>Colombo, Sri Lanka</span>
               </div>
             </div>
@@ -84,7 +87,7 @@ export default function Footer() {
         {/* Bottom */}
         <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-emerald-50/45" suppressHydrationWarning>
-            © {new Date().getFullYear()} IlmConnect. All rights reserved.
+            © {new Date().getFullYear()} Ilmbit. All rights reserved.
           </p>
           <p className="text-xs text-emerald-50/45 font-arabic">
             بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ

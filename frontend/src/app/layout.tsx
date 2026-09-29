@@ -1,19 +1,14 @@
 import type { Metadata } from 'next';
-import { Inter, Cinzel, Amiri } from 'next/font/google';
+import { Manrope, Amiri, Bricolage_Grotesque } from 'next/font/google';
 import './globals.css';
+import './color-refresh.css';
 import { Providers } from '@/lib/providers';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 
-const inter = Inter({
+const manrope = Manrope({
   subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-});
-
-const cinzel = Cinzel({
-  subsets: ['latin'],
-  variable: '--font-cinzel',
+  variable: '--font-manrope',
   display: 'swap',
 });
 
@@ -24,10 +19,16 @@ const amiri = Amiri({
   display: 'swap',
 });
 
+const bricolageGrotesque = Bricolage_Grotesque({
+  subsets: ['latin'],
+  variable: '--font-bricolage',
+  display: 'swap',
+});
+
 export const metadata: Metadata = {
   title: {
-    default: 'IlmConnect — Online Islamic Education Platform',
-    template: '%s | IlmConnect',
+    default: 'Ilmbit — Online Islamic Education Platform',
+    template: '%s | Ilmbit',
   },
   description:
     'Connect with qualified Islamic scholars for personalized 1:1 Quran, Hadith, Fiqh, and Arabic lessons. Structured learning from the comfort of your home.',
@@ -43,19 +44,24 @@ export const metadata: Metadata = {
     'Tajweed',
     'Muslim education',
   ],
-  authors: [{ name: 'IlmConnect' }],
+  authors: [{ name: 'Ilmbit' }],
   openGraph: {
-    title: 'IlmConnect — Online Islamic Education Platform',
+    title: 'Ilmbit — Online Islamic Education Platform',
     description: 'Connect with qualified Islamic scholars for personalized 1:1 lessons.',
-    siteName: 'IlmConnect',
+    siteName: 'Ilmbit',
     type: 'website',
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${cinzel.variable} ${amiri.variable} font-sans antialiased bg-sanctuary-light text-stone-900 min-h-screen`} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${manrope.variable} ${amiri.variable} ${bricolageGrotesque.variable}`}
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
+      <body className="font-sans antialiased bg-white text-stone-900 min-h-screen" suppressHydrationWarning>
         <Providers>
           <div className="flex min-h-screen flex-col">
             <Header />

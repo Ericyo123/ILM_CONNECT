@@ -3,13 +3,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { apiFetch } from '@/lib/api';
 import { useAuth } from '@/lib/auth-context';
-import { useRole } from '@/lib/role-context';
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { useTheme } from '@/components/theme-provider';
 import {
-  BookOpen,
   LayoutDashboard,
   Calendar,
   GraduationCap,
@@ -24,19 +22,14 @@ import {
   ClipboardList,
   DollarSign,
   CalendarClock,
-  Star,
-  Sun,
-  Moon,
-  LogOut,
   ChevronLeft,
   ChevronRight,
-  User,
+  Menu,
   Library,
   MessageSquare,
   Award,
   HelpCircle,
   BookCheck,
-  Unlock,
 } from 'lucide-react';
 
 interface NavItem {
@@ -44,6 +37,10 @@ interface NavItem {
   label: string;
   icon: React.ElementType;
   badge?: string;
+}
+
+interface SupportTicketSummary {
+  status: string;
 }
 
 const globalStudentNav: NavItem[] = [
@@ -86,6 +83,7 @@ const adminNav: NavItem[] = [
   { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/admin/requests', label: 'Requests', icon: ClipboardList },
   { href: '/admin/users', label: 'Users', icon: Users },
+  { href: '/admin/history', label: 'People & History', icon: FileText },
   { href: '/admin/sessions', label: 'Sessions', icon: Clock },
   { href: '/admin/feedback', label: 'Feedback', icon: MessageSquare },
   { href: '/admin/finance', label: 'Finance', icon: BarChart3 },
@@ -93,18 +91,48 @@ const adminNav: NavItem[] = [
   { href: '/admin/audit', label: 'Audit Log', icon: Shield },
 ];
 
+export function DashboardMobileNav() {
+  const pathname = usePathname();
+  const { user } = useAuth();
+  if (!user) return null;
+  if (user.role === 'STUDENT' && pathname.startsWith('/student')) {
+    const courseId = pathname.match(/^\/student\/courses\/([^/]+)/)?.[1];
+    const items = courseId ? [...globalStudentNav, ...getCourseNav(courseId).slice(1)] : globalStudentNav;
+    return <details className="border-b border-[#d6e0db] bg-white px-3 py-2 lg:hidden" onKeyDown={event => { if (event.key === 'Escape') { event.currentTarget.open = false; event.currentTarget.querySelector('summary')?.focus(); } }}>
+      <summary className="flex min-h-11 cursor-pointer list-none items-center gap-2 rounded-md px-3 text-sm font-semibold text-[#202823] focus-visible:outline-2 focus-visible:outline-[#095F46]"><Menu className="h-4 w-4" aria-hidden="true" />Menu</summary>
+      <nav aria-label="Student pages" className="grid grid-cols-2 gap-1 py-2">
+        {items.map(item => <Link key={item.href} href={item.href} aria-current={pathname === item.href ? 'page' : undefined} className={`flex min-h-11 min-w-0 items-center gap-2 rounded-md px-3 text-sm font-semibold ${pathname === item.href ? 'bg-[#095F46] text-white' : 'text-[#202823] hover:bg-[#eef4f1]'}`}><item.icon className="h-4 w-4 shrink-0" aria-hidden="true" /><span>{item.label}</span></Link>)}
+      </nav>
+    </details>;
+  }
+  const items = pathname.startsWith('/admin') && ['ADMIN', 'SUPER_ADMIN'].includes(user.role) ? adminNav : pathname.startsWith('/lecturer') && user.role === 'LECTURER' ? lecturerNav : [];
+  if (!items.length) return null;
+  const isAdmin = pathname.startsWith('/admin');
+  const navigation = <nav aria-label={user.role === 'LECTURER' ? 'Lecturer pages' : 'Admin pages'} className={`grid grid-cols-2 gap-1 bg-white px-3 py-2 sm:grid-cols-4 lg:hidden ${isAdmin ? '' : 'border-b border-[#d6e0db]'}`}>
+    {items.map(item => {
+      const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
+      return <Link key={item.href} href={item.href} onClick={event => event.currentTarget.closest('details')?.removeAttribute('open')} aria-current={active ? 'page' : undefined} className={`flex min-h-11 items-center rounded-lg px-3 text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#095F46] ${active ? 'bg-[#095F46] text-white' : 'text-[#202823] hover:bg-[#eef4f1]'}`}>{item.label}</Link>;
+    })}
+  </nav>;
+  if (!isAdmin) return navigation;
+  return <details className="border-b border-[#d6e0db] bg-white px-3 py-2 lg:hidden" onKeyDown={event => { if (event.key === 'Escape') { event.currentTarget.open = false; event.currentTarget.querySelector('summary')?.focus(); } }}>
+    <summary className="flex min-h-11 cursor-pointer list-none items-center gap-2 rounded-md px-3 text-sm font-semibold text-[#202823] focus-visible:outline-2 focus-visible:outline-[#095F46]"><Menu className="h-4 w-4" aria-hidden="true" />Menu</summary>
+    {navigation}
+  </details>;
+}
 
 export default function DashboardSidebar() {
   const pathname = usePathname();
-  const { resolvedTheme, setTheme } = useTheme();
   const [collapsed, setCollapsed] = useState(false);
   const { user } = useAuth();
   
   const isLecturerRoute = pathname.startsWith('/lecturer');
+  const dashboardHref = pathname.startsWith('/admin') ? '/admin/dashboard' : isLecturerRoute ? '/lecturer/dashboard' : '/student/dashboard';
   const { data: profile } = useQuery({
     queryKey: ['profile', isLecturerRoute ? 'lecturer' : 'student'],
     queryFn: () => apiFetch(isLecturerRoute ? '/profile/lecturer' : '/profile/student'),
     enabled: !!user && (pathname.startsWith('/student') || pathname.startsWith('/lecturer')),
+    retry: 1,
   });
 
   // Live unread message count — polls every 30s
@@ -118,31 +146,24 @@ export default function DashboardSidebar() {
 
   // Live admin pending requests count — polls every 30s
   const isAdminRoute = pathname.startsWith('/admin');
-  const { data: adminTickets } = useQuery<any[]>({
+  const { data: adminTickets } = useQuery<SupportTicketSummary[]>({
     queryKey: ['adminSupportTickets'],
     queryFn: () => apiFetch('/support/tickets'),
     enabled: !!user && isAdminRoute,
     refetchInterval: 30000,
   });
   const pendingRequestsCount = adminTickets?.filter(
-    (t: any) => t.status === 'PENDING' || t.status === 'IN_REVIEW'
+    (ticket) => ticket.status === 'PENDING' || ticket.status === 'IN_REVIEW'
   ).length ?? 0;
   
   let navItems: NavItem[] = [];
   let roleName = '';
   let userName = '';
-  let initials = 'AK';
   
-  let adminRole = 'owner';
-  try {
-    const context = useRole();
-    adminRole = context.role;
-  } catch(e) {}
 
   if (pathname.startsWith('/student')) {
     roleName = 'Student';
-    userName = profile?.fullName || 'Student';
-    initials = profile?.fullName?.split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase() || 'ST';
+    userName = profile?.fullName || user?.email?.split('@')[0]?.replace(/[._-]/g, ' ') || 'Student';
     
     // Check if we are inside a specific course (e.g., /student/courses/beginner-qaida/...)
     const courseMatch = pathname.match(/^\/student\/courses\/([^/]+)/);
@@ -153,8 +174,7 @@ export default function DashboardSidebar() {
     }
   } else if (pathname.startsWith('/lecturer')) {
     roleName = 'Lecturer';
-    userName = profile?.fullName || 'Maulavi Ahmed Raza';
-    initials = profile?.fullName ? profile.fullName.split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase() : 'MA';
+    userName = profile?.fullName || 'Lecturer';
     // Check if inside a specific lecturer course
     const lecturerCourseMatch = pathname.match(/^\/lecturer\/courses\/([^/]+)/);
     if (lecturerCourseMatch) {
@@ -163,34 +183,30 @@ export default function DashboardSidebar() {
       navItems = lecturerNav;
     }
   } else if (pathname.startsWith('/admin')) {
-    navItems = adminRole === 'staff' 
-      ? adminNav.filter(n => !['Finance', 'Configuration', 'Audit Log'].includes(n.label))
-      : adminNav;
-    roleName = adminRole === 'staff' ? 'Staff' : 'Administrator';
-    userName = adminRole === 'staff' ? 'Support Rep' : 'Super Admin';
-    initials = 'AD';
+    navItems = adminNav;
+    roleName = user?.role === 'SUPER_ADMIN' ? 'Super administrator' : 'Administrator';
+    userName = user?.email?.split('@')[0]?.replace(/[._-]/g, ' ') || 'Administrator';
   }
 
   return (
     <aside
-      className={`hidden lg:flex flex-col h-screen sticky top-0 border-r border-[hsl(var(--sidebar-border))] bg-[hsl(var(--sidebar))] transition-all duration-300 ${
-        collapsed ? 'w-[68px]' : 'w-[260px]'
-      }`}
+      className={`hidden lg:flex shrink-0 flex-col h-screen sticky top-0 border-r transition-all duration-300 border-[#477361] bg-[#0b3027] ${collapsed ? 'w-[68px]' : 'w-[260px]'}`}
     >
       {/* Logo */}
-      <div className="flex items-center gap-2.5 h-16 px-4 border-b border-[hsl(var(--sidebar-border))]">
-        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-[hsl(168,65%,45%)] to-[hsl(168,50%,55%)] flex-shrink-0">
-          <BookOpen className="h-5 w-5 text-white" strokeWidth={2.5} />
-        </div>
-        {!collapsed && (
-          <span className="text-lg font-bold text-[hsl(var(--sidebar-foreground))] tracking-tight">
-            IlmConnect
-          </span>
-        )}
+      <div className={`flex h-20 items-center border-b border-white/10 bg-[#0b3027] ${collapsed ? 'justify-center px-0' : 'px-4'}`}>
+        <Link href={dashboardHref} className="flex items-center rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#10BF8D]" aria-label={`${roleName} dashboard home`}>
+          <Image
+            src="/images/ilmbit-logo-white.png"
+            alt="ILMBIT"
+            width={collapsed ? 34 : 130}
+            height={45}
+            className={`${collapsed ? 'h-10 w-9' : 'h-11 w-auto'} object-contain`}
+          />
+        </Link>
       </div>
 
       {/* Nav Items */}
-      <nav className="flex-1 py-4 px-2 space-y-1 overflow-y-auto">
+      <nav className="flex-1 space-y-2 overflow-y-auto px-3 py-8 bg-[#0b3027]">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = pathname === item.href;
@@ -207,15 +223,19 @@ export default function DashboardSidebar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+              aria-label={item.label}
+              aria-current={isActive ? 'page' : undefined}
+              className={`flex min-h-11 items-center py-2.5 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#10BF8D] ${collapsed ? 'justify-center px-0' : 'gap-3 px-4'} ${
                 isActive
-                  ? 'bg-[hsl(var(--sidebar-accent))] text-[hsl(var(--sidebar-accent-foreground))]'
-                  : 'text-[hsl(var(--sidebar-foreground)/0.7)] hover:text-[hsl(var(--sidebar-foreground))] hover:bg-[hsl(var(--sidebar-accent)/0.5)]'
+                  ? 'rounded-lg bg-[#10BF8D] text-[#0b3027] font-bold'
+                  : 'rounded-lg text-white/80 hover:bg-white/[0.08] hover:text-white font-semibold'
               }`}
               title={collapsed ? item.label : undefined}
             >
               <div className="relative">
-                <Icon className="h-5 w-5 flex-shrink-0" />
+                <Icon className={`h-5 w-5 flex-shrink-0 ${
+                  isActive ? 'text-[#0b3027]' : 'text-white/70'
+                }`} />
                 {collapsed && isMessages && unreadCount > 0 && (
                   <span className="absolute -top-1 -right-1 h-3.5 w-3.5 rounded-full bg-red-500 text-white text-[8px] font-bold flex items-center justify-center">
                     {unreadCount > 9 ? '9' : unreadCount}
@@ -231,12 +251,12 @@ export default function DashboardSidebar() {
                 <>
                   <span className="flex-1">{item.label}</span>
                   {displayBadge && (
-                    <span className={`px-1.5 py-0.5 text-xs font-semibold rounded-full ${
+                    <span className={`px-2 py-0.5 text-xs font-bold rounded-full ${
                       isMessages && unreadCount > 0
                         ? 'bg-red-500 text-white'
                         : isRequests && pendingRequestsCount > 0
-                        ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400 font-bold'
-                        : 'bg-[hsl(var(--accent))] text-[hsl(var(--accent-foreground))]'
+                        ? 'bg-amber-100 text-amber-800'
+                        : 'bg-[#095F46] text-white'
                     }`}>
                       {displayBadge}
                     </span>
@@ -249,36 +269,24 @@ export default function DashboardSidebar() {
       </nav>
 
       {/* Bottom section */}
-      <div className="border-t border-[hsl(var(--sidebar-border))] p-2 space-y-1">
-        <button
-          onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-          title={collapsed ? (resolvedTheme === 'dark' ? 'Light Mode' : 'Dark Mode') : undefined}
-          className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm text-[hsl(var(--sidebar-foreground)/0.7)] hover:text-[hsl(var(--sidebar-foreground))] hover:bg-[hsl(var(--sidebar-accent)/0.5)] transition-colors"
-        >
-          {resolvedTheme === 'dark' ? (
-            <Sun className="h-5 w-5 flex-shrink-0" />
-          ) : (
-            <Moon className="h-5 w-5 flex-shrink-0" />
-          )}
-          {!collapsed && <span>{resolvedTheme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>}
-        </button>
-
+      <div className="border-t p-3 space-y-2 border-white/10 bg-[#0b3027]">
         {/* User info */}
         {!collapsed && (
-          <div className="flex items-center gap-3 px-3 py-2.5">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[hsl(var(--sidebar-accent))] text-[hsl(var(--sidebar-accent-foreground))] text-xs font-bold flex-shrink-0">
+          <div className="flex items-center gap-3 px-3 py-3 rounded-xl border mb-1 border-white/10 bg-white/[0.06]">
+            <div className="flex h-9 w-9 items-center justify-center rounded-full text-xs font-bold flex-shrink-0 bg-[#10BF8D] text-[#0b3027]">
               {userName.split(' ').map(n => n[0]).join('').slice(0,2)}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-[hsl(var(--sidebar-foreground))] truncate">{userName}</p>
-              <p className="text-xs text-[hsl(var(--sidebar-foreground)/0.5)]">{roleName}</p>
+              <p className="text-sm font-semibold truncate text-white">{userName}</p>
+              <p className="text-xs text-white/60">{roleName}</p>
             </div>
           </div>
         )}
 
         <button
+          aria-label={collapsed ? 'Expand' : 'Collapse'}
           onClick={() => setCollapsed(!collapsed)}
-          className="flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm text-[hsl(var(--sidebar-foreground)/0.5)] hover:text-[hsl(var(--sidebar-foreground))] hover:bg-[hsl(var(--sidebar-accent)/0.5)] transition-colors"
+          className={`flex min-h-11 items-center w-full py-2 rounded-lg text-sm transition-colors text-white/80 hover:bg-white/[0.08] hover:text-white focus-visible:outline-2 focus-visible:outline-[#10BF8D] ${collapsed ? 'justify-center px-0' : 'gap-3 px-3'}`}
         >
           {collapsed ? (
             <ChevronRight className="h-4 w-4 flex-shrink-0" />

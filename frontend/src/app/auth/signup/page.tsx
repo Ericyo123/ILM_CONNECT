@@ -1,31 +1,56 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft, BookOpen, Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { AuthShell } from '@/components/auth/auth-shell';
 import { apiFetch } from '@/lib/api';
 import { useAuth } from '@/lib/auth-context';
+import { STUDENT_TIME_WINDOWS } from '@/lib/student-availability';
+import { COUNTRY_CALLING_CODES } from '@/lib/country-calling-codes';
 
 function getErrorMessage(error: unknown, fallback: string) {
   return error instanceof Error ? error.message : fallback;
 }
 
+const inputClassName =
+  'h-11 w-full min-w-0 rounded-lg border border-stone-300 bg-white px-3 text-base sm:text-[15px] text-stone-950 outline-none transition-[border-color,box-shadow,background-color] placeholder:text-stone-500 hover:border-stone-400 focus:border-[#095F46] focus:ring-2 focus:ring-[#095F46]/20';
+
 export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [fullName, setFullName] = useState('');
+  const [gender, setGender] = useState('');
+  const [dateOfBirth, setDateOfBirth] = useState('');
+  const [countryIso, setCountryIso] = useState('');
+  const [whatsappNumber, setWhatsappNumber] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [preferredHours, setPreferredHours] = useState<number[]>([]);
+  const [availabilityError, setAvailabilityError] = useState('');
   const router = useRouter();
   const { login } = useAuth();
+  const selectedCountry = COUNTRY_CALLING_CODES.find((country) => country.iso2 === countryIso);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (isLoading) return;
     setError('');
+    const phone = whatsappNumber.trim().replace(/[\s()-]/g, '');
+    if (!/^\+[1-9]\d{6,14}$/.test(phone)) {
+      setError('Enter a valid WhatsApp number with its country code.');
+      document.getElementById('whatsapp-number')?.focus();
+      return;
+    }
+    if (!selectedCountry) return;
+    if (!preferredHours.length) {
+      setAvailabilityError('Choose at least one time window.');
+      document.getElementById('availability-morning')?.focus();
+      return;
+    }
+    setAvailabilityError('');
     setIsLoading(true);
 
     try {
@@ -36,191 +61,190 @@ export default function SignUpPage() {
           email: cleanEmail,
           password,
           role: 'STUDENT',
-          fullName: `${firstName} ${lastName}`.trim(),
-          phone: '000000000',
-          country: 'Unknown',
+          fullName: fullName.trim(),
+          gender,
+          dateOfBirth,
+          phone,
+          country: selectedCountry.name,
           timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+          preferredHours,
         }),
       });
 
-      const loginRes = await apiFetch('/auth/login', {
+      const loginResponse = await apiFetch('/auth/login', {
         method: 'POST',
         body: JSON.stringify({ email: cleanEmail, password }),
       });
 
-      login(loginRes.user, loginRes.token);
-      router.push(`/student/dashboard`);
+      login(loginResponse.user, loginResponse.token);
+      router.push('/student/dashboard');
     } catch (err) {
-      setError(getErrorMessage(err, 'Failed to create account'));
+      setError(getErrorMessage(err, 'Failed to create account. Please try again.'));
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <main className="min-h-screen bg-[#f7f8f5] text-stone-950">
-      <div className="grid min-h-screen w-full gap-0 lg:grid-cols-[1fr_1.06fr]">
-        <section className="flex min-h-screen flex-col justify-between bg-white px-7 py-8 sm:px-12 lg:px-20">
-          <div className="flex items-center justify-between gap-4">
-            <Link href="/" className="flex w-fit items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-emerald-100 bg-emerald-50 text-[hsl(var(--primary))]">
-                <BookOpen className="h-5 w-5" strokeWidth={2.5} />
-              </div>
-              <span className="text-lg font-black tracking-tight">
-                <span>Ilm</span>
-                <span className="text-[hsl(var(--primary))]">Connect</span>
-              </span>
-            </Link>
-            <Link
-              href="/"
-              className="inline-flex h-9 items-center gap-2 rounded-full border border-stone-200 px-3 text-xs font-bold text-stone-600 transition-colors hover:border-emerald-200 hover:bg-emerald-50 hover:text-[hsl(var(--primary))]"
-            >
-              <ArrowLeft className="h-3.5 w-3.5" />
-              Home
-            </Link>
-          </div>
-
-          <div className="mx-auto w-full max-w-md py-8 lg:-mt-4">
-            <div className="mb-8">
-              <h1 className="text-4xl font-black tracking-tight text-stone-950">Create your account</h1>
-              <p className="mt-3 text-base font-medium text-stone-500">
-                Start your Islamic education journey today
-              </p>
-            </div>
-
-            {error && (
-              <div className="mb-5 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">
-                {error}
-              </div>
-            )}
-
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid gap-3 sm:grid-cols-2">
-                <div>
-                  <label htmlFor="first-name" className="mb-2 block text-sm font-bold text-stone-800">
-                    First name*
-                  </label>
-                  <input
-                    id="first-name"
-                    required
-                    type="text"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    placeholder="Aisha"
-                    className="h-14 w-full rounded-full border border-stone-200 bg-white px-5 text-base text-stone-900 shadow-sm outline-none transition-all placeholder:text-stone-400 focus:border-[hsl(var(--primary))] focus:ring-4 focus:ring-emerald-100"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="last-name" className="mb-2 block text-sm font-bold text-stone-800">
-                    Last name*
-                  </label>
-                  <input
-                    id="last-name"
-                    required
-                    type="text"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    placeholder="Khan"
-                    className="h-14 w-full rounded-full border border-stone-200 bg-white px-5 text-base text-stone-900 shadow-sm outline-none transition-all placeholder:text-stone-400 focus:border-[hsl(var(--primary))] focus:ring-4 focus:ring-emerald-100"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="email" className="mb-2 block text-sm font-bold text-stone-800">
-                  Email address*
-                </label>
-                <input
-                  id="email"
-                  required
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@example.com"
-                  className="h-14 w-full rounded-full border border-stone-200 bg-white px-5 text-base text-stone-900 shadow-sm outline-none transition-all placeholder:text-stone-400 focus:border-[hsl(var(--primary))] focus:ring-4 focus:ring-emerald-100"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="password" className="mb-2 block text-sm font-bold text-stone-800">
-                  Password*
-                </label>
-                <div className="relative">
-                  <input
-                    id="password"
-                    required
-                    type={showPassword ? 'text' : 'password'}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Min 8 characters"
-                    minLength={6}
-                    className="h-14 w-full rounded-full border border-stone-200 bg-white px-5 pr-12 text-base text-stone-900 shadow-sm outline-none transition-all placeholder:text-stone-400 focus:border-[hsl(var(--primary))] focus:ring-4 focus:ring-emerald-100"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full text-stone-400 transition-colors hover:bg-stone-100 hover:text-stone-900"
-                    aria-label={showPassword ? 'Hide password' : 'Show password'}
-                  >
-                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                  </button>
-                </div>
-              </div>
-
-              <label className="flex items-start gap-2 pt-1 text-xs font-medium leading-relaxed text-stone-600">
-                <input required type="checkbox" className="mt-0.5 h-4 w-4 rounded border-stone-300 text-[hsl(var(--primary))]" />
-                <span>
-                  I agree to the{' '}
-                  <Link href="#" className="font-bold text-stone-900 hover:text-[hsl(var(--primary))]">
-                    Terms of Service
-                  </Link>{' '}
-                  and{' '}
-                  <Link href="#" className="font-bold text-stone-900 hover:text-[hsl(var(--primary))]">
-                    Privacy Policy
-                  </Link>
-                </span>
-              </label>
-
-              <button
-                disabled={isLoading}
-                type="submit"
-                className="mt-3 h-14 w-full rounded-full bg-stone-950 text-base font-bold text-white shadow-[0_18px_36px_rgba(15,23,42,0.2)] transition-all hover:-translate-y-0.5 hover:bg-[hsl(var(--primary))] disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                {isLoading ? 'Creating Account...' : 'Create Account'}
-              </button>
-            </form>
-
-            <p className="mt-5 text-sm font-medium text-stone-500">
-              Already have an account?{' '}
-              <Link href="/auth/signin" className="font-bold text-[hsl(var(--primary))] hover:underline">
-                Sign in
-              </Link>
-            </p>
-          </div>
-
-          <p className="text-xs font-medium text-stone-400">Your free trial starts with a live 1:1 session.</p>
-        </section>
-
-        <aside className="relative hidden min-h-screen overflow-hidden rounded-bl-[3rem] rounded-tl-[3rem] bg-stone-950 lg:block">
-          <Image
-            src="/images/signin-side.png"
-            alt="Islamic learning environment"
-            fill
-            priority
-            sizes="50vw"
-            className="object-cover object-center"
+    <AuthShell
+      compact
+      title="Create an account"
+      description="Learn one-to-one with a dedicated scholar."
+      quote="Structured, one-to-one Islamic education."
+      footer={
+        <>
+          Already have an account?{' '}
+          <Link href="/auth/signin" className="font-bold text-[#095F46] underline-offset-4 hover:underline">
+            Log in
+          </Link>
+        </>
+      }
+    >
+      <form onSubmit={handleSubmit} className="space-y-3">
+        <div>
+          <label htmlFor="full-name" className="mb-1.5 block text-[13px] font-bold text-stone-800">
+            Full name
+          </label>
+          <input
+            id="full-name"
+            required
+            type="text"
+            autoComplete="name"
+            value={fullName}
+            onChange={(event) => setFullName(event.target.value)}
+            placeholder="Enter your name"
+            className={inputClassName}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-stone-950/94 via-stone-950/38 to-stone-950/8" />
-          <div className="absolute inset-x-10 bottom-16 text-center text-white">
-            <blockquote className="mx-auto max-w-2xl text-4xl font-black leading-tight tracking-tight drop-shadow-[0_4px_18px_rgba(0,0,0,0.65)]">
-              &ldquo;The ink of the scholar is more sacred than the blood of the martyr&rdquo;
-            </blockquote>
-            <p className="mt-5 text-lg font-semibold text-white drop-shadow-[0_3px_14px_rgba(0,0,0,0.65)]">
-              — Prophet Muhammad ﷺ
-            </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+          <div className="min-w-0">
+            <label htmlFor="gender" className="mb-1.5 block text-[13px] font-bold text-stone-800">Gender</label>
+            <select id="gender" required autoComplete="sex" value={gender} onChange={(event) => setGender(event.target.value)} className={inputClassName}>
+              <option value="" disabled>Select gender</option>
+              <option value="MALE">Male</option>
+              <option value="FEMALE">Female</option>
+              <option value="OTHER">Other</option>
+              <option value="PREFER_NOT_TO_SAY">Prefer not to say</option>
+            </select>
           </div>
-        </aside>
-      </div>
-    </main>
+          <div className="min-w-0">
+            <label htmlFor="date-of-birth" className="mb-1.5 block text-[13px] font-bold text-stone-800">Date of birth</label>
+            <input id="date-of-birth" required type="date" autoComplete="bday" min="0001-01-01" max={new Date().toISOString().slice(0, 10)} value={dateOfBirth} onChange={(event) => setDateOfBirth(event.target.value)} className={`${inputClassName} min-w-0`} />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div className="min-w-0">
+            <label htmlFor="country" className="mb-1.5 block text-[13px] font-bold text-stone-800">Country</label>
+            <select id="country" required autoComplete="country" value={countryIso} onChange={(event) => setCountryIso(event.target.value)} className={inputClassName}>
+              <option value="" disabled>Select country</option>
+              {COUNTRY_CALLING_CODES.map((country) => <option key={country.iso2} value={country.iso2}>{country.name}</option>)}
+            </select>
+          </div>
+          <div className="min-w-0">
+            <label htmlFor="whatsapp-number" className="mb-1.5 block text-[13px] font-bold text-stone-800">WhatsApp number</label>
+            <input id="whatsapp-number" required type="tel" autoComplete="tel" inputMode="tel" maxLength={25} value={whatsappNumber} onChange={(event) => setWhatsappNumber(event.target.value)} placeholder={`${selectedCountry?.dialCode || '+94'} 77 123 4567`} aria-describedby="whatsapp-hint" className={inputClassName} />
+            <p id="whatsapp-hint" className="mt-1 text-xs text-stone-600">Include your country code.</p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <div className="min-w-0">
+          <label htmlFor="email" className="mb-1.5 block text-[13px] font-bold text-stone-800">
+            Email address
+          </label>
+          <input
+            id="email"
+            required
+            type="email"
+            autoComplete="email"
+            inputMode="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            placeholder="Enter your email address"
+            className={inputClassName}
+          />
+        </div>
+
+        <div className="min-w-0">
+          <label htmlFor="password" className="mb-1.5 block text-[13px] font-bold text-stone-800">
+            Password
+          </label>
+          <div className="relative">
+            <input
+              id="password"
+              required
+              minLength={6}
+              type={showPassword ? 'text' : 'password'}
+              autoComplete="new-password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              placeholder="Enter your password"
+              className={`${inputClassName} pr-14`}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((visible) => !visible)}
+              className="brand-icon-button absolute right-0 top-1/2 h-11 w-11 -translate-y-1/2 flex-none text-stone-400 hover:bg-emerald-50 hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#095F46]"
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+              aria-pressed={showPassword}
+            >
+              {showPassword ? <EyeOff className="h-4 w-4" aria-hidden="true" /> : <Eye className="h-4 w-4" aria-hidden="true" />}
+            </button>
+          </div>
+        </div>
+        </div>
+
+        <fieldset disabled={isLoading} aria-describedby="availability-timezone availability-hint" className="space-y-2.5 pt-1">
+          <legend className="text-[13px] font-bold text-stone-800">When can you learn?</legend>
+          <p id="availability-hint" className="text-[13px] leading-5 text-stone-600">Choose your times for lecturer assignment.</p>
+          <div className="grid grid-cols-1 gap-2 min-[400px]:grid-cols-3">
+            {STUDENT_TIME_WINDOWS.map((window) => {
+              const checked = window.hours.every(hour => preferredHours.includes(hour));
+              return <label key={window.id} className={`relative flex min-h-11 min-w-0 cursor-pointer flex-col justify-center rounded-lg border p-2.5 transition-colors focus-within:ring-2 focus-within:ring-[#095F46]/25 focus-within:ring-offset-2 ${checked ? 'border-[#095F46] bg-[#edf7f1]' : 'border-stone-300 bg-white hover:border-[#095F46]/60 hover:bg-[#f4f9f6]'}`}>
+                <span className="flex min-w-0 items-center justify-between gap-2 pr-6 min-[400px]:block min-[400px]:pr-0"><span className="block text-xs font-bold text-stone-900 min-[400px]:pr-5 sm:text-[13px]">{window.label}</span><span className="block text-xs leading-4 text-stone-600 min-[400px]:mt-1.5">{window.time.replaceAll(':00', '')}</span></span>
+                <input id={`availability-${window.id}`} type="checkbox" checked={checked} aria-invalid={!!availabilityError} aria-describedby={availabilityError ? 'availability-error' : undefined}
+                  className="absolute right-2.5 top-3 h-4 w-4 accent-[#095F46] sm:right-3"
+                  onChange={() => {
+                    setAvailabilityError('');
+                    setPreferredHours(current => checked ? current.filter(hour => !window.hours.includes(hour)) : [...new Set([...current, ...window.hours])].sort((a, b) => a - b));
+                  }} />
+              </label>;
+            })}
+          </div>
+          <p id="availability-timezone" className="text-xs leading-5 text-stone-600">Sri Lanka time · Asia/Colombo · UTC+5:30</p>
+          {availabilityError && <p id="availability-error" role="alert" className="text-[13px] text-red-700">{availabilityError}</p>}
+        </fieldset>
+
+        <label className="flex items-start gap-2.5 pt-0.5 text-[13px] font-medium leading-5 text-stone-600">
+          <input
+            required
+            type="checkbox"
+            className="mt-0.5 h-4 w-4 shrink-0 rounded-[2px] border-stone-400 text-[#095F46] focus:ring-[#095F46]"
+          />
+          <span>
+            I agree to the{' '}
+            <Link href="/terms" className="font-bold text-stone-950 underline-offset-4 hover:underline">
+              Terms of Service
+            </Link>{' '}
+            and{' '}
+            <Link href="/privacy" className="font-bold text-stone-950 underline-offset-4 hover:underline">
+              Privacy Policy
+            </Link>
+          </span>
+        </label>
+
+        {error && <div role="alert" className="rounded-[10px] border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">{error}</div>}
+
+        <button
+          disabled={isLoading}
+          type="submit"
+          className="inline-flex h-11 w-full items-center justify-center rounded-lg bg-[#095F46] px-4 text-sm font-semibold text-white hover:bg-[#074d39] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#095F46] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f7faf8] disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          {isLoading ? 'Creating account...' : 'Create account'}
+        </button>
+      </form>
+    </AuthShell>
   );
 }

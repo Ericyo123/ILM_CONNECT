@@ -351,12 +351,12 @@ export default function HomePage() {
         {/* Top spacer for fixed header alignment */}
         <div className="w-full h-16 sm:h-20 shrink-0 pointer-events-none" aria-hidden="true" />
 
-        {/* Hero Content: Positioned in the lower portion of the hero */}
+        {/* Centered Hero Content */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-20 mt-auto mb-14 sm:mb-20 lg:mb-24 px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-center max-w-5xl mx-auto w-full"
+          className="relative z-20 my-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-center max-w-5xl mx-auto w-full"
         >
           <div className="relative mx-auto max-w-5xl w-full">
             {/* 2-Line Headline: Crisp drop-shadow hugging glyphs naturally with no circular blotches */}
@@ -384,6 +384,9 @@ export default function HomePage() {
             </div>
           </div>
         </motion.div>
+
+        {/* Bottom counterbalance spacer */}
+        <div className="w-full h-16 sm:h-20 shrink-0 pointer-events-none" aria-hidden="true" />
       </section>
 
       {/* ========================================================================= */}

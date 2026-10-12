@@ -201,14 +201,48 @@ const revealViewport = {
   margin: '0px 0px -12% 0px',
 } as const;
 
-const heroSliderImages = [
-  '/images/hero-sacred-2.jpg',
-  '/images/hero-sacred-3.jpg',
-  '/images/hero-sacred-4.jpg',
+const heroImagesList = [
+  {
+    id: 1,
+    label: 'Scholar in Courtyard (About Us)',
+    src: '/images/about-hero-scholar.jpg',
+    alt: 'Islamic scholar in traditional attire reading the Holy Quran in a sunlit courtyard',
+  },
+  {
+    id: 2,
+    label: 'Badshahi Mosque Sunset Domes',
+    src: '/images/hero-pin-1.jpg',
+    alt: 'Grand Mughal mosque architecture and domes illuminated under sunset golden sky',
+  },
+  {
+    id: 3,
+    label: 'Seekers of Knowledge Row',
+    src: '/images/hero-pin-2.jpg',
+    alt: 'Students seated in reverence on red carpets before Islamic book shelves',
+  },
+  {
+    id: 4,
+    label: 'Medina Umbrellas & Courtyard',
+    src: '/images/hero-sacred-2.jpg',
+    alt: 'Sacred architectural arches and majestic canopies of the Prophet Mosque',
+  },
+  {
+    id: 5,
+    label: 'Sacred Mosque Archways',
+    src: '/images/hero-sacred-3.jpg',
+    alt: 'Intricate marble arches framing spiritual Islamic architecture',
+  },
+  {
+    id: 6,
+    label: 'Quran Manuscript with Rosette',
+    src: '/images/hero-sacred-4.jpg',
+    alt: 'Holy Quran illuminated manuscript calligraphy with sacred gilded margins',
+  },
 ];
 
 export default function HomePage() {
   const [heroSlide, setHeroSlide] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const [selectedStory, setSelectedStory] = useState<TestimonialStory | null>(null);
@@ -216,11 +250,12 @@ export default function HomePage() {
   const testimonialsInView = useInView(testimonialRef, { once: true, amount: 0.2 });
 
   useEffect(() => {
+    if (!isAutoPlaying) return;
     const slideTimer = setInterval(() => {
-      setHeroSlide((prev) => (prev + 1) % heroSliderImages.length);
+      setHeroSlide((prev) => (prev + 1) % heroImagesList.length);
     }, 5500);
     return () => clearInterval(slideTimer);
-  }, []);
+  }, [isAutoPlaying]);
 
   const statsRef = useRef<HTMLDivElement>(null);
   const statsActive = useInView(statsRef, {
@@ -260,9 +295,9 @@ export default function HomePage() {
       <section className="home-hero-section relative flex flex-col items-center justify-center overflow-hidden bg-stone-950 text-white select-none">
         {/* Background Crossfade Image Slideshow — Clean & Bright */}
         <div className="absolute inset-0 z-0 overflow-hidden bg-stone-950">
-          {heroSliderImages.map((src, idx) => (
+          {heroImagesList.map((item, idx) => (
             <motion.div
-              key={src}
+              key={item.src}
               initial={{ opacity: 0 }}
               animate={{
                 opacity: idx === heroSlide ? 1 : 0,
@@ -272,8 +307,8 @@ export default function HomePage() {
               className="absolute inset-0"
             >
               <Image
-                src={src}
-                alt="Sacred Islamic Quran education"
+                src={item.src}
+                alt={item.alt}
                 fill
                 priority={idx === 0}
                 sizes="100vw"
@@ -347,6 +382,61 @@ export default function HomePage() {
               >
                 Join the Waitlist
               </Link>
+            </div>
+
+            {/* Interactive Hero Image Controller (Dropdown & Slide Numbers) */}
+            <div className="mt-7 sm:mt-9 mx-auto w-fit flex flex-col sm:flex-row items-center gap-2.5 sm:gap-3.5 bg-black/40 backdrop-blur-md px-4 py-2 sm:py-2.5 rounded-full border border-white/20 shadow-2xl text-xs text-white">
+              <div className="flex items-center gap-2">
+                <span className="text-[11px] uppercase tracking-wider text-[#EAD08A] font-semibold">
+                  Hero Image:
+                </span>
+                <select
+                  value={heroSlide}
+                  onChange={(e) => {
+                    setHeroSlide(Number(e.target.value));
+                    setIsAutoPlaying(false);
+                  }}
+                  aria-label="Select hero background image"
+                  className="bg-stone-900/90 border border-white/25 text-white text-xs rounded-full px-3 py-1 focus:outline-none focus:ring-1 focus:ring-[#EAD08A] cursor-pointer"
+                >
+                  {heroImagesList.map((img, i) => (
+                    <option key={img.id} value={i} className="bg-stone-950 text-white">
+                      #{img.id} · {img.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="flex items-center gap-1.5">
+                {heroImagesList.map((img, i) => (
+                  <button
+                    key={img.id}
+                    type="button"
+                    onClick={() => {
+                      setHeroSlide(i);
+                      setIsAutoPlaying(false);
+                    }}
+                    className={`h-6 w-6 sm:h-7 sm:w-7 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center justify-center ${
+                      heroSlide === i
+                        ? 'bg-[#EAD08A] text-stone-950 shadow-md scale-105'
+                        : 'bg-white/10 text-white/80 hover:bg-white/25 hover:text-white'
+                    }`}
+                    title={`#${img.id}: ${img.label}`}
+                    aria-label={`Jump to image ${img.id}: ${img.label}`}
+                  >
+                    {img.id}
+                  </button>
+                ))}
+
+                <button
+                  type="button"
+                  onClick={() => setIsAutoPlaying((prev) => !prev)}
+                  className="ml-1 text-[11px] px-2.5 py-0.5 rounded-full bg-white/15 hover:bg-white/25 text-white font-medium transition-colors cursor-pointer"
+                  title={isAutoPlaying ? 'Pause rotation' : 'Resume rotation'}
+                >
+                  {isAutoPlaying ? '⏸' : '▶'}
+                </button>
+              </div>
             </div>
           </div>
         </motion.div>

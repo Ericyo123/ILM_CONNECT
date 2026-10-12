@@ -209,30 +209,42 @@ const heroImagesList = [
   },
   {
     id: 2,
-    label: 'Badshahi Mosque Sunset Domes',
-    src: '/images/hero-pin-1.jpg',
-    alt: 'Grand Mughal mosque architecture and domes illuminated under sunset golden sky',
+    label: 'Al-Aqsa Mosque Sanctuary',
+    src: '/images/hero-pexels-1.jpg',
+    alt: 'Majestic view of the sacred Al-Aqsa sanctuary and Dome of the Rock under radiant sky',
   },
   {
     id: 3,
-    label: 'Seekers of Knowledge Row',
-    src: '/images/hero-pin-2.jpg',
-    alt: 'Students seated in reverence on red carpets before Islamic book shelves',
+    label: 'Ancient Heritage Citadel',
+    src: '/images/hero-pexels-2.jpg',
+    alt: 'Historic stone citadel and ancient heritage architecture nestled against scenic mountains',
   },
   {
     id: 4,
+    label: 'Sacred Arches & Courtyard',
+    src: '/images/hero-pexels-3.png',
+    alt: 'Serene Islamic architectural arches and tranquil tiled sanctuary courtyard',
+  },
+  {
+    id: 5,
+    label: 'Grand Mosque Minarets & Sacred Architecture',
+    src: '/images/hero-pexels-4.jpg',
+    alt: 'Grand Islamic sacred architecture with illuminated domes and towering minarets',
+  },
+  {
+    id: 6,
     label: 'Medina Umbrellas & Courtyard',
     src: '/images/hero-sacred-2.jpg',
     alt: 'Sacred architectural arches and majestic canopies of the Prophet Mosque',
   },
   {
-    id: 5,
+    id: 7,
     label: 'Sacred Mosque Archways',
     src: '/images/hero-sacred-3.jpg',
     alt: 'Intricate marble arches framing spiritual Islamic architecture',
   },
   {
-    id: 6,
+    id: 8,
     label: 'Quran Manuscript with Rosette',
     src: '/images/hero-sacred-4.jpg',
     alt: 'Holy Quran illuminated manuscript calligraphy with sacred gilded margins',
@@ -440,12 +452,6 @@ export default function HomePage() {
                     className="brand-button brand-button-primary px-7 py-3 text-xs tracking-wider uppercase !font-light"
                   >
                     Join the Waitlist
-                  </Link>
-                  <Link
-                    href="#how-it-works"
-                    className="text-xs tracking-wider uppercase text-stone-700 hover:text-[#095F46] font-medium transition-colors"
-                  >
-                    See How It Works →
                   </Link>
                 </div>
               </motion.div>

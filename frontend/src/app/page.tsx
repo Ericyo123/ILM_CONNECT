@@ -334,34 +334,25 @@ export default function HomePage() {
             className="absolute inset-0 pointer-events-none mix-blend-color opacity-25"
             style={{ backgroundColor: '#D4AF37' }}
           />
-          {/* Subtle contrast gradient for optimal readability */}
-          <div className="absolute inset-0 bg-gradient-to-t from-stone-950/75 via-stone-950/25 to-stone-950/40 pointer-events-none" />
+          {/* Seamless full-bleed gradient overlay: clear at top to showcase imagery, soft cinematic darkening towards bottom for text legibility */}
+          <div className="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-950/45 to-stone-950/20 pointer-events-none" />
         </div>
 
         {/* Top spacer for fixed header alignment */}
         <div className="w-full h-16 sm:h-20 shrink-0 pointer-events-none" aria-hidden="true" />
 
-        {/* Centered Hero Content: Focused Radial Shadow directly behind the wordings */}
+        {/* Hero Content: Positioned in the lower portion of the hero */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-20 my-auto py-12 sm:py-16 px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-center max-w-5xl mx-auto w-full"
+          className="relative z-20 mt-auto mb-14 sm:mb-20 lg:mb-24 px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-center max-w-5xl mx-auto w-full"
         >
-          {/* Radial Dark Gradient centered strictly behind the fonts (not all over the screen) */}
-          <div
-            className="absolute inset-0 -inset-x-8 sm:-inset-x-16 -inset-y-10 rounded-full pointer-events-none -z-10"
-            style={{
-              background:
-                'radial-gradient(ellipse 65% 55% at 50% 50%, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.45) 45%, rgba(0, 0, 0, 0.10) 70%, transparent 100%)',
-            }}
-          />
-
           <div className="relative mx-auto max-w-5xl w-full">
-            {/* 2-Line Headline: Reduced font size so Line 1 is on one line and Line 2 on another line */}
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] xl:text-[50px] font-bold tracking-tight text-white leading-[1.2] drop-shadow-2xl max-w-5xl mx-auto font-bricolage text-center">
+            {/* 2-Line Headline: Crisp drop-shadow hugging glyphs naturally with no circular blotches */}
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] xl:text-[50px] font-bold tracking-tight text-white leading-[1.2] drop-shadow-[0_4px_18px_rgba(0,0,0,0.85)] max-w-5xl mx-auto font-bricolage text-center [text-shadow:_0_2px_14px_rgb(0_0_0_/_75%)]">
               <span className="block text-white sm:whitespace-nowrap">Learn Quran &amp; Islamic Studies</span>
-              <span className="block text-[#EAD08A] mt-2 sm:mt-2.5 sm:whitespace-nowrap drop-shadow-md">
+              <span className="block text-[#EAD08A] mt-2 sm:mt-2.5 sm:whitespace-nowrap drop-shadow-[0_4px_18px_rgba(0,0,0,0.85)]">
                 from Qualified Scholars Worldwide
               </span>
             </h1>
@@ -383,9 +374,6 @@ export default function HomePage() {
             </div>
           </div>
         </motion.div>
-
-        {/* Bottom spacer balancing fixed header */}
-        <div className="w-full h-16 sm:h-20 shrink-0 pointer-events-none" aria-hidden="true" />
       </section>
 
       {/* ========================================================================= */}

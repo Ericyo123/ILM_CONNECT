@@ -11,7 +11,6 @@ import {
   ArrowRight,
   X,
   ShieldCheck,
-  Sparkles,
 } from 'lucide-react';
 import { motion, useInView, AnimatePresence, type Variants } from 'framer-motion';
 import WaitlistModal from '@/components/waitlist-modal';
@@ -404,25 +403,20 @@ export default function HomePage() {
                 variants={sectionReveal}
                 className="flex flex-col justify-center lg:col-span-6"
               >
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#095F46]/10 border border-[#095F46]/20 text-[#095F46] text-xs font-semibold tracking-wide uppercase mb-4 w-fit">
-                  <Sparkles className="w-3.5 h-3.5 text-[#095F46]" />
-                  <span>The Ilmbit Experience</span>
-                </div>
-
                 <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 leading-[1.18] font-bricolage" suppressHydrationWarning>
                   <span>Grow In Sacred Knowledge So You Can </span>
                   <span className="block text-[#095F46]">Live With Purpose &amp; Iman</span>
                 </h2>
 
                 <p className="mt-5 text-sm sm:text-base font-normal leading-relaxed text-stone-600">
-                  Finding verified, authentic Islamic teachers who can guide your family with patience and consistency shouldn&apos;t be difficult. Ilmbit bridges you directly with qualified scholars for structured 1:1 online learning tailored to your timezone and personal pace.
+                  Finding verified, authentic Islamic teachers who can guide your family with patience and consistency shouldn&apos;t be difficult. Ilmbit bridges Sri Lankan families living abroad directly with qualified scholars for structured 1:1 online learning tailored to your timezone and personal pace.
                 </p>
 
                 <div className="mt-7 space-y-3.5">
                   {[
                     { title: 'Personalized 1:1 Learning Paths', desc: 'From Noorani Qaida phonetics to advanced Sanad Tajweed' },
                     { title: 'Verified Scholars & Certified Maulavis', desc: 'Rigorous vetting with verified Sanad and English fluency' },
-                    { title: 'Built for Busy Diaspora Schedules', desc: 'Flexible rescheduling across UK, Europe, Australia & US timezones' },
+                    { title: 'Sri Lankan Families Living Abroad', desc: 'Flexible 1:1 rescheduling across UK, Middle East, Australia & overseas timezones' },
                   ].map((feature, idx) => (
                     <div key={idx} className="flex items-start gap-3.5">
                       <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#095F46]/10 text-[#095F46] mt-0.5">

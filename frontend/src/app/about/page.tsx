@@ -165,7 +165,7 @@ const vettingTiers = [
   },
   {
     step: '03',
-    title: 'Diaspora Pedagogy',
+    title: 'Families Abroad Pedagogy',
     subtitle: 'English & Cultural Fluency',
     desc: 'Evaluated for English articulation and cross-cultural empathy to connect naturally with children and youth raised in the UK, US, Europe & Australia.',
     icon: Users,
@@ -488,7 +488,7 @@ export default function AboutPage() {
               className="lg:col-span-5 text-stone-600 text-xs sm:text-sm leading-relaxed"
             >
               <p>
-                Ilmbit bridges authentic traditional scholarship with modern 1:1 virtual classrooms and flexible scheduling designed specifically for diaspora families.
+                Ilmbit bridges authentic traditional scholarship with modern 1:1 virtual classrooms and flexible scheduling designed specifically for Sri Lankan families living abroad.
               </p>
             </motion.div>
           </div>

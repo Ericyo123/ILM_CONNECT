@@ -199,12 +199,26 @@ const revealViewport = {
   margin: '0px 0px -12% 0px',
 } as const;
 
+const heroSliderImages = [
+  '/images/hero-sacred-2.jpg',
+  '/images/hero-sacred-3.jpg',
+  '/images/hero-sacred-4.jpg',
+];
+
 export default function HomePage() {
+  const [heroSlide, setHeroSlide] = useState(0);
   const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const [selectedStory, setSelectedStory] = useState<TestimonialStory | null>(null);
   const testimonialRef = useRef<HTMLDivElement>(null);
   const testimonialsInView = useInView(testimonialRef, { once: true, amount: 0.2 });
+
+  useEffect(() => {
+    const slideTimer = setInterval(() => {
+      setHeroSlide((prev) => (prev + 1) % heroSliderImages.length);
+    }, 5500);
+    return () => clearInterval(slideTimer);
+  }, []);
 
   const statsRef = useRef<HTMLDivElement>(null);
   const statsActive = useInView(statsRef, {
@@ -236,71 +250,100 @@ export default function HomePage() {
 
   const activeTestimonial = diasporaTestimonials[testimonialIndex];
 
-
   return (
     <>
       {/* ========================================================================= */}
-      {/* 1. HERO SECTION — Background Video, Headline & Dual CTAs */}
+      {/* 1. HERO SECTION — Crossfade Image Slideshow (Clean, No Vignette Across Screen) */}
       {/* ========================================================================= */}
       <section className="home-hero-section relative flex flex-col items-center justify-center overflow-hidden bg-stone-950 text-white select-none">
-        <div
-          className="absolute inset-0 z-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('/images/ilmbit-hero-poster.jpg')" }}
-        >
-          <video
-            className="hero-brand-video h-full w-full object-cover object-center"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            poster="/images/ilmbit-hero-poster.jpg"
-            aria-hidden="true"
-          >
-            <source src="/ilmbit-hero-boomerang.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/35 to-black/75" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,rgba(0,0,0,0.45)_100%)]" />
+        {/* Background Crossfade Image Slideshow — Clean & Bright */}
+        <div className="absolute inset-0 z-0 overflow-hidden bg-stone-950">
+          {heroSliderImages.map((src, idx) => (
+            <motion.div
+              key={src}
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: idx === heroSlide ? 1 : 0,
+                scale: idx === heroSlide ? 1 : 1.04,
+              }}
+              transition={{ duration: 1.6, ease: [0.4, 0, 0.2, 1] }}
+              className="absolute inset-0"
+            >
+              <Image
+                src={src}
+                alt="Sacred Islamic Quran education"
+                fill
+                priority={idx === 0}
+                sizes="100vw"
+                className="object-cover object-center"
+              />
+            </motion.div>
+          ))}
+
+          {/* Angelic aesthetic warm golden filter & divine atmospheric radiance */}
+          <div
+            className="absolute inset-0 pointer-events-none mix-blend-soft-light opacity-80"
+            style={{
+              background:
+                'linear-gradient(135deg, rgba(245, 222, 160, 0.55) 0%, rgba(220, 180, 85, 0.35) 45%, rgba(180, 135, 45, 0.40) 100%)',
+            }}
+          />
+          <div
+            className="absolute inset-0 pointer-events-none mix-blend-screen opacity-40"
+            style={{
+              background:
+                'radial-gradient(ellipse 85% 55% at 50% 12%, rgba(255, 248, 220, 0.65) 0%, rgba(234, 208, 138, 0.3) 50%, transparent 100%)',
+            }}
+          />
+          <div
+            className="absolute inset-0 pointer-events-none mix-blend-color opacity-25"
+            style={{ backgroundColor: '#D4AF37' }}
+          />
+          {/* Subtle contrast gradient for optimal readability */}
+          <div className="absolute inset-0 bg-gradient-to-t from-stone-950/75 via-stone-950/25 to-stone-950/40 pointer-events-none" />
         </div>
 
         {/* Top spacer for fixed header alignment */}
         <div className="w-full h-16 sm:h-20 shrink-0 pointer-events-none" aria-hidden="true" />
 
-        {/* Centered Hero Content */}
+        {/* Centered Hero Content: Focused Radial Shadow directly behind the wordings */}
         <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={revealViewport}
-          variants={sectionReveal}
-          className="relative z-20 my-auto py-12 sm:py-16 px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-center max-w-4xl mx-auto w-full"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="relative z-20 my-auto py-12 sm:py-16 px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-center max-w-5xl mx-auto w-full"
         >
-          <div className="relative mx-auto max-w-3xl w-full">
-            {/* 2-Line Headline */}
-            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight drop-shadow-lg max-w-3xl mx-auto">
-              <span className="block">Learn Quran &amp; Islamic Studies</span>
-              <span className="block text-emerald-50 font-semibold text-lg sm:text-2xl lg:text-3xl mt-2">
+          {/* Radial Dark Gradient centered strictly behind the fonts (not all over the screen) */}
+          <div
+            className="absolute inset-0 -inset-x-8 sm:-inset-x-16 -inset-y-10 rounded-full pointer-events-none -z-10"
+            style={{
+              background:
+                'radial-gradient(ellipse 65% 55% at 50% 50%, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.45) 45%, rgba(0, 0, 0, 0.10) 70%, transparent 100%)',
+            }}
+          />
+
+          <div className="relative mx-auto max-w-5xl w-full">
+            {/* 2-Line Headline: Reduced font size so Line 1 is on one line and Line 2 on another line */}
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] xl:text-[50px] font-bold tracking-tight text-white leading-[1.2] drop-shadow-2xl max-w-5xl mx-auto font-bricolage text-center">
+              <span className="block text-white sm:whitespace-nowrap">Learn Quran &amp; Islamic Studies</span>
+              <span className="block text-[#EAD08A] mt-2 sm:mt-2.5 sm:whitespace-nowrap drop-shadow-md">
                 from Qualified Scholars Worldwide
               </span>
             </h1>
 
-            {/* Subtitle */}
-            <p className="mt-4 sm:mt-5 text-sm sm:text-base text-stone-200 max-w-xl mx-auto leading-relaxed drop-shadow-md font-normal">
-              Personalized 1:1 online Tajweed and Islamic studies with verified Sanad-certified scholars, tailored for diaspora families.
-            </p>
-
-            {/* Dual Pill CTA Buttons */}
-            <div className="mt-7 sm:mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+            {/* Dual Pill CTA Buttons with thinned font */}
+            <div className="mt-8 sm:mt-11 flex flex-wrap items-center justify-center gap-3.5 sm:gap-4">
               <Link
                 href="#courses"
-                className="brand-button brand-button-inverse px-7"
+                className="brand-button brand-button-inverse px-8 py-3 text-sm sm:text-base !font-light tracking-wide shadow-lg shadow-black/40"
               >
                 View Courses
               </Link>
               <Link
                 href="/about#waitlist"
-                className="brand-button brand-button-primary px-8"
+                className="brand-button brand-button-primary px-8 py-3 text-sm sm:text-base !font-light tracking-wide shadow-lg shadow-black/40"
               >
-                Join Waitlist
+                Join the Waitlist
               </Link>
             </div>
           </div>
@@ -314,11 +357,11 @@ export default function HomePage() {
       {/* LIGHT-THEMED SANCTUARY CONTAINER (Animated Gradient & Ambient Glow) */}
       {/* ========================================================================= */}
       <div className="relative bg-sanctuary-light overflow-hidden text-stone-900 select-none">
-        {/* Ambient floating glow orbs matching hero sanctuary palette */}
-        <div className="absolute top-[3%] -right-[15%] w-[650px] h-[650px] rounded-full bg-emerald-200/35 blur-[140px] animate-ambient-orb-1 pointer-events-none" />
-        <div className="absolute top-[26%] -left-[15%] w-[600px] h-[600px] rounded-full bg-teal-100/45 blur-[130px] animate-ambient-orb-2 pointer-events-none" />
-        <div className="absolute top-[50%] -right-[12%] w-[700px] h-[700px] rounded-full bg-teal-200/30 blur-[140px] animate-ambient-orb-1 pointer-events-none" />
-        <div className="absolute top-[75%] -left-[14%] w-[650px] h-[650px] rounded-full bg-emerald-200/25 blur-[130px] animate-ambient-orb-2 pointer-events-none" />
+        {/* Ambient floating glow orbs matching green + aesthetic warm yellowish sanctuary palette */}
+        <div className="absolute top-[3%] -right-[15%] w-[650px] h-[650px] rounded-full bg-[#095F46]/10 blur-[140px] animate-ambient-orb-1 pointer-events-none" />
+        <div className="absolute top-[26%] -left-[15%] w-[600px] h-[600px] rounded-full bg-[#EAD08A]/15 blur-[130px] animate-ambient-orb-2 pointer-events-none" />
+        <div className="absolute top-[50%] -right-[12%] w-[700px] h-[700px] rounded-full bg-[#EAD08A]/12 blur-[140px] animate-ambient-orb-1 pointer-events-none" />
+        <div className="absolute top-[75%] -left-[14%] w-[650px] h-[650px] rounded-full bg-[#095F46]/10 blur-[130px] animate-ambient-orb-2 pointer-events-none" />
 
         {/* ========================================================================= */}
         {/* 2. WHY ILMBIT / MISSION SECTION — Reference-Style Content & Stats */}
@@ -528,7 +571,7 @@ export default function HomePage() {
                   </ul>
 
                   <div className="mt-5 pt-4 border-t border-stone-100">
-                    <div className="rounded-2xl bg-emerald-50/70 border border-emerald-100/90 p-3 sm:p-3.5 flex flex-col gap-2">
+                    <div className="rounded-2xl bg-[#FCF8EE] border border-[#EAD08A]/60 p-3 sm:p-3.5 flex flex-col gap-2">
                       <p className="text-sm font-bold text-stone-900">
                         Start Strong
                       </p>
@@ -598,7 +641,7 @@ export default function HomePage() {
                   </ul>
 
                   <div className="mt-5 pt-4 border-t border-stone-100">
-                    <div className="rounded-2xl bg-emerald-50/70 border border-emerald-100/90 p-3 sm:p-3.5 flex flex-col gap-2">
+                    <div className="rounded-2xl bg-[#FCF8EE] border border-[#EAD08A]/60 p-3 sm:p-3.5 flex flex-col gap-2">
                       <p className="text-sm font-bold text-stone-900">
                         Recite Better
                       </p>
@@ -668,7 +711,7 @@ export default function HomePage() {
                   </ul>
 
                   <div className="mt-5 pt-4 border-t border-stone-100">
-                    <div className="rounded-2xl bg-emerald-50/70 border border-emerald-100/90 p-3 sm:p-3.5 flex flex-col gap-2">
+                    <div className="rounded-2xl bg-[#FCF8EE] border border-[#EAD08A]/60 p-3 sm:p-3.5 flex flex-col gap-2">
                       <p className="text-sm font-bold text-stone-900">
                         Memorize More
                       </p>
@@ -850,7 +893,7 @@ export default function HomePage() {
         />
         {/* Soft atmospheric gradients matching site standards */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#f5f7f6] via-[#f5f7f6]/95 to-[#eaf2ee]/85" />
-        <div className="absolute -top-32 right-1/4 h-96 w-96 rounded-full bg-emerald-200/25 blur-3xl pointer-events-none" />
+        <div className="absolute -top-32 right-1/4 h-96 w-96 rounded-full bg-[#EAD08A]/20 blur-3xl pointer-events-none" />
 
         {/* Brand Mark Watermark */}
         <Image

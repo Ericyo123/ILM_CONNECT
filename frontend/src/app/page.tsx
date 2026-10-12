@@ -10,7 +10,6 @@ import {
   ArrowLeft,
   ArrowRight,
   X,
-  ShieldCheck,
 } from 'lucide-react';
 import { motion, useInView, AnimatePresence, type Variants } from 'framer-motion';
 import WaitlistModal from '@/components/waitlist-modal';
@@ -468,7 +467,7 @@ export default function HomePage() {
                   {/* Subtle warm golden background glow */}
                   <div className="absolute -inset-4 bg-gradient-to-tr from-[#095F46]/10 via-[#EAD08A]/20 to-transparent rounded-[36px] blur-2xl -z-10" />
 
-                  {/* Main Image Frame */}
+                  {/* Main Image Frame - Clean & aesthetic with no tags or bars */}
                   <div className="relative aspect-[4/3] w-full rounded-3xl overflow-hidden border border-stone-200/90 shadow-[0_20px_50px_rgba(9,95,70,0.08)] bg-stone-100">
                     <Image
                       src="/images/why-ilm-scholar.jpg"
@@ -477,32 +476,6 @@ export default function HomePage() {
                       sizes="(max-width: 1024px) 100vw, 50vw"
                       className="object-cover object-center"
                     />
-
-                    {/* Subtle gradient overlay at bottom for badge contrast */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-stone-950/60 via-transparent to-transparent pointer-events-none" />
-
-                    {/* Floating Top-Right Glass Badge: Verified Scholar */}
-                    <div className="absolute top-4 right-4 flex items-center gap-2 rounded-full bg-white/95 backdrop-blur-md px-3.5 py-1.5 border border-white/80 shadow-lg text-xs font-semibold text-stone-900">
-                      <ShieldCheck className="w-4 h-4 text-[#095F46]" />
-                      <span>Verified Sanad Scholar</span>
-                    </div>
-
-                    {/* Floating Bottom Overlay: Live 1:1 Classroom */}
-                    <div className="absolute bottom-4 inset-x-4 flex items-center justify-between rounded-2xl bg-white/95 backdrop-blur-md p-3 sm:p-4 border border-white/80 shadow-lg">
-                      <div className="flex items-center gap-3">
-                        <div className="relative flex h-3 w-3">
-                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10BF8D] opacity-75" />
-                          <span className="relative inline-flex rounded-full h-3 w-3 bg-[#095F46]" />
-                        </div>
-                        <div>
-                          <p className="text-xs sm:text-sm font-bold text-stone-950">Live 1:1 Sacred Session</p>
-                          <p className="text-[11px] text-stone-500">Tajweed phonetics &amp; real-time correction</p>
-                        </div>
-                      </div>
-                      <span className="hidden sm:inline-flex text-[11px] font-bold text-[#095F46] bg-[#095F46]/10 px-2.5 py-1 rounded-full">
-                        UK · US · AU · EU
-                      </span>
-                    </div>
                   </div>
                 </div>
               </motion.div>

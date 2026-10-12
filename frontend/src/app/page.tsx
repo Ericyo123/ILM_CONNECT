@@ -10,6 +10,8 @@ import {
   ArrowLeft,
   ArrowRight,
   X,
+  ShieldCheck,
+  Sparkles,
 } from 'lucide-react';
 import { motion, useInView, AnimatePresence, type Variants } from 'framer-motion';
 import WaitlistModal from '@/components/waitlist-modal';
@@ -369,92 +371,121 @@ export default function HomePage() {
         <section
           id="mission"
           suppressHydrationWarning
-          className="relative z-20 overflow-hidden border-b border-stone-200/60 py-14 select-none sm:py-18 lg:py-20"
+          className="relative z-20 overflow-hidden border-b border-stone-200/60 py-16 select-none sm:py-20 lg:py-24"
         >
-          <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-10 px-4 sm:px-6 lg:items-center lg:gap-12 lg:px-8">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={revealViewport}
-              variants={sectionReveal}
-              className="flex flex-col justify-center max-w-3xl"
-            >
-              <h2 className="max-w-[610px] text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 leading-[1.15]" suppressHydrationWarning>
-                <span>Grow In Sacred Knowledge So You Can </span>
-                <span className="block text-[#095F46]">Live With Purpose &amp; Iman</span>
-              </h2>
-
-              <p className="mt-6 max-w-[560px] text-sm font-normal leading-relaxed text-stone-500 sm:text-base">
-                Finding verified, authentic Islamic teachers who can guide your family with patience and consistency shouldn&apos;t be difficult. Ilmbit bridges you directly with qualified scholars for structured 1:1 online learning tailored to your timezone and personal pace.
-              </p>
-
-              <div className="mt-7 space-y-3.5">
-                {[
-                  'Flexible 1:1 training programs',
-                  'Experienced scholars & certified teachers',
-                  'Free incoming trial lesson',
-                ].map((feature, idx) => (
-                  <div key={idx} className="flex items-center gap-3.5">
-                    <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#095F46]/10 text-[#095F46]">
-                      <Check className="h-3.5 w-3.5 stroke-[2.5]" aria-hidden="true" />
-                    </div>
-                    <h3 className="text-sm font-bold tracking-tight text-stone-900 sm:text-base">
-                      {feature}
-                    </h3>
-                  </div>
-                ))}
-              </div>
-
-            </motion.div>
-
-            {/* --------------------------------------------------------------------- */}
-            {/* 3. PLATFORM STATS SECTION (Hidden until launch) */}
-            {/* --------------------------------------------------------------------- */}
-            {/*
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={revealViewport}
-              variants={sectionReveal}
-              className="flex items-center -mx-4 sm:-mx-6 lg:col-span-7 lg:mx-0 w-[calc(100%+2rem)] sm:w-[calc(100%+3rem)] lg:w-full"
-            >
-              <div
-                id="stats"
-                ref={statsRef}
-                className="grid w-full scroll-mt-32 grid-cols-2 bg-[#eef7f3] border-y border-[#d5e3dc] lg:grid-cols-4 lg:border-0"
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+              {/* Left Column: Mission & Core Value */}
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={revealViewport}
+                variants={sectionReveal}
+                className="flex flex-col justify-center lg:col-span-6"
               >
-                {platformStats.map((stat, idx) => (
-                  <div
-                    key={stat.label}
-                    className={`flex min-h-[120px] flex-col items-center justify-center px-4 py-8 text-center sm:min-h-[140px] sm:px-8 sm:py-10 lg:min-h-[148px] lg:px-4 lg:py-8 ${
-                      idx % 2 === 0 ? 'border-r border-[#d5e3dc]' : ''
-                    } ${idx < 2 ? 'border-b border-[#d5e3dc]' : ''} ${
-                      idx < platformStats.length - 1 ? 'lg:border-r lg:border-[#d5e3dc]' : 'lg:border-r-0'
-                    } lg:border-b-0`}
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#095F46]/10 border border-[#095F46]/20 text-[#095F46] text-xs font-semibold tracking-wide uppercase mb-4 w-fit">
+                  <Sparkles className="w-3.5 h-3.5 text-[#095F46]" />
+                  <span>The Ilmbit Experience</span>
+                </div>
+
+                <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 leading-[1.18] font-bricolage" suppressHydrationWarning>
+                  <span>Grow In Sacred Knowledge So You Can </span>
+                  <span className="block text-[#095F46]">Live With Purpose &amp; Iman</span>
+                </h2>
+
+                <p className="mt-5 text-sm sm:text-base font-normal leading-relaxed text-stone-600">
+                  Finding verified, authentic Islamic teachers who can guide your family with patience and consistency shouldn&apos;t be difficult. Ilmbit bridges you directly with qualified scholars for structured 1:1 online learning tailored to your timezone and personal pace.
+                </p>
+
+                <div className="mt-7 space-y-3.5">
+                  {[
+                    { title: 'Personalized 1:1 Learning Paths', desc: 'From Noorani Qaida phonetics to advanced Sanad Tajweed' },
+                    { title: 'Verified Scholars & Certified Maulavis', desc: 'Rigorous vetting with verified Sanad and English fluency' },
+                    { title: 'Built for Busy Diaspora Schedules', desc: 'Flexible rescheduling across UK, Europe, Australia & US timezones' },
+                  ].map((feature, idx) => (
+                    <div key={idx} className="flex items-start gap-3.5">
+                      <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#095F46]/10 text-[#095F46] mt-0.5">
+                        <Check className="h-3.5 w-3.5 stroke-[2.5]" aria-hidden="true" />
+                      </div>
+                      <div>
+                        <h3 className="text-sm sm:text-[15px] font-bold tracking-tight text-stone-900">
+                          {feature.title}
+                        </h3>
+                        <p className="text-xs sm:text-sm text-stone-500 font-normal">
+                          {feature.desc}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-8 flex flex-wrap items-center gap-4">
+                  <Link
+                    href="/about#waitlist"
+                    className="brand-button brand-button-primary px-7 py-3 text-xs tracking-wider uppercase !font-light"
                   >
-                    <h3 className="mb-2 text-4xl font-black tracking-tight text-[#095F46] sm:text-5xl lg:text-[34px] xl:text-4xl">
-                      <AnimatedCounter
-                        target={stat.target}
-                        decimals={stat.decimals}
-                        suffix={stat.suffix}
-                        duration={2000}
-                        start={statsActive}
-                      />
-                    </h3>
-                    <p className="stat-label mx-auto max-w-[150px] text-xs font-bold leading-snug tracking-tight text-stone-700 sm:text-sm lg:text-xs xl:text-sm">
-                      {stat.label === 'Teaching Hours Completed' ? (
-                        <>
-                          Teaching Hours<br />Completed
-                        </>
-                      ) : (
-                        stat.label
-                      )}
-                    </p>
+                    Join the Waitlist
+                  </Link>
+                  <Link
+                    href="#how-it-works"
+                    className="text-xs tracking-wider uppercase text-stone-700 hover:text-[#095F46] font-medium transition-colors"
+                  >
+                    See How It Works →
+                  </Link>
+                </div>
+              </motion.div>
+
+              {/* Right Column: High-Fidelity Scholar Teaching Visual with Floating Badges */}
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={revealViewport}
+                variants={sectionReveal}
+                className="relative lg:col-span-6 flex justify-center"
+              >
+                <div className="relative w-full max-w-lg lg:max-w-none">
+                  {/* Subtle warm golden background glow */}
+                  <div className="absolute -inset-4 bg-gradient-to-tr from-[#095F46]/10 via-[#EAD08A]/20 to-transparent rounded-[36px] blur-2xl -z-10" />
+
+                  {/* Main Image Frame */}
+                  <div className="relative aspect-[4/3] w-full rounded-3xl overflow-hidden border border-stone-200/90 shadow-[0_20px_50px_rgba(9,95,70,0.08)] bg-stone-100">
+                    <Image
+                      src="/images/why-ilm-scholar.jpg"
+                      alt="Verified Islamic scholar conducting 1:1 online Quran recitation lesson"
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover object-center"
+                    />
+
+                    {/* Subtle gradient overlay at bottom for badge contrast */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-stone-950/60 via-transparent to-transparent pointer-events-none" />
+
+                    {/* Floating Top-Right Glass Badge: Verified Scholar */}
+                    <div className="absolute top-4 right-4 flex items-center gap-2 rounded-full bg-white/95 backdrop-blur-md px-3.5 py-1.5 border border-white/80 shadow-lg text-xs font-semibold text-stone-900">
+                      <ShieldCheck className="w-4 h-4 text-[#095F46]" />
+                      <span>Verified Sanad Scholar</span>
+                    </div>
+
+                    {/* Floating Bottom Overlay: Live 1:1 Classroom */}
+                    <div className="absolute bottom-4 inset-x-4 flex items-center justify-between rounded-2xl bg-white/95 backdrop-blur-md p-3 sm:p-4 border border-white/80 shadow-lg">
+                      <div className="flex items-center gap-3">
+                        <div className="relative flex h-3 w-3">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10BF8D] opacity-75" />
+                          <span className="relative inline-flex rounded-full h-3 w-3 bg-[#095F46]" />
+                        </div>
+                        <div>
+                          <p className="text-xs sm:text-sm font-bold text-stone-950">Live 1:1 Sacred Session</p>
+                          <p className="text-[11px] text-stone-500">Tajweed phonetics &amp; real-time correction</p>
+                        </div>
+                      </div>
+                      <span className="hidden sm:inline-flex text-[11px] font-bold text-[#095F46] bg-[#095F46]/10 px-2.5 py-1 rounded-full">
+                        UK · US · AU · EU
+                      </span>
+                    </div>
                   </div>
-                ))}
-              </div>
-            </motion.div>
-            */}
+                </div>
+              </motion.div>
+            </div>
           </div>
         </section>
 

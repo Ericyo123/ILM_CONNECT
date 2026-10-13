@@ -5,29 +5,21 @@ import Image from 'next/image';
 import {
   Check,
   ChevronDown,
-  BookOpen,
-  HeartHandshake,
-  ShieldCheck,
-  Award,
-  Sparkles,
-  GraduationCap,
-  Users,
-  Clock,
+  ClipboardList,
+  CalendarClock,
+  UserRoundCheck,
   ChevronRight,
   X,
 } from 'lucide-react';
-import { motion, type Variants } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
+import styles from './about-refinement.module.css';
+import PublicPageHero, { publicPageFadeUp as fadeUp } from '@/components/public-page-hero';
 import CountryPhoneInput from '@/components/country-phone-input';
 import {
   formatInternationalPhone,
   getCountryCallingCode,
   type CountryCallingCode,
 } from '@/lib/country-calling-codes';
-
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 22 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
-};
 
 // ---------------------------------------------------------------------------
 // Flag SVGs & Regions Data (UK, Europe, Australia, US)
@@ -124,24 +116,21 @@ const pillars = [
     title: 'Talaqqi with Sanad',
     arabic: 'التلقي والمشافهة',
     subtitle: 'Living Oral Transmission',
-    desc: 'The Quran has always been taught mouth-to-ear, heart-to-heart. Direct recitation correction connected through unbroken chains tracing back to the Messenger of Allah ﷺ.',
-    icon: BookOpen,
+    desc: 'Students recite directly to their scholar, who listens and corrects pronunciation. Talaqqi keeps oral transmission at the centre of Quran learning.',
   },
   {
     number: '02',
     title: 'Adab Before Ilm',
     arabic: 'الأدب قبل العلم',
     subtitle: 'Nurturing with Gentle Character',
-    desc: 'Knowledge without character is barren. Our scholars teach with prophetic patience, encouragement, and warmth—ensuring a student never feels fear, anxiety, or shame.',
-    icon: HeartHandshake,
+    desc: 'Patience, good manners, and encouragement belong in every lesson. Students need room to ask questions, make mistakes, and try again.',
   },
   {
     number: '03',
     title: 'Amanah & Ihsan',
     arabic: 'الأمانة والإحسان',
     subtitle: 'Sacred Trust & Professionalism',
-    desc: 'We treat your family’s learning as a sacred trust. Strict child safeguarding, vetted educators, reliable scheduling, and transparent milestone tracking for parents.',
-    icon: ShieldCheck,
+    desc: 'Teaching is a responsibility to the student and their family. Careful preparation, reliable scheduling, and clear communication are part of that trust.',
   },
 ];
 
@@ -153,29 +142,25 @@ const vettingTiers = [
     step: '01',
     title: 'Sanad & Degree Audit',
     subtitle: 'Classical Authorization',
-    desc: 'Formal university degrees from Al-Azhar, Islamic University of Madinah, and verified Darul Ulooms, along with accredited Ijazah certificates.',
-    icon: GraduationCap,
+    desc: 'Review of formal qualifications, Ijazah certificates, and the scholar’s chain of transmission.',
   },
   {
     step: '02',
     title: 'Tajweed Oral Exam',
     subtitle: 'Rigorous Board Review',
-    desc: 'Live examination of theoretical rules, precision articulation points (Makharij), and melodic recitation cadence before our Senior Academic Board.',
-    icon: Award,
+    desc: 'Live recitation assessment covering Tajweed rules, articulation points (Makharij), and pronunciation.',
   },
   {
     step: '03',
     title: 'Families Abroad Pedagogy',
     subtitle: 'English & Cultural Fluency',
-    desc: 'Evaluated for English articulation and cross-cultural empathy to connect naturally with children and youth raised in the UK, US, Europe & Australia.',
-    icon: Users,
+    desc: 'Assessment of clear English communication and the ability to teach children from Sri Lankan families living abroad in the UK, US, Europe, and Australia.',
   },
   {
     step: '04',
     title: 'Safeguarding & Adab',
     subtitle: 'Positive Reinforcement',
-    desc: 'Comprehensive identity verification, international background checks, and certification in gentle, child-centred positive pedagogy.',
-    icon: ShieldCheck,
+    desc: 'Review of identity, safeguarding, and the scholar’s approach to patient, age-appropriate teaching.',
   },
 ];
 
@@ -187,25 +172,25 @@ const pedagogyMilestones = [
     phase: 'Phase 1',
     title: 'Al-Asaas (Foundations)',
     subtitle: 'Noorani Qaida',
-    desc: 'Gentle phonics and letter recognition. Building early phonetic confidence without tears or frustration.',
+    desc: 'Learn Arabic letters, their sounds, and how they join through guided Noorani Qaida practice.',
   },
   {
     phase: 'Phase 2',
     title: 'At-Tilawah (Fluency)',
     subtitle: 'Tajweed Mastery',
-    desc: 'Melodic pronunciation, mastering Madd, Ghunnah, and pause rules with personalized, live oral correction.',
+    desc: 'Practise Madd, Ghunnah, and pause rules with direct pronunciation feedback from your scholar.',
   },
   {
     phase: 'Phase 3',
     title: 'Al-Hifz (Preservation)',
     subtitle: 'Systematic Retention',
-    desc: 'Structured memorization coupled with proven retention systems (Muraja’ah) and age-appropriate reflection.',
+    desc: 'Build memorisation gradually, with regular revision (Muraja’ah) alongside new passages.',
   },
   {
     phase: 'Phase 4',
     title: 'Al-Akhlaq (Living the Deen)',
     subtitle: 'Character & Sunnah',
-    desc: 'Daily prophetic du’as, authentic manners, and building an unshakeable, joyful pride in Muslim identity.',
+    desc: 'Bring learning into daily life through prophetic du’as, good manners, and reflection.',
   },
 ];
 
@@ -215,22 +200,23 @@ const pedagogyMilestones = [
 const parentPromises = [
   {
     title: 'Dedicated 1:1 Scholar',
-    desc: 'Your child learns with the same trusted scholar every week—fostering genuine mentorship, familiarity, and emotional comfort.',
-    icon: Users,
+    desc: 'The same scholar each week, with time to understand your child’s pace and learning needs.',
+    icon: UserRoundCheck,
   },
   {
     title: 'Continuous Visibility',
-    desc: 'Direct audio recordings of milestone recitations and clear term reports delivered directly to your parent dashboard.',
-    icon: Sparkles,
+    desc: 'Follow your child’s progress through recitation recordings and term reports in your parent dashboard.',
+    icon: ClipboardList,
   },
   {
     title: 'Adaptive Family Scheduling',
-    desc: 'Designed around school runs, weekend sports, and international time zones. Reschedule smoothly when life happens.',
-    icon: Clock,
+    desc: 'Plan lessons around school, family commitments, and your time zone, with flexible rescheduling.',
+    icon: CalendarClock,
   },
 ];
 
 export default function AboutPage() {
+  const shouldReduceMotion = useReducedMotion();
   const [waitlistName, setWaitlistName] = useState('');
   const [waitlistEmail, setWaitlistEmail] = useState('');
   const [waitlistPhone, setWaitlistPhone] = useState('');
@@ -284,55 +270,20 @@ export default function AboutPage() {
       {/* ========================================================================= */}
       {/* 1. HERO SECTION — Clean Headline Only, No Tags, No Paragraph, Subtle Arrow */}
       {/* ========================================================================= */}
-      <section className="relative min-h-[50vh] sm:min-h-[54vh] lg:min-h-[58vh] flex flex-col justify-between overflow-hidden bg-stone-950 text-white select-none">
-        {/* Background Visual with Signature Multi-Layer Ambient Lighting */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/about-hero-scholar-monochrome.jpg"
-            alt="Islamic scholar reading the Quran in a mosque courtyard"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-[55%_48%] opacity-90"
-          />
+      <PublicPageHero
+        title="A Trusted Bridge Between"
+        subtitle="Scholars & Students Worldwide"
+        image="/images/about-hero-scholar-monochrome.jpg"
+        imageAlt="Islamic scholar reading the Quran in a mosque courtyard"
+        imageClassName="object-cover object-[55%_48%] opacity-90"
+        scrollTarget="#story"
+        scrollLabel="Scroll down to our story"
+        overlay={<>
           <div className="absolute inset-0 bg-[#095F46]/25 mix-blend-multiply" />
           <div className="absolute inset-0 bg-gradient-to-b from-[#031e18]/85 via-[#095F46]/20 to-[#031e18]/95" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,rgba(3,30,24,0.65)_100%)]" />
-        </div>
-
-        {/* Top spacer for fixed header alignment */}
-        <div className="w-full h-16 sm:h-20 pointer-events-none" aria-hidden="true" />
-
-        {/* Center Hero Content: Headline wording only */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.15 }}
-          variants={fadeUp}
-          className="relative z-20 mt-auto pb-8 sm:pb-12 pt-6 px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center"
-        >
-          <div className="relative mx-auto max-w-4xl w-full">
-            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-snug drop-shadow-md max-w-3xl mx-auto font-bricolage">
-              <span className="block">A Trusted Bridge Between</span>
-              <span className="block text-[#EAD08A] font-semibold text-xl sm:text-3xl lg:text-[34px] mt-1.5">
-                Scholars &amp; Students Worldwide
-              </span>
-            </h1>
-
-            {/* Subtle Down Arrow */}
-            <a
-              href="#story"
-              aria-label="Scroll down to our story"
-              className="mt-8 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white/70 hover:text-white hover:bg-white/20 transition-all backdrop-blur-sm"
-            >
-              <ChevronDown className="h-5 w-5 animate-bounce" />
-            </a>
-          </div>
-        </motion.div>
-
-        {/* Subtle Bottom Ambient Spacer */}
-        <div className="relative z-20 pb-2" />
-      </section>
+        </>}
+      />
 
       {/* ========================================================================= */}
       {/* 2. OUR STORY — Why We Started Ilmbit (The Dilemma & The Mission) */}
@@ -568,61 +519,42 @@ export default function AboutPage() {
       {/* ========================================================================= */}
       {/* 4. THE THREE SACRED PILLARS — Arkan al-Ilm (No Tags) */}
       {/* ========================================================================= */}
-      <section className="relative z-10 py-16 sm:py-20 lg:py-24 border-b border-stone-200/70">
+      <section className={styles.section} aria-labelledby="pillars-heading">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
           
-          <div className="text-center max-w-3xl mx-auto space-y-2.5">
-            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 font-bricolage">
+          <div className={styles.pillarsIntro}>
+            <h2 id="pillars-heading" className={styles.heading}>
               Three Sacred Pillars of Every Lesson
             </h2>
-            <p className="text-stone-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-              Knowledge without character is empty. We anchor every minute of instruction in traditional adab and authentic transmission.
+            <p className={styles.intro}>
+              How we teach matters as much as what we teach. Oral transmission, good character, and responsibility guide every lesson.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            {pillars.map((pillar) => {
-              const IconComponent = pillar.icon;
-              return (
-                <motion.div
+          <motion.div className={styles.pillarsGrid} initial={shouldReduceMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={fadeUp}>
+            {pillars.map((pillar) => (
+                <article
                   key={pillar.title}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.15 }}
-                  variants={fadeUp}
-                  className="rounded-3xl border border-stone-200/90 bg-white p-7 sm:p-8 shadow-[0_4px_20px_rgba(0,0,0,0.02)] flex flex-col justify-between hover:-translate-y-1 transition-all duration-300"
+                  className={styles.pillar}
                 >
-                  <div>
-                    <div className="flex items-center justify-between mb-6">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#095F46] text-white shadow-md shadow-[#095F46]/20">
-                        <IconComponent className="h-6 w-6 stroke-[2]" />
-                      </div>
-                      <span className="text-3xl font-black text-stone-200 font-bricolage">
+                    <div className={styles.pillarMeta}>
+                      <span className={styles.number} aria-hidden="true">
                         {pillar.number}
                       </span>
+                      <p className={styles.arabic} lang="ar" dir="rtl">{pillar.arabic}</p>
                     </div>
-
-                    <p className="text-xs font-semibold text-stone-400 uppercase tracking-wider font-arabic mb-1">
-                      {pillar.arabic}
-                    </p>
-                    <h3 className="text-2xl font-bold tracking-tight text-stone-950 font-bricolage mb-1">
+                    <h3 className={styles.itemHeading}>
                       {pillar.title}
                     </h3>
-                    <p className="text-xs font-semibold text-[#095F46] mb-3">
+                    <p className={styles.caption}>
                       {pillar.subtitle}
                     </p>
-                    <p className="text-stone-600 text-sm leading-relaxed font-normal">
+                    <p className={styles.body}>
                       {pillar.desc}
                     </p>
-                  </div>
-
-                  <div className="mt-6 pt-4 border-t border-stone-100 flex items-center gap-2 text-xs font-medium text-stone-700">
-                    <Check className="h-4 w-4 text-[#095F46]" /> Non-negotiable standard
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
+                </article>
+            ))}
+          </motion.div>
 
         </div>
       </section>
@@ -630,75 +562,56 @@ export default function AboutPage() {
       {/* ========================================================================= */}
       {/* 5. THE SANAD GUARANTEE — 4-Tier Scholar Accreditation Protocol (No Tags) */}
       {/* ========================================================================= */}
-      <section className="relative z-10 py-16 sm:py-20 lg:py-24 bg-[#f8faf8] border-b border-stone-200/60">
+      <section className={`${styles.section} ${styles.tint}`} aria-labelledby="vetting-heading">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
           
-          <div className="text-center max-w-3xl mx-auto space-y-2.5">
-            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 font-bricolage">
+          <div className={styles.centerIntro}>
+            <h2 id="vetting-heading" className={styles.heading}>
               How We Vet &amp; Verify Every Scholar
             </h2>
-            <p className="text-stone-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-              Only the top 3% of scholarly applicants teach on Ilmbit. We verify lineage, pedagogy, and character before anyone enters a classroom.
+            <p className={styles.intro}>
+              Qualifications are one part of the review. Recitation, communication, and care for students matter too.
             </p>
           </div>
 
-          {/* 4-Step Stepper Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {vettingTiers.map((tier) => {
-              const IconComp = tier.icon;
-              return (
-                <motion.div
+          <motion.div className={styles.vettingGrid} initial={shouldReduceMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={fadeUp}>
+            {vettingTiers.map((tier) => (
+                <article
                   key={tier.step}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.15 }}
-                  variants={fadeUp}
-                  className="rounded-3xl border border-stone-200 bg-white p-6 shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow"
+                  className={styles.vettingItem}
                 >
-                  <div>
-                    <div className="flex items-center justify-between mb-5">
-                      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-stone-900 text-white text-xs font-bold font-bricolage">
+                  <div aria-hidden="true" className={styles.vettingNumber}>
+                      <span className={styles.number}>
                         {tier.step}
                       </span>
-                      <IconComp className="h-5 w-5 text-[#095F46]" />
-                    </div>
-                    <h3 className="text-lg font-bold tracking-tight text-stone-950 font-bricolage mb-1">
+                      <span className={styles.rule} />
+                  </div>
+                  <h3 className={styles.vettingHeading}>
                       {tier.title}
-                    </h3>
-                    <p className="text-xs font-semibold text-[#095F46] mb-3">
-                      {tier.subtitle}
-                    </p>
-                    <p className="text-stone-600 text-xs sm:text-sm leading-relaxed">
+                  </h3>
+                  <div className={styles.vettingDescription}>
+                    <p className={styles.body}>
                       {tier.desc}
                     </p>
                   </div>
 
-                  <div className="mt-6 pt-3 border-t border-stone-100 flex items-center gap-1.5 text-[11px] font-medium text-stone-500">
-                    <Check className="h-3.5 w-3.5 text-[#095F46]" /> Mandatory clearance
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
+                </article>
+            ))}
+          </motion.div>
 
           {/* Institutional Heritage Callout */}
-          <div className="rounded-2xl border border-stone-200/80 bg-white p-5 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left shadow-sm">
-            <div className="flex items-center gap-4">
-              <div className="hidden sm:flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#095F46]/10 text-[#095F46]">
-                <GraduationCap className="h-6 w-6" />
-              </div>
+          <div className={styles.matchRow}>
               <div>
-                <p className="text-sm font-bold text-stone-900 font-bricolage">
-                  Scholars certified through historic centres of learning
+                <p className={styles.matchTitle}>
+                  A scholar suited to your family
                 </p>
-                <p className="text-xs text-stone-600 mt-0.5">
-                  Graduates from Al-Azhar University, Islamic University of Madinah, and renowned traditional Darul Ulooms.
+                <p className={`${styles.body} ${styles.matchDescription}`}>
+                  Tell us your learning goals and preferred schedule to request a match.
                 </p>
               </div>
-            </div>
             <a
               href="#waitlist"
-              className="brand-button brand-button-primary px-6 py-2 text-xs font-bold shrink-0"
+              className={`brand-button brand-button-primary ${styles.matchButton}`}
             >
               Request Scholar Match
             </a>
@@ -710,51 +623,44 @@ export default function AboutPage() {
       {/* ========================================================================= */}
       {/* 6. OUR PEDAGOGY — 4 Milestones of Learning (No Tags) */}
       {/* ========================================================================= */}
-      <section className="relative z-10 py-16 sm:py-20 lg:py-24 border-b border-stone-200/60">
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
+      <section className={styles.section} aria-labelledby="pathway-heading">
+        <div className={`mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 ${styles.pathwayLayout}`}>
           
-          <div className="text-center max-w-3xl mx-auto space-y-2.5">
-            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 font-bricolage">
+          <div className="min-w-0 space-y-4 text-left">
+            <h2 id="pathway-heading" className={styles.heading}>
               A Gentle Pathway from First Letters to Fluency
             </h2>
-            <p className="text-stone-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-              Every student progresses at their own pace with tailored 1:1 guidance designed to foster confidence and love for the Quran.
+            <p className={styles.intro}>
+              A clear route through the foundations, recitation, memorisation, and daily practice. Your scholar adapts the pace to the student.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {pedagogyMilestones.map((milestone, idx) => (
-              <motion.div
+          <motion.div className={styles.pathwayGrid} initial={shouldReduceMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={fadeUp}>
+            {pedagogyMilestones.map((milestone) => (
+              <article
                 key={milestone.title}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.15 }}
-                variants={fadeUp}
-                className="rounded-3xl border border-stone-200 bg-white p-6 shadow-sm flex flex-col justify-between"
+                className={styles.milestone}
               >
                 <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-xs font-bold text-[#095F46]">
+                  <div className={styles.milestoneMeta}>
+                    <span className={styles.phase}>
                       {milestone.phase}
                     </span>
-                    <span className="text-xs font-semibold text-stone-500">
+                    <span className={styles.course}>
                       {milestone.subtitle}
                     </span>
                   </div>
-                  <h3 className="text-xl font-bold tracking-tight text-stone-950 font-bricolage mb-2">
+                  <h3 className={styles.itemHeading}>
                     {milestone.title}
                   </h3>
-                  <p className="text-stone-600 text-xs sm:text-sm leading-relaxed">
+                  <p className={styles.body}>
                     {milestone.desc}
                   </p>
                 </div>
 
-                <div className="mt-6 pt-3 border-t border-stone-100 text-[11px] font-medium text-stone-400">
-                  Step 0{idx + 1} of 04
-                </div>
-              </motion.div>
+              </article>
             ))}
-          </div>
+          </motion.div>
 
         </div>
       </section>
@@ -762,49 +668,42 @@ export default function AboutPage() {
       {/* ========================================================================= */}
       {/* 7. THE PARENT PROMISE — Peace of Mind for Families (No Tags) */}
       {/* ========================================================================= */}
-      <section className="relative z-10 py-16 sm:py-20 lg:py-24 bg-[#f8faf8] border-b border-stone-200/60">
+      <section className={`${styles.section} ${styles.tint}`} aria-labelledby="parents-heading">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
           
-          <div className="text-center max-w-3xl mx-auto space-y-2.5">
-            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 font-bricolage">
-              Complete Peace of Mind for Parents
+          <div className={styles.centerIntro}>
+            <h2 id="parents-heading" className={styles.heading}>
+              <span className="text-[#095F46]">Complete Peace of Mind</span> for Parents
             </h2>
-            <p className="text-stone-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-              We know how much trust it takes to hand your child’s religious education to an online school. Here is our ongoing commitment to your family.
+            <p className={styles.intro}>
+              A familiar teacher, a clear view of progress, and lesson times that work for your family.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            {parentPromises.map((promise) => {
+          <motion.div className={styles.parentsGrid} initial={shouldReduceMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={fadeUp}>
+            {parentPromises.map((promise, idx) => {
               const Icon = promise.icon;
               return (
-                <motion.div
+                <article
                   key={promise.title}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.15 }}
-                  variants={fadeUp}
-                  className="rounded-3xl border border-stone-200 bg-white p-7 shadow-sm flex flex-col justify-between"
+                  className={styles.promise}
                 >
-                  <div>
-                    <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#095F46]/10 text-[#095F46]">
-                      <Icon className="h-6 w-6 stroke-[2]" />
-                    </div>
-                    <h3 className="text-xl font-bold tracking-tight text-stone-950 font-bricolage mb-2">
+                  <span aria-hidden="true" className={styles.promiseNumber}>
+                    {String(idx + 1).padStart(2, '0')}
+                  </span>
+                  <div className={styles.promiseContent}>
+                    <Icon aria-hidden="true" className={styles.promiseIcon} />
+                    <h3 className={styles.promiseHeading}>
                       {promise.title}
                     </h3>
-                    <p className="text-stone-600 text-xs sm:text-sm leading-relaxed">
+                    <p className={styles.body}>
                       {promise.desc}
                     </p>
                   </div>
-
-                  <div className="mt-6 pt-3 border-t border-stone-100 flex items-center gap-1.5 text-xs font-medium text-[#095F46]">
-                    <Check className="h-4 w-4" /> Guaranteed standard
-                  </div>
-                </motion.div>
+                </article>
               );
             })}
-          </div>
+          </motion.div>
 
         </div>
       </section>

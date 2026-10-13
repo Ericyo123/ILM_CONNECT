@@ -161,9 +161,13 @@ button {
   }
 }
 
-a[class*="bg-[#095F46]"],
-a[class*="bg-[hsl(var(--primary))]"] {
+a[class*="bg-[#095F46]"]:not(.hero-bottom-marquee),
+a[class*="bg-[hsl(var(--primary))]"]:not(.hero-bottom-marquee) {
   border-radius: var(--radius-action);
+}
+
+.hero-bottom-marquee {
+  border-radius: 0 !important;
 }
 
 h1,

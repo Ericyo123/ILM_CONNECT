@@ -390,7 +390,7 @@ export default function HomePage() {
         {/* ========================================================================= */}
         <Link
           href="/about#waitlist"
-          className="group relative z-30 w-full bg-[#095F46] hover:bg-[#074D38] border-t border-emerald-400/25 text-white py-3 sm:py-3.5 overflow-hidden flex items-center transition-colors duration-200 shadow-[0_-4px_25px_rgba(0,0,0,0.5)] cursor-pointer shrink-0"
+          className="hero-bottom-marquee group relative z-30 w-full !rounded-none rounded-none bg-[#095F46] hover:bg-[#074D38] border-t border-emerald-400/25 text-white py-3 sm:py-3.5 overflow-hidden flex items-center transition-colors duration-200 shadow-[0_-4px_25px_rgba(0,0,0,0.5)] cursor-pointer shrink-0"
           aria-label="Join the waitlist and get 20% off"
         >
           <div className="flex w-full overflow-hidden select-none">

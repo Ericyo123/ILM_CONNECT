@@ -208,9 +208,9 @@ const heroImagesList = [
   },
   {
     id: 2,
-    label: 'Al-Aqsa Mosque Sanctuary',
-    src: '/images/hero-pexels-1.jpg',
-    alt: 'Majestic view of the sacred Al-Aqsa sanctuary and Dome of the Rock under radiant sky',
+    label: 'Student Reciting the Holy Quran',
+    src: '/images/hero-pexels-5.jpg',
+    alt: 'Student of knowledge reverently reciting the Holy Quran placed on a traditional wooden book stand',
   },
   {
     id: 3,

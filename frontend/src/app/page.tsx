@@ -360,10 +360,10 @@ export default function HomePage() {
           className="relative z-20 my-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-center max-w-5xl mx-auto w-full"
         >
           <div className="relative mx-auto max-w-5xl w-full">
-            {/* 2-Line Headline: Crisp drop-shadow hugging glyphs naturally with no circular blotches */}
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] xl:text-[50px] font-bold tracking-tight text-white leading-[1.2] drop-shadow-[0_4px_18px_rgba(0,0,0,0.85)] max-w-5xl mx-auto font-bricolage text-center [text-shadow:_0_2px_14px_rgb(0_0_0_/_75%)]">
+            {/* 2-Line Headline: Refined font sizing (+3-4pt) and soft, subtle shadow */}
+            <h1 className="text-[28px] sm:text-[34px] md:text-[40px] lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-white leading-[1.2] drop-shadow-[0_2px_10px_rgba(0,0,0,0.40)] max-w-5xl mx-auto font-bricolage text-center">
               <span className="block text-white sm:whitespace-nowrap">Learn Quran &amp; Islamic Studies</span>
-              <span className="block text-[#EAD08A] mt-2 sm:mt-2.5 sm:whitespace-nowrap drop-shadow-[0_4px_18px_rgba(0,0,0,0.85)]">
+              <span className="block text-[#EAD08A] mt-2 sm:mt-2.5 sm:whitespace-nowrap">
                 from Qualified Scholars Worldwide
               </span>
             </h1>

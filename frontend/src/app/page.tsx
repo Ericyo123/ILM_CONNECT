@@ -10,7 +10,6 @@ import {
   ArrowLeft,
   ArrowRight,
   X,
-  Sparkles,
 } from 'lucide-react';
 import { motion, useInView, AnimatePresence, type Variants } from 'framer-motion';
 import WaitlistModal from '@/components/waitlist-modal';
@@ -360,10 +359,10 @@ export default function HomePage() {
           className="relative z-20 my-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-center max-w-5xl mx-auto w-full"
         >
           <div className="relative mx-auto max-w-5xl w-full">
-            {/* 2-Line Headline: Refined font sizing (+3-4pt) and soft, subtle shadow */}
-            <h1 className="text-[28px] sm:text-[34px] md:text-[40px] lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-white leading-[1.2] drop-shadow-[0_2px_10px_rgba(0,0,0,0.40)] max-w-5xl mx-auto font-bricolage text-center">
+            {/* 2-Line Headline: Tight line spacing and soft, subtle shadow */}
+            <h1 className="text-[28px] sm:text-[34px] md:text-[40px] lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-white leading-[1.08] drop-shadow-[0_2px_10px_rgba(0,0,0,0.40)] max-w-5xl mx-auto font-bricolage text-center">
               <span className="block text-white sm:whitespace-nowrap">Learn Quran &amp; Islamic Studies</span>
-              <span className="block text-[#EAD08A] mt-2 sm:mt-2.5 sm:whitespace-nowrap">
+              <span className="block text-[#EAD08A] mt-0.5 sm:mt-1 sm:whitespace-nowrap">
                 from Qualified Scholars Worldwide
               </span>
             </h1>
@@ -388,55 +387,6 @@ export default function HomePage() {
 
         {/* Bottom counterbalance spacer */}
         <div className="w-full h-16 sm:h-20 shrink-0 pointer-events-none" aria-hidden="true" />
-
-        {/* ========================================================================= */}
-        {/* Right-Side Vertical Marquee "Join the Waitlist" Line Button (Hero Only) */}
-        {/* ========================================================================= */}
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 z-30 flex items-center">
-          {/* Subtle vertical architectural guide line running along the right side */}
-          <div className="hidden lg:block absolute right-0 top-[-140px] bottom-[-140px] w-[1px] bg-gradient-to-b from-transparent via-white/15 to-transparent pointer-events-none" />
-
-          {/* Interactive Vertical Marquee Ribbon Button */}
-          <button
-            type="button"
-            onClick={() => setIsWaitlistOpen(true)}
-            aria-label="Join the Waitlist"
-            className="group relative flex flex-col items-center justify-between h-72 sm:h-80 w-8 sm:w-9 bg-stone-950/75 hover:bg-[#095F46]/90 backdrop-blur-xl border-l-2 border-y border-r-0 border-l-[#EAD08A] border-y-white/10 hover:border-l-white hover:border-y-white/25 rounded-l-2xl shadow-[0_10px_35px_rgba(0,0,0,0.65)] hover:shadow-[0_0_35px_rgba(9,95,70,0.6)] transition-all duration-300 ease-out py-3.5 cursor-pointer select-none hover:-translate-x-1 focus:outline-none focus:ring-2 focus:ring-[#EAD08A]/50"
-          >
-            {/* Top pulsing status indicator */}
-            <div className="relative flex h-2 w-2 shrink-0 mb-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10BF8D] opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#10BF8D]" />
-            </div>
-
-            {/* Vertical Marquee Strip */}
-            <div className="overflow-hidden flex-1 w-full relative flex justify-center py-1">
-              <div className="animate-hero-vertical-marquee [writing-mode:vertical-rl] text-[10px] sm:text-[11px] font-medium tracking-[0.24em] uppercase text-stone-200 group-hover:text-white transition-colors gap-8 shrink-0">
-                <div className="flex items-center gap-3">
-                  <span className="text-white font-semibold">Join The Waitlist</span>
-                  <span className="text-[#EAD08A]">✦</span>
-                  <span className="text-[#EAD08A]/95">Early Access</span>
-                  <span className="text-[#EAD08A]">✦</span>
-                </div>
-                <div className="flex items-center gap-3" aria-hidden="true">
-                  <span className="text-white font-semibold">Join The Waitlist</span>
-                  <span className="text-[#EAD08A]">✦</span>
-                  <span className="text-[#EAD08A]/95">Early Access</span>
-                  <span className="text-[#EAD08A]">✦</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom sparkle icon */}
-            <Sparkles className="w-3.5 h-3.5 text-[#EAD08A] group-hover:text-white shrink-0 mt-2 transition-transform duration-300 group-hover:rotate-12" />
-
-            {/* Tooltip on hover (slides in from right) */}
-            <span className="pointer-events-none absolute right-full mr-3.5 px-3 py-1.5 rounded-full bg-stone-900/95 backdrop-blur-md border border-white/15 text-[11px] font-medium text-white tracking-wide shadow-xl opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap hidden sm:flex items-center gap-1.5">
-              <span>Join the 1:1 Scholar Waitlist</span>
-              <span className="text-[#EAD08A]">→</span>
-            </span>
-          </button>
-        </div>
       </section>
 
       {/* ========================================================================= */}

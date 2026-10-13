@@ -564,23 +564,3 @@ p {
   pointer-events: none;
 }
 
-/* Hero Section Right-Side Vertical Marquee Line Button */
-@keyframes heroVerticalMarquee {
-  0% {
-    transform: translateY(0%);
-  }
-  100% {
-    transform: translateY(-50%);
-  }
-}
-
-.animate-hero-vertical-marquee {
-  display: flex;
-  flex-direction: column;
-  animation: heroVerticalMarquee 14s linear infinite;
-}
-
-.animate-hero-vertical-marquee:hover {
-  animation-play-state: paused;
-}
-

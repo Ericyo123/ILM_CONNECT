@@ -299,10 +299,11 @@ export default function HomePage() {
         >
           <div className="w-full max-w-7xl px-5 sm:px-7">
             <div className="max-w-2xl lg:max-w-3xl flex flex-col items-start text-left">
-              {/* 2-Line Headline: Tight line spacing and soft, subtle shadow */}
-              <h1 className="text-[28px] sm:text-[34px] md:text-[40px] lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-white leading-[1.08] drop-shadow-[0_2px_10px_rgba(0,0,0,0.40)] font-bricolage text-left">
-                <span className="block text-white">Learn Quran &amp; Islamic Studies</span>
-                <span className="block text-[#EAD08A] mt-0.5 sm:mt-1">
+              {/* 3-Line Triangle Format Headline (Short peak -> Medium -> Long base in 1 line) */}
+              <h1 className="text-[28px] sm:text-[34px] md:text-[40px] lg:text-[48px] xl:text-[52px] font-bold tracking-tight text-white leading-[1.12] drop-shadow-[0_2px_10px_rgba(0,0,0,0.40)] font-bricolage text-left">
+                <span className="block text-white">Learn Quran</span>
+                <span className="block text-white mt-1 sm:mt-1.5">&amp; Islamic Studies</span>
+                <span className="block text-[#EAD08A] mt-2 sm:mt-2.5 text-[20px] sm:text-[25px] md:text-[30px] lg:text-[35px] xl:text-[38px] font-semibold tracking-tight whitespace-nowrap">
                   from Qualified Scholars Worldwide
                 </span>
               </h1>
@@ -327,7 +328,7 @@ export default function HomePage() {
         </motion.div>
 
         {/* ========================================================================= */}
-        {/* Bottom Green Fat Line Marquee — Infinite Scroll to Waitlist Section */}
+        {/* Bottom Green Fat Line Marquee — Infinite Seamless Scroll to Waitlist */}
         {/* ========================================================================= */}
         <Link
           href="/about#waitlist"
@@ -336,32 +337,32 @@ export default function HomePage() {
         >
           <div className="flex w-full overflow-hidden select-none">
             <div className="animate-hero-marquee flex items-center whitespace-nowrap shrink-0">
-              {[...Array(6)].map((_, i) => (
-                <div key={i} className="flex items-center gap-6 sm:gap-8 mx-4 sm:mx-6">
+              {[...Array(8)].map((_, i) => (
+                <div key={i} className="flex items-center gap-6 sm:gap-8 mx-4 sm:mx-6 shrink-0">
                   <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-white drop-shadow-sm flex items-center gap-2">
                     <span>Join The Waitlist &amp; Get 20% Off</span>
                     <span className="text-emerald-200 group-hover:translate-x-0.5 transition-transform">→</span>
                   </span>
-                  <span className="text-[#EAD08A] text-xs sm:text-sm">✦</span>
+                  <span className="text-[#EAD08A] text-xs sm:text-sm" aria-hidden="true">✦</span>
                   <span className="text-xs sm:text-sm font-medium tracking-wide uppercase text-emerald-100/90">
                     Limited Early Access Offer
                   </span>
-                  <span className="text-[#EAD08A] text-xs sm:text-sm">✦</span>
+                  <span className="text-[#EAD08A] text-xs sm:text-sm" aria-hidden="true">✦</span>
                 </div>
               ))}
             </div>
             <div className="animate-hero-marquee flex items-center whitespace-nowrap shrink-0" aria-hidden="true">
-              {[...Array(6)].map((_, i) => (
-                <div key={`dup-${i}`} className="flex items-center gap-6 sm:gap-8 mx-4 sm:mx-6">
+              {[...Array(8)].map((_, i) => (
+                <div key={`dup-${i}`} className="flex items-center gap-6 sm:gap-8 mx-4 sm:mx-6 shrink-0">
                   <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-white drop-shadow-sm flex items-center gap-2">
                     <span>Join The Waitlist &amp; Get 20% Off</span>
                     <span className="text-emerald-200 group-hover:translate-x-0.5 transition-transform">→</span>
                   </span>
-                  <span className="text-[#EAD08A] text-xs sm:text-sm">✦</span>
+                  <span className="text-[#EAD08A] text-xs sm:text-sm" aria-hidden="true">✦</span>
                   <span className="text-xs sm:text-sm font-medium tracking-wide uppercase text-emerald-100/90">
                     Limited Early Access Offer
                   </span>
-                  <span className="text-[#EAD08A] text-xs sm:text-sm">✦</span>
+                  <span className="text-[#EAD08A] text-xs sm:text-sm" aria-hidden="true">✦</span>
                 </div>
               ))}
             </div>

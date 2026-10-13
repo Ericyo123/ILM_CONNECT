@@ -580,11 +580,14 @@ p {
 
 .animate-hero-marquee {
   display: flex;
+  align-items: center;
+  flex-shrink: 0;
   animation: heroMarquee 32s linear infinite;
   will-change: transform;
 }
 
-.animate-hero-marquee:hover {
+/* Synchronized hover: pause both tracks together via parent so they never desynchronize or overlap */
+.hero-bottom-marquee:hover .animate-hero-marquee {
   animation-play-state: paused;
 }
 

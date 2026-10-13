@@ -385,8 +385,47 @@ export default function HomePage() {
           </div>
         </motion.div>
 
-        {/* Bottom counterbalance spacer */}
-        <div className="w-full h-16 sm:h-20 shrink-0 pointer-events-none" aria-hidden="true" />
+        {/* ========================================================================= */}
+        {/* Bottom Green Fat Line Marquee — Infinite Scroll to Waitlist Section */}
+        {/* ========================================================================= */}
+        <Link
+          href="/about#waitlist"
+          className="group relative z-30 w-full bg-[#095F46] hover:bg-[#074D38] border-t border-emerald-400/25 text-white py-3 sm:py-3.5 overflow-hidden flex items-center transition-colors duration-200 shadow-[0_-4px_25px_rgba(0,0,0,0.5)] cursor-pointer shrink-0"
+          aria-label="Join the waitlist and get 20% off"
+        >
+          <div className="flex w-full overflow-hidden select-none">
+            <div className="animate-hero-marquee flex items-center whitespace-nowrap shrink-0">
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="flex items-center gap-6 sm:gap-8 mx-4 sm:mx-6">
+                  <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-white drop-shadow-sm flex items-center gap-2">
+                    <span>Join The Waitlist &amp; Get 20% Off</span>
+                    <span className="text-emerald-200 group-hover:translate-x-0.5 transition-transform">→</span>
+                  </span>
+                  <span className="text-[#EAD08A] text-xs sm:text-sm">✦</span>
+                  <span className="text-xs sm:text-sm font-medium tracking-wide uppercase text-emerald-100/90">
+                    Limited Early Access Offer
+                  </span>
+                  <span className="text-[#EAD08A] text-xs sm:text-sm">✦</span>
+                </div>
+              ))}
+            </div>
+            <div className="animate-hero-marquee flex items-center whitespace-nowrap shrink-0" aria-hidden="true">
+              {[...Array(6)].map((_, i) => (
+                <div key={`dup-${i}`} className="flex items-center gap-6 sm:gap-8 mx-4 sm:mx-6">
+                  <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-white drop-shadow-sm flex items-center gap-2">
+                    <span>Join The Waitlist &amp; Get 20% Off</span>
+                    <span className="text-emerald-200 group-hover:translate-x-0.5 transition-transform">→</span>
+                  </span>
+                  <span className="text-[#EAD08A] text-xs sm:text-sm">✦</span>
+                  <span className="text-xs sm:text-sm font-medium tracking-wide uppercase text-emerald-100/90">
+                    Limited Early Access Offer
+                  </span>
+                  <span className="text-[#EAD08A] text-xs sm:text-sm">✦</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Link>
       </section>
 
       {/* ========================================================================= */}

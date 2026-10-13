@@ -564,3 +564,23 @@ p {
   pointer-events: none;
 }
 
+/* Hero Section Bottom Infinite Scroll Marquee */
+@keyframes heroMarquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+.animate-hero-marquee {
+  display: flex;
+  animation: heroMarquee 32s linear infinite;
+  will-change: transform;
+}
+
+.animate-hero-marquee:hover {
+  animation-play-state: paused;
+}
+

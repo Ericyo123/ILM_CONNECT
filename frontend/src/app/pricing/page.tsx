@@ -275,15 +275,73 @@ export default function PricingPage() {
               onClick={() => setIsFastTrackOpen((open) => !open)}
               aria-expanded={isFastTrackOpen}
               aria-controls="fast-track-packages"
-              className="flex w-full items-center justify-between gap-4 py-3 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#095F46]"
+              className={
+                isFastTrackOpen
+                  ? "flex w-full items-center justify-between gap-4 py-3 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#095F46]"
+                  : "group relative flex w-full items-center justify-between gap-4 overflow-hidden rounded-2xl sm:rounded-3xl bg-[#095F46] hover:bg-[#08523c] px-6 py-5 sm:px-8 sm:py-6 text-left shadow-[0_12px_36px_rgba(9,95,70,0.18),0_2px_8px_rgba(0,0,0,0.06)] hover:shadow-[0_16px_44px_rgba(9,95,70,0.26)] transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#095F46]"
+              }
             >
-              <span className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                <span className="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 leading-[1.2]">Fast Track Plans</span>
-                <span className="text-sm sm:text-xl lg:text-2xl font-normal text-stone-500 whitespace-nowrap">3 sessions / week</span>
+              {/* Subtle decorative glow effect (only when closed in green container) */}
+              {!isFastTrackOpen && (
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -right-12 -top-12 h-44 w-44 rounded-full bg-emerald-400/15 blur-2xl transition-opacity duration-300 group-hover:opacity-100"
+                />
+              )}
+
+              <span className={`relative z-10 flex flex-wrap items-baseline gap-y-1 ${isFastTrackOpen ? 'gap-x-3' : 'gap-x-3 sm:gap-x-4'}`}>
+                <span
+                  className={
+                    isFastTrackOpen
+                      ? "text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 leading-[1.2]"
+                      : "text-2xl sm:text-3xl lg:text-[40px] font-bold tracking-tight text-white leading-[1.2]"
+                  }
+                >
+                  Fast Track Plans
+                </span>
+                <span
+                  className={
+                    isFastTrackOpen
+                      ? "text-sm sm:text-xl lg:text-2xl font-normal text-stone-500 whitespace-nowrap"
+                      : "text-sm sm:text-lg lg:text-2xl font-normal text-emerald-100/90 whitespace-nowrap"
+                  }
+                >
+                  3 sessions / week
+                </span>
               </span>
-              <span className="flex shrink-0 items-center gap-3 sm:gap-5">
-                <span className="text-right text-base sm:text-2xl font-bold text-[#095F46]">$89 / $89 / $89<span className="block text-xs sm:text-sm font-normal text-stone-500">per month</span></span>
-                <ChevronDown aria-hidden="true" className={`h-5 w-5 sm:h-6 sm:w-6 ${isFastTrackOpen ? 'rotate-180' : ''}`} />
+
+              <span className={`relative z-10 flex shrink-0 items-center ${isFastTrackOpen ? 'gap-3 sm:gap-5' : 'gap-3 sm:gap-6'}`}>
+                <span
+                  className={
+                    isFastTrackOpen
+                      ? "text-right text-base sm:text-2xl font-bold text-[#095F46]"
+                      : "text-right text-base sm:text-2xl lg:text-3xl font-bold text-white tracking-tight"
+                  }
+                >
+                  $89 / $89 / $89
+                  <span
+                    className={
+                      isFastTrackOpen
+                        ? "block text-xs sm:text-sm font-normal text-stone-500"
+                        : "block text-xs sm:text-sm font-normal text-emerald-100/80"
+                    }
+                  >
+                    per month
+                  </span>
+                </span>
+                {isFastTrackOpen ? (
+                  <ChevronDown
+                    aria-hidden="true"
+                    className="h-5 w-5 sm:h-6 sm:w-6 text-stone-700 rotate-180 transition-transform duration-300"
+                  />
+                ) : (
+                  <span className="flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur-sm group-hover:bg-white/25 transition-all duration-300">
+                    <ChevronDown
+                      aria-hidden="true"
+                      className="h-5 w-5 sm:h-6 sm:w-6 transition-transform duration-300"
+                    />
+                  </span>
+                )}
               </span>
             </button>
           </h2>

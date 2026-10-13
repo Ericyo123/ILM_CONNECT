@@ -18,7 +18,7 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const scrolledRef = useRef(false);
 
-  const isDarkHero = pathname === '/' || pathname === '/about';
+  const isDarkHero = pathname === '/' || pathname === '/about' || pathname === '/pricing';
 
   useEffect(() => {
     let frameId = 0;

@@ -214,39 +214,9 @@ const heroImagesList = [
   },
   {
     id: 3,
-    label: 'Ancient Heritage Citadel',
-    src: '/images/hero-pexels-2.jpg',
-    alt: 'Historic stone citadel and ancient heritage architecture nestled against scenic mountains',
-  },
-  {
-    id: 4,
-    label: 'Sacred Arches & Courtyard',
-    src: '/images/hero-pexels-3.png',
-    alt: 'Serene Islamic architectural arches and tranquil tiled sanctuary courtyard',
-  },
-  {
-    id: 5,
     label: 'Grand Mosque Minarets & Sacred Architecture',
     src: '/images/hero-pexels-4.jpg',
     alt: 'Grand Islamic sacred architecture with illuminated domes and towering minarets',
-  },
-  {
-    id: 6,
-    label: 'Medina Umbrellas & Courtyard',
-    src: '/images/hero-sacred-2.jpg',
-    alt: 'Sacred architectural arches and majestic canopies of the Prophet Mosque',
-  },
-  {
-    id: 7,
-    label: 'Sacred Mosque Archways',
-    src: '/images/hero-sacred-3.jpg',
-    alt: 'Intricate marble arches framing spiritual Islamic architecture',
-  },
-  {
-    id: 8,
-    label: 'Quran Manuscript with Rosette',
-    src: '/images/hero-sacred-4.jpg',
-    alt: 'Holy Quran illuminated manuscript calligraphy with sacred gilded margins',
   },
 ];
 
@@ -327,25 +297,34 @@ export default function HomePage() {
 
           {/* Angelic aesthetic warm golden filter & divine atmospheric radiance */}
           <div
-            className="absolute inset-0 pointer-events-none mix-blend-soft-light opacity-80"
+            className="absolute inset-0 pointer-events-none mix-blend-soft-light opacity-75"
             style={{
               background:
-                'linear-gradient(135deg, rgba(245, 222, 160, 0.55) 0%, rgba(220, 180, 85, 0.35) 45%, rgba(180, 135, 45, 0.40) 100%)',
+                'linear-gradient(135deg, rgba(245, 222, 160, 0.45) 0%, rgba(220, 180, 85, 0.25) 45%, rgba(180, 135, 45, 0.35) 100%)',
             }}
           />
           <div
-            className="absolute inset-0 pointer-events-none mix-blend-screen opacity-40"
+            className="absolute inset-0 pointer-events-none mix-blend-screen opacity-35"
             style={{
               background:
-                'radial-gradient(ellipse 85% 55% at 50% 12%, rgba(255, 248, 220, 0.65) 0%, rgba(234, 208, 138, 0.3) 50%, transparent 100%)',
+                'radial-gradient(ellipse 85% 55% at 50% 12%, rgba(255, 248, 220, 0.55) 0%, rgba(234, 208, 138, 0.25) 50%, transparent 100%)',
             }}
           />
           <div
-            className="absolute inset-0 pointer-events-none mix-blend-color opacity-25"
+            className="absolute inset-0 pointer-events-none mix-blend-color opacity-20"
             style={{ backgroundColor: '#D4AF37' }}
           />
-          {/* Seamless full-bleed gradient overlay: clear at top to showcase imagery, soft cinematic darkening towards bottom for text legibility */}
-          <div className="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-950/45 to-stone-950/20 pointer-events-none" />
+
+          {/* Cinematic Black Vignette Effect (Deep black corners and edges, clear illuminated center) */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                'radial-gradient(ellipse 95% 85% at 50% 50%, transparent 20%, rgba(0, 0, 0, 0.50) 65%, rgba(0, 0, 0, 0.90) 100%)',
+            }}
+          />
+          {/* Subtle top & bottom edge darkening for clean cinematic framing & navbar / marquee contrast */}
+          <div className="absolute inset-0 bg-gradient-to-b from-stone-950/70 via-transparent to-stone-950/80 pointer-events-none" />
         </div>
 
         {/* Top spacer for fixed header alignment */}

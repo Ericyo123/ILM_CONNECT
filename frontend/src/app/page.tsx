@@ -245,7 +245,7 @@ export default function HomePage() {
         {/* Background Single Image — Student Reciting Holy Quran */}
         <div className="absolute inset-0 z-0 overflow-hidden bg-stone-950">
           <Image
-            src="/images/hero-student-quran.png"
+            src="/home images/test24.png"
             alt="Student reciting Holy Quran in mosque"
             fill
             priority
@@ -431,10 +431,11 @@ export default function HomePage() {
 
                 <div className="mt-8 flex flex-wrap items-center gap-4">
                   <Link
-                    href="/about#waitlist"
-                    className="brand-button brand-button-primary px-7 py-3 text-xs tracking-wider uppercase !font-light"
+                    href="/about"
+                    className="brand-button brand-button-primary px-7 py-3 text-xs tracking-wider uppercase !font-light inline-flex items-center gap-2 group"
                   >
-                    Join the Waitlist
+                    <span>Learn More</span>
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
                   </Link>
                 </div>
               </motion.div>

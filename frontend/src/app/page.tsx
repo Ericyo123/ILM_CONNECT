@@ -199,41 +199,12 @@ const revealViewport = {
   margin: '0px 0px -12% 0px',
 } as const;
 
-const heroImagesList = [
-  {
-    id: 1,
-    label: 'Scholar in Courtyard (About Us)',
-    src: '/images/about-hero-scholar.jpg',
-    alt: 'Islamic scholar in traditional attire reading the Holy Quran in a sunlit courtyard',
-  },
-  {
-    id: 2,
-    label: 'Student Reciting the Holy Quran',
-    src: '/images/hero-pexels-5.jpg',
-    alt: 'Student of knowledge reverently reciting the Holy Quran placed on a traditional wooden book stand',
-  },
-  {
-    id: 3,
-    label: 'Grand Mosque Minarets & Sacred Architecture',
-    src: '/images/hero-pexels-4.jpg',
-    alt: 'Grand Islamic sacred architecture with illuminated domes and towering minarets',
-  },
-];
-
 export default function HomePage() {
-  const [heroSlide, setHeroSlide] = useState(0);
   const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const [selectedStory, setSelectedStory] = useState<TestimonialStory | null>(null);
   const testimonialRef = useRef<HTMLDivElement>(null);
   const testimonialsInView = useInView(testimonialRef, { once: true, amount: 0.2 });
-
-  useEffect(() => {
-    const slideTimer = setInterval(() => {
-      setHeroSlide((prev) => (prev + 1) % heroImagesList.length);
-    }, 5500);
-    return () => clearInterval(slideTimer);
-  }, []);
 
   const statsRef = useRef<HTMLDivElement>(null);
   const statsActive = useInView(statsRef, {
@@ -268,32 +239,19 @@ export default function HomePage() {
   return (
     <>
       {/* ========================================================================= */}
-      {/* 1. HERO SECTION — Crossfade Image Slideshow (Clean, No Vignette Across Screen) */}
+      {/* 1. HERO SECTION — Single Image with Left-Aligned Typography & Logo Alignment */}
       {/* ========================================================================= */}
-      <section className="home-hero-section relative flex flex-col items-center justify-center overflow-hidden bg-stone-950 text-white select-none">
-        {/* Background Crossfade Image Slideshow — Clean & Bright */}
+      <section className="home-hero-section relative flex flex-col justify-between overflow-hidden bg-stone-950 text-white select-none">
+        {/* Background Single Image — Student Reciting Holy Quran */}
         <div className="absolute inset-0 z-0 overflow-hidden bg-stone-950">
-          {heroImagesList.map((item, idx) => (
-            <motion.div
-              key={item.src}
-              initial={{ opacity: 0 }}
-              animate={{
-                opacity: idx === heroSlide ? 1 : 0,
-                scale: idx === heroSlide ? 1 : 1.04,
-              }}
-              transition={{ duration: 1.6, ease: [0.4, 0, 0.2, 1] }}
-              className="absolute inset-0"
-            >
-              <Image
-                src={item.src}
-                alt={item.alt}
-                fill
-                priority={idx === 0}
-                sizes="100vw"
-                className="object-cover object-center"
-              />
-            </motion.div>
-          ))}
+          <Image
+            src="/images/hero-student-quran.png"
+            alt="Student reciting Holy Quran in mosque"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[75%_center] sm:object-center"
+          />
 
           {/* Angelic aesthetic warm golden filter & divine atmospheric radiance */}
           <div
@@ -315,7 +273,7 @@ export default function HomePage() {
             style={{ backgroundColor: '#D4AF37' }}
           />
 
-          {/* Cinematic Black Vignette Effect (Deep black corners and edges, clear illuminated center) */}
+          {/* Cinematic Black Vignette Effect */}
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
@@ -323,6 +281,8 @@ export default function HomePage() {
                 'radial-gradient(ellipse 95% 85% at 50% 50%, transparent 20%, rgba(0, 0, 0, 0.50) 65%, rgba(0, 0, 0, 0.90) 100%)',
             }}
           />
+          {/* Left-side dark gradient for enhanced contrast & readability of left-aligned typography */}
+          <div className="absolute inset-0 bg-gradient-to-r from-stone-950/85 via-stone-950/45 to-transparent pointer-events-none" />
           {/* Subtle top & bottom edge darkening for clean cinematic framing & navbar / marquee contrast */}
           <div className="absolute inset-0 bg-gradient-to-b from-stone-950/70 via-transparent to-stone-950/80 pointer-events-none" />
         </div>
@@ -330,36 +290,38 @@ export default function HomePage() {
         {/* Top spacer for fixed header alignment */}
         <div className="w-full h-16 sm:h-20 shrink-0 pointer-events-none" aria-hidden="true" />
 
-        {/* Centered Hero Content */}
+        {/* Left-Aligned Hero Content — Exactly aligned to Header Logo */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-20 my-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-center max-w-5xl mx-auto w-full"
+          className="relative z-20 my-auto w-full px-4 sm:px-6 lg:px-12 flex flex-col items-center py-8 sm:py-12"
         >
-          <div className="relative mx-auto max-w-5xl w-full">
-            {/* 2-Line Headline: Tight line spacing and soft, subtle shadow */}
-            <h1 className="text-[28px] sm:text-[34px] md:text-[40px] lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-white leading-[1.08] drop-shadow-[0_2px_10px_rgba(0,0,0,0.40)] max-w-5xl mx-auto font-bricolage text-center">
-              <span className="block text-white sm:whitespace-nowrap">Learn Quran &amp; Islamic Studies</span>
-              <span className="block text-[#EAD08A] mt-0.5 sm:mt-1 sm:whitespace-nowrap">
-                from Qualified Scholars Worldwide
-              </span>
-            </h1>
+          <div className="w-full max-w-7xl px-5 sm:px-7">
+            <div className="max-w-2xl lg:max-w-3xl flex flex-col items-start text-left">
+              {/* 2-Line Headline: Tight line spacing and soft, subtle shadow */}
+              <h1 className="text-[28px] sm:text-[34px] md:text-[40px] lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-white leading-[1.08] drop-shadow-[0_2px_10px_rgba(0,0,0,0.40)] font-bricolage text-left">
+                <span className="block text-white">Learn Quran &amp; Islamic Studies</span>
+                <span className="block text-[#EAD08A] mt-0.5 sm:mt-1">
+                  from Qualified Scholars Worldwide
+                </span>
+              </h1>
 
-            {/* Dual Pill CTA Buttons with thinned font */}
-            <div className="mt-8 sm:mt-11 flex flex-wrap items-center justify-center gap-3.5 sm:gap-4">
-              <Link
-                href="#courses"
-                className="brand-button brand-button-inverse px-8 py-3 text-sm sm:text-base !font-light tracking-wide shadow-lg shadow-black/40"
-              >
-                View Courses
-              </Link>
-              <Link
-                href="/about#waitlist"
-                className="brand-button brand-button-primary px-8 py-3 text-sm sm:text-base !font-light tracking-wide shadow-lg shadow-black/40"
-              >
-                Join the Waitlist
-              </Link>
+              {/* Dual Pill CTA Buttons with thinned font */}
+              <div className="mt-8 sm:mt-11 flex flex-wrap items-center justify-start gap-3.5 sm:gap-4">
+                <Link
+                  href="#courses"
+                  className="brand-button brand-button-inverse px-8 py-3 text-sm sm:text-base !font-light tracking-wide shadow-lg shadow-black/40"
+                >
+                  View Courses
+                </Link>
+                <Link
+                  href="/about#waitlist"
+                  className="brand-button brand-button-primary px-8 py-3 text-sm sm:text-base !font-light tracking-wide shadow-lg shadow-black/40"
+                >
+                  Join the Waitlist
+                </Link>
+              </div>
             </div>
           </div>
         </motion.div>

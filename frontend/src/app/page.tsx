@@ -245,7 +245,7 @@ export default function HomePage() {
         {/* Background Single Image — Student Reciting Holy Quran */}
         <div className="absolute inset-0 z-0 overflow-hidden bg-stone-950">
           <Image
-            src="/home images/test24.png"
+            src="/home images/test56.png"
             alt="Student reciting Holy Quran in mosque"
             fill
             priority
@@ -288,28 +288,28 @@ export default function HomePage() {
         </div>
 
         {/* Top spacer for fixed header alignment */}
-        <div className="w-full h-16 sm:h-20 shrink-0 pointer-events-none" aria-hidden="true" />
+        <div className="w-full h-12 sm:h-16 shrink-0 pointer-events-none" aria-hidden="true" />
 
         {/* Left-Aligned Hero Content — Exactly aligned to Header Logo */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-20 my-auto w-full px-4 sm:px-6 lg:px-12 flex flex-col items-center py-8 sm:py-12"
+          className="relative z-20 my-auto w-full px-4 sm:px-6 lg:px-12 flex flex-col items-center py-4 sm:py-6"
         >
           <div className="w-full max-w-7xl px-5 sm:px-7">
-            <div className="max-w-2xl lg:max-w-3xl flex flex-col items-start text-left">
-              {/* 3-Line Triangle Format Headline (Short peak -> Medium -> Long base in 1 line) */}
-              <h1 className="text-[28px] sm:text-[34px] md:text-[40px] lg:text-[48px] xl:text-[52px] font-bold tracking-tight text-white leading-[1.12] drop-shadow-[0_2px_10px_rgba(0,0,0,0.40)] font-bricolage text-left">
+            <div className="max-w-2xl lg:max-w-3xl xl:max-w-4xl flex flex-col items-start text-left">
+              {/* 3-Line Triangle Format Headline (Increased font size & tighter line spacing) */}
+              <h1 className="text-[32px] sm:text-[38px] md:text-[45px] lg:text-[53px] xl:text-[58px] font-bold tracking-tight text-white leading-[1.04] drop-shadow-[0_2px_10px_rgba(0,0,0,0.40)] font-bricolage text-left">
                 <span className="block text-white">Learn Quran</span>
-                <span className="block text-white mt-1 sm:mt-1.5">&amp; Islamic Studies</span>
-                <span className="block text-[#EAD08A] mt-2 sm:mt-2.5 text-[20px] sm:text-[25px] md:text-[30px] lg:text-[35px] xl:text-[38px] font-semibold tracking-tight whitespace-nowrap">
+                <span className="block text-white mt-0.5 sm:mt-1">&amp; Islamic Studies</span>
+                <span className="block text-[#EAD08A] mt-1 sm:mt-1.5 text-[18px] sm:text-[22px] md:text-[26px] lg:text-[30px] xl:text-[34px] font-semibold tracking-tight whitespace-nowrap">
                   from Qualified Scholars Worldwide
                 </span>
               </h1>
 
-              {/* Dual Pill CTA Buttons with thinned font */}
-              <div className="mt-8 sm:mt-11 flex flex-wrap items-center justify-start gap-3.5 sm:gap-4">
+              {/* Dual Pill CTA Buttons with reduced spacing */}
+              <div className="mt-5 sm:mt-6 flex flex-wrap items-center justify-start gap-3.5 sm:gap-4">
                 <Link
                   href="#courses"
                   className="brand-button brand-button-inverse px-8 py-3 text-sm sm:text-base !font-light tracking-wide shadow-lg shadow-black/40"
@@ -323,6 +323,11 @@ export default function HomePage() {
                   Join the Waitlist
                 </Link>
               </div>
+
+              {/* Description Content — Clear summary of Ilmbit for Sri Lankans abroad */}
+              <p className="mt-6 sm:mt-7 max-w-xl text-sm sm:text-[15px] text-stone-200/90 leading-relaxed drop-shadow-sm font-normal">
+                Connecting Sri Lankan families living abroad directly with verified scholars for a personalized Quran recitation and Islamic learning experience, suited to your time and personal pace.
+              </p>
             </div>
           </div>
         </motion.div>

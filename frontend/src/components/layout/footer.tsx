@@ -10,11 +10,13 @@ const footerLinks = {
     { label: 'How It Works', href: '/#how-it-works' },
     { label: 'Courses', href: '/#courses' },
     { label: 'Pricing', href: '/pricing' },
+    { label: 'Become a Tutor', href: '/teach' },
     { label: 'Free Trial', href: '/about#waitlist' },
   ],
 
   Support: [
     { label: 'About Us', href: '/about' },
+    { label: 'Teach With Us', href: '/teach' },
     { label: 'Contact Us', href: 'mailto:support@ilmbit.com' },
     { label: 'Privacy Policy', href: '/privacy' },
     { label: 'Terms of Service', href: '/terms' },

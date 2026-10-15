@@ -326,7 +326,7 @@ export default function HomePage() {
 
               {/* Description Content — Clear summary of Ilmbit for Sri Lankans abroad */}
               <p className="mt-6 sm:mt-7 max-w-xl text-sm sm:text-[15px] text-stone-200/90 leading-relaxed drop-shadow-sm font-normal">
-                Connecting Sri Lankan families living abroad directly with verified scholars for a personalized Quran recitation and Islamic learning experience, suited to your time and personal pace.
+                Connecting Sri Lankan families living abroad directly with verified scholars for a personalized Quran recitation and Islamic learning experience, suited to your<br />time and personal pace.
               </p>
             </div>
           </div>
@@ -394,44 +394,46 @@ export default function HomePage() {
           className="relative z-20 overflow-hidden border-b border-stone-200/60 py-16 select-none sm:py-20 lg:py-24"
         >
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-stretch">
               {/* Left Column: Mission & Core Value */}
               <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={revealViewport}
                 variants={sectionReveal}
-                className="flex flex-col justify-center lg:col-span-6"
+                className="flex flex-col justify-between lg:col-span-6"
               >
-                <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 leading-[1.18] font-bricolage" suppressHydrationWarning>
-                  <span>Grow In Sacred Knowledge So You Can </span>
-                  <span className="block text-[#095F46]">Live With Purpose &amp; Iman</span>
-                </h2>
+                <div>
+                  <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 leading-[1.18] font-bricolage" suppressHydrationWarning>
+                    <span>Grow In Sacred Knowledge So You Can </span>
+                    <span className="block text-[#095F46]">Live With Purpose &amp; Iman</span>
+                  </h2>
 
-                <p className="mt-5 text-sm sm:text-base font-normal leading-relaxed text-stone-600">
-                  Finding verified, authentic Islamic teachers who can guide your family with patience and consistency shouldn&apos;t be difficult. Ilmbit bridges Sri Lankan families living abroad directly with qualified scholars for structured 1:1 online learning tailored to your timezone and personal pace.
-                </p>
+                  <p className="mt-5 text-sm sm:text-base font-normal leading-relaxed text-stone-600">
+                    Finding patient, verified Islamic teachers shouldn&apos;t be difficult. Ilmbit connects students in Sri Lanka and Sri Lankan families living abroad directly with qualified scholars for structured 1:1 online lessons suited to your schedule and personal pace.
+                  </p>
 
-                <div className="mt-7 space-y-3.5">
-                  {[
-                    { title: 'Personalized 1:1 Learning Paths', desc: 'From Noorani Qaida phonetics to advanced Sanad Tajweed' },
-                    { title: 'Verified Scholars & Certified Maulavis', desc: 'Rigorous vetting with verified Sanad and English fluency' },
-                    { title: 'Sri Lankan Families Living Abroad', desc: 'Flexible 1:1 rescheduling across UK, Middle East, Australia & overseas timezones' },
-                  ].map((feature, idx) => (
-                    <div key={idx} className="flex items-start gap-3.5">
-                      <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#095F46]/10 text-[#095F46] mt-0.5">
-                        <Check className="h-3.5 w-3.5 stroke-[2.5]" aria-hidden="true" />
+                  <div className="mt-6 space-y-3.5">
+                    {[
+                      { title: 'Personalized 1:1 Learning Paths', desc: 'From foundational Noorani Qaida to advanced Sanad Tajweed' },
+                      { title: 'Verified Scholars & Certified Maulavis', desc: 'Carefully vetted teachers with authentic Sanad and clear guidance' },
+                      { title: 'For Students in Sri Lanka & Abroad', desc: 'Flexible 1:1 session scheduling across local and overseas timezones' },
+                    ].map((feature, idx) => (
+                      <div key={idx} className="flex items-start gap-3.5">
+                        <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#095F46]/10 text-[#095F46] mt-0.5">
+                          <Check className="h-3.5 w-3.5 stroke-[2.5]" aria-hidden="true" />
+                        </div>
+                        <div>
+                          <h3 className="text-sm sm:text-[15px] font-bold tracking-tight text-stone-900">
+                            {feature.title}
+                          </h3>
+                          <p className="text-xs sm:text-sm text-stone-500 font-normal">
+                            {feature.desc}
+                          </p>
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="text-sm sm:text-[15px] font-bold tracking-tight text-stone-900">
-                          {feature.title}
-                        </h3>
-                        <p className="text-xs sm:text-sm text-stone-500 font-normal">
-                          {feature.desc}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
 
                 <div className="mt-8 flex flex-wrap items-center gap-4">
@@ -445,26 +447,26 @@ export default function HomePage() {
                 </div>
               </motion.div>
 
-              {/* Right Column: High-Fidelity Scholar Teaching Visual with Floating Badges */}
+              {/* Right Column: Scholar Teaching Visual matching height of left text from heading to Learn More button */}
               <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={revealViewport}
                 variants={sectionReveal}
-                className="relative lg:col-span-6 flex justify-center"
+                className="relative lg:col-span-6 flex items-stretch justify-center"
               >
-                <div className="relative w-full max-w-lg lg:max-w-none">
+                <div className="relative w-full h-full min-h-[460px] sm:min-h-[520px] lg:min-h-0">
                   {/* Subtle warm golden background glow */}
                   <div className="absolute -inset-4 bg-gradient-to-tr from-[#095F46]/10 via-[#EAD08A]/20 to-transparent rounded-[36px] blur-2xl -z-10" />
 
-                  {/* Main Image Frame - Clean & aesthetic with no tags or bars */}
-                  <div className="relative aspect-[4/3] w-full rounded-3xl overflow-hidden border border-stone-200/90 shadow-[0_20px_50px_rgba(9,95,70,0.08)] bg-stone-100">
+                  {/* Main Image Frame - Height matching the left column from heading to Learn More button */}
+                  <div className="relative w-full h-full min-h-[460px] sm:min-h-[520px] lg:min-h-full rounded-3xl overflow-hidden border border-stone-200/90 shadow-[0_20px_50px_rgba(9,95,70,0.08)] bg-stone-100">
                     <Image
-                      src="/images/why-ilm-scholar.jpg"
-                      alt="Verified Islamic scholar conducting 1:1 online Quran recitation lesson"
+                      src="/images/grow-in-sacred-scholar.jpg"
+                      alt="Qualified Islamic scholar teaching Quran"
                       fill
                       sizes="(max-width: 1024px) 100vw, 50vw"
-                      className="object-cover object-center"
+                      className="object-cover object-top sm:object-center"
                     />
                   </div>
                 </div>

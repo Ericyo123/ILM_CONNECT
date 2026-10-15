@@ -8,6 +8,15 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  async redirects() {
+    return [
+      {
+        source: '/become-a-tutor',
+        destination: '/teach',
+        permanent: false,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

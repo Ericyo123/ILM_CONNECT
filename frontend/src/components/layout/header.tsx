@@ -18,7 +18,11 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const scrolledRef = useRef(false);
 
-  const isDarkHero = pathname === '/' || pathname === '/about' || pathname === '/pricing';
+  const isDarkHero =
+    pathname === '/' ||
+    pathname === '/about' ||
+    pathname === '/pricing' ||
+    pathname === '/teach';
 
   useEffect(() => {
     let frameId = 0;
@@ -115,8 +119,8 @@ export default function Header() {
           </span>
         </Link>
 
-        {/* Right side: Desktop Links right-aligned with Get Started button */}
-        <div className="hidden md:flex items-center gap-7 lg:gap-8">
+        {/* Right side: Desktop Links right-aligned with blended action buttons */}
+        <div className="hidden md:flex items-center gap-6 lg:gap-8">
           <nav className="flex h-11 items-center gap-6 lg:gap-8">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
@@ -147,12 +151,32 @@ export default function Header() {
             })}
           </nav>
 
-          <Link
-            href="/about#waitlist"
-            className="brand-button brand-button-primary min-h-10 px-5 text-xs tracking-wider uppercase !font-light"
-          >
-            GET STARTED
-          </Link>
+          {/* Connected Dual Pill: "Become a Tutor" overlapping into "Get Started" */}
+          <div className="relative inline-flex items-center">
+            <Link
+              href="/teach"
+              className={`h-10 pl-4 sm:pl-4.5 pr-7 sm:pr-8 -mr-3.5 sm:-mr-4 rounded-full text-xs tracking-[0.08em] uppercase transition-all duration-200 flex items-center border ${
+                pathname === '/teach'
+                  ? showWhiteNav
+                    ? 'bg-white/25 border-white/40 text-[#EAD08A] !font-medium'
+                    : 'bg-[#095F46]/15 border-[#095F46]/35 text-[#095F46] !font-medium'
+                  : showWhiteNav
+                  ? 'bg-white/10 hover:bg-white/20 border-white/25 text-white/90 hover:text-white !font-light'
+                  : scrolled
+                  ? 'bg-[#095F46]/5 hover:bg-[#095F46]/10 border-[#095F46]/20 text-[#095F46] !font-light'
+                  : 'bg-white/80 hover:bg-white border-stone-200 text-stone-800 !font-light'
+              }`}
+            >
+              Become a Tutor
+            </Link>
+
+            <Link
+              href="/about#waitlist"
+              className="relative z-10 brand-button brand-button-primary min-h-10 px-5 text-xs tracking-wider uppercase !font-light shadow-md"
+            >
+              Get Started
+            </Link>
+          </div>
         </div>
 
         {/* Mobile menu toggle */}
@@ -215,16 +239,31 @@ export default function Header() {
               );
             })}
             <div
-              className={`pt-3 mt-2 border-t ${
+              className={`pt-3 mt-2 border-t space-y-2 ${
                 showWhiteNav ? 'border-stone-800' : 'border-stone-200/60'
               }`}
             >
+              <Link
+                href="/teach"
+                onClick={() => setMobileOpen(false)}
+                className={`block w-full py-2.5 px-4 rounded-xl text-center text-xs tracking-wider uppercase transition-colors border ${
+                  pathname === '/teach'
+                    ? showWhiteNav
+                      ? 'border-[#EAD08A]/40 bg-white/15 text-[#EAD08A] font-medium'
+                      : 'border-[#095F46]/30 bg-[#095F46]/10 text-[#095F46] font-medium'
+                    : showWhiteNav
+                    ? 'border-white/20 bg-white/5 text-stone-200 hover:bg-white/10 !font-light'
+                    : 'border-stone-200 bg-stone-50 text-stone-800 hover:bg-stone-100 !font-light'
+                }`}
+              >
+                Become a Tutor
+              </Link>
               <Link
                 href="/about#waitlist"
                 onClick={() => setMobileOpen(false)}
                 className="brand-button brand-button-primary w-full text-xs tracking-wider uppercase !font-light"
               >
-                GET STARTED
+                Get Started
               </Link>
             </div>
           </div>
@@ -233,3 +272,4 @@ export default function Header() {
     </div>
   );
 }
+

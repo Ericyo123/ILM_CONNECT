@@ -13,6 +13,7 @@ export const publicPageFadeUp: Variants = {
 interface PublicPageHeroProps {
   title: string;
   subtitle?: string;
+  description?: string;
   image: string;
   imageAlt: string;
   imageClassName: string;
@@ -24,6 +25,7 @@ interface PublicPageHeroProps {
 export default function PublicPageHero({
   title,
   subtitle,
+  description,
   image,
   imageAlt,
   imageClassName,
@@ -51,10 +53,22 @@ export default function PublicPageHero({
         <div className="relative mx-auto max-w-4xl w-full">
           <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-snug drop-shadow-md max-w-3xl mx-auto font-heading">
             <span className="block">{title}</span>
-            <span aria-hidden={!subtitle || undefined} className="block text-[#EAD08A] font-semibold text-xl sm:text-3xl lg:text-[34px] mt-1.5">
-              {subtitle || '\u00a0'}
-            </span>
+            {subtitle ? (
+              <span className="block text-[#EAD08A] font-semibold text-xl sm:text-3xl lg:text-[34px] mt-1.5">
+                {subtitle}
+              </span>
+            ) : !description ? (
+              <span aria-hidden="true" className="block text-xl sm:text-3xl lg:text-[34px] mt-1.5 opacity-0">
+                &nbsp;
+              </span>
+            ) : null}
           </h1>
+
+          {description && (
+            <p className="mt-3.5 text-sm sm:text-base text-stone-200/90 max-w-xl mx-auto font-normal leading-relaxed drop-shadow-sm">
+              {description}
+            </p>
+          )}
 
           <a
             href={scrollTarget}

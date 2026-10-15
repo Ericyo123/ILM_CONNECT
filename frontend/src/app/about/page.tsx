@@ -10,6 +10,10 @@ import {
   UserRoundCheck,
   ChevronRight,
   X,
+  GraduationCap,
+  AudioLines,
+  MessagesSquare,
+  ShieldCheck,
 } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
 import styles from './about-refinement.module.css';
@@ -114,23 +118,29 @@ const pillars = [
   {
     number: '01',
     title: 'Talaqqi with Sanad',
-    arabic: 'التلقي والمشافهة',
+    arabic: 'التلقي بالسند',
     subtitle: 'Living Oral Transmission',
-    desc: 'Students recite directly to their scholar, who listens and corrects pronunciation. Talaqqi keeps oral transmission at the centre of Quran learning.',
+    image: '/images/about/pillar-recitation.jpg',
+    imageAlt: 'Hands carefully holding an open Quran for recitation',
+    desc: 'Students recite to their scholar, who listens and corrects pronunciation, preserving the living tradition of Quran learning.',
   },
   {
     number: '02',
     title: 'Adab Before Ilm',
     arabic: 'الأدب قبل العلم',
     subtitle: 'Nurturing with Gentle Character',
-    desc: 'Patience, good manners, and encouragement belong in every lesson. Students need room to ask questions, make mistakes, and try again.',
+    image: '/images/about/pillar-character.jpg',
+    imageAlt: 'A man seated in quiet prayer beside the Quran',
+    desc: 'Patient teaching gives students room to ask questions, make mistakes, and try again. Good manners come before knowledge.',
   },
   {
     number: '03',
     title: 'Amanah & Ihsan',
     arabic: 'الأمانة والإحسان',
     subtitle: 'Sacred Trust & Professionalism',
-    desc: 'Teaching is a responsibility to the student and their family. Careful preparation, reliable scheduling, and clear communication are part of that trust.',
+    image: '/images/about/pillar-amanah.jpg',
+    imageAlt: 'A man carefully studying the Quran',
+    desc: 'Careful preparation, reliable scheduling, and clear communication honour our responsibility to each student and their family.',
   },
 ];
 
@@ -140,24 +150,28 @@ const pillars = [
 const vettingTiers = [
   {
     step: '01',
+    icon: GraduationCap,
     title: 'Sanad & Degree Audit',
     subtitle: 'Classical Authorization',
     desc: 'Review of formal qualifications, Ijazah certificates, and the scholar’s chain of transmission.',
   },
   {
     step: '02',
+    icon: AudioLines,
     title: 'Tajweed Oral Exam',
     subtitle: 'Rigorous Board Review',
     desc: 'Live recitation assessment covering Tajweed rules, articulation points (Makharij), and pronunciation.',
   },
   {
     step: '03',
+    icon: MessagesSquare,
     title: 'Families Abroad Pedagogy',
     subtitle: 'English & Cultural Fluency',
-    desc: 'Assessment of clear English communication and the ability to teach children from Sri Lankan families living abroad in the UK, US, Europe, and Australia.',
+    desc: 'Assessment of clear English communication and age-appropriate teaching for children from Sri Lankan families in the UK, US, Europe, and Australia.',
   },
   {
     step: '04',
+    icon: ShieldCheck,
     title: 'Safeguarding & Adab',
     subtitle: 'Positive Reinforcement',
     desc: 'Review of identity, safeguarding, and the scholar’s approach to patient, age-appropriate teaching.',
@@ -288,7 +302,7 @@ export default function AboutPage() {
       {/* ========================================================================= */}
       {/* 2. OUR STORY — Why We Started Ilmbit (The Dilemma & The Mission) */}
       {/* ========================================================================= */}
-      <section id="story" className="relative z-10 py-16 sm:py-20 lg:py-24 border-b border-stone-200/60 scroll-mt-20">
+      <section id="story" className={`relative z-10 py-16 sm:py-20 lg:py-24 border-b border-stone-200/60 scroll-mt-20 ${styles.patternBackground}`}>
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
           
           <div className="text-center max-w-3xl mx-auto space-y-2.5">
@@ -313,11 +327,11 @@ export default function AboutPage() {
             >
               <div>
                 <h3 className="text-2xl font-bold tracking-tight text-stone-950 font-bricolage mb-5">
-                  The Dilemma of Finding Great Quran Teachers
+                  Before
                 </h3>
                 <ul className="space-y-4 text-stone-600 text-sm leading-relaxed">
                   <li className="flex items-start gap-3">
-                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-stone-100 text-stone-700 text-xs font-bold">
+                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-red-500 text-white text-xs font-bold">
                       <X className="h-3 w-3 stroke-[2.5]" />
                     </span>
                     <span>
@@ -325,7 +339,7 @@ export default function AboutPage() {
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-stone-100 text-stone-700 text-xs font-bold">
+                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-red-500 text-white text-xs font-bold">
                       <X className="h-3 w-3 stroke-[2.5]" />
                     </span>
                     <span>
@@ -333,7 +347,7 @@ export default function AboutPage() {
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-stone-100 text-stone-700 text-xs font-bold">
+                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-red-500 text-white text-xs font-bold">
                       <X className="h-3 w-3 stroke-[2.5]" />
                     </span>
                     <span>
@@ -341,10 +355,6 @@ export default function AboutPage() {
                     </span>
                   </li>
                 </ul>
-              </div>
-
-              <div className="mt-8 pt-6 border-t border-stone-100 text-xs text-stone-500 italic">
-                “Sacred knowledge was never meant to be cold, punitive, or transactional.”
               </div>
             </motion.div>
 
@@ -368,7 +378,7 @@ export default function AboutPage() {
 
               <div className="relative z-10">
                 <h3 className="text-2xl font-bold tracking-tight text-white font-bricolage mb-5">
-                  The Sacred Sanctuary in Your Home
+                  After
                 </h3>
                 <ul className="space-y-4 text-emerald-50/90 text-sm leading-relaxed">
                   <li className="flex items-start gap-3">
@@ -396,10 +406,6 @@ export default function AboutPage() {
                     </span>
                   </li>
                 </ul>
-              </div>
-
-              <div className="relative z-10 mt-8 pt-6 border-t border-white/15 text-xs text-emerald-200/90 font-medium">
-                Bridging centuries of classical excellence with today&apos;s family schedules.
               </div>
             </motion.div>
 
@@ -519,42 +525,42 @@ export default function AboutPage() {
       {/* ========================================================================= */}
       {/* 4. THE THREE SACRED PILLARS — Arkan al-Ilm (No Tags) */}
       {/* ========================================================================= */}
-      <section className={styles.section} aria-labelledby="pillars-heading">
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
+      <section className={`${styles.section} ${styles.pillarsSection} ${styles.patternBackground}`} aria-labelledby="pillars-heading">
+        <div className={`relative z-10 ${styles.pillarsContainer}`}>
           
           <div className={styles.pillarsIntro}>
             <h2 id="pillars-heading" className={styles.heading}>
-              Three Sacred Pillars of Every Lesson
+              <span className={styles.pillarsHeadingLine}>Three Sacred Pillars</span>{' '}
+              <span className={styles.pillarsHeadingLine}>of Every Lesson</span>
             </h2>
             <p className={styles.intro}>
               How we teach matters as much as what we teach. Oral transmission, good character, and responsibility guide every lesson.
             </p>
           </div>
 
-          <motion.div className={styles.pillarsGrid} initial={shouldReduceMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={fadeUp}>
+          <div className={styles.pillarsGrid}>
             {pillars.map((pillar) => (
                 <article
                   key={pillar.title}
                   className={styles.pillar}
                 >
-                    <div className={styles.pillarMeta}>
-                      <span className={styles.number} aria-hidden="true">
-                        {pillar.number}
-                      </span>
-                      <p className={styles.arabic} lang="ar" dir="rtl">{pillar.arabic}</p>
+                    <div className={styles.pillarPhoto}>
+                      <Image
+                        src={pillar.image}
+                        alt={pillar.imageAlt}
+                        fill
+                        sizes="184px"
+                        className={styles.pillarImage}
+                      />
+                      <h3 className={styles.pillarTitle}>{pillar.title}</h3>
                     </div>
-                    <h3 className={styles.itemHeading}>
-                      {pillar.title}
-                    </h3>
-                    <p className={styles.caption}>
-                      {pillar.subtitle}
-                    </p>
-                    <p className={styles.body}>
+                    <p className={styles.pillarArabic} lang="ar" dir="rtl">{pillar.arabic}</p>
+                    <p className={styles.pillarDescription}>
                       {pillar.desc}
                     </p>
                 </article>
             ))}
-          </motion.div>
+          </div>
 
         </div>
       </section>
@@ -562,8 +568,8 @@ export default function AboutPage() {
       {/* ========================================================================= */}
       {/* 5. THE SANAD GUARANTEE — 4-Tier Scholar Accreditation Protocol (No Tags) */}
       {/* ========================================================================= */}
-      <section className={`${styles.section} ${styles.tint}`} aria-labelledby="vetting-heading">
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
+      <section className={`${styles.section} ${styles.tint} ${styles.vettingSection}`} aria-labelledby="vetting-heading">
+        <div className={`mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 ${styles.vettingContainer}`}>
           
           <div className={styles.centerIntro}>
             <h2 id="vetting-heading" className={styles.heading}>
@@ -574,57 +580,43 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <motion.div className={styles.vettingGrid} initial={shouldReduceMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={fadeUp}>
+          <div className={styles.vettingGrid}>
+            <svg className={styles.vettingCurve} viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+              <path className={styles.vettingCurveShadow} d="M0 240 C80 265 105 270 150 270 C300 270 300 90 450 90 C600 90 600 270 750 270 C900 270 900 90 1050 90 C1120 90 1160 105 1200 115" />
+              <path d="M0 240 C80 265 105 270 150 270 C300 270 300 90 450 90 C600 90 600 270 750 270 C900 270 900 90 1050 90 C1120 90 1160 105 1200 115" />
+            </svg>
             {vettingTiers.map((tier) => (
                 <article
                   key={tier.step}
                   className={styles.vettingItem}
                 >
-                  <div aria-hidden="true" className={styles.vettingNumber}>
-                      <span className={styles.number}>
-                        {tier.step}
-                      </span>
-                      <span className={styles.rule} />
+                  <svg className={styles.vettingMobileCurve} viewBox="0 0 64 240" preserveAspectRatio="none" aria-hidden="true">
+                    <path d="M32 0 C0 40 0 80 32 120 C64 160 64 200 32 240" />
+                  </svg>
+                  <div className={styles.vettingMarker} aria-hidden="true">
+                    <div className={styles.vettingMarkerFace}><tier.icon /></div>
                   </div>
-                  <h3 className={styles.vettingHeading}>
+                  <div className={styles.vettingContent}>
+                    <span aria-hidden="true" className={styles.vettingNumber}>{Number(tier.step)}</span>
+                    <h3 className={styles.vettingHeading}>
                       {tier.title}
-                  </h3>
-                  <div className={styles.vettingDescription}>
-                    <p className={styles.body}>
+                    </h3>
+                    <p className={styles.vettingDescription}>
                       {tier.desc}
                     </p>
                   </div>
 
                 </article>
             ))}
-          </motion.div>
-
-          {/* Institutional Heritage Callout */}
-          <div className={styles.matchRow}>
-              <div>
-                <p className={styles.matchTitle}>
-                  A scholar suited to your family
-                </p>
-                <p className={`${styles.body} ${styles.matchDescription}`}>
-                  Tell us your learning goals and preferred schedule to request a match.
-                </p>
-              </div>
-            <a
-              href="#waitlist"
-              className={`brand-button brand-button-primary ${styles.matchButton}`}
-            >
-              Request Scholar Match
-            </a>
           </div>
-
         </div>
       </section>
 
       {/* ========================================================================= */}
       {/* 6. OUR PEDAGOGY — 4 Milestones of Learning (No Tags) */}
       {/* ========================================================================= */}
-      <section className={styles.section} aria-labelledby="pathway-heading">
-        <div className={`mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 ${styles.pathwayLayout}`}>
+      <section className={`${styles.section} ${styles.patternBackground}`} aria-labelledby="pathway-heading">
+        <div className={`relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 ${styles.pathwayLayout}`}>
           
           <div className="min-w-0 space-y-4 text-left">
             <h2 id="pathway-heading" className={styles.heading}>
@@ -712,13 +704,13 @@ export default function AboutPage() {
       {/* 8. PRIORITY WAITLIST REGISTRATION FORM SECTION (PRESERVED AS IS) */}
       {/* ========================================================================= */}
       <section id="waitlist" className="relative z-10 scroll-mt-24 sm:scroll-mt-28 py-16 sm:py-20 lg:py-24">
-        <div className="mx-auto w-full max-w-7xl px-3 sm:px-6 lg:px-8">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.15 }}
             variants={fadeUp}
-            className="relative grid w-full max-w-6xl mx-auto overflow-hidden rounded-2xl sm:rounded-[2rem] border border-stone-200 bg-[#f7f7f3] shadow-[0_22px_70px_rgba(20,32,27,0.10)] lg:grid-cols-[0.82fr_1.18fr]"
+            className="relative grid w-full overflow-hidden rounded-2xl sm:rounded-[2rem] border border-stone-200 bg-[#f7f7f3] shadow-[0_22px_70px_rgba(20,32,27,0.10)] lg:grid-cols-[0.82fr_1.18fr]"
           >
             {/* Left Waitlist Banner */}
             <div className="relative flex min-h-[280px] sm:min-h-[320px] flex-col justify-between overflow-hidden bg-[#083f33] p-6 sm:p-9 lg:min-h-0 lg:p-10 text-white">

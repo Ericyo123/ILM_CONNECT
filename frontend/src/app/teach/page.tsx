@@ -134,12 +134,18 @@ export default function TeachPage() {
       <PublicPageHero
         title="Become a Tutor at Ilmbit"
         description="Connect with students worldwide. Flexible schedules, verified 1:1 classes, and bi-weekly direct payouts."
-        image="/images/about-hero-scholar.jpg"
-        imageAlt="Islamic scholar teaching Holy Quran"
-        imageClassName="object-cover object-center opacity-80"
+        image="/images/teach-hero-scholar.jpg"
+        imageAlt="Islamic scholar library with classical Islamic texts"
+        imageClassName="object-cover object-[center_35%] opacity-85"
         scrollTarget="#why-teach"
         scrollLabel="Scroll down to why teach with Ilmbit"
-        overlay={<div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/25 to-black/70" />}
+        overlay={
+          <>
+            <div className="absolute inset-0 bg-stone-950/60" />
+            <div className="absolute inset-0 bg-[#095F46]/20 mix-blend-multiply" />
+            <div className="absolute inset-0 bg-gradient-to-b from-stone-950/80 via-stone-950/35 to-stone-950/85" />
+          </>
+        }
       />
 
       {/* Quick Metrics Bar */}

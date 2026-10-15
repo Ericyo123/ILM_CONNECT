@@ -151,20 +151,20 @@ export default function Header() {
             })}
           </nav>
 
-          {/* Connected Dual Pill: "Become a Tutor" overlapping into "Get Started" */}
-          <div className="relative inline-flex items-center">
+          {/* Blended Dual Action: "Become a Tutor" overlapped by "Get Started" */}
+          <div className="flex items-center">
             <Link
               href="/teach"
-              className={`h-10 pl-4 sm:pl-4.5 pr-7 sm:pr-8 -mr-3.5 sm:-mr-4 rounded-full text-xs tracking-[0.08em] uppercase transition-all duration-200 flex items-center border ${
-                pathname === '/teach'
-                  ? showWhiteNav
-                    ? 'bg-white/25 border-white/40 text-[#EAD08A] !font-medium'
-                    : 'bg-[#095F46]/15 border-[#095F46]/35 text-[#095F46] !font-medium'
-                  : showWhiteNav
-                  ? 'bg-white/10 hover:bg-white/20 border-white/25 text-white/90 hover:text-white !font-light'
+              className={`relative h-10 pl-5 pr-6 rounded-l-full text-xs tracking-[0.08em] uppercase transition-all duration-200 flex items-center border border-r-0 ${
+                showWhiteNav
+                  ? pathname === '/teach'
+                    ? 'bg-white/20 border-white/30 text-white font-medium'
+                    : 'bg-white/10 hover:bg-white/20 border-white/25 text-white/90 hover:text-white font-light'
                   : scrolled
-                  ? 'bg-[#095F46]/5 hover:bg-[#095F46]/10 border-[#095F46]/20 text-[#095F46] !font-light'
-                  : 'bg-white/80 hover:bg-white border-stone-200 text-stone-800 !font-light'
+                  ? pathname === '/teach'
+                    ? 'bg-[#095F46]/10 border-[#095F46]/25 text-[#095F46] font-medium'
+                    : 'bg-stone-100 hover:bg-stone-200/70 border-stone-200 text-stone-700 hover:text-stone-950 font-light'
+                  : 'bg-stone-100 hover:bg-stone-200/70 border-stone-200 text-stone-700 hover:text-stone-950 font-light'
               }`}
             >
               Become a Tutor
@@ -172,7 +172,7 @@ export default function Header() {
 
             <Link
               href="/about#waitlist"
-              className="relative z-10 brand-button brand-button-primary min-h-10 px-5 text-xs tracking-wider uppercase !font-light shadow-md"
+              className="relative z-10 -ml-3 brand-button brand-button-primary h-10 px-5 text-xs tracking-wider uppercase !font-light shadow-md"
             >
               Get Started
             </Link>

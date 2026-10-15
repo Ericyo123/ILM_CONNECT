@@ -151,24 +151,24 @@ export default function Header() {
             })}
           </nav>
 
-          {/* Blended Dual Action: one capsule, "Get Started" sits flush inside the right end */}
+          {/* Blended Dual Action: White "Become a Tutor" with green text + Green "Get Started" with white text */}
           <div
-            className={`group/cta flex h-11 items-stretch rounded-full border transition-colors duration-200 ${
+            className={`group/cta flex h-11 items-stretch rounded-full border transition-all duration-200 shadow-sm ${
               showWhiteNav
-                ? 'border-white/25 bg-white/10 backdrop-blur-md'
-                : 'border-stone-200 bg-stone-100'
+                ? 'border-white bg-white'
+                : 'border-[#095F46] bg-white'
             }`}
           >
             <Link
               href="/teach"
-              className={`flex items-center rounded-l-full pl-5 pr-4 text-xs uppercase tracking-[0.08em] transition-colors duration-200 ${
-                pathname === '/teach'
-                  ? showWhiteNav
-                    ? 'text-[#EAD08A] font-normal'
-                    : 'text-[#095F46] font-normal'
-                  : showWhiteNav
-                  ? 'text-white/85 hover:text-white font-light'
-                  : 'text-stone-700 hover:text-stone-950 font-light'
+              className={`flex items-center rounded-l-full pl-5 pr-4 text-xs uppercase tracking-[0.02em] font-normal transition-colors duration-200 ${
+                showWhiteNav
+                  ? pathname === '/teach'
+                    ? 'text-[#095F46]'
+                    : 'text-[#095F46] hover:text-[#043f2e]'
+                  : pathname === '/teach'
+                  ? 'text-[#095F46]'
+                  : 'text-[#095F46] hover:text-[#043f2e]'
               }`}
             >
               Become a Tutor
@@ -176,7 +176,7 @@ export default function Header() {
 
             <Link
               href="/about#waitlist"
-              className="-my-px -mr-px flex items-center rounded-full bg-[#095F46] px-5 text-xs font-light uppercase tracking-wider text-white transition-colors duration-200 hover:bg-[#043f2e]"
+              className="-my-px -mr-px flex items-center rounded-full bg-[#095F46] px-5 text-xs font-normal uppercase tracking-[0.02em] text-white transition-colors duration-200 hover:bg-[#043f2e] shadow-sm"
             >
               Get Started
             </Link>
@@ -250,14 +250,10 @@ export default function Header() {
               <Link
                 href="/teach"
                 onClick={() => setMobileOpen(false)}
-                className={`block w-full py-2.5 px-4 rounded-xl text-center text-xs tracking-wider uppercase transition-colors border ${
-                  pathname === '/teach'
-                    ? showWhiteNav
-                      ? 'border-[#EAD08A]/40 bg-white/15 text-[#EAD08A] font-medium'
-                      : 'border-[#095F46]/30 bg-[#095F46]/10 text-[#095F46] font-medium'
-                    : showWhiteNav
-                    ? 'border-white/20 bg-white/5 text-stone-200 hover:bg-white/10 !font-light'
-                    : 'border-stone-200 bg-stone-50 text-stone-800 hover:bg-stone-100 !font-light'
+                className={`block w-full py-2.5 px-4 rounded-xl text-center text-xs tracking-[0.02em] uppercase transition-colors border ${
+                  showWhiteNav
+                    ? 'border-white bg-white text-[#095F46] font-normal hover:bg-stone-50'
+                    : 'border-[#095F46] bg-white text-[#095F46] font-normal hover:bg-stone-50'
                 }`}
               >
                 Become a Tutor
@@ -265,7 +261,7 @@ export default function Header() {
               <Link
                 href="/about#waitlist"
                 onClick={() => setMobileOpen(false)}
-                className="brand-button brand-button-primary w-full text-xs tracking-wider uppercase !font-light"
+                className="brand-button brand-button-primary w-full text-xs tracking-[0.02em] uppercase !font-normal"
               >
                 Get Started
               </Link>

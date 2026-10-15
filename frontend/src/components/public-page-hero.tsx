@@ -50,22 +50,22 @@ export default function PublicPageHero({
         variants={publicPageFadeUp}
         className="relative z-20 mt-auto pb-8 sm:pb-12 pt-6 px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center"
       >
-        <div className="relative mx-auto max-w-4xl w-full">
-          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-snug drop-shadow-md max-w-3xl mx-auto font-heading">
+        <div className="relative mx-auto max-w-5xl w-full">
+          <h1 className="text-2xl sm:text-4xl lg:text-[52px] xl:text-[58px] font-bold tracking-tight text-white leading-[1.08] drop-shadow-md max-w-4xl mx-auto font-heading">
             <span className="block">{title}</span>
             {subtitle ? (
-              <span className="block text-[#EAD08A] font-semibold text-xl sm:text-3xl lg:text-[34px] mt-1.5">
+              <span className="block text-[#EAD08A] font-semibold text-xl sm:text-3xl lg:text-[36px] xl:text-[42px] mt-2 lg:mt-3">
                 {subtitle}
               </span>
             ) : !description ? (
-              <span aria-hidden="true" className="block text-xl sm:text-3xl lg:text-[34px] mt-1.5 opacity-0">
+              <span aria-hidden="true" className="block text-xl sm:text-3xl lg:text-[36px] xl:text-[42px] mt-2 lg:mt-3 opacity-0">
                 &nbsp;
               </span>
             ) : null}
           </h1>
 
           {description && (
-            <p className="mt-3.5 text-sm sm:text-base text-stone-200/90 max-w-xl mx-auto font-normal leading-relaxed drop-shadow-sm">
+            <p className="mt-4 text-base sm:text-lg lg:text-[18px] text-stone-200/90 max-w-2xl mx-auto font-normal leading-relaxed drop-shadow-sm">
               {description}
             </p>
           )}
@@ -73,9 +73,9 @@ export default function PublicPageHero({
           <a
             href={scrollTarget}
             aria-label={scrollLabel}
-            className="group mx-auto mt-8 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white shadow-sm backdrop-blur-sm transition-colors duration-200 hover:border-white/60 hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+            className="group mx-auto mt-8 flex h-11 w-11 lg:h-12 lg:w-12 shrink-0 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white shadow-sm backdrop-blur-sm transition-colors duration-200 hover:border-white/60 hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
           >
-            <ChevronDown aria-hidden="true" className="block h-5 w-5 shrink-0 transition-transform duration-200 motion-safe:group-hover:translate-y-0.5" />
+            <ChevronDown aria-hidden="true" className="block h-5 w-5 lg:h-6 lg:w-6 shrink-0 transition-transform duration-200 motion-safe:group-hover:translate-y-0.5" />
           </a>
         </div>
       </motion.div>

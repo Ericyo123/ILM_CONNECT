@@ -79,7 +79,7 @@ export default function HowItWorks() {
               {/* Top row: Number & Icon */}
               <div className="flex items-center justify-between mb-4">
                 <span
-                  className={`inline-flex items-center justify-center font-bold text-xs tracking-wider px-2.5 py-1 rounded-full ${
+                  className={`inline-flex items-center justify-center font-bold text-xs lg:text-[13px] tracking-wider px-3 py-1 rounded-full ${
                     isActive
                       ? 'bg-[#095F46] text-white'
                       : 'bg-stone-100 text-stone-600'
@@ -88,21 +88,21 @@ export default function HowItWorks() {
                   STEP {item.step}
                 </span>
                 <div
-                  className={`h-9 w-9 rounded-2xl flex items-center justify-center transition-colors ${
+                  className={`h-10 w-10 lg:h-11 lg:w-11 rounded-2xl flex items-center justify-center transition-colors ${
                     isActive
                       ? 'bg-[#095F46]/10 text-[#095F46]'
                       : 'bg-stone-100 text-stone-400'
                   }`}
                 >
-                  <Icon className="h-4 w-4" />
+                  <Icon className="h-5 w-5" />
                 </div>
               </div>
 
               {/* Title & Desc */}
-              <h3 className="text-base sm:text-lg font-bold text-stone-950 font-bricolage mb-1.5 leading-snug">
+              <h3 className="text-lg sm:text-xl lg:text-[22px] font-bold text-stone-950 font-bricolage mb-2 leading-snug">
                 {item.title}
               </h3>
-              <p className="text-xs sm:text-[13px] text-stone-500 font-normal leading-relaxed">
+              <p className="text-sm sm:text-[14px] lg:text-[15px] text-stone-500 font-normal leading-relaxed">
                 {item.desc}
               </p>
 
@@ -116,8 +116,8 @@ export default function HowItWorks() {
       </div>
 
       {/* Interactive Live Classroom / Platform Showcase Container */}
-      <div className="relative rounded-3xl overflow-hidden border border-stone-200/90 bg-white shadow-[0_20px_50px_rgba(0,0,0,0.04)] p-4 sm:p-7">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+      <div className="relative rounded-3xl overflow-hidden border border-stone-200/90 bg-white shadow-[0_20px_50px_rgba(0,0,0,0.04)] p-5 sm:p-7 lg:p-9">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
           {/* Laptop Screen Preview */}
           <div className="lg:col-span-8 order-2 lg:order-1">
             <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden border border-stone-200 bg-stone-950 shadow-inner">
@@ -144,28 +144,28 @@ export default function HowItWorks() {
 
           {/* Step Details & Action */}
           <div className="lg:col-span-4 order-1 lg:order-2 flex flex-col justify-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FCF8EE] border border-[#EAD08A]/60 text-[#855B14] text-[11px] font-bold uppercase tracking-wider mb-3 w-fit">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FCF8EE] border border-[#EAD08A]/60 text-[#855B14] text-xs lg:text-[12px] font-bold uppercase tracking-wider mb-3 w-fit">
               <span>{current.badge}</span>
             </div>
 
-            <div className="text-3xl sm:text-4xl font-black text-[#095F46] font-bricolage mb-2">
+            <div className="text-4xl sm:text-5xl lg:text-6xl font-black text-[#095F46] font-bricolage mb-2">
               {current.step}
             </div>
 
-            <h4 className="text-xl sm:text-2xl font-bold text-stone-950 font-bricolage mb-3 leading-snug">
+            <h4 className="text-2xl sm:text-3xl lg:text-[32px] font-bold text-stone-950 font-bricolage mb-3.5 leading-snug">
               {current.title}
             </h4>
 
-            <p className="text-sm text-stone-600 leading-relaxed font-normal mb-6">
+            <p className="text-base sm:text-lg lg:text-[18px] text-stone-600 leading-relaxed font-normal mb-7">
               {current.desc}
             </p>
 
             <Link
               href={current.ctaLink}
-              className="brand-button brand-button-primary w-fit px-6 text-xs tracking-wider uppercase !font-light"
+              className="brand-button brand-button-primary w-fit px-7 py-3.5 lg:px-8 lg:py-4 text-xs lg:text-sm tracking-wider uppercase !font-light inline-flex items-center gap-2"
             >
               <span>{current.ctaText}</span>
-              <ArrowRight className="h-3.5 w-3.5" />
+              <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>

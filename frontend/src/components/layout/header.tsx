@@ -85,22 +85,22 @@ export default function Header() {
                 backgroundColor: 'transparent',
               }
         }
-        className={`pointer-events-auto flex w-full max-w-7xl items-center justify-between rounded-full px-5 transition-all duration-300 sm:px-7 ${
+        className={`pointer-events-auto flex w-full max-w-7xl xl:max-w-[1440px] items-center justify-between rounded-full px-5 transition-all duration-300 sm:px-7 lg:px-8 xl:px-9 ${
           scrolled
-            ? 'min-h-[62px] border border-white/90 shadow-[0_12px_36px_rgba(0,0,0,0.10),0_2px_6px_rgba(0,0,0,0.04),inset_0_1px_1.5px_rgba(255,255,255,1)] sm:min-h-[64px]'
-            : 'min-h-[66px] border border-transparent shadow-none sm:min-h-[68px]'
+            ? 'min-h-[62px] border border-white/90 shadow-[0_12px_36px_rgba(0,0,0,0.10),0_2px_6px_rgba(0,0,0,0.04),inset_0_1px_1.5px_rgba(255,255,255,1)] sm:min-h-[64px] lg:min-h-[72px] xl:min-h-[74px]'
+            : 'min-h-[66px] border border-transparent shadow-none sm:min-h-[68px] lg:min-h-[76px] xl:min-h-[80px]'
         }`}
       >
         <Link href="/" className="flex items-center" aria-label="ILMBIT home">
-          <span className="relative block h-[52px] w-[40px] sm:h-[56px] sm:w-[42px]">
+          <span className="relative block h-[52px] w-[40px] sm:h-[56px] sm:w-[42px] lg:h-[66px] lg:w-[50px] xl:h-[70px] xl:w-[53px]">
             <Image
               src="/images/ilmbit-logo-white.png"
               alt="ILMBIT"
-              width={56}
-              height={74}
+              width={70}
+              height={94}
               className={`absolute inset-0 h-full w-auto object-contain transition-[height,opacity] duration-300 ${
                 showWhiteNav ? 'opacity-100' : 'opacity-0'
-              } ${scrolled ? 'h-[44px] sm:h-[48px]' : 'h-[52px] sm:h-[56px]'}`}
+              } ${scrolled ? 'h-[44px] sm:h-[48px] lg:h-[56px] xl:h-[60px]' : 'h-[52px] sm:h-[56px] lg:h-[66px] xl:h-[70px]'}`}
               loading="eager"
               priority
             />
@@ -108,11 +108,11 @@ export default function Header() {
               src="/images/ilmbit-logo-green.png"
               alt=""
               aria-hidden="true"
-              width={56}
-              height={74}
+              width={70}
+              height={94}
               className={`absolute inset-0 h-full w-auto object-contain transition-[height,opacity] duration-300 ${
                 showWhiteNav ? 'opacity-0' : 'opacity-100'
-              } ${scrolled ? 'h-[44px] sm:h-[48px]' : 'h-[52px] sm:h-[56px]'}`}
+              } ${scrolled ? 'h-[44px] sm:h-[48px] lg:h-[56px] xl:h-[60px]' : 'h-[52px] sm:h-[56px] lg:h-[66px] xl:h-[70px]'}`}
               loading="eager"
               priority
             />
@@ -120,8 +120,8 @@ export default function Header() {
         </Link>
 
         {/* Right side: Desktop Links right-aligned with blended action buttons */}
-        <div className="hidden md:flex items-center gap-6 lg:gap-8">
-          <nav className="flex h-11 items-center gap-6 lg:gap-8">
+        <div className="hidden md:flex items-center gap-6 lg:gap-8 xl:gap-10">
+          <nav className="flex h-11 lg:h-[52px] xl:h-[54px] items-center gap-6 lg:gap-8 xl:gap-10">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               let linkColorClass = '';
@@ -143,7 +143,7 @@ export default function Header() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`inline-flex h-11 items-center text-xs lg:text-[13px] tracking-[0.08em] uppercase transition-colors ${linkColorClass}`}
+                  className={`inline-flex h-full items-center text-xs lg:text-[15px] xl:text-[16px] tracking-[0.08em] uppercase transition-colors ${linkColorClass}`}
                 >
                   {link.label}
                 </Link>
@@ -153,7 +153,7 @@ export default function Header() {
 
           {/* Blended Dual Action: White "Become a Tutor" with green text + Green "Get Started" with white text */}
           <div
-            className={`group/cta flex h-11 items-stretch rounded-full border transition-all duration-200 shadow-sm ${
+            className={`group/cta flex h-11 lg:h-[52px] xl:h-[54px] items-stretch rounded-full border transition-all duration-200 shadow-sm ${
               showWhiteNav
                 ? 'border-white bg-white'
                 : 'border-[#095F46] bg-white'
@@ -161,7 +161,7 @@ export default function Header() {
           >
             <Link
               href="/teach"
-              className={`flex items-center rounded-l-full pl-4 sm:pl-5 pr-2.5 text-xs uppercase tracking-[0.02em] font-normal transition-colors duration-200 ${
+              className={`flex items-center rounded-l-full pl-4 sm:pl-5 lg:pl-6 xl:pl-7 pr-2.5 lg:pr-3.5 text-xs lg:text-[14px] xl:text-[15px] uppercase tracking-[0.02em] font-normal transition-colors duration-200 ${
                 showWhiteNav
                   ? pathname === '/teach'
                     ? 'text-[#095F46]'
@@ -176,7 +176,7 @@ export default function Header() {
 
             <Link
               href="/about#waitlist"
-              className={`-my-px -mr-px flex items-center rounded-full bg-[#095F46] px-5 text-xs font-normal uppercase tracking-[0.02em] text-white transition-colors duration-200 hover:bg-[#043f2e] shadow-sm ${
+              className={`-my-px -mr-px flex items-center rounded-full bg-[#095F46] px-5 lg:px-7 xl:px-8 text-xs lg:text-[14px] xl:text-[15px] font-normal uppercase tracking-[0.02em] text-white transition-colors duration-200 hover:bg-[#043f2e] shadow-sm ${
                 showWhiteNav ? 'border border-white' : 'border border-[#095F46]'
               }`}
             >

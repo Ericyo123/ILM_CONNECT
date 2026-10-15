@@ -288,45 +288,45 @@ export default function HomePage() {
         </div>
 
         {/* Top spacer for fixed header alignment */}
-        <div className="w-full h-12 sm:h-16 shrink-0 pointer-events-none" aria-hidden="true" />
+        <div className="w-full h-14 sm:h-16 lg:h-20 shrink-0 pointer-events-none" aria-hidden="true" />
 
         {/* Left-Aligned Hero Content — Exactly aligned to Header Logo */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-20 my-auto w-full px-4 sm:px-6 lg:px-12 flex flex-col items-center py-4 sm:py-6"
+          className="relative z-20 my-auto w-full px-4 sm:px-6 lg:px-12 flex flex-col items-center py-2 sm:py-4"
         >
-          <div className="w-full max-w-7xl px-5 sm:px-7">
-            <div className="max-w-2xl lg:max-w-3xl xl:max-w-4xl flex flex-col items-start text-left">
-              {/* 3-Line Triangle Format Headline (Increased font size & tighter line spacing) */}
-              <h1 className="text-[32px] sm:text-[38px] md:text-[45px] lg:text-[53px] xl:text-[58px] font-bold tracking-tight text-white leading-[1.04] drop-shadow-[0_2px_10px_rgba(0,0,0,0.40)] font-bricolage text-left">
+          <div className="w-full max-w-7xl xl:max-w-[1440px] px-5 sm:px-7 lg:px-8 xl:px-9">
+            <div className="max-w-2xl lg:max-w-3xl xl:max-w-5xl flex flex-col items-start text-left">
+              {/* 3-Line Triangle Format Headline (Scaled to match 125% visual appearance) */}
+              <h1 className="text-[32px] sm:text-[40px] md:text-[50px] lg:text-[62px] xl:text-[72px] 2xl:text-[76px] font-bold tracking-tight text-white leading-[1.02] sm:leading-[1.03] drop-shadow-[0_2px_10px_rgba(0,0,0,0.40)] font-bricolage text-left">
                 <span className="block text-white">Learn Quran</span>
                 <span className="block text-white mt-0.5 sm:mt-1">&amp; Islamic Studies</span>
-                <span className="block text-[#EAD08A] mt-1 sm:mt-1.5 text-[18px] sm:text-[22px] md:text-[26px] lg:text-[30px] xl:text-[34px] font-semibold tracking-tight whitespace-nowrap">
+                <span className="block text-[#EAD08A] mt-1.5 sm:mt-2 lg:mt-2.5 text-[18px] sm:text-[24px] md:text-[28px] lg:text-[36px] xl:text-[42px] font-semibold tracking-tight whitespace-nowrap">
                   from Qualified Scholars Worldwide
                 </span>
               </h1>
 
-              {/* Dual Pill CTA Buttons with reduced spacing */}
-              <div className="mt-5 sm:mt-6 flex flex-wrap items-center justify-start gap-3.5 sm:gap-4">
+              {/* Dual Pill CTA Buttons with scaled proportions */}
+              <div className="mt-6 sm:mt-7 lg:mt-8 flex flex-wrap items-center justify-start gap-4 sm:gap-5">
                 <Link
                   href="#courses"
-                  className="brand-button brand-button-inverse px-8 py-3 text-sm sm:text-base !font-light tracking-wide shadow-lg shadow-black/40"
+                  className="brand-button brand-button-inverse px-8 py-3 lg:px-10 lg:py-4 xl:px-11 xl:py-4.5 text-sm sm:text-base lg:text-[17px] xl:text-[18px] lg:min-h-[56px] xl:min-h-[58px] !font-light tracking-wide shadow-lg shadow-black/40"
                 >
                   View Courses
                 </Link>
                 <Link
                   href="/about#waitlist"
-                  className="brand-button brand-button-primary px-8 py-3 text-sm sm:text-base !font-light tracking-wide shadow-lg shadow-black/40"
+                  className="brand-button brand-button-primary px-8 py-3 lg:px-10 lg:py-4 xl:px-11 xl:py-4.5 text-sm sm:text-base lg:text-[17px] xl:text-[18px] lg:min-h-[56px] xl:min-h-[58px] !font-light tracking-wide shadow-lg shadow-black/40"
                 >
                   Join the Waitlist
                 </Link>
               </div>
 
               {/* Description Content — Clear summary of Ilmbit for Sri Lankans abroad */}
-              <p className="mt-6 sm:mt-7 max-w-xl text-sm sm:text-[15px] text-stone-200/90 leading-relaxed drop-shadow-sm font-normal">
-                Connecting Sri Lankan families living abroad directly with verified scholars for a personalized Quran recitation and Islamic learning experience, suited to your<br />time and personal pace.
+              <p className="mt-6 sm:mt-7 lg:mt-8 max-w-xl lg:max-w-2xl xl:max-w-3xl text-sm sm:text-[15px] lg:text-[18px] xl:text-[19px] text-stone-200/90 leading-relaxed lg:leading-[1.65] drop-shadow-sm font-normal">
+                Connecting Sri Lankan families living abroad directly with verified scholars for a personalized Quran recitation and Islamic learning experience, suited to your<br className="hidden sm:inline" />time and personal pace.
               </p>
             </div>
           </div>
@@ -404,30 +404,30 @@ export default function HomePage() {
                 className="flex flex-col justify-between lg:col-span-6"
               >
                 <div>
-                  <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 leading-[1.18] font-bricolage" suppressHydrationWarning>
+                  <h2 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-stone-950 leading-[1.18] font-bricolage" suppressHydrationWarning>
                     <span>Grow In Sacred Knowledge So You Can </span>
-                    <span className="block text-[#095F46]">Live With Purpose &amp; Iman</span>
+                    <span className="block text-[#095F46] mt-1 sm:mt-1.5">Live With Purpose &amp; Iman</span>
                   </h2>
 
-                  <p className="mt-5 text-sm sm:text-base font-normal leading-relaxed text-stone-600">
+                  <p className="mt-6 text-base sm:text-lg lg:text-[18px] font-normal leading-relaxed text-stone-600">
                     Finding patient, verified Islamic teachers shouldn&apos;t be difficult. Ilmbit connects students in Sri Lanka and Sri Lankan families living abroad directly with qualified scholars for structured 1:1 online lessons suited to your schedule and personal pace.
                   </p>
 
-                  <div className="mt-6 space-y-3.5">
+                  <div className="mt-7 space-y-4 lg:space-y-5">
                     {[
                       { title: 'Personalized 1:1 Learning Paths', desc: 'From foundational Noorani Qaida to advanced Sanad Tajweed' },
                       { title: 'Verified Scholars & Certified Maulavis', desc: 'Carefully vetted teachers with authentic Sanad and clear guidance' },
                       { title: 'For Students in Sri Lanka & Abroad', desc: 'Flexible 1:1 session scheduling across local and overseas timezones' },
                     ].map((feature, idx) => (
-                      <div key={idx} className="flex items-start gap-3.5">
-                        <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#095F46]/10 text-[#095F46] mt-0.5">
-                          <Check className="h-3.5 w-3.5 stroke-[2.5]" aria-hidden="true" />
+                      <div key={idx} className="flex items-start gap-4">
+                        <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#095F46]/10 text-[#095F46] mt-0.5">
+                          <Check className="h-4 w-4 stroke-[2.5]" aria-hidden="true" />
                         </div>
                         <div>
-                          <h3 className="text-sm sm:text-[15px] font-bold tracking-tight text-stone-900">
+                          <h3 className="text-base sm:text-[17px] lg:text-[18px] font-bold tracking-tight text-stone-900">
                             {feature.title}
                           </h3>
-                          <p className="text-xs sm:text-sm text-stone-500 font-normal">
+                          <p className="text-sm sm:text-[15px] lg:text-[16px] text-stone-500 font-normal">
                             {feature.desc}
                           </p>
                         </div>
@@ -436,13 +436,13 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                <div className="mt-8 flex flex-wrap items-center gap-4">
+                <div className="mt-9 flex flex-wrap items-center gap-4">
                   <Link
                     href="/about"
-                    className="brand-button brand-button-primary px-7 py-3 text-xs tracking-wider uppercase !font-light inline-flex items-center gap-2 group"
+                    className="brand-button brand-button-primary px-8 py-3.5 lg:px-9 lg:py-4 text-xs lg:text-sm tracking-wider uppercase !font-light inline-flex items-center gap-2 group"
                   >
                     <span>Learn More</span>
-                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                   </Link>
                 </div>
               </motion.div>
@@ -491,10 +491,10 @@ export default function HomePage() {
               variants={sectionReveal}
               className="text-center max-w-3xl mx-auto mb-10 sm:mb-14"
             >
-              <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 leading-[1.15] mb-3 sm:mb-4">
+              <h2 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-stone-950 leading-[1.12] mb-3 sm:mb-4">
                 How It Works
               </h2>
-              <p className="text-stone-600 font-normal text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+              <p className="text-stone-600 font-normal text-base sm:text-lg lg:text-[18px] max-w-2xl mx-auto leading-relaxed">
                 Start learning in minutes. Our streamlined process connects you with certified scholars seamlessly.
               </p>
             </motion.div>
@@ -510,7 +510,7 @@ export default function HomePage() {
           id="courses"
           className="py-14 sm:py-18 lg:py-20 bg-transparent text-stone-900 scroll-mt-16 relative overflow-hidden border-b border-stone-200/60 select-none"
         >
-          <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="relative mx-auto w-full max-w-6xl xl:max-w-7xl px-4 sm:px-6 lg:px-8">
             {/* Header matching user voice instructions & Reference */}
             <motion.div
               initial="hidden"
@@ -519,10 +519,10 @@ export default function HomePage() {
               variants={sectionReveal}
               className="text-center max-w-2xl mx-auto mb-8 sm:mb-10 lg:mb-12"
             >
-              <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 leading-[1.15] mb-3">
+              <h2 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-stone-950 leading-[1.12] mb-3">
                 Our Courses
               </h2>
-              <p className="text-stone-500 font-normal text-xs sm:text-sm lg:text-base max-w-xl mx-auto leading-relaxed">
+              <p className="text-stone-500 font-normal text-sm sm:text-base lg:text-[18px] max-w-2xl mx-auto leading-relaxed">
                 Choose the right course for your Islamic education journey
               </p>
             </motion.div>
@@ -538,61 +538,61 @@ export default function HomePage() {
               {/* CARD 1: Beginner Plan (Noorani Qaida) */}
               <motion.div
                 variants={cardItem}
-                className="rounded-3xl bg-white/95 backdrop-blur-md border border-stone-200/90 p-5 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col justify-between hover:shadow-lg transition-all duration-300"
+                className="rounded-3xl bg-white/95 backdrop-blur-md border border-stone-200/90 p-6 sm:p-7 lg:p-8 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col justify-between hover:shadow-lg transition-all duration-300"
               >
                 <div>
-                  <h3 className="text-xl sm:text-2xl font-black text-stone-950 tracking-tight mb-2">
+                  <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-black text-stone-950 tracking-tight mb-2.5">
                     Noorani Qaida
                   </h3>
-                  <p className="text-stone-500 text-xs sm:text-[13px] leading-relaxed mb-5">
+                  <p className="text-stone-500 text-sm sm:text-[14px] lg:text-[15px] leading-relaxed mb-6">
                     For beginners and children learning Quranic Arabic letters, correct pronunciation, and basic reading rules.
                   </p>
 
                   {/* Price Tag */}
-                  <div className="flex items-baseline gap-1 mb-6 pb-5 border-b border-stone-100">
-                    <span className="text-3xl sm:text-4xl font-black tracking-tight text-stone-950">
+                  <div className="flex items-baseline gap-1.5 mb-6 pb-5 border-b border-stone-100">
+                    <span className="text-4xl sm:text-[44px] lg:text-[48px] font-black tracking-tight text-stone-950">
                       $49
                     </span>
-                    <span className="text-xs font-semibold text-stone-400">
+                    <span className="text-xs lg:text-sm font-semibold text-stone-400">
                       / month
                     </span>
                   </div>
 
                   <Link
                     href="/about#waitlist"
-                    className="brand-button brand-button-primary mb-6 w-full"
+                    className="brand-button brand-button-primary mb-6 w-full py-3.5 lg:py-4 text-xs lg:text-sm tracking-wider uppercase"
                   >
                     Select Plan
                   </Link>
 
-                  <div className="text-[11px] font-bold uppercase tracking-wider text-stone-400 mb-3">
+                  <div className="text-xs lg:text-[12px] font-bold uppercase tracking-wider text-stone-400 mb-3.5">
                     What&apos;s Included
                   </div>
-                  <ul className="space-y-2.5 text-xs text-stone-600 font-medium">
+                  <ul className="space-y-3 text-xs sm:text-sm lg:text-[14px] text-stone-600 font-medium">
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-3.5 h-3.5 text-stone-900 shrink-0 stroke-[2.5]" />
+                      <Check className="w-4 h-4 text-stone-900 shrink-0 stroke-[2.5]" />
                       <span>8 sessions per month (2/week)</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-3.5 h-3.5 text-stone-900 shrink-0 stroke-[2.5]" />
+                      <Check className="w-4 h-4 text-stone-900 shrink-0 stroke-[2.5]" />
                       <span>45-minute 1:1 live sessions</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-3.5 h-3.5 text-stone-900 shrink-0 stroke-[2.5]" />
+                      <Check className="w-4 h-4 text-stone-900 shrink-0 stroke-[2.5]" />
                       <span>Letter pronunciation &amp; Makharij</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-3.5 h-3.5 text-stone-900 shrink-0 stroke-[2.5]" />
+                      <Check className="w-4 h-4 text-stone-900 shrink-0 stroke-[2.5]" />
                       <span>Session recordings &amp; notes</span>
                     </li>
                   </ul>
 
-                  <div className="mt-5 pt-4 border-t border-stone-100">
-                    <div className="rounded-2xl bg-[#FCF8EE] border border-[#EAD08A]/60 p-3 sm:p-3.5 flex flex-col gap-2">
+                  <div className="mt-6 pt-4 border-t border-stone-100">
+                    <div className="rounded-2xl bg-[#FCF8EE] border border-[#EAD08A]/60 p-3.5 sm:p-4 flex flex-col gap-2">
                       <p className="text-sm font-bold text-stone-900">
                         Start Strong
                       </p>
-                      <Link href="/pricing#fast-track-plans" className="brand-button brand-button-secondary w-full justify-between px-4 text-xs">
+                      <Link href="/pricing#fast-track-plans" className="brand-button brand-button-secondary w-full justify-between px-4 text-xs lg:text-sm">
                         <span>Explore Fast Track Plan</span>
                         <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                       </Link>
@@ -604,65 +604,65 @@ export default function HomePage() {
               {/* CARD 2: Intermediate Plan (Tajweed Mastery) — Matching Card Style */}
               <motion.div
                 variants={cardItem}
-                className="rounded-3xl bg-white/95 backdrop-blur-md border border-stone-200/90 p-5 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col justify-between hover:shadow-lg transition-all duration-300"
+                className="rounded-3xl bg-white/95 backdrop-blur-md border border-stone-200/90 p-6 sm:p-7 lg:p-8 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col justify-between hover:shadow-lg transition-all duration-300"
               >
                 <div>
-                  <h3 className="text-xl sm:text-2xl font-black text-stone-950 tracking-tight mb-2">
+                  <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-black text-stone-950 tracking-tight mb-2.5">
                     Tajweed Mastery
                   </h3>
-                  <p className="text-stone-500 text-xs sm:text-[13px] leading-relaxed mb-5">
+                  <p className="text-stone-500 text-sm sm:text-[14px] lg:text-[15px] leading-relaxed mb-6">
                     Master the science of Tajweed, rules of elongation, stops, and beautiful melodic recitation with Sanad scholars.
                   </p>
 
                   {/* Price Tag */}
-                  <div className="flex items-baseline gap-1 mb-6 pb-5 border-b border-stone-100">
-                    <span className="text-3xl sm:text-4xl font-black tracking-tight text-stone-950">
+                  <div className="flex items-baseline gap-1.5 mb-6 pb-5 border-b border-stone-100">
+                    <span className="text-4xl sm:text-[44px] lg:text-[48px] font-black tracking-tight text-stone-950">
                       $59
                     </span>
-                    <span className="text-xs font-semibold text-stone-400">
+                    <span className="text-xs lg:text-sm font-semibold text-stone-400">
                       / month
                     </span>
                   </div>
 
                   <Link
                     href="/about#waitlist"
-                    className="brand-button brand-button-primary mb-6 w-full"
+                    className="brand-button brand-button-primary mb-6 w-full py-3.5 lg:py-4 text-xs lg:text-sm tracking-wider uppercase"
                   >
                     Select Plan
                   </Link>
 
-                  <div className="text-[11px] font-bold uppercase tracking-wider text-stone-400 mb-3">
+                  <div className="text-xs lg:text-[12px] font-bold uppercase tracking-wider text-stone-400 mb-3.5">
                     What&apos;s Included
                   </div>
-                  <ul className="space-y-2.5 text-xs text-stone-600 font-medium">
+                  <ul className="space-y-3 text-xs sm:text-sm lg:text-[14px] text-stone-600 font-medium">
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-3.5 h-3.5 text-stone-900 shrink-0 stroke-[2.5]" />
+                      <Check className="w-4 h-4 text-stone-900 shrink-0 stroke-[2.5]" />
                       <span>8 sessions per month (2/week)</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-3.5 h-3.5 text-stone-900 shrink-0 stroke-[2.5]" />
+                      <Check className="w-4 h-4 text-stone-900 shrink-0 stroke-[2.5]" />
                       <span>45-minute 1:1 live sessions</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-3.5 h-3.5 text-stone-900 shrink-0 stroke-[2.5]" />
+                      <Check className="w-4 h-4 text-stone-900 shrink-0 stroke-[2.5]" />
                       <span>Comprehensive Tajweed theoretical rules</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-3.5 h-3.5 text-stone-900 shrink-0 stroke-[2.5]" />
+                      <Check className="w-4 h-4 text-stone-900 shrink-0 stroke-[2.5]" />
                       <span>Melodic recitation &amp; Waqf guidance</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-3.5 h-3.5 text-stone-900 shrink-0 stroke-[2.5]" />
+                      <Check className="w-4 h-4 text-stone-900 shrink-0 stroke-[2.5]" />
                       <span>Monthly progress evaluation</span>
                     </li>
                   </ul>
 
-                  <div className="mt-5 pt-4 border-t border-stone-100">
-                    <div className="rounded-2xl bg-[#FCF8EE] border border-[#EAD08A]/60 p-3 sm:p-3.5 flex flex-col gap-2">
+                  <div className="mt-6 pt-4 border-t border-stone-100">
+                    <div className="rounded-2xl bg-[#FCF8EE] border border-[#EAD08A]/60 p-3.5 sm:p-4 flex flex-col gap-2">
                       <p className="text-sm font-bold text-stone-900">
                         Recite Better
                       </p>
-                      <Link href="/pricing#fast-track-plans" className="brand-button brand-button-secondary w-full justify-between px-4 text-xs">
+                      <Link href="/pricing#fast-track-plans" className="brand-button brand-button-secondary w-full justify-between px-4 text-xs lg:text-sm">
                         <span>Explore Fast Track Plan</span>
                         <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                       </Link>
@@ -674,65 +674,65 @@ export default function HomePage() {
               {/* CARD 3: Intensive Memorization (Hifz) */}
               <motion.div
                 variants={cardItem}
-                className="rounded-3xl bg-white/95 backdrop-blur-md border border-stone-200/90 p-5 sm:p-6 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col justify-between hover:shadow-lg transition-all duration-300"
+                className="rounded-3xl bg-white/95 backdrop-blur-md border border-stone-200/90 p-6 sm:p-7 lg:p-8 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col justify-between hover:shadow-lg transition-all duration-300"
               >
                 <div>
-                  <h3 className="text-xl sm:text-2xl font-black text-stone-950 tracking-tight mb-2">
+                  <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-black text-stone-950 tracking-tight mb-2.5">
                     Hifz Program
                   </h3>
-                  <p className="text-stone-500 text-xs sm:text-[13px] leading-relaxed mb-5">
+                  <p className="text-stone-500 text-sm sm:text-[14px] lg:text-[15px] leading-relaxed mb-6">
                     Structured Quran memorization with dedicated daily revision, retention strategies, and individual Sanad pathway.
                   </p>
 
                   {/* Price Tag */}
-                  <div className="flex items-baseline gap-1 mb-6 pb-5 border-b border-stone-100">
-                    <span className="text-3xl sm:text-4xl font-black tracking-tight text-stone-950">
+                  <div className="flex items-baseline gap-1.5 mb-6 pb-5 border-b border-stone-100">
+                    <span className="text-4xl sm:text-[44px] lg:text-[48px] font-black tracking-tight text-stone-950">
                       $79
                     </span>
-                    <span className="text-xs font-semibold text-stone-400">
+                    <span className="text-xs lg:text-sm font-semibold text-stone-400">
                       / month
                     </span>
                   </div>
 
                   <Link
                     href="/about#waitlist"
-                    className="brand-button brand-button-primary mb-6 w-full"
+                    className="brand-button brand-button-primary mb-6 w-full py-3.5 lg:py-4 text-xs lg:text-sm tracking-wider uppercase"
                   >
                     Select Plan
                   </Link>
 
-                  <div className="text-[11px] font-bold uppercase tracking-wider text-stone-400 mb-3">
+                  <div className="text-xs lg:text-[12px] font-bold uppercase tracking-wider text-stone-400 mb-3.5">
                     What&apos;s Included
                   </div>
-                  <ul className="space-y-2.5 text-xs text-stone-600 font-medium">
+                  <ul className="space-y-3 text-xs sm:text-sm lg:text-[14px] text-stone-600 font-medium">
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-3.5 h-3.5 text-stone-900 shrink-0 stroke-[2.5]" />
+                      <Check className="w-4 h-4 text-stone-900 shrink-0 stroke-[2.5]" />
                       <span>8 sessions per month (2/week)</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-3.5 h-3.5 text-stone-900 shrink-0 stroke-[2.5]" />
+                      <Check className="w-4 h-4 text-stone-900 shrink-0 stroke-[2.5]" />
                       <span>45-minute 1:1 live sessions</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-3.5 h-3.5 text-stone-900 shrink-0 stroke-[2.5]" />
+                      <Check className="w-4 h-4 text-stone-900 shrink-0 stroke-[2.5]" />
                       <span>Dedicated Hifz coach</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-3.5 h-3.5 text-stone-900 shrink-0 stroke-[2.5]" />
+                      <Check className="w-4 h-4 text-stone-900 shrink-0 stroke-[2.5]" />
                       <span>Structured memorization schedule</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-3.5 h-3.5 text-stone-900 shrink-0 stroke-[2.5]" />
+                      <Check className="w-4 h-4 text-stone-900 shrink-0 stroke-[2.5]" />
                       <span>Revision tracking &amp; lecturer messaging</span>
                     </li>
                   </ul>
 
-                  <div className="mt-5 pt-4 border-t border-stone-100">
-                    <div className="rounded-2xl bg-[#FCF8EE] border border-[#EAD08A]/60 p-3 sm:p-3.5 flex flex-col gap-2">
+                  <div className="mt-6 pt-4 border-t border-stone-100">
+                    <div className="rounded-2xl bg-[#FCF8EE] border border-[#EAD08A]/60 p-3.5 sm:p-4 flex flex-col gap-2">
                       <p className="text-sm font-bold text-stone-900">
                         Memorize More
                       </p>
-                      <Link href="/pricing#fast-track-plans" className="brand-button brand-button-secondary w-full justify-between px-4 text-xs">
+                      <Link href="/pricing#fast-track-plans" className="brand-button brand-button-secondary w-full justify-between px-4 text-xs lg:text-sm">
                         <span>Explore Fast Track Plan</span>
                         <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                       </Link>
@@ -928,19 +928,19 @@ export default function HomePage() {
             whileInView="visible"
             viewport={revealViewport}
             variants={sectionReveal}
-            className="flex flex-col justify-center max-w-[640px]"
+            className="flex flex-col justify-center max-w-[720px]"
           >
-            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 leading-[1.15] mb-4">
+            <h2 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-stone-950 leading-[1.12] mb-4 font-bricolage">
               Begin Your Sacred Journey of Knowledge
             </h2>
-            <p className="max-w-xl text-base leading-relaxed text-stone-600 sm:text-lg">
+            <p className="max-w-2xl text-base leading-relaxed text-stone-600 sm:text-lg lg:text-[18px] xl:text-[19px]">
               Tell us what you want to learn. We will use it to prepare the right scholar match and schedule.
             </p>
 
             <div className="mt-8">
               <Link
                 href="/about#waitlist"
-                className="brand-button brand-button-primary px-8 text-base shadow-sm"
+                className="brand-button brand-button-primary px-9 py-4 lg:px-10 lg:py-4.5 text-base lg:text-[17px] xl:text-[18px] lg:min-h-[56px] shadow-sm tracking-wide"
               >
                 <span>Join the Waitlist</span>
                 <ChevronRight className="h-4 w-4" />

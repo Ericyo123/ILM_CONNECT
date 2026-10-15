@@ -305,11 +305,11 @@ export default function AboutPage() {
       <section id="story" className={`relative z-10 py-16 sm:py-20 lg:py-24 border-b border-stone-200/60 scroll-mt-20 ${styles.patternBackground}`}>
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
           
-          <div className="text-center max-w-3xl mx-auto space-y-2.5">
-            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 font-bricolage">
+          <div className="text-center max-w-3xl mx-auto space-y-3">
+            <h2 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.12]">
               Why We Started Ilmbit
             </h2>
-            <p className="text-stone-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+            <p className="text-stone-600 text-sm sm:text-base lg:text-[18px] xl:text-[19px] leading-relaxed max-w-3xl mx-auto font-normal">
               Living in the West, finding authentic Islamic education for our children felt fraught with compromise. We built Ilmbit to eliminate those compromises forever.
             </p>
           </div>
@@ -323,35 +323,38 @@ export default function AboutPage() {
               whileInView="visible"
               viewport={{ once: true, amount: 0.15 }}
               variants={fadeUp}
-              className="rounded-3xl border border-stone-200 bg-white p-7 sm:p-9 shadow-[0_4px_20px_rgba(0,0,0,0.02)] flex flex-col justify-between"
+              className="rounded-3xl border border-stone-200 bg-white p-7 sm:p-9 lg:p-10 xl:p-11 shadow-[0_4px_20px_rgba(0,0,0,0.02)] flex flex-col justify-between"
             >
               <div>
-                <h3 className="text-2xl font-bold tracking-tight text-stone-950 font-bricolage mb-5">
+                <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-bold tracking-tight text-stone-950 font-bricolage mb-5 lg:mb-6">
                   Before
                 </h3>
-                <ul className="space-y-4 text-stone-600 text-sm leading-relaxed">
-                  <li className="flex items-start gap-3">
-                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-red-500 text-white text-xs font-bold">
-                      <X className="h-3 w-3 stroke-[2.5]" />
+                <ul className="space-y-4 sm:space-y-5 text-stone-600 text-sm sm:text-base lg:text-[16px] xl:text-[17px] leading-relaxed font-normal">
+                  <li className="flex items-start gap-3.5">
+                    <span className="mt-1 flex h-5 w-5 lg:h-6 lg:w-6 shrink-0 items-center justify-center rounded-full bg-red-500 text-white text-xs font-bold">
+                      <X className="h-3 w-3 lg:h-3.5 lg:w-3.5 stroke-[2.5]" />
                     </span>
                     <span>
-                      <strong className="text-stone-900 font-semibold">Overcrowded Local Madrasahs:</strong> Exhausting weekday commutes followed by large classrooms where individual pronunciation mistakes often go unnoticed.
+                      <strong className="text-stone-900 font-semibold">Overcrowded Local Madrasahs:</strong>{' '}
+                      Exhausting weekday commutes followed by large classrooms where individual pronunciation mistakes often go unnoticed.
                     </span>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-red-500 text-white text-xs font-bold">
-                      <X className="h-3 w-3 stroke-[2.5]" />
+                  <li className="flex items-start gap-3.5">
+                    <span className="mt-1 flex h-5 w-5 lg:h-6 lg:w-6 shrink-0 items-center justify-center rounded-full bg-red-500 text-white text-xs font-bold">
+                      <X className="h-3 w-3 lg:h-3.5 lg:w-3.5 stroke-[2.5]" />
                     </span>
                     <span>
-                      <strong className="text-stone-900 font-semibold">Unvetted Online Freelancers:</strong> High tutor turnover, unpredictable attendance, language barriers, and zero child safeguarding standards.
+                      <strong className="text-stone-900 font-semibold">Unvetted Online Freelancers:</strong>{' '}
+                      High tutor turnover, unpredictable attendance, language barriers, and zero child safeguarding standards.
                     </span>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-red-500 text-white text-xs font-bold">
-                      <X className="h-3 w-3 stroke-[2.5]" />
+                  <li className="flex items-start gap-3.5">
+                    <span className="mt-1 flex h-5 w-5 lg:h-6 lg:w-6 shrink-0 items-center justify-center rounded-full bg-red-500 text-white text-xs font-bold">
+                      <X className="h-3 w-3 lg:h-3.5 lg:w-3.5 stroke-[2.5]" />
                     </span>
                     <span>
-                      <strong className="text-stone-900 font-semibold">Cold, Gamified Apps:</strong> Impersonal software exercises that cannot replicate the heart-to-heart warmth of living oral transmission.
+                      <strong className="text-stone-900 font-semibold">Cold, Gamified Apps:</strong>{' '}
+                      Impersonal software exercises that cannot replicate the heart-to-heart warmth of living oral transmission.
                     </span>
                   </li>
                 </ul>
@@ -364,7 +367,7 @@ export default function AboutPage() {
               whileInView="visible"
               viewport={{ once: true, amount: 0.15 }}
               variants={fadeUp}
-              className="relative overflow-hidden rounded-3xl bg-[#083f33] p-7 sm:p-9 text-white shadow-[0_16px_40px_rgba(8,63,51,0.18)] flex flex-col justify-between"
+              className="relative overflow-hidden rounded-3xl bg-[#083f33] p-7 sm:p-9 lg:p-10 xl:p-11 text-white shadow-[0_16px_40px_rgba(8,63,51,0.18)] flex flex-col justify-between"
             >
               <div className="absolute inset-0 z-0 opacity-15">
                 <Image
@@ -377,32 +380,35 @@ export default function AboutPage() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#052d23] via-[#083f33]/90 to-[#083f33]/80 z-0" />
 
               <div className="relative z-10">
-                <h3 className="text-2xl font-bold tracking-tight text-white font-bricolage mb-5">
+                <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-bold tracking-tight text-white font-bricolage mb-5 lg:mb-6">
                   After
                 </h3>
-                <ul className="space-y-4 text-emerald-50/90 text-sm leading-relaxed">
-                  <li className="flex items-start gap-3">
-                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-400 text-stone-950 text-xs font-bold">
-                      <Check className="h-3 w-3 stroke-[3]" />
+                <ul className="space-y-4 sm:space-y-5 text-emerald-50/90 text-sm sm:text-base lg:text-[16px] xl:text-[17px] leading-relaxed font-normal">
+                  <li className="flex items-start gap-3.5">
+                    <span className="mt-1 flex h-5 w-5 lg:h-6 lg:w-6 shrink-0 items-center justify-center rounded-full bg-emerald-400 text-stone-950 text-xs font-bold">
+                      <Check className="h-3 w-3 lg:h-3.5 lg:w-3.5 stroke-[3]" />
                     </span>
                     <span>
-                      <strong className="text-white font-semibold">Living Talaqqi:</strong> Dedicated 1:1 sessions with verified Sanad-certified scholars from historic centres of Islamic learning.
+                      <strong className="text-white font-semibold">Living Talaqqi:</strong>{' '}
+                      Dedicated 1:1 sessions with verified Sanad-certified scholars from historic centres of Islamic learning.
                     </span>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-400 text-stone-950 text-xs font-bold">
-                      <Check className="h-3 w-3 stroke-[3]" />
+                  <li className="flex items-start gap-3.5">
+                    <span className="mt-1 flex h-5 w-5 lg:h-6 lg:w-6 shrink-0 items-center justify-center rounded-full bg-emerald-400 text-stone-950 text-xs font-bold">
+                      <Check className="h-3 w-3 lg:h-3.5 lg:w-3.5 stroke-[3]" />
                     </span>
                     <span>
-                      <strong className="text-white font-semibold">Encouragement &amp; Adab:</strong> A patient, shame-free space where children feel safe, respected, and eager to return every week.
+                      <strong className="text-white font-semibold">Encouragement &amp; Adab:</strong>{' '}
+                      A patient, shame-free space where children feel safe, respected, and eager to return every week.
                     </span>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-400 text-stone-950 text-xs font-bold">
-                      <Check className="h-3 w-3 stroke-[3]" />
+                  <li className="flex items-start gap-3.5">
+                    <span className="mt-1 flex h-5 w-5 lg:h-6 lg:w-6 shrink-0 items-center justify-center rounded-full bg-emerald-400 text-stone-950 text-xs font-bold">
+                      <Check className="h-3 w-3 lg:h-3.5 lg:w-3.5 stroke-[3]" />
                     </span>
                     <span>
-                      <strong className="text-white font-semibold">Frictionless Modern Portal:</strong> Consistent scheduling tailored to UK, US, EU &amp; Australian time zones with direct parent visibility.
+                      <strong className="text-white font-semibold">Frictionless Modern Portal:</strong>{' '}
+                      Consistent scheduling tailored to UK, US, EU &amp; Australian time zones with direct parent visibility.
                     </span>
                   </li>
                 </ul>
@@ -430,7 +436,7 @@ export default function AboutPage() {
               variants={fadeUp}
               className="lg:col-span-7"
             >
-              <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 leading-[1.15] font-bricolage">
+              <h2 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-stone-950 leading-[1.18] lg:leading-[1.2] font-bricolage">
                 Make Serious Islamic Education{' '}
                 <span className="text-[#095F46]">Easier To Access,</span> And Easier To Stay With!
               </h2>
@@ -442,7 +448,7 @@ export default function AboutPage() {
               whileInView="visible"
               viewport={{ once: true, amount: 0.15 }}
               variants={fadeUp}
-              className="lg:col-span-5 text-stone-600 text-xs sm:text-sm leading-relaxed"
+              className="lg:col-span-5 text-stone-600 text-sm sm:text-base lg:text-[17px] xl:text-[18px] leading-relaxed font-normal"
             >
               <p>
                 Ilmbit bridges authentic traditional scholarship with modern 1:1 virtual classrooms and flexible scheduling designed specifically for Sri Lankan families living abroad.
@@ -468,11 +474,11 @@ export default function AboutPage() {
                 sizes="(max-width: 1024px) 100vw, 58vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#052d23]/95 via-[#052d23]/20 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-7 text-white sm:p-9">
-                <h3 className="max-w-md text-3xl font-bold tracking-[-0.035em] sm:text-4xl font-bricolage">
+              <div className="absolute inset-x-0 bottom-0 p-7 text-white sm:p-9 lg:p-10 xl:p-11">
+                <h3 className="max-w-md text-3xl sm:text-4xl lg:text-[40px] xl:text-[44px] font-bold tracking-[-0.035em] font-bricolage">
                   Verified Scholars
                 </h3>
-                <p className="mt-3 max-w-md text-sm leading-relaxed text-emerald-50/85 sm:text-base">
+                <p className="mt-3 max-w-md text-sm leading-relaxed text-emerald-50/85 sm:text-base lg:text-[17px] xl:text-[18px]">
                   Sanad-certified educators selected for Islamic depth and teaching adab.
                 </p>
               </div>
@@ -488,9 +494,9 @@ export default function AboutPage() {
                 sizes="(max-width: 1024px) 100vw, 42vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-950/20 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-6 text-white sm:p-7">
-                <h3 className="text-2xl font-bold tracking-tight font-bricolage">Personal Attention</h3>
-                <p className="mt-2 max-w-lg text-sm leading-relaxed text-stone-200">
+              <div className="absolute inset-x-0 bottom-0 p-6 text-white sm:p-7 lg:p-8">
+                <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-bold tracking-tight font-bricolage">Personal Attention</h3>
+                <p className="mt-2 max-w-lg text-sm sm:text-base lg:text-[16px] leading-relaxed text-stone-200">
                   Private sessions paced around the student, with direct Tajweed correction.
                 </p>
               </div>
@@ -498,9 +504,9 @@ export default function AboutPage() {
 
             {/* Built Around You (Countries Flags) */}
             <article className="group relative flex min-h-[230px] flex-col justify-center overflow-hidden rounded-3xl border border-[#095F46]/12 bg-white lg:col-span-5 lg:min-h-0">
-              <div className="relative p-6 text-stone-950 sm:p-7">
-                <h3 className="text-2xl font-bold tracking-tight font-bricolage">Built Around You</h3>
-                <p className="mt-2 max-w-lg text-sm leading-relaxed text-stone-600">
+              <div className="relative p-6 text-stone-950 sm:p-7 lg:p-8">
+                <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-bold tracking-tight font-bricolage">Built Around You</h3>
+                <p className="mt-2 max-w-lg text-sm sm:text-base lg:text-[16px] leading-relaxed text-stone-600">
                   Flexible scheduling designed around international time zones.
                 </p>
                 <div
@@ -511,7 +517,7 @@ export default function AboutPage() {
                     <RegionFlag
                       key={region.flag}
                       region={region.flag}
-                      className="h-auto w-10 overflow-hidden rounded-[4px] shadow-sm ring-1 ring-stone-900/10 sm:w-11"
+                      className="h-auto w-10 overflow-hidden rounded-[4px] shadow-sm ring-1 ring-stone-900/10 sm:w-11 lg:w-12"
                     />
                   ))}
                 </div>
@@ -732,10 +738,10 @@ export default function AboutPage() {
                 className="pointer-events-none absolute -bottom-24 -right-20 h-72 w-72 select-none object-contain opacity-[0.075] sm:h-80 sm:w-80 lg:-bottom-20 lg:-right-24"
               />
               <div className="relative z-10">
-                <h2 className="max-w-md text-3xl sm:text-4xl lg:text-[42px] font-bold leading-[1.15] tracking-tight text-white font-bricolage">
+                <h2 className="max-w-md text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-bold leading-[1.12] tracking-tight text-white font-bricolage">
                   Begin Your Sacred Journey of Knowledge
                 </h2>
-                <p className="mt-4 sm:mt-5 max-w-sm text-sm leading-relaxed text-emerald-50/75 sm:text-base">
+                <p className="mt-4 sm:mt-5 max-w-sm text-sm leading-relaxed text-emerald-50/85 sm:text-base lg:text-[17px]">
                   Tell us what you want to learn. We will use it to prepare the right scholar match and schedule.
                 </p>
               </div>
@@ -753,7 +759,7 @@ export default function AboutPage() {
               <div className="mb-6 sm:mb-7 flex items-end justify-between gap-4 border-b border-stone-200/60 pb-4 sm:pb-5">
                 <div>
                   <p className="text-xs font-bold uppercase tracking-wider text-[#095F46]">Join the waitlist</p>
-                  <h3 className="mt-1 text-2xl font-black tracking-tight text-stone-950 sm:text-[26px]">
+                  <h3 className="mt-1 text-2xl font-black tracking-tight text-stone-950 sm:text-[26px] lg:text-[28px]">
                     Your learning preferences
                   </h3>
                 </div>
@@ -890,7 +896,7 @@ export default function AboutPage() {
                     <button
                       type="submit"
                       disabled={isWaitlistSubmitting}
-                      className="brand-button brand-button-primary justify-center w-full sm:w-auto px-8 py-3 text-base sm:text-sm font-bold shadow-md shadow-[#095F46]/15 hover:shadow-lg transition-all min-h-[46px]"
+                      className="brand-button brand-button-primary justify-center w-full sm:w-auto px-8 py-3.5 sm:py-3 lg:px-9 lg:py-3.5 text-base sm:text-sm lg:text-[16px] font-bold shadow-md shadow-[#095F46]/15 hover:shadow-lg transition-all min-h-[48px] lg:min-h-[50px]"
                     >
                       <span>{isWaitlistSubmitting ? 'Joining Waitlist...' : 'Join the Priority Waitlist'}</span>
                       <ChevronRight className="h-4 w-4" />

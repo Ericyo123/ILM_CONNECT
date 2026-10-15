@@ -34,8 +34,8 @@ export default function Footer() {
   if (shouldHide) return null;
   return (
     <footer className="bg-gradient-to-br from-[#071412] via-[#0c211e] to-[#112f2a] border-t border-emerald-300/15 text-white select-none">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-14 lg:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/" className="inline-flex items-center mb-5 group" aria-label="ILMBIT home">
@@ -44,14 +44,14 @@ export default function Footer() {
                 alt="ILMBIT"
                 width={54}
                 height={71}
-                className="h-[66px] w-auto object-contain transition-transform group-hover:scale-[1.03]"
+                className="h-[66px] lg:h-[72px] xl:h-[76px] w-auto object-contain transition-transform group-hover:scale-[1.03]"
               />
             </Link>
-            <p className="text-sm text-emerald-50/68 max-w-sm mb-6 leading-relaxed">
+            <p className="text-sm lg:text-[15px] xl:text-[16px] text-emerald-50/68 max-w-sm lg:max-w-md mb-6 leading-relaxed">
               Connecting qualified Islamic scholars with students worldwide. 
               Structured, professional, 1:1 Islamic education from the comfort of your home.
             </p>
-            <div className="space-y-2 text-sm text-emerald-50/72">
+            <div className="space-y-2.5 text-sm lg:text-[15px] text-emerald-50/72">
               <a
                 href="mailto:support@ilmbit.com"
                 className="flex w-fit items-center gap-2 transition-colors hover:text-white"
@@ -69,13 +69,13 @@ export default function Footer() {
           {/* Link columns */}
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
-              <h3 className="font-semibold text-sm mb-4 text-white">{title}</h3>
+              <h3 className="font-semibold text-sm lg:text-[15px] xl:text-[16px] mb-4 text-white">{title}</h3>
               <ul className="space-y-2.5">
                 {links.map((link) => (
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-sm text-emerald-50/62 hover:text-white transition-colors"
+                      className="text-sm lg:text-[15px] text-emerald-50/62 hover:text-white transition-colors"
                     >
                       {link.label}
                     </Link>

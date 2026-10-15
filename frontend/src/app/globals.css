@@ -145,19 +145,20 @@ button {
 }
 
 .home-hero-section {
-  min-height: 100vh;
-  min-height: 100svh;
+  height: 100vh;
+  height: 100svh;
 }
 
-@supports (min-height: 100dvh) {
+@supports (height: 100dvh) {
   .home-hero-section {
-    min-height: 100dvh;
+    height: 100dvh;
   }
 }
 
 @media (max-width: 767px) {
   .home-hero-section {
     min-height: calc(100dvh + env(safe-area-inset-bottom, 0px));
+    height: auto;
   }
 }
 
@@ -591,14 +592,5 @@ p {
   animation-play-state: paused;
 }
 
-/* ============================================
-   Default 125% Desktop Zoom for Public Pages
-   Matches user's 125% Mac viewport aesthetic
-   ============================================ */
-@media (min-width: 1024px) {
-  html.public-zoom-root {
-    zoom: 1.25;
-  }
-}
 
 

@@ -161,7 +161,7 @@ export default function Header() {
           >
             <Link
               href="/teach"
-              className={`flex items-center rounded-l-full pl-5 pr-4 text-xs uppercase tracking-[0.02em] font-normal transition-colors duration-200 ${
+              className={`flex items-center rounded-l-full pl-4 sm:pl-5 pr-2.5 text-xs uppercase tracking-[0.02em] font-normal transition-colors duration-200 ${
                 showWhiteNav
                   ? pathname === '/teach'
                     ? 'text-[#095F46]'

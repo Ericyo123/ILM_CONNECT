@@ -176,7 +176,9 @@ export default function Header() {
 
             <Link
               href="/about#waitlist"
-              className="-my-px -mr-px flex items-center rounded-full bg-[#095F46] px-5 text-xs font-normal uppercase tracking-[0.02em] text-white transition-colors duration-200 hover:bg-[#043f2e] shadow-sm"
+              className={`-my-px -mr-px flex items-center rounded-full bg-[#095F46] px-5 text-xs font-normal uppercase tracking-[0.02em] text-white transition-colors duration-200 hover:bg-[#043f2e] shadow-sm ${
+                showWhiteNav ? 'border border-white' : 'border border-[#095F46]'
+              }`}
             >
               Get Started
             </Link>

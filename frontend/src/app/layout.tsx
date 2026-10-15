@@ -5,6 +5,7 @@ import './color-refresh.css';
 import { Providers } from '@/lib/providers';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
+import PublicZoomController from '@/components/layout/public-zoom-controller';
 
 const manrope = Manrope({
   subsets: ['latin'],
@@ -61,7 +62,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var p=window.location.pathname;if(!p.startsWith('/student')&&!p.startsWith('/lecturer')&&!p.startsWith('/admin')&&!p.startsWith('/auth')){document.documentElement.classList.add('public-zoom-root');}}catch(e){}})();`,
+          }}
+        />
+      </head>
       <body className="font-sans antialiased bg-white text-stone-900 min-h-screen" suppressHydrationWarning>
+        <PublicZoomController />
         <Providers>
           <div className="flex min-h-screen flex-col">
             <Header />

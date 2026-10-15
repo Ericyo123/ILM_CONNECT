@@ -591,3 +591,14 @@ p {
   animation-play-state: paused;
 }
 
+/* ============================================
+   Default 125% Desktop Zoom for Public Pages
+   Matches user's 125% Mac viewport aesthetic
+   ============================================ */
+@media (min-width: 1024px) {
+  html.public-zoom-root {
+    zoom: 1.25;
+  }
+}
+
+

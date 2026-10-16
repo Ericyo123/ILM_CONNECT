@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import WaitlistModal from '@/components/waitlist-modal';
+import faqStyles from './pricing/pricing.module.css';
 import HowToEnroll from '@/components/how-to-enroll';
 
 const audienceTracks = [
@@ -63,29 +64,34 @@ const audienceTracks = [
 
 const faqs = [
   {
-    question: 'Can sisters and young girls learn with female scholars?',
+    question: 'Can sisters and young girls learn with dedicated female scholars?',
     answer:
-      'Yes, absolutely. We have qualified female Islamic scholars and Aalimaat who hold authentic certifications. Sisters and young girls can request dedicated female instructors for complete privacy, comfort, and focused mentorship.',
+      'Yes. Sisters and young girls can request a qualified female scholar (Aalimah) during registration for complete comfort, privacy, and focused 1:1 mentorship.',
   },
   {
     question: 'How do global timezones and lesson scheduling work?',
     answer:
-      'Ilmbit connects learners worldwide. Our teachers accommodate students living across the UK, Europe, North America, the Gulf (GCC), Australia, and Sri Lanka. During registration, you specify your available days and preferred local time slots.',
+      'Our scholars teach students in Sri Lanka and Sri Lankan families abroad, including the UK, Europe, North America, the Gulf, and Australia. During registration, you choose your available days and preferred local time slots, and we match you with a scholar whose schedule fits.',
   },
   {
-    question: 'What happens if I need to reschedule a session?',
+    question: 'What is the rescheduling and cancellation policy?',
     answer:
-      'We understand that family life and work demands are unpredictable. You can reschedule your lesson directly with your scholar by providing advance notice, ensuring you never forfeit your learning credits or disrupt progress.',
+      'Sessions can be rescheduled for free up to 12 hours before the start time. Subscriptions can be cancelled anytime, with no long-term contracts.',
   },
   {
-    question: 'Is the 30-minute trial session truly 100% free?',
+    question: 'Is the 30-minute trial session completely free?',
     answer:
-      'Yes. The 30-minute trial session is completely free, with no credit card required. It is an opportunity to meet your instructor, evaluate your recitation level, explore the virtual classroom, and decide if Ilmbit is right for you.',
+      'Yes. The 30-minute trial is free, with no payment required. It is a chance to meet your scholar, assess your current level, explore the live classroom, and decide whether Ilmbit is right for you.',
   },
   {
-    question: 'What equipment or devices do I need to get started?',
+    question: 'What equipment or devices do I need to attend live classes?',
     answer:
-      'You only need a reliable internet connection and any standard device—such as a laptop, desktop computer, iPad/tablet, or smartphone—equipped with a working microphone and webcam. No complicated setup or software purchases are required.',
+      'A stable internet connection and a laptop, desktop, tablet, or smartphone with a working microphone and camera. Lessons run in our built-in live classroom, so there is no extra software to install.',
+  },
+  {
+    question: 'Can I change my lecturer or customize the curriculum later?',
+    answer:
+      'Yes. You can request a lecturer switch at any time and will receive a trial session with the new lecturer before confirming. Your scholar can also adjust the pace and focus of your lessons as you progress.',
   },
 ];
 
@@ -463,7 +469,7 @@ export default function HomePage() {
         {/* ========================================================================= */}
         <section
           id="pathways"
-          className="py-18 sm:py-22 lg:py-26 bg-[#fbfcfb] text-stone-900 scroll-mt-16 relative overflow-hidden border-b border-stone-200/60 select-none"
+          className="py-16 sm:py-20 lg:py-24 bg-[#fbfcfb] text-stone-900 scroll-mt-16 relative overflow-hidden border-b border-stone-200/60 select-none"
         >
           <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <motion.div
@@ -473,10 +479,6 @@ export default function HomePage() {
               variants={sectionReveal}
               className="text-center max-w-2xl mx-auto mb-10 sm:mb-12 lg:mb-14"
             >
-              <div className="inline-flex items-center gap-2 rounded-full bg-[#095F46]/10 px-3.5 py-1 text-xs font-bold text-[#095F46] tracking-wide uppercase mb-3">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Tailored Learning Pathways</span>
-              </div>
               <h2 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.18] mb-3 sm:mb-4">
                 Islamic Education Designed for{' '}
                 <span className="text-[#095F46]">Every Stage of Life</span>
@@ -762,83 +764,68 @@ export default function HomePage() {
         {/* ========================================================================= */}
         <section
           id="faq"
-          className="py-18 sm:py-22 lg:py-26 bg-[#fbfcfb] text-stone-900 scroll-mt-16 relative overflow-hidden border-b border-stone-200/60 select-none"
+          className="py-16 sm:py-20 lg:py-24 bg-[#fbfcfb] text-stone-900 scroll-mt-16 relative overflow-hidden border-b border-stone-200/60 select-none"
         >
-          <div className="relative mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-8">
+          <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={revealViewport}
               variants={sectionReveal}
-              className="text-center mx-auto mb-10 sm:mb-12 lg:mb-14"
+              className="text-left mb-10"
             >
-              <div className="inline-flex items-center gap-2 rounded-full bg-[#095F46]/10 px-3.5 py-1 text-xs font-bold text-[#095F46] tracking-wide uppercase mb-3">
-                <span>Frequently Asked Questions</span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl lg:text-[46px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.18] mb-3">
-                Everything You Need to Know
+              <h2 id="home-faq-heading" className="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 leading-[1.15]">
+                Frequently Asked Questions
               </h2>
-              <p className="text-stone-600 text-sm sm:text-base lg:text-[17px] leading-relaxed max-w-2xl mx-auto">
-                Clear answers regarding our verified scholars, scheduling flexibility, and how 1:1 learning works on Ilmbit.
-              </p>
             </motion.div>
 
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={revealViewport}
-              variants={sectionReveal}
-              className="space-y-3.5 sm:space-y-4"
-            >
+            <div className="space-y-3.5" aria-labelledby="home-faq-heading">
               {faqs.map((faq, idx) => {
                 const isOpen = openFaqIndex === idx;
                 return (
-                  <div
-                    key={idx}
-                    className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
-                      isOpen
-                        ? 'border-[#095F46]/50 bg-white shadow-md'
-                        : 'border-stone-200/80 bg-white/80 hover:bg-white hover:border-stone-300'
-                    }`}
+                  <motion.div
+                    key={faq.question}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={revealViewport}
+                    variants={sectionReveal}
+                    className={`${faqStyles.faqItem} ${isOpen ? faqStyles.open : ''}`}
                   >
                     <button
                       type="button"
+                      id={`home-faq-question-${idx}`}
                       onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
                       aria-expanded={isOpen}
-                      className="w-full text-left px-5 sm:px-6 py-4 sm:py-5 flex items-center justify-between gap-4 cursor-pointer"
+                      aria-controls={`home-faq-answer-${idx}`}
+                      className={faqStyles.question}
                     >
-                      <span className="text-base sm:text-lg font-bold text-stone-900 tracking-tight font-bricolage">
-                        {faq.question}
-                      </span>
-                      <div
-                        className={`h-8 w-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-200 ${
-                          isOpen
-                            ? 'bg-[#095F46] text-white rotate-180'
-                            : 'bg-stone-100 text-stone-600'
-                        }`}
-                      >
-                        <ChevronDown className="w-4 h-4 stroke-[2.5]" />
-                      </div>
+                      <span className={faqStyles.questionText}>{faq.question}</span>
+                      <ChevronDown
+                        aria-hidden="true"
+                        className={`${faqStyles.chevron} ${isOpen ? faqStyles.expandedChevron : ''}`}
+                      />
                     </button>
 
                     <AnimatePresence initial={false}>
                       {isOpen && (
                         <motion.div
+                          id={`home-faq-answer-${idx}`}
+                          role="region"
+                          aria-labelledby={`home-faq-question-${idx}`}
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: 'auto', opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                          className={faqStyles.answerPanel}
                         >
-                          <div className="px-5 sm:px-6 pb-5 sm:pb-6 pt-1 text-sm sm:text-base text-stone-600 leading-relaxed border-t border-stone-100">
-                            {faq.answer}
-                          </div>
+                          <p className={faqStyles.answer}>{faq.answer}</p>
                         </motion.div>
                       )}
                     </AnimatePresence>
-                  </div>
+                  </motion.div>
                 );
               })}
-            </motion.div>
+            </div>
           </div>
         </section>
       </div>
@@ -885,7 +872,7 @@ export default function HomePage() {
 
             <div className="relative z-10 max-w-4xl">
               {/* Headline with Relaxed Line-Height */}
-              <h2 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[52px] font-bold tracking-tight text-white leading-[1.24] sm:leading-[1.28] lg:leading-[1.3] mb-4 sm:mb-5 font-bricolage">
+              <h2 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[52px] font-bold tracking-tight text-white leading-[1.25] sm:leading-[1.28] lg:leading-[1.3] mb-4 sm:mb-5 font-bricolage">
                 Begin Your Journey{' '}
                 <span className="block sm:inline text-[#EAD08A] font-bricolage font-bold">
                   with Certified Islamic Scholars
@@ -896,45 +883,26 @@ export default function HomePage() {
                 Tell us what you want to learn. We will pair you with a patient, qualified scholar and prepare a schedule that fits your daily routine seamlessly.
               </p>
 
-              {/* Trust Perks Row with Actual Dedicated Icons */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-5 mb-9 sm:mb-11 text-emerald-100/90">
-                <div className="flex items-start gap-3.5 bg-white/[0.05] backdrop-blur-xs border border-white/[0.08] rounded-2xl p-4 sm:p-5">
-                  <div className="h-10 w-10 rounded-xl bg-[#EAD08A]/15 text-[#EAD08A] border border-[#EAD08A]/30 flex items-center justify-center shrink-0">
-                    <Clock className="w-5 h-5 stroke-[2.2]" />
-                  </div>
-                  <div>
-                    <h3 className="text-sm sm:text-base font-bold text-white tracking-tight">Free 30-Min Trial</h3>
-                    <p className="text-xs sm:text-[13px] text-emerald-100/75 mt-0.5 leading-snug">Meet your scholar risk-free with zero commitment</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3.5 bg-white/[0.05] backdrop-blur-xs border border-white/[0.08] rounded-2xl p-4 sm:p-5">
-                  <div className="h-10 w-10 rounded-xl bg-[#EAD08A]/15 text-[#EAD08A] border border-[#EAD08A]/30 flex items-center justify-center shrink-0">
-                    <ShieldCheck className="w-5 h-5 stroke-[2.2]" />
-                  </div>
-                  <div>
-                    <h3 className="text-sm sm:text-base font-bold text-white tracking-tight">Verified Lecturers</h3>
-                    <p className="text-xs sm:text-[13px] text-emerald-100/75 mt-0.5 leading-snug">Vetted scholars holding authentic Sanad</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3.5 bg-white/[0.05] backdrop-blur-xs border border-white/[0.08] rounded-2xl p-4 sm:p-5">
-                  <div className="h-10 w-10 rounded-xl bg-[#EAD08A]/15 text-[#EAD08A] border border-[#EAD08A]/30 flex items-center justify-center shrink-0">
-                    <Globe className="w-5 h-5 stroke-[2.2]" />
-                  </div>
-                  <div>
-                    <h3 className="text-sm sm:text-base font-bold text-white tracking-tight">Global Timezones</h3>
-                    <p className="text-xs sm:text-[13px] text-emerald-100/75 mt-0.5 leading-snug">Flexible shifts across UK, US, Gulf &amp; Australia</p>
-                  </div>
-                </div>
-              </div>
+              {/* Trust Perks Row — plain white icons, no boxes */}
+              <ul className="flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-x-10 sm:gap-y-4 mb-9 sm:mb-11">
+                {[
+                  { icon: Clock, label: 'Free 30-Min Trial' },
+                  { icon: ShieldCheck, label: 'Verified Lecturers' },
+                  { icon: Globe, label: 'Global Timezones' },
+                ].map(({ icon: PerkIcon, label }) => (
+                  <li key={label} className="flex items-center gap-3">
+                    <PerkIcon className="w-5 h-5 sm:w-6 sm:h-6 text-white stroke-[1.75] shrink-0" aria-hidden="true" />
+                    <span className="text-sm sm:text-base font-medium text-white">{label}</span>
+                  </li>
+                ))}
+              </ul>
 
               {/* CTA Action Area */}
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
                 <button
                   type="button"
                   onClick={() => setIsWaitlistOpen(true)}
-                  className="inline-flex items-center justify-center gap-3 rounded-full bg-[#EAD08A] px-8 sm:px-10 py-4 sm:py-4.5 text-stone-950 font-bold text-base sm:text-lg hover:bg-[#F2DEAA] transition-all duration-300 shadow-[0_10px_25px_rgba(234,208,138,0.25)] hover:shadow-[0_14px_30px_rgba(234,208,138,0.35)] hover:-translate-y-0.5 active:translate-y-0 cursor-pointer group"
+                  className="inline-flex items-center justify-center gap-3 rounded-full bg-[#EAD08A] px-8 sm:px-10 py-4 sm:py-[18px] text-stone-950 font-bold text-base sm:text-lg hover:bg-[#F2DEAA] transition-all duration-300 shadow-[0_10px_25px_rgba(234,208,138,0.25)] hover:shadow-[0_14px_30px_rgba(234,208,138,0.35)] hover:-translate-y-0.5 active:translate-y-0 cursor-pointer group"
                 >
                   <span>Join the Waitlist</span>
                   <ChevronRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />

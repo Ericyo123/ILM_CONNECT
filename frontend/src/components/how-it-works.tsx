@@ -42,7 +42,7 @@ const steps = [
   },
   {
     step: '04',
-    title: 'Live 1:1 Sacred Sessions',
+    title: 'Live 1:1 Guided Lessons',
     desc: 'Attend interactive live video classes with Tajweed correction, milestone tracking, and session recordings.',
     icon: Video,
     image: '/images/how-it-works-step-4-v4.jpg',

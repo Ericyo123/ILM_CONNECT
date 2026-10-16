@@ -6,163 +6,88 @@ import Image from 'next/image';
 import {
   ChevronRight,
   Check,
-  Quote,
-  ArrowLeft,
   ArrowRight,
-  X,
+  Clock,
+  ShieldCheck,
+  Globe,
+  Sparkles,
+  GraduationCap,
+  Users,
+  ChevronDown,
 } from 'lucide-react';
-import { motion, useInView, AnimatePresence, type Variants } from 'framer-motion';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import WaitlistModal from '@/components/waitlist-modal';
 import HowToEnroll from '@/components/how-to-enroll';
 
-function AnimatedCounter({
-  target,
-  duration = 2000,
-  decimals = 0,
-  suffix = '',
-  start = false,
-}: {
-  target: number;
-  duration?: number;
-  decimals?: number;
-  suffix?: string;
-  start?: boolean;
-}) {
-  const [count, setCount] = useState(0);
-  const hasAnimatedRef = useRef(false);
-
-  useEffect(() => {
-    if (!start || hasAnimatedRef.current) return;
-
-    hasAnimatedRef.current = true;
-    let animationStart: number | null = null;
-    let animationFrameId: number;
-
-    const easeOutExpo = (x: number): number => {
-      return x === 1 ? 1 : 1 - Math.pow(2, -10 * x);
-    };
-
-    const step = (timestamp: number) => {
-      if (animationStart === null) animationStart = timestamp;
-      const elapsed = timestamp - animationStart;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = easeOutExpo(progress);
-
-      setCount(eased * target);
-
-      if (progress < 1) {
-        animationFrameId = requestAnimationFrame(step);
-      } else {
-        setCount(target);
-      }
-    };
-
-    animationFrameId = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [start, target, duration]);
-
-  const formatted =
-    decimals > 0
-      ? count.toFixed(decimals)
-      : Math.floor(count).toLocaleString('en-US');
-
-  return (
-    <span className="tabular-nums" suppressHydrationWarning>
-      {formatted}{suffix}
-    </span>
-  );
-}
-
-const platformStats = [
+const audienceTracks = [
   {
-    target: 12,
-    suffix: '+',
-    decimals: 0,
-    label: 'Qualified Scholars',
+    title: 'Children & Young Starters',
+    ageBadge: 'Ages 5 – 12',
+    icon: Sparkles,
+    desc: 'Gentle, interactive foundational lessons tailored for young attention spans, cultivating genuine love and fluency for Allah’s words.',
+    highlights: [
+      'Noorani Qaida & Arabic letter phonetics (Makharij)',
+      'Patient, child-friendly verified teachers',
+      'Gentle memorization of daily Duas and short Surahs',
+      'Regular feedback and progress updates for parents',
+    ],
+    recommendedPlan: 'Noorani Qaida',
   },
   {
-    target: 150,
-    suffix: '+',
-    decimals: 0,
-    label: 'Active Students',
+    title: 'Teens & Aspiring Huffaz',
+    ageBadge: 'Ages 13 – 19',
+    icon: GraduationCap,
+    desc: 'Structured Quran memorization, rigorous Tajweed rules, and character-building mentorship for growing minds.',
+    highlights: [
+      'Detailed rules of Noon Sakinah, Meem & Madd',
+      'Personalized daily Hifz target & revision log',
+      'Direct guidance from certified Sanad holders',
+      'Flexible scheduling around school exams',
+    ],
+    recommendedPlan: 'Tajweed & Hifz',
   },
   {
-    target: 4.85,
-    suffix: '',
-    decimals: 2,
-    label: 'Average Rating',
-  },
-  {
-    target: 10000,
-    suffix: '+',
-    decimals: 0,
-    label: 'Teaching Hours Completed',
+    title: 'Adults, Reverts & Sisters',
+    ageBadge: 'All Adult Learners',
+    icon: Users,
+    desc: 'Private, judgment-free 1:1 lessons whether starting from Arabic letters or perfecting your recitation rhythm and understanding.',
+    highlights: [
+      'Dedicated female scholars (Aalimaat) for sisters',
+      'Supportive, patient pace for new Muslims & reverts',
+      'Practical Tajweed application in daily Salah',
+      'Evening & weekend slots across global timezones',
+    ],
+    recommendedPlan: '1:1 Custom Track',
   },
 ];
 
-interface TestimonialStory {
-  name: string;
-  role: string;
-  location: string;
-  quote: string;
-  fullStory: string;
-  course: string;
-}
-
-const diasporaTestimonials: TestimonialStory[] = [
+const faqs = [
   {
-    name: 'Sarah Ahmed',
-    role: 'Parent of 2',
-    location: 'London, UK',
-    quote: 'Ilmbit has boosted our children’s Quran fluency astronomically, transforming how they engage with the Holy Quran.',
-    fullStory: 'Ilmbit has boosted our children’s Quran fluency astronomically, transforming how they engage with the Holy Quran. Finding punctual, gentle teachers in London with high Tajweed standards was always a challenge. Now my 8-year-old and 11-year-old look forward to their classes with Maulavi Ismail.',
-    course: '1:1 Tajweed Recitation',
+    question: 'Can sisters and young girls learn with female scholars?',
+    answer:
+      'Yes, absolutely. We have qualified female Islamic scholars and Aalimaat who hold authentic certifications. Sisters and young girls can request dedicated female instructors for complete privacy, comfort, and focused mentorship.',
   },
   {
-    name: 'Dr. Tariq Mansoor',
-    role: 'Father & Physician',
-    location: 'Toronto, Canada',
-    quote: 'Ilmbit is more essential to our family routine than our local weekend school. It’s a powerful solution to diaspora education.',
-    fullStory: 'Ilmbit is more essential to our family routine than our local weekend school. It’s a powerful solution to diaspora education. With my unpredictable hospital shifts, being able to reschedule and get reliable 1:1 attention for my sons has been an absolute game changer.',
-    course: 'Hifz Memorization',
+    question: 'How do global timezones and lesson scheduling work?',
+    answer:
+      'Ilmbit connects learners worldwide. Our teachers accommodate students living across the UK, Europe, North America, the Gulf (GCC), Australia, and Sri Lanka. During registration, you specify your available days and preferred local time slots.',
   },
   {
-    name: 'Muhammad Rashid',
-    role: 'Adult Revert Student',
-    location: 'Sydney, Australia',
-    quote: 'Finding patient, authentic Sri Lankan scholars was nearly impossible until Ilmbit. My recitation confidence has reached a whole new level.',
-    fullStory: 'Finding patient, authentic Sri Lankan scholars was nearly impossible until Ilmbit. As a revert learning Arabic phonetics from scratch, Sheikh Ahmed’s patience and encouragement gave me the confidence to recite accurately in daily prayers without hesitation.',
-    course: 'Noorani Qaida & Tajweed',
+    question: 'What happens if I need to reschedule a session?',
+    answer:
+      'We understand that family life and work demands are unpredictable. You can reschedule your lesson directly with your scholar by providing advance notice, ensuring you never forfeit your learning credits or disrupt progress.',
   },
   {
-    name: 'Amina Diallo',
-    role: 'Mother of 9yo student',
-    location: 'Paris, France',
-    quote: 'The 1:1 Tajweed coaching from Maulavi Ismail is exceptional. My daughter eagerly prepares for her live sessions twice every week.',
-    fullStory: 'The 1:1 Tajweed coaching from Maulavi Ismail is exceptional. My daughter eagerly prepares for her live sessions twice every week. Her pronunciation and rhythm have blossomed in just three months, and the progress feedback keeps our whole family motivated.',
-    course: 'Tajweed Recitation',
+    question: 'Is the 30-minute trial session truly 100% free?',
+    answer:
+      'Yes. The 30-minute trial session is completely free, with no credit card required. It is an opportunity to meet your instructor, evaluate your recitation level, explore the virtual classroom, and decide if Ilmbit is right for you.',
   },
   {
-    name: 'Fatima Zahra',
-    role: 'Parent & Educator',
-    location: 'Dallas, USA',
-    quote: 'The structured progress reports and authentic scholar discipline gave our home the exact spiritual grounding we were searching for.',
-    fullStory: 'The structured progress reports and authentic scholar discipline gave our home the exact spiritual grounding and recitation excellence we were searching for. You get traditional madrasa quality with modern LMS scheduling and recording.',
-    course: '1:1 Tajweed Recitation',
-  },
-  {
-    name: 'Zayd Al-Husseini',
-    role: 'Hifz Student',
-    location: 'Dubai, UAE',
-    quote: 'Completed my Hifz revision with Sheikh Ahmed. His gentle correction and deep mastery of Hafs recitation is something you rarely find online.',
-    fullStory: 'Completed my Hifz revision with Sheikh Ahmed. His gentle correction and deep mastery of Hafs recitation is something you rarely find online. The virtual classroom tools and audio clarity made reviewing five Juz a week seamless.',
-    course: 'Advanced Hifz Revision',
+    question: 'What equipment or devices do I need to get started?',
+    answer:
+      'You only need a reliable internet connection and any standard device—such as a laptop, desktop computer, iPad/tablet, or smartphone—equipped with a working microphone and webcam. No complicated setup or software purchases are required.',
   },
 ];
-
-const TESTIMONIAL_ROTATION_MS = 6500;
-
-
 
 const sectionReveal: Variants = {
   hidden: { opacity: 0, y: 32 },
@@ -201,40 +126,7 @@ const revealViewport = {
 
 export default function HomePage() {
   const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
-  const [testimonialIndex, setTestimonialIndex] = useState(0);
-  const [selectedStory, setSelectedStory] = useState<TestimonialStory | null>(null);
-  const testimonialRef = useRef<HTMLDivElement>(null);
-  const testimonialsInView = useInView(testimonialRef, { once: true, amount: 0.2 });
-
-  const statsRef = useRef<HTMLDivElement>(null);
-  const statsActive = useInView(statsRef, {
-    once: true,
-    amount: 0.35,
-    margin: '0px 0px -10% 0px',
-  });
-
-  const changeTestimonial = (direction: 'previous' | 'next') => {
-    setTestimonialIndex((current) => {
-      if (direction === 'previous') {
-        return (current - 1 + diasporaTestimonials.length) % diasporaTestimonials.length;
-      }
-      return (current + 1) % diasporaTestimonials.length;
-    });
-  };
-
-  useEffect(() => {
-    if (!testimonialsInView || selectedStory) {
-      return;
-    }
-
-    const timer = window.setTimeout(() => {
-      setTestimonialIndex((current) => (current + 1) % diasporaTestimonials.length);
-    }, TESTIMONIAL_ROTATION_MS);
-
-    return () => window.clearTimeout(timer);
-  }, [testimonialIndex, testimonialsInView, selectedStory]);
-
-  const activeTestimonial = diasporaTestimonials[testimonialIndex];
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
   return (
     <>
@@ -567,6 +459,100 @@ export default function HomePage() {
         </section>
 
         {/* ========================================================================= */}
+        {/* AUDIENCE PATHWAYS SECTION — Tailored Learning for Children, Teens & Adults */}
+        {/* ========================================================================= */}
+        <section
+          id="pathways"
+          className="py-18 sm:py-22 lg:py-26 bg-[#fbfcfb] text-stone-900 scroll-mt-16 relative overflow-hidden border-b border-stone-200/60 select-none"
+        >
+          <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={revealViewport}
+              variants={sectionReveal}
+              className="text-center max-w-2xl mx-auto mb-10 sm:mb-12 lg:mb-14"
+            >
+              <div className="inline-flex items-center gap-2 rounded-full bg-[#095F46]/10 px-3.5 py-1 text-xs font-bold text-[#095F46] tracking-wide uppercase mb-3">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Tailored Learning Pathways</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.18] mb-3 sm:mb-4">
+                Islamic Education Designed for{' '}
+                <span className="text-[#095F46]">Every Stage of Life</span>
+              </h2>
+              <p className="text-stone-600 text-sm sm:text-base lg:text-[17px] leading-relaxed">
+                Whether introducing your young child to Arabic phonetics or refining your own Tajweed as an adult, our verified scholars customize each lesson to your family’s individual pace.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={revealViewport}
+              variants={cardStagger}
+              className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch"
+            >
+              {audienceTracks.map((track, idx) => {
+                const IconComponent = track.icon;
+                return (
+                  <motion.div
+                    key={idx}
+                    variants={cardItem}
+                    className="relative rounded-3xl bg-white border border-stone-200/90 p-7 sm:p-8 lg:p-9 shadow-[0_4px_24px_rgba(0,0,0,0.04)] flex flex-col justify-between hover:shadow-xl hover:border-[#095F46]/40 transition-all duration-300 group"
+                  >
+                    <div>
+                      {/* Top Row: Icon + Age Badge */}
+                      <div className="flex items-center justify-between mb-6">
+                        <div className="h-12 w-12 rounded-2xl bg-[#095F46]/10 text-[#095F46] group-hover:bg-[#095F46] group-hover:text-white transition-colors duration-300 flex items-center justify-center shrink-0">
+                          <IconComponent className="w-6 h-6" />
+                        </div>
+                        <span className="inline-flex items-center rounded-full bg-stone-100 text-stone-700 font-semibold px-3 py-1 text-xs tracking-wide">
+                          {track.ageBadge}
+                        </span>
+                      </div>
+
+                      <h3 className="text-xl sm:text-2xl font-bold text-stone-950 tracking-tight mb-2.5 font-bricolage">
+                        {track.title}
+                      </h3>
+                      <p className="text-stone-500 text-sm sm:text-[15px] leading-relaxed mb-6 font-normal">
+                        {track.desc}
+                      </p>
+
+                      <div className="text-xs font-bold uppercase tracking-wider text-stone-400 mb-3.5">
+                        Key Learning Focus
+                      </div>
+                      <ul className="space-y-3 text-xs sm:text-sm text-stone-600 font-medium">
+                        {track.highlights.map((point, pIdx) => (
+                          <li key={pIdx} className="flex items-start gap-2.5">
+                            <Check className="w-4 h-4 text-[#095F46] shrink-0 mt-0.5 stroke-[2.5]" />
+                            <span className="leading-snug">{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="mt-8 pt-6 border-t border-stone-100 flex items-center justify-between">
+                      <span className="text-xs font-semibold text-stone-400">
+                        Recommended: <span className="text-stone-800 font-bold">{track.recommendedPlan}</span>
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => setIsWaitlistOpen(true)}
+                        className="text-xs sm:text-sm font-bold text-[#095F46] group-hover:text-[#074c38] inline-flex items-center gap-1 cursor-pointer"
+                      >
+                        <span>Get Started</span>
+                        <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                      </button>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
         {/* 4. COURSES & PRICING SECTION — Minimalist 3-Card Grid */}
         {/* ========================================================================= */}
         <section
@@ -772,29 +758,29 @@ export default function HomePage() {
         </section>
 
         {/* ========================================================================= */}
-        {/* 6. TESTIMONIALS SECTION (Hidden until launch) */}
+        {/* FAQ ACCORDION SECTION */}
         {/* ========================================================================= */}
-        {/*
-        <section id="testimonials" className="py-14 sm:py-18 lg:py-20 bg-transparent scroll-mt-16 text-stone-900 border-b border-stone-200/60 select-none">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <section
+          id="faq"
+          className="py-18 sm:py-22 lg:py-26 bg-[#fbfcfb] text-stone-900 scroll-mt-16 relative overflow-hidden border-b border-stone-200/60 select-none"
+        >
+          <div className="relative mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-8">
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={revealViewport}
               variants={sectionReveal}
-              className="mx-auto mb-9 max-w-2xl text-center sm:mb-11"
+              className="text-center mx-auto mb-10 sm:mb-12 lg:mb-14"
             >
-              <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 leading-[1.15] mb-3">
-                What Our Community Says
-              </h2>
-              <p className="mx-auto max-w-xl text-sm leading-relaxed text-stone-500 sm:text-base">
-                From families and students learning with Ilmbit around the world.
-              </p>
-              <div className="mt-4 flex items-center justify-center gap-2 text-xs sm:text-sm">
-                <span className="tracking-[0.12em] text-[#a66b13]" aria-label="Five out of five stars">★★★★★</span>
-                <span className="font-bold text-stone-800">4.8</span>
-                <span className="text-stone-400">from 500+ family reviews</span>
+              <div className="inline-flex items-center gap-2 rounded-full bg-[#095F46]/10 px-3.5 py-1 text-xs font-bold text-[#095F46] tracking-wide uppercase mb-3">
+                <span>Frequently Asked Questions</span>
               </div>
+              <h2 className="text-3xl sm:text-4xl lg:text-[46px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.18] mb-3">
+                Everything You Need to Know
+              </h2>
+              <p className="text-stone-600 text-sm sm:text-base lg:text-[17px] leading-relaxed max-w-2xl mx-auto">
+                Clear answers regarding our verified scholars, scheduling flexibility, and how 1:1 learning works on Ilmbit.
+              </p>
             </motion.div>
 
             <motion.div
@@ -802,195 +788,144 @@ export default function HomePage() {
               whileInView="visible"
               viewport={revealViewport}
               variants={sectionReveal}
-              ref={testimonialRef}
-              className="relative mx-auto max-w-3xl"
+              className="space-y-3.5 sm:space-y-4"
             >
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={testimonialIndex}
-                  initial={{ opacity: 0, y: 14, scale: 0.985 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -12, scale: 0.985 }}
-                  transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                  className="overflow-hidden rounded-[28px] border border-stone-200/90 bg-white/95 backdrop-blur-sm text-stone-950 shadow-[0_20px_50px_rgba(9,95,70,0.06)] sm:rounded-[32px] p-6 sm:p-9 lg:p-10"
-                  aria-live="polite"
-                >
-                  <div className="flex flex-col justify-between">
-                    <div>
-                      <div className="flex items-center justify-between mb-4">
-                        <Quote className="h-9 w-9 fill-[#095f46]/10 text-[#095f46]" aria-hidden="true" />
-                        <span className="inline-flex items-center rounded-full bg-[#095f46]/10 px-3 py-1 text-xs font-bold text-[#095f46]">
-                          {activeTestimonial.course}
-                        </span>
-                      </div>
-                      <p className="text-xl font-semibold leading-[1.4] tracking-tight text-stone-950 sm:text-2xl lg:text-[26px]">
-                        &ldquo;{activeTestimonial.quote}&rdquo;
-                      </p>
-                    </div>
-
-                    <div className="mt-8 pt-6 border-t border-stone-200/60 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                      <div>
-                        <p className="text-base font-black text-stone-950 sm:text-lg">{activeTestimonial.name}</p>
-                        <p className="mt-0.5 text-xs font-medium text-stone-500 sm:text-sm">
-                          {activeTestimonial.role} · {activeTestimonial.location}
-                        </p>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => setSelectedStory(activeTestimonial)}
-                        className="inline-flex items-center gap-2 rounded-full bg-[#095f46] px-5 py-2.5 text-xs font-bold text-white transition-colors hover:bg-[#074c38] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#095f46] focus-visible:ring-offset-2 self-start sm:self-auto cursor-pointer"
-                      >
-                        Read full story
-                        <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
-                      </button>
-                    </div>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-
-              <div className="mt-7 flex items-center justify-center gap-4 sm:gap-5">
-                <button
-                  type="button"
-                  onClick={() => changeTestimonial('previous')}
-                  aria-label="Previous testimonial"
-                  className="brand-icon-button h-10 w-10 flex-none border border-stone-200 bg-white text-stone-700 shadow-sm hover:border-[#095f46] hover:bg-[#095f46] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#095f46] focus-visible:ring-offset-2 cursor-pointer"
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                </button>
-                <div className="flex items-center gap-1.5" aria-label={`Testimonial ${testimonialIndex + 1} of ${diasporaTestimonials.length}`}>
-                  {diasporaTestimonials.map((testimonial, index) => (
+              {faqs.map((faq, idx) => {
+                const isOpen = openFaqIndex === idx;
+                return (
+                  <div
+                    key={idx}
+                    className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
+                      isOpen
+                        ? 'border-[#095F46]/50 bg-white shadow-md'
+                        : 'border-stone-200/80 bg-white/80 hover:bg-white hover:border-stone-300'
+                    }`}
+                  >
                     <button
-                      key={testimonial.name}
                       type="button"
-                      onClick={() => setTestimonialIndex(index)}
-                      aria-label={`Show ${testimonial.name}'s testimonial`}
-                      aria-current={index === testimonialIndex ? 'true' : undefined}
-                      className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${index === testimonialIndex ? 'w-8 bg-[#095f46]' : 'w-2.5 bg-stone-300 hover:bg-stone-400'}`}
-                    />
-                  ))}
-                </div>
-                <button
-                  type="button"
-                  onClick={() => changeTestimonial('next')}
-                  aria-label="Next testimonial"
-                  className="brand-icon-button h-10 w-10 flex-none border border-stone-200 bg-white text-stone-700 shadow-sm hover:border-[#095f46] hover:bg-[#095f46] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#095f46] focus-visible:ring-offset-2 cursor-pointer"
-                >
-                  <ArrowRight className="h-4 w-4" />
-                </button>
-              </div>
+                      onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
+                      aria-expanded={isOpen}
+                      className="w-full text-left px-5 sm:px-6 py-4 sm:py-5 flex items-center justify-between gap-4 cursor-pointer"
+                    >
+                      <span className="text-base sm:text-lg font-bold text-stone-900 tracking-tight font-bricolage">
+                        {faq.question}
+                      </span>
+                      <div
+                        className={`h-8 w-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-200 ${
+                          isOpen
+                            ? 'bg-[#095F46] text-white rotate-180'
+                            : 'bg-stone-100 text-stone-600'
+                        }`}
+                      >
+                        <ChevronDown className="w-4 h-4 stroke-[2.5]" />
+                      </div>
+                    </button>
+
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                        >
+                          <div className="px-5 sm:px-6 pb-5 sm:pb-6 pt-1 text-sm sm:text-base text-stone-600 leading-relaxed border-t border-stone-100">
+                            {faq.answer}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
             </motion.div>
           </div>
-
-          <AnimatePresence>
-            {selectedStory && (
-              <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/60 backdrop-blur-xs">
-                <motion.div
-                  role="dialog"
-                  aria-modal="true"
-                  aria-labelledby="testimonial-dialog-title"
-                  initial={{ opacity: 0, scale: 0.95, y: 10 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95, y: 10 }}
-                  className="relative w-full max-w-lg rounded-3xl bg-white p-6 sm:p-8 shadow-2xl border border-stone-100"
-                >
-                  <button
-                    onClick={() => setSelectedStory(null)}
-                    aria-label="Close story"
-                    className="absolute top-4 right-4 p-2 rounded-full hover:bg-stone-100 text-stone-400 hover:text-stone-700 transition-colors cursor-pointer"
-                  >
-                    <X className="w-5 h-5" />
-                  </button>
-
-                  <div className="mb-6 border-b border-stone-200 pb-5">
-                    <p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#095f46]">Community story</p>
-                    <h3 id="testimonial-dialog-title" className="mt-3 text-xl font-bold tracking-tight text-stone-950">{selectedStory.name}</h3>
-                    <p className="mt-1 text-sm text-stone-500">{selectedStory.role} · {selectedStory.location}</p>
-                  </div>
-
-                  <p className="text-stone-800 text-sm sm:text-base leading-relaxed mb-6 font-medium">
-                    &ldquo;{selectedStory.fullStory}&rdquo;
-                  </p>
-
-                  <div className="p-3.5 rounded-xl bg-stone-50 border border-stone-100 flex items-center justify-between text-xs text-stone-600">
-                    <span className="font-semibold text-stone-900">Enrolled In: {selectedStory.course}</span>
-                    <span className="text-emerald-700 font-bold">Verified Diaspora Family</span>
-                  </div>
-                </motion.div>
-              </div>
-            )}
-          </AnimatePresence>
         </section>
-        */}
       </div>
 
       {/* ========================================================================= */}
       {/* 5. BOTTOM CALL TO ACTION / WAITLIST LUXURY SANCTUARY CARD */}
       {/* ========================================================================= */}
-      <section className="relative w-full overflow-hidden bg-[#f8faf8] py-12 sm:py-16 lg:py-20 text-stone-900 select-none border-t border-stone-200/60">
-        <div className="relative z-10 mx-auto w-full max-w-5xl xl:max-w-6xl px-4 sm:px-6 lg:px-8">
+      <section className="relative w-full overflow-hidden bg-[#f8faf8] py-16 sm:py-20 lg:py-24 text-stone-900 select-none border-t border-stone-200/60">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={revealViewport}
             variants={sectionReveal}
-            className="relative overflow-hidden rounded-2xl sm:rounded-3xl lg:rounded-[2.5rem] bg-gradient-to-br from-[#052b21] via-[#083F33] to-[#04241B] text-white p-6 sm:p-9 lg:p-12 xl:p-14 border border-[#EAD08A]/35 shadow-[0_20px_50px_rgba(6,53,41,0.22)]"
+            className="relative overflow-hidden rounded-2xl sm:rounded-3xl lg:rounded-[2.5rem] bg-gradient-to-br from-[#031d16] via-[#052b21] to-[#021711] text-white p-8 sm:p-12 lg:p-16 xl:p-20 border border-[#EAD08A]/35 shadow-[0_24px_60px_rgba(6,53,41,0.28)]"
           >
             {/* Atmospheric Background Glows */}
-            <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-[#EAD08A]/18 blur-3xl pointer-events-none" />
-            <div className="absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-emerald-400/12 blur-3xl pointer-events-none" />
+            <div className="absolute -top-32 -right-32 h-[450px] w-[450px] rounded-full bg-[#EAD08A]/16 blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-32 -left-32 h-[450px] w-[450px] rounded-full bg-emerald-400/12 blur-3xl pointer-events-none" />
 
-            {/* Background Texture Overlay */}
-            <Image
-              src="/images/home-cta-quran.jpg"
-              alt=""
-              fill
-              aria-hidden="true"
-              className="object-cover object-[center_52%] opacity-[0.08] mix-blend-overlay pointer-events-none"
-              sizes="(max-width: 1280px) 100vw, 1200px"
-            />
+            {/* Background Image Blending with Dark Emerald Sanctuaries */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden">
+              <Image
+                src="/images/home-cta-quran.jpg"
+                alt=""
+                fill
+                aria-hidden="true"
+                className="object-cover object-[center_50%] opacity-25 mix-blend-luminosity"
+                sizes="(max-width: 1400px) 100vw, 1400px"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#031d16] via-[#052b21]/90 to-[#031d16]/75" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#021711] via-transparent to-[#031d16]/60" />
+            </div>
 
             {/* Elegant Brand Watermark */}
             <Image
               src="/images/ilmbit-mark-white.png"
               alt=""
-              width={420}
-              height={420}
+              width={460}
+              height={460}
               aria-hidden="true"
-              className="pointer-events-none absolute -right-12 -bottom-12 w-64 select-none object-contain opacity-[0.07] sm:w-80 lg:right-4 lg:bottom-0 lg:w-[420px]"
+              className="pointer-events-none absolute -right-12 -bottom-12 w-64 select-none object-contain opacity-[0.06] sm:w-80 lg:right-4 lg:bottom-0 lg:w-[460px]"
             />
 
-            <div className="relative z-10 max-w-3xl">
-              {/* Headline */}
-              <h2 className="text-2xl sm:text-3xl lg:text-[40px] xl:text-[44px] font-bold tracking-tight text-white leading-[1.2] mb-3.5 sm:mb-4 font-bricolage">
+            <div className="relative z-10 max-w-4xl">
+              {/* Headline with Relaxed Line-Height */}
+              <h2 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[52px] font-bold tracking-tight text-white leading-[1.24] sm:leading-[1.28] lg:leading-[1.3] mb-4 sm:mb-5 font-bricolage">
                 Begin Your Journey{' '}
                 <span className="block sm:inline text-[#EAD08A] font-bricolage font-bold">
                   with Certified Islamic Scholars
                 </span>
               </h2>
 
-              <p className="max-w-2xl text-sm sm:text-base lg:text-[17px] leading-relaxed text-emerald-100/90 font-normal mb-6 sm:mb-8">
+              <p className="max-w-2xl text-base sm:text-lg lg:text-[18px] leading-relaxed text-emerald-100/90 font-normal mb-8 sm:mb-10">
                 Tell us what you want to learn. We will pair you with a patient, qualified scholar and prepare a schedule that fits your daily routine seamlessly.
               </p>
 
-              {/* Trust Perks Row */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-7 sm:mb-9 text-xs sm:text-sm text-emerald-100/85">
-                <div className="flex items-center gap-2.5">
-                  <div className="h-5 w-5 rounded-full bg-[#EAD08A]/20 text-[#EAD08A] flex items-center justify-center shrink-0">
-                    <Check className="w-3.5 h-3.5 stroke-[3]" />
+              {/* Trust Perks Row with Actual Dedicated Icons */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-5 mb-9 sm:mb-11 text-emerald-100/90">
+                <div className="flex items-start gap-3.5 bg-white/[0.05] backdrop-blur-xs border border-white/[0.08] rounded-2xl p-4 sm:p-5">
+                  <div className="h-10 w-10 rounded-xl bg-[#EAD08A]/15 text-[#EAD08A] border border-[#EAD08A]/30 flex items-center justify-center shrink-0">
+                    <Clock className="w-5 h-5 stroke-[2.2]" />
                   </div>
-                  <span>Free 30-Min Trial Session</span>
+                  <div>
+                    <h3 className="text-sm sm:text-base font-bold text-white tracking-tight">Free 30-Min Trial</h3>
+                    <p className="text-xs sm:text-[13px] text-emerald-100/75 mt-0.5 leading-snug">Meet your scholar risk-free with zero commitment</p>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2.5">
-                  <div className="h-5 w-5 rounded-full bg-[#EAD08A]/20 text-[#EAD08A] flex items-center justify-center shrink-0">
-                    <Check className="w-3.5 h-3.5 stroke-[3]" />
+
+                <div className="flex items-start gap-3.5 bg-white/[0.05] backdrop-blur-xs border border-white/[0.08] rounded-2xl p-4 sm:p-5">
+                  <div className="h-10 w-10 rounded-xl bg-[#EAD08A]/15 text-[#EAD08A] border border-[#EAD08A]/30 flex items-center justify-center shrink-0">
+                    <ShieldCheck className="w-5 h-5 stroke-[2.2]" />
                   </div>
-                  <span>Verified Lecturers</span>
+                  <div>
+                    <h3 className="text-sm sm:text-base font-bold text-white tracking-tight">Verified Lecturers</h3>
+                    <p className="text-xs sm:text-[13px] text-emerald-100/75 mt-0.5 leading-snug">Vetted scholars holding authentic Sanad</p>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2.5">
-                  <div className="h-5 w-5 rounded-full bg-[#EAD08A]/20 text-[#EAD08A] flex items-center justify-center shrink-0">
-                    <Check className="w-3.5 h-3.5 stroke-[3]" />
+
+                <div className="flex items-start gap-3.5 bg-white/[0.05] backdrop-blur-xs border border-white/[0.08] rounded-2xl p-4 sm:p-5">
+                  <div className="h-10 w-10 rounded-xl bg-[#EAD08A]/15 text-[#EAD08A] border border-[#EAD08A]/30 flex items-center justify-center shrink-0">
+                    <Globe className="w-5 h-5 stroke-[2.2]" />
                   </div>
-                  <span>Flexible Global Timezones</span>
+                  <div>
+                    <h3 className="text-sm sm:text-base font-bold text-white tracking-tight">Global Timezones</h3>
+                    <p className="text-xs sm:text-[13px] text-emerald-100/75 mt-0.5 leading-snug">Flexible shifts across UK, US, Gulf &amp; Australia</p>
+                  </div>
                 </div>
               </div>
 
@@ -999,13 +934,13 @@ export default function HomePage() {
                 <button
                   type="button"
                   onClick={() => setIsWaitlistOpen(true)}
-                  className="inline-flex items-center justify-center gap-2.5 rounded-full bg-[#EAD08A] px-7 sm:px-8 py-3.5 sm:py-4 text-stone-950 font-bold text-sm sm:text-base hover:bg-[#F2DEAA] transition-all duration-300 shadow-[0_10px_25px_rgba(234,208,138,0.25)] hover:shadow-[0_14px_30px_rgba(234,208,138,0.35)] hover:-translate-y-0.5 active:translate-y-0 cursor-pointer group"
+                  className="inline-flex items-center justify-center gap-3 rounded-full bg-[#EAD08A] px-8 sm:px-10 py-4 sm:py-4.5 text-stone-950 font-bold text-base sm:text-lg hover:bg-[#F2DEAA] transition-all duration-300 shadow-[0_10px_25px_rgba(234,208,138,0.25)] hover:shadow-[0_14px_30px_rgba(234,208,138,0.35)] hover:-translate-y-0.5 active:translate-y-0 cursor-pointer group"
                 >
                   <span>Join the Waitlist</span>
-                  <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  <ChevronRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </button>
 
-                <span className="text-xs sm:text-sm text-emerald-200/70 font-normal">
+                <span className="text-xs sm:text-sm text-emerald-200/80 font-normal">
                   Takes 2 minutes · No payment required today
                 </span>
               </div>

@@ -391,17 +391,17 @@ export default function HomePage() {
         <section
           id="mission"
           suppressHydrationWarning
-          className="relative z-20 overflow-hidden bg-white border-b border-stone-200/60 py-16 select-none sm:py-20 lg:py-24"
+          className="relative z-20 overflow-hidden bg-white border-b border-stone-200/60 min-h-[85vh] lg:min-h-screen flex items-center py-20 sm:py-24 lg:py-28 xl:py-32 select-none"
         >
-          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-stretch">
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-16 items-stretch">
               {/* Left Column: Mission & Core Value */}
               <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={revealViewport}
                 variants={sectionReveal}
-                className="flex flex-col justify-between lg:col-span-6"
+                className="flex flex-col justify-between lg:col-span-6 py-2"
               >
                 <div>
                   <h2 className="text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-bold tracking-tight text-stone-950 leading-[1.22] font-bricolage" suppressHydrationWarning>
@@ -455,7 +455,7 @@ export default function HomePage() {
                 variants={sectionReveal}
                 className="relative lg:col-span-6 flex items-stretch justify-center"
               >
-                <div className="relative w-full h-full min-h-[460px] sm:min-h-[520px] lg:min-h-0">
+                <div className="relative w-full h-full min-h-[460px] sm:min-h-[520px] lg:min-h-[560px] xl:min-h-[620px]">
                   {/* Subtle warm golden background glow */}
                   <div className="absolute -inset-4 bg-gradient-to-tr from-[#095F46]/10 via-[#EAD08A]/20 to-transparent rounded-[36px] blur-2xl -z-10" />
 
@@ -480,13 +480,13 @@ export default function HomePage() {
         {/* ========================================================================= */}
         <section
           id="how-to-enroll"
-          className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-[#063529] via-[#083f33] to-[#04281e] text-white border-b border-emerald-950/60 scroll-mt-16 select-none relative overflow-hidden"
+          className="min-h-screen flex items-center py-20 sm:py-24 lg:py-28 xl:py-32 bg-gradient-to-b from-[#063529] via-[#083f33] to-[#04281e] text-white border-b border-emerald-950/60 scroll-mt-16 select-none relative overflow-hidden"
         >
           {/* Subtle Ambient Radial Glow */}
           <div className="absolute top-1/4 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] rounded-full bg-[#EAD08A]/10 blur-[140px] pointer-events-none" />
           <div className="absolute bottom-10 right-0 w-[500px] h-[500px] rounded-full bg-emerald-400/8 blur-[130px] pointer-events-none" />
 
-          <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-16 items-center">
               
               {/* Left Column: Picture of Actual Dashboard on Laptop */}
@@ -553,8 +553,8 @@ export default function HomePage() {
                   <h2 className="text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-bold tracking-tight text-white leading-[1.14] mb-2.5 sm:mb-3 font-bricolage">
                     How to Enroll
                   </h2>
-                  <p className="text-emerald-100/80 font-normal italic text-sm sm:text-base lg:text-[17px] leading-relaxed font-serif">
-                    ( Simple step-by-step pathway from registration to your first live lesson )
+                  <p className="text-emerald-100/80 font-normal text-sm sm:text-base lg:text-[17px] leading-relaxed">
+                    Simple step-by-step pathway from registration to your first live lesson
                   </p>
                 </div>
 
@@ -925,14 +925,14 @@ export default function HomePage() {
       {/* ========================================================================= */}
       {/* 5. BOTTOM CALL TO ACTION / WAITLIST LUXURY SANCTUARY CARD */}
       {/* ========================================================================= */}
-      <section className="relative w-full overflow-hidden bg-[#f8faf8] py-16 sm:py-20 lg:py-28 text-stone-900 select-none border-t border-stone-200/60">
-        <div className="relative z-10 mx-auto w-full max-w-6xl xl:max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="relative w-full overflow-hidden bg-[#f8faf8] py-12 sm:py-16 lg:py-20 text-stone-900 select-none border-t border-stone-200/60">
+        <div className="relative z-10 mx-auto w-full max-w-5xl xl:max-w-6xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={revealViewport}
             variants={sectionReveal}
-            className="relative overflow-hidden rounded-3xl sm:rounded-[2.5rem] lg:rounded-[3rem] bg-gradient-to-br from-[#052b21] via-[#083F33] to-[#04241B] text-white p-8 sm:p-12 lg:p-16 xl:p-20 border border-[#EAD08A]/35 shadow-[0_24px_70px_rgba(6,53,41,0.28)]"
+            className="relative overflow-hidden rounded-2xl sm:rounded-3xl lg:rounded-[2.5rem] bg-gradient-to-br from-[#052b21] via-[#083F33] to-[#04241B] text-white p-6 sm:p-9 lg:p-12 xl:p-14 border border-[#EAD08A]/35 shadow-[0_20px_50px_rgba(6,53,41,0.22)]"
           >
             {/* Atmospheric Background Glows */}
             <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-[#EAD08A]/18 blur-3xl pointer-events-none" />
@@ -960,19 +960,19 @@ export default function HomePage() {
 
             <div className="relative z-10 max-w-3xl">
               {/* Headline */}
-              <h2 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-white leading-[1.22] mb-5 font-bricolage">
-                Begin Your Journey
-                <span className="block text-[#EAD08A] font-serif italic text-2xl sm:text-3xl lg:text-[36px] font-normal mt-2 sm:mt-2.5 leading-normal">
+              <h2 className="text-2xl sm:text-3xl lg:text-[40px] xl:text-[44px] font-bold tracking-tight text-white leading-[1.2] mb-3.5 sm:mb-4 font-bricolage">
+                Begin Your Journey{' '}
+                <span className="block sm:inline text-[#EAD08A] font-bricolage font-bold">
                   with Certified Islamic Scholars
                 </span>
               </h2>
 
-              <p className="max-w-2xl text-base sm:text-lg lg:text-[19px] leading-relaxed text-emerald-100/90 font-light mb-8 sm:mb-10">
+              <p className="max-w-2xl text-sm sm:text-base lg:text-[17px] leading-relaxed text-emerald-100/90 font-normal mb-6 sm:mb-8">
                 Tell us what you want to learn. We will pair you with a patient, qualified scholar and prepare a schedule that fits your daily routine seamlessly.
               </p>
 
               {/* Trust Perks Row */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4 mb-9 sm:mb-11 text-xs sm:text-sm text-emerald-100/85">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-7 sm:mb-9 text-xs sm:text-sm text-emerald-100/85">
                 <div className="flex items-center gap-2.5">
                   <div className="h-5 w-5 rounded-full bg-[#EAD08A]/20 text-[#EAD08A] flex items-center justify-center shrink-0">
                     <Check className="w-3.5 h-3.5 stroke-[3]" />
@@ -983,7 +983,7 @@ export default function HomePage() {
                   <div className="h-5 w-5 rounded-full bg-[#EAD08A]/20 text-[#EAD08A] flex items-center justify-center shrink-0">
                     <Check className="w-3.5 h-3.5 stroke-[3]" />
                   </div>
-                  <span>100% Vetted Sanad Teachers</span>
+                  <span>Verified Lecturers</span>
                 </div>
                 <div className="flex items-center gap-2.5">
                   <div className="h-5 w-5 rounded-full bg-[#EAD08A]/20 text-[#EAD08A] flex items-center justify-center shrink-0">
@@ -998,7 +998,7 @@ export default function HomePage() {
                 <button
                   type="button"
                   onClick={() => setIsWaitlistOpen(true)}
-                  className="inline-flex items-center justify-center gap-3 rounded-full bg-[#EAD08A] px-9 sm:px-10 py-4 sm:py-4.5 text-stone-950 font-bold text-base sm:text-[17px] hover:bg-[#F2DEAA] transition-all duration-300 shadow-[0_12px_30px_rgba(234,208,138,0.25)] hover:shadow-[0_16px_36px_rgba(234,208,138,0.35)] hover:-translate-y-0.5 active:translate-y-0 cursor-pointer group"
+                  className="inline-flex items-center justify-center gap-2.5 rounded-full bg-[#EAD08A] px-7 sm:px-8 py-3.5 sm:py-4 text-stone-950 font-bold text-sm sm:text-base hover:bg-[#F2DEAA] transition-all duration-300 shadow-[0_10px_25px_rgba(234,208,138,0.25)] hover:shadow-[0_14px_30px_rgba(234,208,138,0.35)] hover:-translate-y-0.5 active:translate-y-0 cursor-pointer group"
                 >
                   <span>Join the Waitlist</span>
                   <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

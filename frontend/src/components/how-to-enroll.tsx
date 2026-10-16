@@ -86,16 +86,16 @@ export default function HowToEnroll() {
               {/* Step Number + Content */}
               <div className="flex-1 pt-0.5 sm:pt-1">
                 <div className="flex items-baseline gap-2.5 sm:gap-3">
-                  <span className="font-mono text-xs sm:text-sm font-bold tracking-widest text-[#EAD08A] drop-shadow-sm">
+                  <span className="font-bricolage text-sm sm:text-base font-bold tracking-wider text-[#EAD08A] drop-shadow-sm">
                     {item.step}
                   </span>
-                  <h3 className="text-base sm:text-lg lg:text-[21px] font-bold text-white tracking-tight leading-snug group-hover:text-emerald-100 transition-colors">
+                  <h3 className="font-bricolage text-base sm:text-lg lg:text-[21px] font-bold text-white tracking-tight leading-snug group-hover:text-emerald-100 transition-colors">
                     {item.title}
                   </h3>
                 </div>
 
-                <p className="mt-1 text-xs sm:text-sm lg:text-[14.5px] text-emerald-100/75 leading-relaxed font-normal italic font-serif">
-                  ( {item.desc} )
+                <p className="mt-1.5 text-xs sm:text-sm lg:text-[14.5px] text-emerald-100/80 leading-relaxed font-normal">
+                  {item.desc}
                 </p>
               </div>
             </motion.div>

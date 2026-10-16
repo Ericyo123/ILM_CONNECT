@@ -453,18 +453,19 @@ export default function HomePage() {
                 whileInView="visible"
                 viewport={revealViewport}
                 variants={sectionReveal}
-                className="relative lg:col-span-6 flex items-center justify-center"
+                className="relative lg:col-span-6 flex items-center justify-center w-full"
               >
-                <div className="relative w-full h-full min-h-[400px] sm:min-h-[460px] lg:min-h-[480px]">
+                <div className="relative w-full h-[400px] sm:h-[460px] lg:h-[500px] xl:h-[520px]">
                   {/* Subtle warm golden background glow */}
                   <div className="absolute -inset-4 bg-gradient-to-tr from-[#095F46]/10 via-[#EAD08A]/20 to-transparent rounded-[36px] blur-2xl -z-10" />
 
-                  {/* Main Image Frame - Height matching the left column from heading to Learn More button */}
-                  <div className="relative w-full h-full min-h-[400px] sm:min-h-[460px] lg:min-h-full rounded-3xl overflow-hidden border border-stone-200/90 shadow-[0_20px_50px_rgba(9,95,70,0.08)] bg-stone-100">
+                  {/* Main Image Frame */}
+                  <div className="relative w-full h-full rounded-3xl overflow-hidden border border-stone-200/90 shadow-[0_20px_50px_rgba(9,95,70,0.08)] bg-stone-100">
                     <Image
                       src="/images/grow-in-sacred-scholar.jpg"
                       alt="Qualified Islamic scholar teaching Quran"
                       fill
+                      priority
                       sizes="(max-width: 1024px) 100vw, 50vw"
                       className="object-cover object-top sm:object-center"
                     />

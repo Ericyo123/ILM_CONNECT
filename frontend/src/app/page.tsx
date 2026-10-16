@@ -391,17 +391,17 @@ export default function HomePage() {
         <section
           id="mission"
           suppressHydrationWarning
-          className="relative z-20 overflow-hidden bg-white border-b border-stone-200/60 min-h-[85vh] lg:min-h-screen flex items-center py-20 sm:py-24 lg:py-28 xl:py-32 select-none"
+          className="relative z-20 overflow-hidden bg-white border-b border-stone-200/60 py-16 sm:py-20 lg:py-24 select-none"
         >
-          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-16 items-stretch">
+          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
               {/* Left Column: Mission & Core Value */}
               <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={revealViewport}
                 variants={sectionReveal}
-                className="flex flex-col justify-between lg:col-span-6 py-2"
+                className="flex flex-col lg:col-span-6"
               >
                 <div>
                   <h2 className="text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-bold tracking-tight text-stone-950 leading-[1.22] font-bricolage" suppressHydrationWarning>
@@ -409,17 +409,17 @@ export default function HomePage() {
                     <span className="text-[#095F46]">Live With Purpose &amp; Iman</span>
                   </h2>
 
-                  <p className="mt-6 text-base sm:text-lg lg:text-[18px] font-normal leading-relaxed text-stone-600">
+                  <p className="mt-5 text-base sm:text-lg lg:text-[18px] font-normal leading-relaxed text-stone-600">
                     Finding patient, verified Islamic teachers shouldn&apos;t be difficult. Ilmbit connects students in Sri Lanka and Sri Lankan families living abroad directly with qualified scholars for structured 1:1 online lessons suited to your schedule and personal pace.
                   </p>
 
-                  <div className="mt-7 space-y-4 lg:space-y-5">
+                  <div className="mt-6 space-y-3.5 lg:space-y-4">
                     {[
                       { title: 'Personalized 1:1 Learning Paths', desc: 'From foundational Noorani Qaida to advanced Sanad Tajweed' },
                       { title: 'Verified Scholars & Certified Maulavis', desc: 'Carefully vetted teachers with authentic Sanad and clear guidance' },
                       { title: 'For Students in Sri Lanka & Abroad', desc: 'Flexible 1:1 session scheduling across local and overseas timezones' },
                     ].map((feature, idx) => (
-                      <div key={idx} className="flex items-start gap-4">
+                      <div key={idx} className="flex items-start gap-3.5">
                         <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#095F46]/10 text-[#095F46] mt-0.5">
                           <Check className="h-4 w-4 stroke-[2.5]" aria-hidden="true" />
                         </div>
@@ -436,7 +436,7 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                <div className="mt-9 flex flex-wrap items-center gap-4">
+                <div className="mt-7 flex flex-wrap items-center gap-4">
                   <Link
                     href="/about"
                     className="brand-button brand-button-primary px-8 py-3.5 lg:px-9 lg:py-4 text-xs lg:text-sm tracking-wider uppercase !font-light inline-flex items-center gap-2 group"
@@ -453,14 +453,14 @@ export default function HomePage() {
                 whileInView="visible"
                 viewport={revealViewport}
                 variants={sectionReveal}
-                className="relative lg:col-span-6 flex items-stretch justify-center"
+                className="relative lg:col-span-6 flex items-center justify-center"
               >
-                <div className="relative w-full h-full min-h-[460px] sm:min-h-[520px] lg:min-h-[560px] xl:min-h-[620px]">
+                <div className="relative w-full h-full min-h-[400px] sm:min-h-[460px] lg:min-h-[480px]">
                   {/* Subtle warm golden background glow */}
                   <div className="absolute -inset-4 bg-gradient-to-tr from-[#095F46]/10 via-[#EAD08A]/20 to-transparent rounded-[36px] blur-2xl -z-10" />
 
                   {/* Main Image Frame - Height matching the left column from heading to Learn More button */}
-                  <div className="relative w-full h-full min-h-[460px] sm:min-h-[520px] lg:min-h-full rounded-3xl overflow-hidden border border-stone-200/90 shadow-[0_20px_50px_rgba(9,95,70,0.08)] bg-stone-100">
+                  <div className="relative w-full h-full min-h-[400px] sm:min-h-[460px] lg:min-h-full rounded-3xl overflow-hidden border border-stone-200/90 shadow-[0_20px_50px_rgba(9,95,70,0.08)] bg-stone-100">
                     <Image
                       src="/images/grow-in-sacred-scholar.jpg"
                       alt="Qualified Islamic scholar teaching Quran"
@@ -480,13 +480,13 @@ export default function HomePage() {
         {/* ========================================================================= */}
         <section
           id="how-to-enroll"
-          className="min-h-screen flex items-center py-20 sm:py-24 lg:py-28 xl:py-32 bg-gradient-to-b from-[#063529] via-[#083f33] to-[#04281e] text-white border-b border-emerald-950/60 scroll-mt-16 select-none relative overflow-hidden"
+          className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-[#063529] via-[#083f33] to-[#04281e] text-white border-b border-emerald-950/60 scroll-mt-16 select-none relative overflow-hidden"
         >
           {/* Subtle Ambient Radial Glow */}
           <div className="absolute top-1/4 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] rounded-full bg-[#EAD08A]/10 blur-[140px] pointer-events-none" />
           <div className="absolute bottom-10 right-0 w-[500px] h-[500px] rounded-full bg-emerald-400/8 blur-[130px] pointer-events-none" />
 
-          <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+          <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-16 items-center">
               
               {/* Left Column: Picture of Actual Dashboard on Laptop */}

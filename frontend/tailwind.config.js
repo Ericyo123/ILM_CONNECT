@@ -7,11 +7,11 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
-        subtext: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
+        sans: ['var(--font-manrope)', 'Manrope', 'system-ui', 'sans-serif'],
+        subtext: ['var(--font-manrope)', 'Manrope', 'system-ui', 'sans-serif'],
         heading: ['var(--font-bricolage)', '"Bricolage Grotesque"', 'system-ui', 'sans-serif'],
         display: ['var(--font-bricolage)', '"Bricolage Grotesque"', 'system-ui', 'sans-serif'],
-        serif: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
+        serif: ['var(--font-manrope)', 'Manrope', 'system-ui', 'sans-serif'],
         arabic: ['var(--font-amiri)', 'Noto Naskh Arabic', 'serif'],
       },
       colors: {

@@ -16,9 +16,8 @@ nextjs-portal, [data-nextjs-dev-overlay] {
   --brand-primary: #095f46;
   --brand-secondary: #0b8663;
   --brand-bright: #10bf8d;
-  --brand-gray: #b3b3b3;
-  --font-brand: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-subtext: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-brand: var(--font-manrope), 'Manrope', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-subtext: var(--font-manrope), 'Manrope', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-heading: var(--font-bricolage), 'Bricolage Grotesque', system-ui, sans-serif;
   --radius-control: 0.875rem;
   --radius-action: 999px;

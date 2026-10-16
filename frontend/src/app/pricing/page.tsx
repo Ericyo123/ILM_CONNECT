@@ -158,12 +158,18 @@ export default function PricingPage() {
       {/* ========================================================================= */}
       <PublicPageHero
         title="Simple, Transparent Pricing"
+        subtitle="With Dedicated Certified Scholars"
+        description="Structured 1:1 lessons tailored to your personal goals and schedule. Start with a free trial session across any discipline with no commitments."
         image="/images/pricing-hero-quran-volumes.jpg"
         imageAlt="Quran volumes with gold detailing arranged on a shelf"
         imageClassName="object-cover object-center opacity-85"
-        scrollTarget="#standard-plans"
-        scrollLabel="Scroll down to Standard Plans"
-        overlay={<div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/10 to-black/60" />}
+        overlay={
+          <>
+            <div className="absolute inset-0 bg-stone-950/60" />
+            <div className="absolute inset-0 bg-[#095F46]/25 mix-blend-multiply" />
+            <div className="absolute inset-0 bg-gradient-to-b from-stone-950/80 via-stone-950/30 to-stone-950/85" />
+          </>
+        }
       />
 
       <div className={`${styles.patternBackground} pb-16 sm:pb-20 lg:pb-24`}>

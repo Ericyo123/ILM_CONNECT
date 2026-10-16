@@ -137,8 +137,6 @@ export default function TeachPage() {
         image="/images/teach-hero-scholar.jpg"
         imageAlt="Islamic scholar library with classical Islamic texts"
         imageClassName="object-cover object-[center_35%] opacity-85"
-        scrollTarget="#why-teach"
-        scrollLabel="Scroll down to why teach with Ilmbit"
         overlay={
           <>
             <div className="absolute inset-0 bg-stone-950/60" />

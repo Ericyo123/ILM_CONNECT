@@ -2,7 +2,6 @@
 
 import type { ReactNode } from 'react';
 import Image from 'next/image';
-import { ChevronDown } from 'lucide-react';
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
 
 export const publicPageFadeUp: Variants = {
@@ -18,8 +17,8 @@ interface PublicPageHeroProps {
   imageAlt: string;
   imageClassName: string;
   overlay: ReactNode;
-  scrollTarget: string;
-  scrollLabel: string;
+  scrollTarget?: string;
+  scrollLabel?: string;
 }
 
 export default function PublicPageHero({
@@ -30,57 +29,39 @@ export default function PublicPageHero({
   imageAlt,
   imageClassName,
   overlay,
-  scrollTarget,
-  scrollLabel,
 }: PublicPageHeroProps) {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section className="relative min-h-[50vh] sm:min-h-[54vh] lg:min-h-[58vh] flex flex-col justify-between overflow-hidden bg-stone-950 text-white select-none">
+    <section className="relative min-h-[48vh] sm:min-h-[52vh] lg:min-h-[56vh] flex items-center justify-center overflow-hidden bg-stone-950 text-white select-none py-20 sm:py-24 lg:py-28">
       <div className="absolute inset-0 z-0">
         <Image src={image} alt={imageAlt} fill priority sizes="100vw" className={imageClassName} />
         {overlay}
       </div>
 
-      <div className="w-full h-16 sm:h-20 shrink-0 pointer-events-none" aria-hidden="true" />
-
       <motion.div
         initial={shouldReduceMotion ? false : 'hidden'}
         animate="visible"
         variants={publicPageFadeUp}
-        className="relative z-20 mt-auto pb-8 sm:pb-12 pt-6 px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center"
+        className="relative z-20 w-full px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-center"
       >
-        <div className="relative mx-auto max-w-5xl w-full">
-          <h1 className="text-2xl sm:text-4xl lg:text-[52px] xl:text-[58px] font-bold tracking-tight text-white leading-[1.08] drop-shadow-md max-w-4xl mx-auto font-heading">
-            <span className="block">{title}</span>
-            {subtitle ? (
-              <span className="block text-[#EAD08A] font-semibold text-xl sm:text-3xl lg:text-[36px] xl:text-[42px] mt-2 lg:mt-3">
+        <div className="relative mx-auto max-w-4xl w-full">
+          <h1 className="text-3xl sm:text-4xl lg:text-[50px] xl:text-[56px] font-bold tracking-tight text-white leading-[1.12] drop-shadow-md max-w-3xl mx-auto font-heading">
+            <span className="block text-white">{title}</span>
+            {subtitle && (
+              <span className="block text-[#EAD08A] font-serif italic text-2xl sm:text-3xl lg:text-[38px] xl:text-[44px] font-normal mt-2.5 sm:mt-3 leading-normal drop-shadow-sm">
                 {subtitle}
               </span>
-            ) : !description ? (
-              <span aria-hidden="true" className="block text-xl sm:text-3xl lg:text-[36px] xl:text-[42px] mt-2 lg:mt-3 opacity-0">
-                &nbsp;
-              </span>
-            ) : null}
+            )}
           </h1>
 
           {description && (
-            <p className="mt-4 text-base sm:text-lg lg:text-[18px] text-stone-200/90 max-w-2xl mx-auto font-normal leading-relaxed drop-shadow-sm">
+            <p className="mt-4 sm:mt-5 text-base sm:text-lg lg:text-[18px] text-stone-200/90 max-w-2xl mx-auto font-normal leading-relaxed drop-shadow-sm">
               {description}
             </p>
           )}
-
-          <a
-            href={scrollTarget}
-            aria-label={scrollLabel}
-            className="group mx-auto mt-8 flex h-11 w-11 lg:h-12 lg:w-12 shrink-0 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white shadow-sm backdrop-blur-sm transition-colors duration-200 hover:border-white/60 hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
-          >
-            <ChevronDown aria-hidden="true" className="block h-5 w-5 lg:h-6 lg:w-6 shrink-0 transition-transform duration-200 motion-safe:group-hover:translate-y-0.5" />
-          </a>
         </div>
       </motion.div>
-
-      <div className="relative z-20 pb-2" aria-hidden="true" />
     </section>
   );
 }

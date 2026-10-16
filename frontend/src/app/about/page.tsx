@@ -316,8 +316,6 @@ export default function AboutPage() {
         image="/images/about-hero-scholar-monochrome.jpg"
         imageAlt="Islamic scholar reading the Quran in a mosque courtyard"
         imageClassName="object-cover object-[55%_48%] opacity-90"
-        scrollTarget="#story"
-        scrollLabel="Scroll down to our story"
         overlay={<>
           <div className="absolute inset-0 bg-[#095F46]/25 mix-blend-multiply" />
           <div className="absolute inset-0 bg-gradient-to-b from-[#031e18]/85 via-[#095F46]/20 to-[#031e18]/95" />

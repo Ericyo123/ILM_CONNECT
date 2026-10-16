@@ -14,6 +14,8 @@ import {
   AudioLines,
   MessagesSquare,
   ShieldCheck,
+  BookOpen,
+  Award,
 } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
 import styles from './about-refinement.module.css';
@@ -112,7 +114,7 @@ function RegionFlag({
 }
 
 // ---------------------------------------------------------------------------
-// Data: The Three Sacred Pillars (Arkan al-Ilm)
+// Data: The Three Foundational Pillars (Arkan al-Ilm)
 // ---------------------------------------------------------------------------
 const pillars = [
   {
@@ -137,7 +139,7 @@ const pillars = [
     number: '03',
     title: 'Amanah & Ihsan',
     arabic: 'الأمانة والإحسان',
-    subtitle: 'Sacred Trust & Professionalism',
+    subtitle: 'Trust & Moral Responsibility',
     image: '/images/about/pillar-amanah.jpg',
     imageAlt: 'A man carefully studying the Quran',
     desc: 'Careful preparation, reliable scheduling, and clear communication honour our responsibility to each student and their family.',
@@ -183,28 +185,52 @@ const vettingTiers = [
 // ---------------------------------------------------------------------------
 const pedagogyMilestones = [
   {
-    phase: 'Phase 1',
-    title: 'Al-Asaas (Foundations)',
-    subtitle: 'Noorani Qaida',
-    desc: 'Learn Arabic letters, their sounds, and how they join through guided Noorani Qaida practice.',
+    phase: 'Phase 01',
+    arabic: 'الأساس',
+    title: 'Al-Asaas',
+    subtitle: 'Foundations · Noorani Qaida',
+    desc: 'Learn Arabic letters, articulation points, and how letters join through guided, patient Noorani Qaida practice.',
+    tag: 'Makharij & Letter Sounds',
+    icon: BookOpen,
+    badgeColor: 'bg-amber-50 text-amber-900 border-amber-200/90',
+    iconBoxColor: 'bg-amber-500/10 text-amber-700',
+    borderHover: 'hover:border-amber-400/60',
   },
   {
-    phase: 'Phase 2',
-    title: 'At-Tilawah (Fluency)',
-    subtitle: 'Tajweed Mastery',
-    desc: 'Practise Madd, Ghunnah, and pause rules with direct pronunciation feedback from your scholar.',
+    phase: 'Phase 02',
+    arabic: 'التلاوة',
+    title: 'At-Tilawah',
+    subtitle: 'Fluency · Tajweed Mastery',
+    desc: 'Practise Madd, Ghunnah, and pause rules with immediate, gentle pronunciation feedback from your dedicated scholar.',
+    tag: 'Tajweed & Pause Rules',
+    icon: AudioLines,
+    badgeColor: 'bg-teal-50 text-teal-900 border-teal-200/90',
+    iconBoxColor: 'bg-teal-600/10 text-teal-700',
+    borderHover: 'hover:border-teal-400/60',
   },
   {
-    phase: 'Phase 3',
-    title: 'Al-Hifz (Preservation)',
-    subtitle: 'Systematic Retention',
-    desc: 'Build memorisation gradually, with regular revision (Muraja’ah) alongside new passages.',
+    phase: 'Phase 03',
+    arabic: 'الحفظ',
+    title: 'Al-Hifz',
+    subtitle: 'Preservation · Memorisation',
+    desc: 'Build memorisation gradually, with regular revision (Muraja’ah) alongside new passages for lifelong retention.',
+    tag: 'Structured Muraja’ah Retention',
+    icon: GraduationCap,
+    badgeColor: 'bg-emerald-50 text-emerald-900 border-emerald-200/90',
+    iconBoxColor: 'bg-emerald-600/10 text-[#095F46]',
+    borderHover: 'hover:border-emerald-400/60',
   },
   {
-    phase: 'Phase 4',
-    title: 'Al-Akhlaq (Living the Deen)',
-    subtitle: 'Character & Sunnah',
-    desc: 'Bring learning into daily life through prophetic du’as, good manners, and reflection.',
+    phase: 'Phase 04',
+    arabic: 'الأخلاق',
+    title: 'Al-Akhlaq',
+    subtitle: 'Living Deen · Character & Sunnah',
+    desc: 'Bring Quranic learning into daily life through prophetic du’as, Islamic adab, good manners, and moral reflection.',
+    tag: 'Prophetic Adab & Daily Sunnah',
+    icon: Award,
+    badgeColor: 'bg-stone-100 text-stone-900 border-stone-200/90',
+    iconBoxColor: 'bg-[#095F46]/10 text-[#095F46]',
+    borderHover: 'hover:border-[#095F46]/60',
   },
 ];
 
@@ -306,7 +332,7 @@ export default function AboutPage() {
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
           
           <div className="text-center max-w-3xl mx-auto space-y-3">
-            <h2 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.12]">
+            <h2 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.18]">
               Why We Started Ilmbit
             </h2>
             <p className="text-stone-600 text-sm sm:text-base lg:text-[18px] xl:text-[19px] leading-relaxed max-w-3xl mx-auto font-normal">
@@ -423,7 +449,7 @@ export default function AboutPage() {
       {/* ========================================================================= */}
       {/* 3. CORE PHILOSOPHY & BENTO GRID — Verified Scholars, Personal Attention, Global */}
       {/* ========================================================================= */}
-      <section id="philosophy" className="relative z-10 py-14 sm:py-16 lg:py-20 bg-[#f8faf8] border-b border-stone-200/60 select-none scroll-mt-20">
+      <section id="philosophy" className="relative z-10 py-14 sm:py-16 lg:py-20 bg-white border-b border-stone-200/60 select-none scroll-mt-20">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-7 sm:space-y-8">
           
           {/* Top Row: Left Title vs Right Concise Text */}
@@ -436,7 +462,7 @@ export default function AboutPage() {
               variants={fadeUp}
               className="lg:col-span-7"
             >
-              <h2 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-stone-950 leading-[1.18] lg:leading-[1.2] font-bricolage">
+              <h2 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-stone-950 leading-[1.18] font-bricolage">
                 Make Serious Islamic Education{' '}
                 <span className="text-[#095F46]">Easier To Access,</span> And Easier To Stay With!
               </h2>
@@ -529,15 +555,15 @@ export default function AboutPage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 4. THE THREE SACRED PILLARS — Arkan al-Ilm (No Tags) */}
+      {/* 4. THE THREE FOUNDATIONAL PILLARS — Arkan al-Ilm (No Tags) */}
       {/* ========================================================================= */}
       <section className={`${styles.section} ${styles.pillarsSection} ${styles.patternBackground}`} aria-labelledby="pillars-heading">
         <div className={`relative z-10 ${styles.pillarsContainer}`}>
           
           <div className={styles.pillarsIntro}>
-            <h2 id="pillars-heading" className={styles.heading}>
-              <span className={styles.pillarsHeadingLine}>Three Sacred Pillars</span>{' '}
-              <span className={styles.pillarsHeadingLine}>of Every Lesson</span>
+            <h2 id="pillars-heading" className="text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.18]">
+              Three Pillars<br />
+              of Every Lesson
             </h2>
             <p className={styles.intro}>
               How we teach matters as much as what we teach. Oral transmission, good character, and responsibility guide every lesson.
@@ -574,12 +600,12 @@ export default function AboutPage() {
       {/* ========================================================================= */}
       {/* 5. THE SANAD GUARANTEE — 4-Tier Scholar Accreditation Protocol (No Tags) */}
       {/* ========================================================================= */}
-      <section className={`${styles.section} ${styles.tint} ${styles.vettingSection}`} aria-labelledby="vetting-heading">
+      <section className={`${styles.section} bg-white ${styles.vettingSection}`} aria-labelledby="vetting-heading">
         <div className={`mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 ${styles.vettingContainer}`}>
           
           <div className={styles.centerIntro}>
-            <h2 id="vetting-heading" className={styles.heading}>
-              How We Vet &amp; Verify Every Scholar
+            <h2 id="vetting-heading" className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.18] text-center">
+              How We Verify Every Scholar
             </h2>
             <p className={styles.intro}>
               Qualifications are one part of the review. Recitation, communication, and care for students matter too.
@@ -622,42 +648,71 @@ export default function AboutPage() {
       {/* 6. OUR PEDAGOGY — 4 Milestones of Learning (No Tags) */}
       {/* ========================================================================= */}
       <section className={`${styles.section} ${styles.patternBackground}`} aria-labelledby="pathway-heading">
-        <div className={`relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 ${styles.pathwayLayout}`}>
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
           
-          <div className="min-w-0 space-y-4 text-left">
-            <h2 id="pathway-heading" className={styles.heading}>
+          <div className="text-center max-w-3xl mx-auto space-y-3">
+            <h2 id="pathway-heading" className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.18] text-center">
               A Gentle Pathway from First Letters to Fluency
             </h2>
-            <p className={styles.intro}>
-              A clear route through the foundations, recitation, memorisation, and daily practice. Your scholar adapts the pace to the student.
+            <p className="text-stone-600 text-sm sm:text-base lg:text-[18px] xl:text-[19px] leading-relaxed max-w-2xl mx-auto font-normal">
+              A clear route through foundations, recitation, memorisation, and daily character. Your scholar adapts the pace to each student.
             </p>
           </div>
 
-          <motion.div className={styles.pathwayGrid} initial={shouldReduceMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={fadeUp}>
-            {pedagogyMilestones.map((milestone) => (
-              <article
-                key={milestone.title}
-                className={styles.milestone}
-              >
-                <div>
-                  <div className={styles.milestoneMeta}>
-                    <span className={styles.phase}>
-                      {milestone.phase}
-                    </span>
-                    <span className={styles.course}>
-                      {milestone.subtitle}
-                    </span>
-                  </div>
-                  <h3 className={styles.itemHeading}>
-                    {milestone.title}
-                  </h3>
-                  <p className={styles.body}>
-                    {milestone.desc}
-                  </p>
-                </div>
+          <motion.div
+            initial={shouldReduceMotion ? false : 'hidden'}
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.15 }}
+            variants={fadeUp}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch"
+          >
+            {pedagogyMilestones.map((milestone) => {
+              const Icon = milestone.icon;
+              return (
+                <article
+                  key={milestone.title}
+                  className={`group relative flex flex-col justify-between rounded-3xl bg-white border border-stone-200/90 p-6 sm:p-7 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_40px_rgba(9,95,70,0.08)] hover:-translate-y-1 transition-all duration-300 ${milestone.borderHover}`}
+                >
+                  <div>
+                    {/* Top Row: Phase badge & Arabic calligraphy */}
+                    <div className="flex items-center justify-between gap-2 mb-5">
+                      <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase border ${milestone.badgeColor}`}>
+                        {milestone.phase}
+                      </span>
+                      <span className="font-amiri text-2xl font-bold text-[#095F46] leading-none" lang="ar" dir="rtl">
+                        {milestone.arabic}
+                      </span>
+                    </div>
 
-              </article>
-            ))}
+                    {/* Step Icon */}
+                    <div className={`h-12 w-12 rounded-2xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110 ${milestone.iconBoxColor}`}>
+                      <Icon className="h-6 w-6 stroke-[2]" />
+                    </div>
+
+                    {/* Title & Subtitle */}
+                    <h3 className="text-xl sm:text-[22px] font-bold text-stone-950 font-bricolage tracking-tight leading-snug mb-1">
+                      {milestone.title}
+                    </h3>
+                    <p className="text-xs font-bold uppercase tracking-wider text-stone-500 mb-3.5">
+                      {milestone.subtitle}
+                    </p>
+
+                    {/* Description */}
+                    <p className="text-sm leading-relaxed text-stone-600 font-normal">
+                      {milestone.desc}
+                    </p>
+                  </div>
+
+                  {/* Outcome Tag */}
+                  <div className="mt-6 pt-4 border-t border-stone-100 flex items-center gap-2 text-xs font-medium text-stone-700">
+                    <div className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-[#095F46]">
+                      <Check className="h-3 w-3 stroke-[2.5]" />
+                    </div>
+                    <span>{milestone.tag}</span>
+                  </div>
+                </article>
+              );
+            })}
           </motion.div>
 
         </div>
@@ -666,11 +721,11 @@ export default function AboutPage() {
       {/* ========================================================================= */}
       {/* 7. THE PARENT PROMISE — Peace of Mind for Families (No Tags) */}
       {/* ========================================================================= */}
-      <section className={`${styles.section} ${styles.tint}`} aria-labelledby="parents-heading">
+      <section className={`${styles.section} bg-white`} aria-labelledby="parents-heading">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
           
           <div className={styles.centerIntro}>
-            <h2 id="parents-heading" className={styles.heading}>
+            <h2 id="parents-heading" className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.18] text-center">
               <span className="text-[#095F46]">Complete Peace of Mind</span> for Parents
             </h2>
             <p className={styles.intro}>
@@ -738,8 +793,8 @@ export default function AboutPage() {
                 className="pointer-events-none absolute -bottom-24 -right-20 h-72 w-72 select-none object-contain opacity-[0.075] sm:h-80 sm:w-80 lg:-bottom-20 lg:-right-24"
               />
               <div className="relative z-10">
-                <h2 className="max-w-md text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-bold leading-[1.12] tracking-tight text-white font-bricolage">
-                  Begin Your Sacred Journey of Knowledge
+                <h2 className="max-w-md text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-bold leading-[1.18] tracking-tight text-white font-bricolage">
+                  Begin Your Journey with Verified Scholars
                 </h2>
                 <p className="mt-4 sm:mt-5 max-w-sm text-sm leading-relaxed text-emerald-50/85 sm:text-base lg:text-[17px]">
                   Tell us what you want to learn. We will use it to prepare the right scholar match and schedule.

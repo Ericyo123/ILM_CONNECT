@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { motion, useInView, AnimatePresence, type Variants } from 'framer-motion';
 import WaitlistModal from '@/components/waitlist-modal';
-import HowItWorks from '@/components/how-it-works';
+import HowToEnroll from '@/components/how-to-enroll';
 
 function AnimatedCounter({
   target,
@@ -391,7 +391,7 @@ export default function HomePage() {
         <section
           id="mission"
           suppressHydrationWarning
-          className="relative z-20 overflow-hidden border-b border-stone-200/60 py-16 select-none sm:py-20 lg:py-24"
+          className="relative z-20 overflow-hidden bg-white border-b border-stone-200/60 py-16 select-none sm:py-20 lg:py-24"
         >
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-stretch">
@@ -404,9 +404,10 @@ export default function HomePage() {
                 className="flex flex-col justify-between lg:col-span-6"
               >
                 <div>
-                  <h2 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-stone-950 leading-[1.18] font-bricolage" suppressHydrationWarning>
-                    <span>Grow In Sacred Knowledge So You Can </span>
-                    <span className="block text-[#095F46] mt-1 sm:mt-1.5">Live With Purpose &amp; Iman</span>
+                  <h2 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-stone-950 leading-[1.16] font-bricolage" suppressHydrationWarning>
+                    Grow Your<br />
+                    Knowledge,<br />
+                    <span className="text-[#095F46]">Live With Purpose &amp; Iman</span>
                   </h2>
 
                   <p className="mt-6 text-base sm:text-lg lg:text-[18px] font-normal leading-relaxed text-stone-600">
@@ -476,39 +477,73 @@ export default function HomePage() {
         </section>
 
         {/* ========================================================================= */}
-        {/* 4. HOW IT WORKS SECTION — Interactive 4-Step Student Guide */}
+        {/* 3. HOW TO ENROLL SECTION — 2-Column: Laptop Dashboard + Timeline */}
         {/* ========================================================================= */}
         <section
-          id="how-it-works"
-          className="py-16 sm:py-20 lg:py-24 bg-[#f6f8f6] text-stone-900 border-b border-stone-200/60 scroll-mt-16 select-none relative overflow-hidden"
+          id="how-to-enroll"
+          className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-[#063529] via-[#083f33] to-[#04281e] text-white border-b border-emerald-950/60 scroll-mt-16 select-none relative overflow-hidden"
         >
-          <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-            {/* Section Header */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={revealViewport}
-              variants={sectionReveal}
-              className="text-center max-w-3xl mx-auto mb-10 sm:mb-14"
-            >
-              <h2 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-stone-950 leading-[1.12] mb-3 sm:mb-4">
-                How It Works
-              </h2>
-              <p className="text-stone-600 font-normal text-base sm:text-lg lg:text-[18px] max-w-2xl mx-auto leading-relaxed">
-                Start learning in minutes. Our streamlined process connects you with certified scholars seamlessly.
-              </p>
-            </motion.div>
+          {/* Subtle Ambient Radial Glow */}
+          <div className="absolute top-1/4 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] rounded-full bg-[#EAD08A]/10 blur-[140px] pointer-events-none" />
+          <div className="absolute bottom-10 right-0 w-[500px] h-[500px] rounded-full bg-emerald-400/8 blur-[130px] pointer-events-none" />
 
-            <HowItWorks />
+          <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-16 items-center">
+              
+              {/* Left Column: Picture of Dashboard on Laptop */}
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={revealViewport}
+                variants={sectionReveal}
+                className="relative lg:col-span-6 flex items-center justify-center order-2 lg:order-1"
+              >
+                <div className="relative w-full max-w-lg lg:max-w-none">
+                  {/* Subtle warm glow around the laptop frame */}
+                  <div className="absolute -inset-4 bg-gradient-to-tr from-[#EAD08A]/15 via-emerald-400/10 to-transparent rounded-[32px] blur-2xl -z-10" />
+
+                  <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden border border-[#EAD08A]/30 shadow-[0_20px_50px_rgba(0,0,0,0.35)] bg-[#04241b]">
+                    <Image
+                      src="/images/how-it-works-laptop.jpg"
+                      alt="Student learning Quran on Ilmbit platform dashboard"
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover object-center"
+                    />
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Right Column: How to Enroll Title + Vertical Timeline */}
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={revealViewport}
+                variants={sectionReveal}
+                className="lg:col-span-6 flex flex-col justify-center order-1 lg:order-2"
+              >
+                <div className="mb-7 sm:mb-9 text-left">
+                  <h2 className="text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-bold tracking-tight text-white leading-[1.14] mb-2.5 sm:mb-3 font-bricolage">
+                    How to Enroll
+                  </h2>
+                  <p className="text-emerald-100/80 font-normal italic text-sm sm:text-base lg:text-[17px] leading-relaxed font-serif">
+                    ( Simple step-by-step pathway from registration to your first live lesson )
+                  </p>
+                </div>
+
+                <HowToEnroll />
+              </motion.div>
+
+            </div>
           </div>
         </section>
 
         {/* ========================================================================= */}
-        {/* 5. COURSES & PRICING SECTION — Minimalist 3-Card Grid */}
+        {/* 4. COURSES & PRICING SECTION — Minimalist 3-Card Grid */}
         {/* ========================================================================= */}
         <section
           id="courses"
-          className="py-14 sm:py-18 lg:py-20 bg-transparent text-stone-900 scroll-mt-16 relative overflow-hidden border-b border-stone-200/60 select-none"
+          className="py-16 sm:py-20 lg:py-24 bg-white text-stone-900 scroll-mt-16 relative overflow-hidden border-b border-stone-200/60 select-none"
         >
           <div className="relative mx-auto w-full max-w-6xl xl:max-w-7xl px-4 sm:px-6 lg:px-8">
             {/* Header matching user voice instructions & Reference */}
@@ -519,7 +554,7 @@ export default function HomePage() {
               variants={sectionReveal}
               className="text-center max-w-2xl mx-auto mb-8 sm:mb-10 lg:mb-12"
             >
-              <h2 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-stone-950 leading-[1.12] mb-3">
+              <h2 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.16] mb-3">
                 Our Courses
               </h2>
               <p className="text-stone-500 font-normal text-sm sm:text-base lg:text-[18px] max-w-2xl mx-auto leading-relaxed">
@@ -538,7 +573,7 @@ export default function HomePage() {
               {/* CARD 1: Beginner Plan (Noorani Qaida) */}
               <motion.div
                 variants={cardItem}
-                className="rounded-3xl bg-white/95 backdrop-blur-md border border-stone-200/90 p-6 sm:p-7 lg:p-8 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col justify-between hover:shadow-lg transition-all duration-300"
+                className="rounded-3xl bg-white border border-stone-200/90 p-6 sm:p-7 lg:p-8 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col justify-between hover:shadow-lg transition-all duration-300"
               >
                 <div>
                   <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-black text-stone-950 tracking-tight mb-2.5">
@@ -586,25 +621,13 @@ export default function HomePage() {
                       <span>Session recordings &amp; notes</span>
                     </li>
                   </ul>
-
-                  <div className="mt-6 pt-4 border-t border-stone-100">
-                    <div className="rounded-2xl bg-[#FCF8EE] border border-[#EAD08A]/60 p-3.5 sm:p-4 flex flex-col gap-2">
-                      <p className="text-sm font-bold text-stone-900">
-                        Start Strong
-                      </p>
-                      <Link href="/pricing#fast-track-plans" className="brand-button brand-button-secondary w-full justify-between px-4 text-xs lg:text-sm">
-                        <span>Explore Fast Track Plan</span>
-                        <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-                      </Link>
-                    </div>
-                  </div>
                 </div>
               </motion.div>
 
               {/* CARD 2: Intermediate Plan (Tajweed Mastery) — Matching Card Style */}
               <motion.div
                 variants={cardItem}
-                className="rounded-3xl bg-white/95 backdrop-blur-md border border-stone-200/90 p-6 sm:p-7 lg:p-8 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col justify-between hover:shadow-lg transition-all duration-300"
+                className="rounded-3xl bg-white border border-stone-200/90 p-6 sm:p-7 lg:p-8 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col justify-between hover:shadow-lg transition-all duration-300"
               >
                 <div>
                   <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-black text-stone-950 tracking-tight mb-2.5">
@@ -656,25 +679,13 @@ export default function HomePage() {
                       <span>Monthly progress evaluation</span>
                     </li>
                   </ul>
-
-                  <div className="mt-6 pt-4 border-t border-stone-100">
-                    <div className="rounded-2xl bg-[#FCF8EE] border border-[#EAD08A]/60 p-3.5 sm:p-4 flex flex-col gap-2">
-                      <p className="text-sm font-bold text-stone-900">
-                        Recite Better
-                      </p>
-                      <Link href="/pricing#fast-track-plans" className="brand-button brand-button-secondary w-full justify-between px-4 text-xs lg:text-sm">
-                        <span>Explore Fast Track Plan</span>
-                        <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-                      </Link>
-                    </div>
-                  </div>
                 </div>
               </motion.div>
 
               {/* CARD 3: Intensive Memorization (Hifz) */}
               <motion.div
                 variants={cardItem}
-                className="rounded-3xl bg-white/95 backdrop-blur-md border border-stone-200/90 p-6 sm:p-7 lg:p-8 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col justify-between hover:shadow-lg transition-all duration-300"
+                className="rounded-3xl bg-white border border-stone-200/90 p-6 sm:p-7 lg:p-8 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex flex-col justify-between hover:shadow-lg transition-all duration-300"
               >
                 <div>
                   <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-black text-stone-950 tracking-tight mb-2.5">
@@ -726,18 +737,6 @@ export default function HomePage() {
                       <span>Revision tracking &amp; lecturer messaging</span>
                     </li>
                   </ul>
-
-                  <div className="mt-6 pt-4 border-t border-stone-100">
-                    <div className="rounded-2xl bg-[#FCF8EE] border border-[#EAD08A]/60 p-3.5 sm:p-4 flex flex-col gap-2">
-                      <p className="text-sm font-bold text-stone-900">
-                        Memorize More
-                      </p>
-                      <Link href="/pricing#fast-track-plans" className="brand-button brand-button-secondary w-full justify-between px-4 text-xs lg:text-sm">
-                        <span>Explore Fast Track Plan</span>
-                        <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-                      </Link>
-                    </div>
-                  </div>
                 </div>
               </motion.div>
             </motion.div>
@@ -897,54 +896,91 @@ export default function HomePage() {
       </div>
 
       {/* ========================================================================= */}
-      {/* 7. BOTTOM CALL TO ACTION / WAITLIST BANNER SECTION */}
+      {/* 5. BOTTOM CALL TO ACTION / WAITLIST LUXURY SANCTUARY CARD */}
       {/* ========================================================================= */}
-      <section className="relative w-full overflow-hidden bg-[#f5f7f6] py-20 sm:py-24 lg:py-28 text-stone-900 select-none border-t border-stone-200/70">
-        <Image
-          src="/images/home-cta-quran.jpg"
-          alt=""
-          fill
-          aria-hidden="true"
-          className="object-cover object-[center_52%] opacity-[0.05] mix-blend-multiply"
-          sizes="100vw"
-        />
-        {/* Soft atmospheric gradients matching site standards */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#f5f7f6] via-[#f5f7f6]/95 to-[#eaf2ee]/85" />
-        <div className="absolute -top-32 right-1/4 h-96 w-96 rounded-full bg-[#EAD08A]/20 blur-3xl pointer-events-none" />
-
-        {/* Brand Mark Watermark */}
-        <Image
-          src="/images/ilmbit-mark-green.png"
-          alt=""
-          width={380}
-          height={380}
-          aria-hidden="true"
-          className="pointer-events-none absolute -right-8 bottom-0 w-52 select-none object-contain opacity-[0.07] sm:w-72 lg:right-10 lg:w-96"
-        />
-
+      <section className="relative w-full overflow-hidden bg-[#f8faf8] py-16 sm:py-20 lg:py-28 text-stone-900 select-none border-t border-stone-200/60">
         <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={revealViewport}
             variants={sectionReveal}
-            className="flex flex-col justify-center max-w-[720px]"
+            className="relative overflow-hidden rounded-3xl sm:rounded-[2.5rem] lg:rounded-[3rem] bg-gradient-to-br from-[#052b21] via-[#083F33] to-[#04241B] text-white p-8 sm:p-12 lg:p-16 xl:p-20 border border-[#EAD08A]/35 shadow-[0_24px_70px_rgba(6,53,41,0.28)]"
           >
-            <h2 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-stone-950 leading-[1.12] mb-4 font-bricolage">
-              Begin Your Sacred Journey of Knowledge
-            </h2>
-            <p className="max-w-2xl text-base leading-relaxed text-stone-600 sm:text-lg lg:text-[18px] xl:text-[19px]">
-              Tell us what you want to learn. We will use it to prepare the right scholar match and schedule.
-            </p>
+            {/* Atmospheric Background Glows */}
+            <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-[#EAD08A]/18 blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-emerald-400/12 blur-3xl pointer-events-none" />
 
-            <div className="mt-8">
-              <Link
-                href="/about#waitlist"
-                className="brand-button brand-button-primary px-9 py-4 lg:px-10 lg:py-4.5 text-base lg:text-[17px] xl:text-[18px] lg:min-h-[56px] shadow-sm tracking-wide"
-              >
-                <span>Join the Waitlist</span>
-                <ChevronRight className="h-4 w-4" />
-              </Link>
+            {/* Background Texture Overlay */}
+            <Image
+              src="/images/home-cta-quran.jpg"
+              alt=""
+              fill
+              aria-hidden="true"
+              className="object-cover object-[center_52%] opacity-[0.08] mix-blend-overlay pointer-events-none"
+              sizes="(max-width: 1280px) 100vw, 1200px"
+            />
+
+            {/* Elegant Brand Watermark */}
+            <Image
+              src="/images/ilmbit-mark-white.png"
+              alt=""
+              width={420}
+              height={420}
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-12 -bottom-12 w-64 select-none object-contain opacity-[0.07] sm:w-80 lg:right-4 lg:bottom-0 lg:w-[420px]"
+            />
+
+            <div className="relative z-10 max-w-3xl">
+              {/* Headline */}
+              <h2 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-white leading-[1.2] mb-5 font-bricolage">
+                Begin Your Journey of Knowledge
+                <span className="block text-[#EAD08A] font-serif italic text-2xl sm:text-3xl lg:text-[36px] font-normal mt-3 sm:mt-4 leading-normal">
+                  with Certified Islamic Scholars
+                </span>
+              </h2>
+
+              <p className="max-w-2xl text-base sm:text-lg lg:text-[19px] leading-relaxed text-emerald-100/90 font-light mb-8 sm:mb-10">
+                Tell us what you want to learn. We will pair you with a patient, qualified scholar and prepare a schedule that fits your daily routine seamlessly.
+              </p>
+
+              {/* Trust Perks Row */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4 mb-9 sm:mb-11 text-xs sm:text-sm text-emerald-100/85">
+                <div className="flex items-center gap-2.5">
+                  <div className="h-5 w-5 rounded-full bg-[#EAD08A]/20 text-[#EAD08A] flex items-center justify-center shrink-0">
+                    <Check className="w-3.5 h-3.5 stroke-[3]" />
+                  </div>
+                  <span>Free 30-Min Trial Session</span>
+                </div>
+                <div className="flex items-center gap-2.5">
+                  <div className="h-5 w-5 rounded-full bg-[#EAD08A]/20 text-[#EAD08A] flex items-center justify-center shrink-0">
+                    <Check className="w-3.5 h-3.5 stroke-[3]" />
+                  </div>
+                  <span>100% Vetted Sanad Teachers</span>
+                </div>
+                <div className="flex items-center gap-2.5">
+                  <div className="h-5 w-5 rounded-full bg-[#EAD08A]/20 text-[#EAD08A] flex items-center justify-center shrink-0">
+                    <Check className="w-3.5 h-3.5 stroke-[3]" />
+                  </div>
+                  <span>Flexible Global Timezones</span>
+                </div>
+              </div>
+
+              {/* CTA Action Area */}
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
+                <button
+                  type="button"
+                  onClick={() => setIsWaitlistOpen(true)}
+                  className="inline-flex items-center justify-center gap-3 rounded-full bg-[#EAD08A] px-9 sm:px-10 py-4 sm:py-4.5 text-stone-950 font-bold text-base sm:text-[17px] hover:bg-[#F2DEAA] transition-all duration-300 shadow-[0_12px_30px_rgba(234,208,138,0.25)] hover:shadow-[0_16px_36px_rgba(234,208,138,0.35)] hover:-translate-y-0.5 active:translate-y-0 cursor-pointer group"
+                >
+                  <span>Join the Waitlist</span>
+                  <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </button>
+
+                <span className="text-xs sm:text-sm text-emerald-200/70 font-normal">
+                  Takes 2 minutes · No payment required today
+                </span>
+              </div>
             </div>
           </motion.div>
         </div>

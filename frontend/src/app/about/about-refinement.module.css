@@ -31,7 +31,7 @@
 }
 
 .section.pillarsSection { padding-block: clamp(2rem, 5svh, 3rem); scroll-margin-top: 6.25rem; background: #fbfbf9; }
-.pillarsContainer { width: 100%; max-width: 1280px; margin-inline: auto; padding-inline: 1rem; }
+.pillarsContainer { width: 100%; max-width: 1400px; margin-inline: auto; padding-inline: 1rem; }
 .pillarsIntro { display: grid; gap: 0.5rem; margin-bottom: 1rem; }
 .pillarsGrid { display: grid; justify-content: center; gap: 2.5rem; }
 .pillar { min-width: 0; width: 184px; }
@@ -82,7 +82,7 @@
 .parentsGrid { display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; gap: 2rem; }
 .promise { position: relative; display: flex; align-items: center; justify-content: center; min-width: 0; width: 100%; max-width: 360px; aspect-ratio: 1; padding: 1.25rem; border-radius: 50%; border: 1px solid #aabbb0; background: #fcfcf9; text-align: center; transition: border-color 220ms ease, background-color 220ms ease, translate 220ms ease; }
 .promiseContent { display: flex; flex-direction: column; align-items: center; max-width: 260px; }
-.promiseNumber { position: absolute; top: 7%; right: 7%; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #095f46; color: #fff; font-weight: 700; font-size: 0.875rem; outline: 5px solid #f3f5f0; }
+.promiseNumber { position: absolute; top: 7%; right: 7%; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #095f46; color: #fff; font-weight: 700; font-size: 0.875rem; outline: 5px solid #ffffff; }
 .promiseIcon { width: 32px; height: 32px; margin-bottom: 1rem; color: #095f46; stroke-width: 1.8; }
 .promiseHeading { margin-bottom: 0.875rem; }
 .matchTitle { font-size: 1rem; font-weight: 700; color: #172b23; }
@@ -94,7 +94,6 @@
   .pillar { width: 100%; }
   .pillarPhoto { height: clamp(22.5rem, 47svh, 28rem); }
   .pillar:nth-child(2) .pillarPhoto { height: clamp(19.5rem, calc(47svh - 3rem), 25rem); }
-  .pillarsIntro .heading { max-width: none; font-size: clamp(2rem, 2.6vw, 2.5rem); }
   .pillarsIntro .intro { max-width: none; font-size: 1rem; line-height: 1.5; }
   .section { padding-block: 5rem; }
   .heading { font-size: 2.25rem; }
@@ -106,7 +105,6 @@
 @media (min-width: 900px) {
   .pillarsContainer { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 616px); align-items: center; gap: clamp(2rem, 4vw, 4rem); }
   .pillarsIntro { justify-items: start; align-content: center; text-align: left; margin-bottom: 0; gap: 1.25rem; }
-  .pillarsIntro .heading { max-width: none; font-size: clamp(2rem, 3vw, 2.75rem); }
   .pillarsIntro .intro { max-width: 29ch; line-height: 1.7; }
   .pillarsGrid { justify-content: end; gap: clamp(1rem, 2vw, 2rem); }
 }
@@ -132,7 +130,6 @@
 }
 
 @media (min-width: 1200px) {
-  .pillarsHeadingLine { display: block; white-space: nowrap; }
   .pillarsIntro .intro { max-width: 44ch; }
   .vettingContainer { gap: 3.5rem; }
   .vettingGrid { grid-template-columns: repeat(4, minmax(0, 1fr)); height: 410px; }

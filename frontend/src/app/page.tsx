@@ -337,37 +337,37 @@ export default function HomePage() {
         {/* ========================================================================= */}
         <Link
           href="/about#waitlist"
-          className="hero-bottom-marquee group relative z-30 w-full !rounded-none rounded-none bg-[#095F46] hover:bg-[#074D38] border-t border-emerald-400/25 text-white py-3 sm:py-3.5 overflow-hidden flex items-center transition-colors duration-200 shadow-[0_-4px_25px_rgba(0,0,0,0.5)] cursor-pointer shrink-0"
+          className="hero-bottom-marquee group relative z-30 w-full !rounded-none rounded-none bg-[#095F46] hover:bg-[#074D38] border-t border-emerald-400/30 text-white py-[18px] sm:py-[22px] lg:py-[26px] overflow-hidden flex items-center transition-colors duration-200 shadow-[0_-4px_25px_rgba(0,0,0,0.5)] cursor-pointer shrink-0"
           aria-label="Join the waitlist and get 20% off"
         >
           <div className="flex w-full overflow-hidden select-none">
             <div className="animate-hero-marquee flex items-center whitespace-nowrap shrink-0">
               {[...Array(8)].map((_, i) => (
-                <div key={i} className="flex items-center gap-6 sm:gap-8 mx-4 sm:mx-6 shrink-0">
-                  <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-white drop-shadow-sm flex items-center gap-2">
+                <div key={i} className="flex items-center gap-7 sm:gap-9 mx-5 sm:mx-7 shrink-0">
+                  <span className="text-sm sm:text-base lg:text-[16.5px] font-bold tracking-wider uppercase text-white drop-shadow-sm flex items-center gap-2.5">
                     <span>Join The Waitlist &amp; Get 20% Off</span>
-                    <span className="text-emerald-200 group-hover:translate-x-0.5 transition-transform">→</span>
+                    <span className="text-emerald-200 group-hover:translate-x-1 transition-transform text-sm sm:text-base">→</span>
                   </span>
-                  <span className="text-[#EAD08A] text-xs sm:text-sm" aria-hidden="true">✦</span>
-                  <span className="text-xs sm:text-sm font-medium tracking-wide uppercase text-emerald-100/90">
+                  <span className="text-[#EAD08A] text-sm sm:text-base" aria-hidden="true">✦</span>
+                  <span className="text-sm sm:text-base lg:text-[16px] font-medium tracking-wide uppercase text-emerald-100/95">
                     Limited Early Access Offer
                   </span>
-                  <span className="text-[#EAD08A] text-xs sm:text-sm" aria-hidden="true">✦</span>
+                  <span className="text-[#EAD08A] text-sm sm:text-base" aria-hidden="true">✦</span>
                 </div>
               ))}
             </div>
             <div className="animate-hero-marquee flex items-center whitespace-nowrap shrink-0" aria-hidden="true">
               {[...Array(8)].map((_, i) => (
-                <div key={`dup-${i}`} className="flex items-center gap-6 sm:gap-8 mx-4 sm:mx-6 shrink-0">
-                  <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-white drop-shadow-sm flex items-center gap-2">
+                <div key={`dup-${i}`} className="flex items-center gap-7 sm:gap-9 mx-5 sm:mx-7 shrink-0">
+                  <span className="text-sm sm:text-base lg:text-[16.5px] font-bold tracking-wider uppercase text-white drop-shadow-sm flex items-center gap-2.5">
                     <span>Join The Waitlist &amp; Get 20% Off</span>
-                    <span className="text-emerald-200 group-hover:translate-x-0.5 transition-transform">→</span>
+                    <span className="text-emerald-200 group-hover:translate-x-1 transition-transform text-sm sm:text-base">→</span>
                   </span>
-                  <span className="text-[#EAD08A] text-xs sm:text-sm" aria-hidden="true">✦</span>
-                  <span className="text-xs sm:text-sm font-medium tracking-wide uppercase text-emerald-100/90">
+                  <span className="text-[#EAD08A] text-sm sm:text-base" aria-hidden="true">✦</span>
+                  <span className="text-sm sm:text-base lg:text-[16px] font-medium tracking-wide uppercase text-emerald-100/95">
                     Limited Early Access Offer
                   </span>
-                  <span className="text-[#EAD08A] text-xs sm:text-sm" aria-hidden="true">✦</span>
+                  <span className="text-[#EAD08A] text-sm sm:text-base" aria-hidden="true">✦</span>
                 </div>
               ))}
             </div>

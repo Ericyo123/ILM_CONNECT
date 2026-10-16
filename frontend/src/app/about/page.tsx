@@ -189,8 +189,13 @@ const pedagogyMilestones = [
     arabic: 'الأساس',
     title: 'Al-Asaas',
     subtitle: 'Foundations · Noorani Qaida',
+    duration: 'Foundations',
     desc: 'Learn Arabic letters, articulation points, and how letters join through guided, patient Noorani Qaida practice.',
     tag: 'Makharij & Letter Sounds',
+    competencies: [
+      'Single & joined Arabic letter recognition',
+      'Accurate Makharij (vocal articulation points)',
+    ],
     icon: BookOpen,
     badgeColor: 'bg-amber-50 text-amber-900 border-amber-200/90',
     iconBoxColor: 'bg-amber-500/10 text-amber-700',
@@ -201,8 +206,13 @@ const pedagogyMilestones = [
     arabic: 'التلاوة',
     title: 'At-Tilawah',
     subtitle: 'Fluency · Tajweed Mastery',
+    duration: 'Recitation',
     desc: 'Practise Madd, Ghunnah, and pause rules with immediate, gentle pronunciation feedback from your dedicated scholar.',
     tag: 'Tajweed & Pause Rules',
+    competencies: [
+      'Mastery of Noon Sakinah, Tanween & Madd rules',
+      'Fluent recitation with correct Waqf (stops)',
+    ],
     icon: AudioLines,
     badgeColor: 'bg-teal-50 text-teal-900 border-teal-200/90',
     iconBoxColor: 'bg-teal-600/10 text-teal-700',
@@ -213,8 +223,13 @@ const pedagogyMilestones = [
     arabic: 'الحفظ',
     title: 'Al-Hifz',
     subtitle: 'Preservation · Memorisation',
+    duration: 'Memorisation',
     desc: 'Build memorisation gradually, with regular revision (Muraja’ah) alongside new passages for lifelong retention.',
     tag: 'Structured Muraja’ah Retention',
+    competencies: [
+      'Step-by-step Surah memorisation at personal pace',
+      'Structured Muraja’ah (retention revision cycle)',
+    ],
     icon: GraduationCap,
     badgeColor: 'bg-emerald-50 text-emerald-900 border-emerald-200/90',
     iconBoxColor: 'bg-emerald-600/10 text-[#095F46]',
@@ -225,8 +240,13 @@ const pedagogyMilestones = [
     arabic: 'الأخلاق',
     title: 'Al-Akhlaq',
     subtitle: 'Living Deen · Character & Sunnah',
+    duration: 'Holistic Adab',
     desc: 'Bring Quranic learning into daily life through prophetic du’as, Islamic adab, good manners, and moral reflection.',
     tag: 'Prophetic Adab & Daily Sunnah',
+    competencies: [
+      'Essential daily Sunnah du’as & Islamic manners',
+      'Living the virtues of the Quran with dignity & humility',
+    ],
     icon: Award,
     badgeColor: 'bg-stone-100 text-stone-900 border-stone-200/90',
     iconBoxColor: 'bg-[#095F46]/10 text-[#095F46]',
@@ -234,24 +254,38 @@ const pedagogyMilestones = [
   },
 ];
 
-// ---------------------------------------------------------------------------
-// Data: The Parent Promise (Peace of Mind)
+
 // ---------------------------------------------------------------------------
 const parentPromises = [
   {
     title: 'Dedicated 1:1 Scholar',
     desc: 'The same scholar each week, with time to understand your child’s pace and learning needs.',
     icon: UserRoundCheck,
+    points: [
+      'Vetted Maulavis & Aalimaat with authentic Sanad',
+      'Positive reinforcement with patient character (Adab)',
+      'Same consistent mentor for every single lesson',
+    ],
   },
   {
     title: 'Continuous Visibility',
     desc: 'Follow your child’s progress through recitation recordings and term reports in your parent dashboard.',
     icon: ClipboardList,
+    points: [
+      'Replayable cloud recordings after every class',
+      'Detailed monthly Tajweed & Makharij evaluations',
+      'Direct WhatsApp updates & scholar communication',
+    ],
   },
   {
     title: 'Adaptive Family Scheduling',
     desc: 'Plan lessons around school, family commitments, and your time zone, with flexible rescheduling.',
     icon: CalendarClock,
+    points: [
+      'Dedicated slots across UK, US, EU & Australia',
+      'Easy 12-hour free cancellation and rescheduling',
+      'No long-term contracts; cancel or adjust anytime',
+    ],
   },
 ];
 
@@ -326,7 +360,10 @@ export default function AboutPage() {
       {/* ========================================================================= */}
       {/* 2. OUR STORY — Why We Started Ilmbit (The Dilemma & The Mission) */}
       {/* ========================================================================= */}
-      <section id="story" className={`relative z-10 py-16 sm:py-20 lg:py-24 border-b border-stone-200/60 scroll-mt-20 ${styles.patternBackground}`}>
+      {/* ========================================================================= */}
+      {/* 2. OUR STORY — Why We Started Ilmbit (The Dilemma & The Mission) */}
+      {/* ========================================================================= */}
+      <section id="story" className={`relative z-10 py-16 sm:py-20 lg:py-24 bg-white border-b border-stone-200/60 scroll-mt-20 ${styles.whiteSection} ${styles.patternBackground}`}>
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
           
           <div className="text-center max-w-3xl mx-auto space-y-3">
@@ -347,7 +384,7 @@ export default function AboutPage() {
               whileInView="visible"
               viewport={{ once: true, amount: 0.15 }}
               variants={fadeUp}
-              className="rounded-3xl border border-stone-200 bg-white p-7 sm:p-9 lg:p-10 xl:p-11 shadow-[0_4px_20px_rgba(0,0,0,0.02)] flex flex-col justify-between"
+              className="rounded-3xl border border-stone-200 bg-[#fafaf7] p-7 sm:p-9 lg:p-10 xl:p-11 shadow-[0_4px_20px_rgba(0,0,0,0.02)] flex flex-col justify-between"
             >
               <div>
                 <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-bold tracking-tight text-stone-950 font-bricolage mb-5 lg:mb-6">
@@ -447,12 +484,16 @@ export default function AboutPage() {
       {/* ========================================================================= */}
       {/* 3. CORE PHILOSOPHY & BENTO GRID — Verified Scholars, Personal Attention, Global */}
       {/* ========================================================================= */}
-      <section id="philosophy" className="relative z-10 py-14 sm:py-16 lg:py-20 bg-white border-b border-stone-200/60 select-none scroll-mt-20">
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-7 sm:space-y-8">
+      <section id="philosophy" className="relative z-10 py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-[#04241B] via-[#07382B] to-[#031d16] text-white border-b border-[#04241B] select-none scroll-mt-20 overflow-hidden">
+        {/* Ambient lighting glows */}
+        <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-teal-500/10 blur-3xl pointer-events-none" />
+
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-7 sm:space-y-8">
           
           {/* Top Row: Left Title vs Right Concise Text */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
-            {/* Left: Heading with Brand Green Accent */}
+            {/* Left: Heading with Brand Gold Accent */}
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -460,9 +501,9 @@ export default function AboutPage() {
               variants={fadeUp}
               className="lg:col-span-7"
             >
-              <h2 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-stone-950 leading-[1.22] font-bricolage">
+              <h2 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-white leading-[1.22] font-bricolage">
                 Make Islamic Education<br />
-                <span className="text-[#095F46]">Easier To Access</span>
+                <span className="text-[#EAD08A]">Easier To Access</span>
               </h2>
             </motion.div>
 
@@ -472,7 +513,7 @@ export default function AboutPage() {
               whileInView="visible"
               viewport={{ once: true, amount: 0.15 }}
               variants={fadeUp}
-              className="lg:col-span-5 text-stone-600 text-sm sm:text-base lg:text-[17px] xl:text-[18px] leading-relaxed font-normal"
+              className="lg:col-span-5 text-emerald-100/85 text-sm sm:text-base lg:text-[17px] xl:text-[18px] leading-relaxed font-normal"
             >
               <p>
                 Ilmbit bridges authentic traditional scholarship with modern 1:1 virtual classrooms and flexible scheduling designed specifically for Sri Lankan families living abroad.
@@ -489,7 +530,7 @@ export default function AboutPage() {
             className="grid gap-4 lg:grid-cols-12 lg:grid-rows-2"
           >
             {/* Verified Scholars Big Card */}
-            <article className="group relative min-h-[390px] overflow-hidden rounded-3xl bg-stone-900 lg:col-span-7 lg:row-span-2 lg:min-h-[500px]">
+            <article className="group relative min-h-[390px] overflow-hidden rounded-3xl bg-stone-900 lg:col-span-7 lg:row-span-2 lg:min-h-[500px] border border-white/10 shadow-lg">
               <Image
                 src="/images/about-verified-scholar.jpg"
                 alt="Quran teacher seated beside an open copy of the Holy Quran"
@@ -497,7 +538,7 @@ export default function AboutPage() {
                 className="object-cover object-[center_54%] transition-transform duration-700 group-hover:scale-[1.025]"
                 sizes="(max-width: 1024px) 100vw, 58vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#052d23]/95 via-[#052d23]/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#021812]/95 via-[#021812]/40 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-7 text-white sm:p-9 lg:p-10 xl:p-11">
                 <h3 className="max-w-md text-3xl sm:text-4xl lg:text-[40px] xl:text-[44px] font-bold tracking-[-0.035em] font-bricolage">
                   Verified Scholars
@@ -509,7 +550,7 @@ export default function AboutPage() {
             </article>
 
             {/* Personal Attention Card */}
-            <article className="group relative min-h-[270px] overflow-hidden rounded-3xl bg-stone-900 lg:col-span-5 lg:min-h-0">
+            <article className="group relative min-h-[270px] overflow-hidden rounded-3xl bg-stone-900 lg:col-span-5 lg:min-h-0 border border-white/10 shadow-lg">
               <Image
                 src="/images/about-personal-attention-online.jpg"
                 alt="Student receiving personal online Quran instruction"
@@ -517,7 +558,7 @@ export default function AboutPage() {
                 className="object-cover object-center transition-transform duration-700 group-hover:scale-[1.035]"
                 sizes="(max-width: 1024px) 100vw, 42vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-950/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#021812]/90 via-[#021812]/30 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-6 text-white sm:p-7 lg:p-8">
                 <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-bold tracking-tight font-bricolage">Personal Attention</h3>
                 <p className="mt-2 max-w-lg text-sm sm:text-base lg:text-[16px] leading-relaxed text-stone-200">
@@ -526,10 +567,10 @@ export default function AboutPage() {
               </div>
             </article>
 
-            {/* Built Around You (Countries Flags) */}
-            <article className="group relative flex min-h-[230px] flex-col justify-center overflow-hidden rounded-3xl border border-[#095F46]/12 bg-white lg:col-span-5 lg:min-h-0">
-              <div className="relative p-6 text-stone-950 sm:p-7 lg:p-8">
-                <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-bold tracking-tight font-bricolage">Built Around You</h3>
+            {/* Built Around You (Countries Flags) - High Contrast White Card */}
+            <article className="group relative flex min-h-[230px] flex-col justify-center overflow-hidden rounded-3xl bg-white p-6 sm:p-7 lg:p-8 text-stone-950 shadow-[0_16px_40px_rgba(0,0,0,0.25)] border border-white/90 lg:col-span-5 lg:min-h-0">
+              <div className="relative">
+                <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-bold tracking-tight font-bricolage text-stone-950">Built Around You</h3>
                 <p className="mt-2 max-w-lg text-sm sm:text-base lg:text-[16px] leading-relaxed text-stone-600">
                   Flexible scheduling designed around international time zones.
                 </p>
@@ -553,9 +594,9 @@ export default function AboutPage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 4. THE THREE FOUNDATIONAL PILLARS — Arkan al-Ilm (No Tags) */}
+      {/* 4. THE THREE FOUNDATIONAL PILLARS — Arkan al-Ilm (White Background) */}
       {/* ========================================================================= */}
-      <section className={`${styles.section} ${styles.pillarsSection} ${styles.patternBackground}`} aria-labelledby="pillars-heading">
+      <section className={`${styles.section} ${styles.whiteSection} ${styles.pillarsSection} ${styles.patternBackground}`} aria-labelledby="pillars-heading">
         <div className={`relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 ${styles.pillarsContainer}`}>
           
           <div className={styles.pillarsIntro}>
@@ -596,16 +637,20 @@ export default function AboutPage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 5. THE SANAD GUARANTEE — 4-Tier Scholar Accreditation Protocol (No Tags) */}
+      {/* 5. THE SANAD GUARANTEE — 4-Tier Scholar Accreditation Protocol (Green Background) */}
       {/* ========================================================================= */}
-      <section className={`${styles.section} bg-white ${styles.vettingSection}`} aria-labelledby="vetting-heading">
-        <div className={`mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 ${styles.vettingContainer}`}>
+      <section className={`${styles.section} ${styles.greenSection} ${styles.vettingSection} relative overflow-hidden select-none`} aria-labelledby="vetting-heading">
+        {/* Ambient background glows */}
+        <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-teal-500/10 blur-3xl pointer-events-none" />
+
+        <div className={`relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 ${styles.vettingContainer}`}>
           
           <div className={styles.centerIntro}>
-            <h2 id="vetting-heading" className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.18] text-center">
+            <h2 id="vetting-heading" className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-white font-bricolage leading-[1.18] text-center">
               How We Verify Every Scholar
             </h2>
-            <p className="text-stone-600 text-sm sm:text-base lg:text-[18px] leading-normal max-w-3xl mx-auto text-center font-normal">
+            <p className="text-emerald-100/85 text-sm sm:text-base lg:text-[18px] leading-normal max-w-3xl mx-auto text-center font-normal mt-3">
               Qualifications are one part of the review. Recitation, communication, and care for students matter too.
             </p>
           </div>
@@ -643,18 +688,38 @@ export default function AboutPage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 6. OUR PEDAGOGY — 4 Milestones of Learning (No Tags) */}
+      {/* 6. OUR PEDAGOGY — 4 Milestones of Learning (Connected Roadmap - White) */}
       {/* ========================================================================= */}
-      <section className={`${styles.section} ${styles.patternBackground}`} aria-labelledby="pathway-heading">
+      <section className={`${styles.section} ${styles.whiteSection} ${styles.patternBackground} relative overflow-hidden select-none`} aria-labelledby="pathway-heading">
         <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
           
           <div className="text-center max-w-3xl mx-auto space-y-3">
-            <h2 id="pathway-heading" className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-normal text-stone-950 font-bricolage leading-[1.24] text-center">
-              A Gentle Pathway from First Letters to Fluency
+            <h2 id="pathway-heading" className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-normal text-stone-950 font-bricolage leading-[1.2] text-center">
+              A Gentle Pathway from First Letters to <span className="text-[#095F46]">Fluency</span>
             </h2>
             <p className="text-stone-600 text-sm sm:text-base lg:text-[18px] xl:text-[19px] leading-relaxed max-w-2xl mx-auto font-normal">
-              A clear route through foundations, recitation, memorisation, and daily character. Your scholar adapts the pace to each student.
+              A structured progression through foundations, recitation, memorisation, and living character — adapted by your scholar to your child&apos;s unique pace.
             </p>
+          </div>
+
+          {/* Desktop Visual Progression Guide Rail */}
+          <div className="hidden lg:block relative max-w-5xl mx-auto px-6 mb-2" aria-hidden="true">
+            <div className="relative flex items-center justify-between">
+              {/* Connecting Track Line */}
+              <div className="absolute left-[8%] right-[8%] top-1/2 -translate-y-1/2 h-[2.5px] bg-gradient-to-r from-emerald-100 via-[#095F46]/30 to-emerald-100 z-0" />
+              
+              {/* 4 Waypoint Stations */}
+              {pedagogyMilestones.map((milestone, idx) => (
+                <div key={milestone.title} className="relative z-10 flex flex-col items-center">
+                  <div className="h-10 w-10 rounded-full bg-white border-2 border-[#095F46] flex items-center justify-center font-bricolage font-bold text-xs text-[#095F46] shadow-[0_2px_8px_rgba(9,95,70,0.12)] ring-4 ring-[#095F46]/10">
+                    0{idx + 1}
+                  </div>
+                  <span className="mt-2 text-[11px] font-bold uppercase tracking-wider text-emerald-950/80">
+                    {milestone.duration}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
 
           <motion.div
@@ -664,18 +729,18 @@ export default function AboutPage() {
             variants={fadeUp}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch"
           >
-            {pedagogyMilestones.map((milestone) => {
+            {pedagogyMilestones.map((milestone, idx) => {
               const Icon = milestone.icon;
               return (
                 <article
                   key={milestone.title}
-                  className={`group relative flex flex-col justify-between rounded-3xl bg-white border border-stone-200/90 p-6 sm:p-7 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_40px_rgba(9,95,70,0.08)] hover:-translate-y-1 transition-all duration-300 ${milestone.borderHover}`}
+                  className={`group relative flex flex-col justify-between rounded-3xl bg-white border border-stone-200/90 p-6 sm:p-7 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_40px_rgba(9,95,70,0.09)] hover:-translate-y-1.5 transition-all duration-300 ${milestone.borderHover}`}
                 >
                   <div>
                     {/* Top Row: Phase badge & Arabic calligraphy */}
-                    <div className="flex items-center justify-between gap-2 mb-5">
-                      <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase border ${milestone.badgeColor}`}>
-                        {milestone.phase}
+                    <div className="flex items-center justify-between gap-2 mb-4">
+                      <span className={`inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase border ${milestone.badgeColor}`}>
+                        Phase 0{idx + 1}
                       </span>
                       <span className="font-amiri text-2xl font-bold text-[#095F46] leading-none" lang="ar" dir="rtl">
                         {milestone.arabic}
@@ -696,9 +761,26 @@ export default function AboutPage() {
                     </p>
 
                     {/* Description */}
-                    <p className="text-sm leading-relaxed text-stone-600 font-normal">
+                    <p className="text-sm leading-relaxed text-stone-600 font-normal mb-4">
                       {milestone.desc}
                     </p>
+
+                    {/* Key Competencies Checkmarks */}
+                    <div className="space-y-2 pt-3 border-t border-stone-100">
+                      <p className="text-[11px] font-bold uppercase tracking-wider text-stone-400">
+                        Key Competencies
+                      </p>
+                      <ul className="space-y-1.5 text-xs text-stone-700">
+                        {milestone.competencies.map((comp) => (
+                          <li key={comp} className="flex items-start gap-2">
+                            <span className="mt-0.5 flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-[#095F46]">
+                              <Check className="h-2.5 w-2.5 stroke-[3]" />
+                            </span>
+                            <span className="leading-snug">{comp}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
 
                   {/* Outcome Tag */}
@@ -717,39 +799,79 @@ export default function AboutPage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 7. THE PARENT PROMISE — Peace of Mind for Families (No Tags) */}
+      {/* 7. THE PARENT PROMISE — Peace of Mind for Families (Redesigned - Green) */}
       {/* ========================================================================= */}
-      <section className={`${styles.section} bg-white`} aria-labelledby="parents-heading">
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
+      <section className={`${styles.section} ${styles.greenSection} relative overflow-hidden select-none`} aria-labelledby="parents-heading">
+        {/* Ambient lighting glows */}
+        <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-teal-500/10 blur-3xl pointer-events-none" />
+
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
           
-          <div className={styles.centerIntro}>
-            <h2 id="parents-heading" className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.18] text-center">
-              <span className="text-[#095F46]">Complete Peace of Mind</span> for Parents
+          <div className="text-center max-w-3xl mx-auto space-y-3">
+            <h2 id="parents-heading" className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-white font-bricolage leading-[1.18] text-center">
+              Complete Peace of Mind <span className="text-[#EAD08A]">for Parents</span>
             </h2>
-            <p className={styles.intro}>
+            <p className="text-emerald-100/85 text-sm sm:text-base lg:text-[18px] xl:text-[19px] leading-relaxed max-w-2xl mx-auto font-normal">
               A familiar teacher, a clear view of progress, and lesson times that work for your family.
             </p>
           </div>
 
-          <motion.div className={styles.parentsGrid} initial={shouldReduceMotion ? false : 'hidden'} whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={fadeUp}>
+          <motion.div
+            initial={shouldReduceMotion ? false : 'hidden'}
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.15 }}
+            variants={fadeUp}
+            className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch"
+          >
             {parentPromises.map((promise, idx) => {
               const Icon = promise.icon;
               return (
                 <article
                   key={promise.title}
-                  className={styles.promise}
+                  className="group relative flex flex-col justify-between rounded-3xl bg-white p-7 sm:p-8 lg:p-9 text-stone-900 shadow-[0_20px_50px_rgba(0,0,0,0.28)] border border-white/95 hover:shadow-[0_28px_60px_rgba(0,0,0,0.38)] hover:-translate-y-1.5 transition-all duration-300"
                 >
-                  <span aria-hidden="true" className={styles.promiseNumber}>
-                    {String(idx + 1).padStart(2, '0')}
-                  </span>
-                  <div className={styles.promiseContent}>
-                    <Icon aria-hidden="true" className={styles.promiseIcon} />
-                    <h3 className={styles.promiseHeading}>
+                  <div>
+                    {/* Top Row: Icon + Station Number */}
+                    <div className="flex items-center justify-between mb-6">
+                      <div className="h-12 w-12 rounded-2xl bg-emerald-50 text-[#095F46] p-3 ring-1 ring-emerald-600/15 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+                        <Icon className="h-6 w-6 stroke-[2]" />
+                      </div>
+                      <span className="font-bricolage font-bold text-3xl sm:text-4xl text-stone-200 select-none">
+                        0{idx + 1}
+                      </span>
+                    </div>
+
+                    {/* Title & Desc */}
+                    <h3 className="text-2xl sm:text-[24px] font-bold text-stone-950 font-bricolage tracking-tight mb-2.5">
                       {promise.title}
                     </h3>
-                    <p className={styles.body}>
+                    <p className="text-stone-600 text-sm sm:text-base leading-relaxed mb-6 font-normal">
                       {promise.desc}
                     </p>
+
+                    {/* Checklist of commitments */}
+                    <ul className="space-y-3 pt-5 border-t border-stone-100 text-sm text-stone-700">
+                      {promise.points.map((point) => (
+                        <li key={point} className="flex items-start gap-3">
+                          <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-[#095F46]">
+                            <Check className="h-3.5 w-3.5 stroke-[2.5]" />
+                          </span>
+                          <span className="leading-snug">{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Bottom badge */}
+                  <div className="mt-8 pt-4 border-t border-stone-100 flex items-center justify-between">
+                    <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#095F46] bg-emerald-50/80 px-3 py-1.5 rounded-full border border-emerald-100">
+                      <ShieldCheck className="h-3.5 w-3.5" />
+                      {idx === 0 ? 'Authentic Sanad' : idx === 1 ? 'Total Transparency' : 'Cancel Anytime'}
+                    </span>
+                    <span className="text-xs font-semibold text-stone-400">
+                      Ilmbit Standard
+                    </span>
                   </div>
                 </article>
               );

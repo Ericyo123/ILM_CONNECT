@@ -20,7 +20,6 @@ import HowToEnroll from '@/components/how-to-enroll';
 const audienceTracks = [
   {
     title: 'Children & Young Starters',
-    ageBadge: 'Ages 5 – 12',
     image: '/images/pricing-noorani-qaida.jpg',
     imageAlt: 'Open Noorani Qaida book showing colorful Arabic letters for children',
     desc: 'Gentle, interactive foundational lessons tailored for young attention spans, cultivating genuine love and fluency for Allah’s words.',
@@ -30,11 +29,9 @@ const audienceTracks = [
       'Gentle memorization of daily Duas and short Surahs',
       'Regular feedback and progress updates for parents',
     ],
-    recommendedPlan: 'Noorani Qaida',
   },
   {
     title: 'Teens & Aspiring Huffaz',
-    ageBadge: 'Ages 13 – 19',
     image: '/images/about-personal-attention-online.jpg',
     imageAlt: 'Teen student wearing headphones reciting Quran 1:1 on laptop with scholar',
     desc: 'Structured Quran memorization, rigorous Tajweed rules, and character-building mentorship for growing minds.',
@@ -44,21 +41,18 @@ const audienceTracks = [
       'Direct guidance from certified Sanad holders',
       'Flexible scheduling around school exams',
     ],
-    recommendedPlan: 'Tajweed & Hifz',
   },
   {
-    title: 'Adults, Reverts & Sisters',
-    ageBadge: 'All Adult Learners',
+    title: 'Adult Learners & Reverts',
     image: '/images/why-ilm-quran-hands.jpg',
     imageAlt: 'Adult student reading the Holy Quran with wooden pointer in traditional talaqqi',
-    desc: 'Private, judgment-free 1:1 lessons whether starting from Arabic letters or perfecting your recitation rhythm and understanding.',
+    desc: 'Private, judgment-free 1:1 lessons whether starting from foundational Arabic letters or perfecting your recitation rhythm and understanding.',
     highlights: [
-      'Dedicated female scholars (Aalimaat) for sisters',
-      'Supportive, patient pace for new Muslims & reverts',
+      'Dedicated male & female scholars for brothers and sisters',
+      'Supportive, patient pace for new Muslims & adult starters',
       'Practical Tajweed application in daily Salah',
       'Evening & weekend slots across global timezones',
     ],
-    recommendedPlan: '1:1 Custom Track',
   },
 ];
 
@@ -499,61 +493,40 @@ export default function HomePage() {
                 <motion.div
                   key={idx}
                   variants={cardItem}
-                  className="relative rounded-3xl bg-white border border-stone-200/90 shadow-[0_4px_24px_rgba(0,0,0,0.04)] flex flex-col justify-between hover:shadow-xl hover:border-[#095F46]/40 transition-all duration-300 group overflow-hidden"
+                  className="relative rounded-3xl bg-white border border-stone-200/90 shadow-[0_4px_24px_rgba(0,0,0,0.04)] flex flex-col hover:shadow-xl hover:border-[#095F46]/40 transition-all duration-300 group overflow-hidden"
                 >
-                  <div>
-                    {/* Top Image Banner with Hover Zoom & Overlaid Age Badge */}
-                    <div className="relative w-full h-48 sm:h-52 overflow-hidden bg-stone-900">
-                      <Image
-                        src={track.image}
-                        alt={track.imageAlt}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-stone-950/70 via-stone-950/20 to-transparent" />
-                      <div className="absolute top-4 left-4">
-                        <span className="inline-flex items-center rounded-full bg-stone-900/80 backdrop-blur-md text-[#EAD08A] border border-[#EAD08A]/30 font-semibold px-3 py-1 text-xs tracking-wide shadow-sm">
-                          {track.ageBadge}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Card Body */}
-                    <div className="p-6 sm:p-7 lg:p-8">
-                      <h3 className="text-xl sm:text-2xl font-bold text-stone-950 tracking-tight mb-2.5 font-bricolage">
-                        {track.title}
-                      </h3>
-                      <p className="text-stone-500 text-sm sm:text-[15px] leading-relaxed mb-6 font-normal">
-                        {track.desc}
-                      </p>
-
-                      <div className="text-xs font-bold uppercase tracking-wider text-stone-400 mb-3.5">
-                        Key Learning Focus
-                      </div>
-                      <ul className="space-y-3 text-xs sm:text-sm text-stone-600 font-medium">
-                        {track.highlights.map((point, pIdx) => (
-                          <li key={pIdx} className="flex items-start gap-2.5">
-                            <Check className="w-4 h-4 text-[#095F46] shrink-0 mt-0.5 stroke-[2.5]" />
-                            <span className="leading-snug">{point}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                  {/* Top Image Banner with Hover Zoom */}
+                  <div className="relative w-full h-48 sm:h-52 overflow-hidden bg-stone-900">
+                    <Image
+                      src={track.image}
+                      alt={track.imageAlt}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-stone-950/60 via-stone-950/15 to-transparent" />
                   </div>
 
-                  <div className="p-6 sm:p-7 lg:p-8 pt-0 border-t border-stone-100 mt-auto flex items-center justify-between">
-                    <span className="text-xs font-semibold text-stone-400">
-                      Recommended: <span className="text-stone-800 font-bold">{track.recommendedPlan}</span>
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => setIsWaitlistOpen(true)}
-                      className="text-xs sm:text-sm font-bold text-[#095F46] group-hover:text-[#074c38] inline-flex items-center gap-1 cursor-pointer"
-                    >
-                      <span>Get Started</span>
-                      <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                    </button>
+                  {/* Card Body */}
+                  <div className="p-6 sm:p-7 lg:p-8 flex flex-col flex-1">
+                    <h3 className="text-xl sm:text-2xl font-bold text-stone-950 tracking-tight mb-2.5 font-bricolage">
+                      {track.title}
+                    </h3>
+                    <p className="text-stone-500 text-sm sm:text-[15px] leading-relaxed mb-6 font-normal">
+                      {track.desc}
+                    </p>
+
+                    <div className="text-xs font-bold uppercase tracking-wider text-stone-400 mb-3.5">
+                      Key Learning Focus
+                    </div>
+                    <ul className="space-y-3 text-xs sm:text-sm text-stone-600 font-medium">
+                      {track.highlights.map((point, pIdx) => (
+                        <li key={pIdx} className="flex items-start gap-2.5">
+                          <Check className="w-4 h-4 text-[#095F46] shrink-0 mt-0.5 stroke-[2.5]" />
+                          <span className="leading-snug">{point}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </motion.div>
               ))}

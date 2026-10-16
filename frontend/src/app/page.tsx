@@ -600,51 +600,51 @@ export default function HomePage() {
               {/* CARD 1: Beginner Plan (Noorani Qaida) */}
               <motion.div
                 variants={cardItem}
-                className="rounded-3xl bg-[#062e23]/80 border border-[#EAD08A]/25 backdrop-blur-md p-6 sm:p-7 lg:p-8 shadow-[0_12px_40px_rgba(0,0,0,0.35)] flex flex-col justify-between hover:border-[#EAD08A]/50 hover:shadow-[0_16px_50px_rgba(0,0,0,0.5)] transition-all duration-300 group"
+                className="rounded-3xl bg-white border border-stone-200/90 text-stone-900 p-6 sm:p-7 lg:p-8 shadow-[0_16px_40px_rgba(0,0,0,0.25)] flex flex-col justify-between hover:shadow-[0_24px_50px_rgba(0,0,0,0.35)] hover:-translate-y-1.5 transition-all duration-300 group"
               >
                 <div>
-                  <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-bold text-white tracking-tight mb-2.5 font-bricolage">
+                  <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-bold text-stone-950 tracking-tight mb-2.5 font-bricolage">
                     Noorani Qaida
                   </h3>
-                  <p className="text-emerald-100/75 text-sm sm:text-[14px] lg:text-[15px] leading-relaxed mb-6 font-normal">
+                  <p className="text-stone-600 text-sm sm:text-[14px] lg:text-[15px] leading-relaxed mb-6 font-normal">
                     For beginners and children learning Quranic Arabic letters, correct pronunciation, and basic reading rules.
                   </p>
 
                   {/* Price Tag */}
-                  <div className="flex items-baseline gap-1.5 mb-6 pb-5 border-b border-white/10">
-                    <span className="text-4xl sm:text-[44px] lg:text-[48px] font-black tracking-tight text-[#EAD08A]">
+                  <div className="flex items-baseline gap-1.5 mb-6 pb-5 border-b border-stone-100">
+                    <span className="text-4xl sm:text-[44px] lg:text-[48px] font-black tracking-tight text-stone-950 font-bricolage">
                       $49
                     </span>
-                    <span className="text-xs lg:text-sm font-semibold text-emerald-200/70">
+                    <span className="text-xs lg:text-sm font-semibold text-stone-400">
                       / month
                     </span>
                   </div>
 
                   <Link
                     href="/about#waitlist"
-                    className="inline-flex items-center justify-center w-full py-3.5 lg:py-4 rounded-full bg-[#EAD08A] text-stone-950 font-bold text-xs lg:text-sm tracking-wider uppercase hover:bg-[#f2deaa] transition-all duration-300 shadow-[0_6px_20px_rgba(234,208,138,0.25)] hover:shadow-[0_8px_25px_rgba(234,208,138,0.35)] mb-6 cursor-pointer"
+                    className="brand-button brand-button-primary w-full py-3.5 lg:py-4 text-xs lg:text-sm tracking-wider uppercase !font-bold mb-6 cursor-pointer shadow-md shadow-[#095F46]/20 hover:shadow-lg transition-all"
                   >
                     Select Plan
                   </Link>
 
-                  <div className="text-xs lg:text-[12px] font-bold uppercase tracking-wider text-[#EAD08A]/80 mb-3.5">
+                  <div className="text-xs lg:text-[12px] font-bold uppercase tracking-wider text-stone-400 mb-3.5">
                     What&apos;s Included
                   </div>
-                  <ul className="space-y-3 text-xs sm:text-sm lg:text-[14px] text-emerald-100/90 font-medium">
+                  <ul className="space-y-3 text-xs sm:text-sm lg:text-[14px] text-stone-700 font-medium">
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-4 h-4 text-[#EAD08A] shrink-0 stroke-[2.5]" />
+                      <Check className="w-4 h-4 text-[#095F46] shrink-0 stroke-[2.5]" />
                       <span>8 sessions per month (2/week)</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-4 h-4 text-[#EAD08A] shrink-0 stroke-[2.5]" />
+                      <Check className="w-4 h-4 text-[#095F46] shrink-0 stroke-[2.5]" />
                       <span>45-minute 1:1 live sessions</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-4 h-4 text-[#EAD08A] shrink-0 stroke-[2.5]" />
+                      <Check className="w-4 h-4 text-[#095F46] shrink-0 stroke-[2.5]" />
                       <span>Letter pronunciation &amp; Makharij</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-4 h-4 text-[#EAD08A] shrink-0 stroke-[2.5]" />
+                      <Check className="w-4 h-4 text-[#095F46] shrink-0 stroke-[2.5]" />
                       <span>Session recordings &amp; notes</span>
                     </li>
                   </ul>
@@ -654,55 +654,60 @@ export default function HomePage() {
               {/* CARD 2: Intermediate Plan (Tajweed Mastery) */}
               <motion.div
                 variants={cardItem}
-                className="rounded-3xl bg-[#062e23]/80 border border-[#EAD08A]/35 backdrop-blur-md p-6 sm:p-7 lg:p-8 shadow-[0_12px_40px_rgba(0,0,0,0.35)] flex flex-col justify-between hover:border-[#EAD08A]/60 hover:shadow-[0_16px_50px_rgba(0,0,0,0.5)] transition-all duration-300 group relative"
+                className="rounded-3xl bg-white border border-stone-200/90 text-stone-900 p-6 sm:p-7 lg:p-8 shadow-[0_16px_40px_rgba(0,0,0,0.25)] flex flex-col justify-between hover:shadow-[0_24px_50px_rgba(0,0,0,0.35)] hover:-translate-y-1.5 transition-all duration-300 group relative"
               >
                 <div>
-                  <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-bold text-white tracking-tight mb-2.5 font-bricolage">
-                    Tajweed Mastery
-                  </h3>
-                  <p className="text-emerald-100/75 text-sm sm:text-[14px] lg:text-[15px] leading-relaxed mb-6 font-normal">
+                  <div className="flex items-center justify-between gap-2 mb-2.5">
+                    <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-bold text-stone-950 tracking-tight font-bricolage">
+                      Tajweed Mastery
+                    </h3>
+                    <span className="inline-flex items-center rounded-full bg-[#095F46]/10 text-[#095F46] border border-[#095F46]/20 text-[11px] font-bold uppercase tracking-wider px-2.5 py-0.5 shrink-0">
+                      Popular
+                    </span>
+                  </div>
+                  <p className="text-stone-600 text-sm sm:text-[14px] lg:text-[15px] leading-relaxed mb-6 font-normal">
                     Master the science of Tajweed, rules of elongation, stops, and beautiful melodic recitation with Sanad scholars.
                   </p>
 
                   {/* Price Tag */}
-                  <div className="flex items-baseline gap-1.5 mb-6 pb-5 border-b border-white/10">
-                    <span className="text-4xl sm:text-[44px] lg:text-[48px] font-black tracking-tight text-[#EAD08A]">
+                  <div className="flex items-baseline gap-1.5 mb-6 pb-5 border-b border-stone-100">
+                    <span className="text-4xl sm:text-[44px] lg:text-[48px] font-black tracking-tight text-stone-950 font-bricolage">
                       $59
                     </span>
-                    <span className="text-xs lg:text-sm font-semibold text-emerald-200/70">
+                    <span className="text-xs lg:text-sm font-semibold text-stone-400">
                       / month
                     </span>
                   </div>
 
                   <Link
                     href="/about#waitlist"
-                    className="inline-flex items-center justify-center w-full py-3.5 lg:py-4 rounded-full bg-[#EAD08A] text-stone-950 font-bold text-xs lg:text-sm tracking-wider uppercase hover:bg-[#f2deaa] transition-all duration-300 shadow-[0_6px_20px_rgba(234,208,138,0.25)] hover:shadow-[0_8px_25px_rgba(234,208,138,0.35)] mb-6 cursor-pointer"
+                    className="brand-button brand-button-primary w-full py-3.5 lg:py-4 text-xs lg:text-sm tracking-wider uppercase !font-bold mb-6 cursor-pointer shadow-md shadow-[#095F46]/25 hover:shadow-lg transition-all"
                   >
                     Select Plan
                   </Link>
 
-                  <div className="text-xs lg:text-[12px] font-bold uppercase tracking-wider text-[#EAD08A]/80 mb-3.5">
+                  <div className="text-xs lg:text-[12px] font-bold uppercase tracking-wider text-stone-400 mb-3.5">
                     What&apos;s Included
                   </div>
-                  <ul className="space-y-3 text-xs sm:text-sm lg:text-[14px] text-emerald-100/90 font-medium">
+                  <ul className="space-y-3 text-xs sm:text-sm lg:text-[14px] text-stone-700 font-medium">
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-4 h-4 text-[#EAD08A] shrink-0 stroke-[2.5]" />
+                      <Check className="w-4 h-4 text-[#095F46] shrink-0 stroke-[2.5]" />
                       <span>8 sessions per month (2/week)</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-4 h-4 text-[#EAD08A] shrink-0 stroke-[2.5]" />
+                      <Check className="w-4 h-4 text-[#095F46] shrink-0 stroke-[2.5]" />
                       <span>45-minute 1:1 live sessions</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-4 h-4 text-[#EAD08A] shrink-0 stroke-[2.5]" />
+                      <Check className="w-4 h-4 text-[#095F46] shrink-0 stroke-[2.5]" />
                       <span>Comprehensive Tajweed theoretical rules</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-4 h-4 text-[#EAD08A] shrink-0 stroke-[2.5]" />
+                      <Check className="w-4 h-4 text-[#095F46] shrink-0 stroke-[2.5]" />
                       <span>Melodic recitation &amp; Waqf guidance</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-4 h-4 text-[#EAD08A] shrink-0 stroke-[2.5]" />
+                      <Check className="w-4 h-4 text-[#095F46] shrink-0 stroke-[2.5]" />
                       <span>Monthly progress evaluation</span>
                     </li>
                   </ul>
@@ -712,55 +717,55 @@ export default function HomePage() {
               {/* CARD 3: Intensive Memorization (Hifz) */}
               <motion.div
                 variants={cardItem}
-                className="rounded-3xl bg-[#062e23]/80 border border-[#EAD08A]/25 backdrop-blur-md p-6 sm:p-7 lg:p-8 shadow-[0_12px_40px_rgba(0,0,0,0.35)] flex flex-col justify-between hover:border-[#EAD08A]/50 hover:shadow-[0_16px_50px_rgba(0,0,0,0.5)] transition-all duration-300 group"
+                className="rounded-3xl bg-white border border-stone-200/90 text-stone-900 p-6 sm:p-7 lg:p-8 shadow-[0_16px_40px_rgba(0,0,0,0.25)] flex flex-col justify-between hover:shadow-[0_24px_50px_rgba(0,0,0,0.35)] hover:-translate-y-1.5 transition-all duration-300 group"
               >
                 <div>
-                  <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-bold text-white tracking-tight mb-2.5 font-bricolage">
+                  <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-bold text-stone-950 tracking-tight mb-2.5 font-bricolage">
                     Hifz Program
                   </h3>
-                  <p className="text-emerald-100/75 text-sm sm:text-[14px] lg:text-[15px] leading-relaxed mb-6 font-normal">
+                  <p className="text-stone-600 text-sm sm:text-[14px] lg:text-[15px] leading-relaxed mb-6 font-normal">
                     Structured Quran memorization with dedicated daily revision, retention strategies, and individual Sanad pathway.
                   </p>
 
                   {/* Price Tag */}
-                  <div className="flex items-baseline gap-1.5 mb-6 pb-5 border-b border-white/10">
-                    <span className="text-4xl sm:text-[44px] lg:text-[48px] font-black tracking-tight text-[#EAD08A]">
+                  <div className="flex items-baseline gap-1.5 mb-6 pb-5 border-b border-stone-100">
+                    <span className="text-4xl sm:text-[44px] lg:text-[48px] font-black tracking-tight text-stone-950 font-bricolage">
                       $79
                     </span>
-                    <span className="text-xs lg:text-sm font-semibold text-emerald-200/70">
+                    <span className="text-xs lg:text-sm font-semibold text-stone-400">
                       / month
                     </span>
                   </div>
 
                   <Link
                     href="/about#waitlist"
-                    className="inline-flex items-center justify-center w-full py-3.5 lg:py-4 rounded-full bg-[#EAD08A] text-stone-950 font-bold text-xs lg:text-sm tracking-wider uppercase hover:bg-[#f2deaa] transition-all duration-300 shadow-[0_6px_20px_rgba(234,208,138,0.25)] hover:shadow-[0_8px_25px_rgba(234,208,138,0.35)] mb-6 cursor-pointer"
+                    className="brand-button brand-button-primary w-full py-3.5 lg:py-4 text-xs lg:text-sm tracking-wider uppercase !font-bold mb-6 cursor-pointer shadow-md shadow-[#095F46]/20 hover:shadow-lg transition-all"
                   >
                     Select Plan
                   </Link>
 
-                  <div className="text-xs lg:text-[12px] font-bold uppercase tracking-wider text-[#EAD08A]/80 mb-3.5">
+                  <div className="text-xs lg:text-[12px] font-bold uppercase tracking-wider text-stone-400 mb-3.5">
                     What&apos;s Included
                   </div>
-                  <ul className="space-y-3 text-xs sm:text-sm lg:text-[14px] text-emerald-100/90 font-medium">
+                  <ul className="space-y-3 text-xs sm:text-sm lg:text-[14px] text-stone-700 font-medium">
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-4 h-4 text-[#EAD08A] shrink-0 stroke-[2.5]" />
+                      <Check className="w-4 h-4 text-[#095F46] shrink-0 stroke-[2.5]" />
                       <span>8 sessions per month (2/week)</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-4 h-4 text-[#EAD08A] shrink-0 stroke-[2.5]" />
+                      <Check className="w-4 h-4 text-[#095F46] shrink-0 stroke-[2.5]" />
                       <span>45-minute 1:1 live sessions</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-4 h-4 text-[#EAD08A] shrink-0 stroke-[2.5]" />
+                      <Check className="w-4 h-4 text-[#095F46] shrink-0 stroke-[2.5]" />
                       <span>Dedicated Hifz coach</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-4 h-4 text-[#EAD08A] shrink-0 stroke-[2.5]" />
+                      <Check className="w-4 h-4 text-[#095F46] shrink-0 stroke-[2.5]" />
                       <span>Structured memorization schedule</span>
                     </li>
                     <li className="flex items-center gap-2.5">
-                      <Check className="w-4 h-4 text-[#EAD08A] shrink-0 stroke-[2.5]" />
+                      <Check className="w-4 h-4 text-[#095F46] shrink-0 stroke-[2.5]" />
                       <span>Revision tracking &amp; lecturer messaging</span>
                     </li>
                   </ul>
@@ -775,7 +780,7 @@ export default function HomePage() {
         {/* ========================================================================= */}
         <section
           id="faq"
-          className="py-16 sm:py-20 lg:py-24 bg-[#fbfcfb] text-stone-900 scroll-mt-16 relative overflow-hidden border-b border-stone-200/60 select-none"
+          className="pt-16 sm:pt-20 lg:pt-24 pb-10 sm:pb-12 lg:pb-14 bg-[#fbfcfb] text-stone-900 scroll-mt-16 relative overflow-hidden select-none"
         >
           <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <motion.div
@@ -844,7 +849,7 @@ export default function HomePage() {
       {/* ========================================================================= */}
       {/* 5. BOTTOM CALL TO ACTION / WAITLIST LUXURY SANCTUARY CARD */}
       {/* ========================================================================= */}
-      <section className="relative w-full overflow-hidden bg-[#f8faf8] py-16 sm:py-20 lg:py-24 text-stone-900 select-none border-t border-stone-200/60">
+      <section className="relative w-full overflow-hidden bg-[#fbfcfb] pt-0 pb-16 sm:pb-20 lg:pb-24 text-stone-900 select-none">
         <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"

@@ -337,37 +337,37 @@ export default function HomePage() {
         {/* ========================================================================= */}
         <Link
           href="/about#waitlist"
-          className="hero-bottom-marquee group relative z-30 w-full !rounded-none rounded-none bg-[#095F46] hover:bg-[#074D38] border-t border-emerald-400/30 text-white py-[18px] sm:py-[22px] lg:py-[26px] overflow-hidden flex items-center transition-colors duration-200 shadow-[0_-4px_25px_rgba(0,0,0,0.5)] cursor-pointer shrink-0"
+          className="hero-bottom-marquee group relative z-30 w-full !rounded-none rounded-none bg-[#095F46] hover:bg-[#074D38] border-t border-emerald-400/25 text-white py-3 sm:py-3.5 lg:py-4 overflow-hidden flex items-center transition-colors duration-200 shadow-[0_-4px_25px_rgba(0,0,0,0.5)] cursor-pointer shrink-0"
           aria-label="Join the waitlist and get 20% off"
         >
           <div className="flex w-full overflow-hidden select-none">
             <div className="animate-hero-marquee flex items-center whitespace-nowrap shrink-0">
               {[...Array(8)].map((_, i) => (
-                <div key={i} className="flex items-center gap-7 sm:gap-9 mx-5 sm:mx-7 shrink-0">
-                  <span className="text-sm sm:text-base lg:text-[16.5px] font-bold tracking-wider uppercase text-white drop-shadow-sm flex items-center gap-2.5">
+                <div key={i} className="flex items-center gap-6 sm:gap-8 mx-4 sm:mx-6 shrink-0">
+                  <span className="text-xs sm:text-sm lg:text-[14.5px] font-bold tracking-wider uppercase text-white drop-shadow-sm flex items-center gap-2">
                     <span>Join The Waitlist &amp; Get 20% Off</span>
-                    <span className="text-emerald-200 group-hover:translate-x-1 transition-transform text-sm sm:text-base">→</span>
+                    <span className="text-emerald-200 group-hover:translate-x-1 transition-transform text-xs sm:text-sm">→</span>
                   </span>
-                  <span className="text-[#EAD08A] text-sm sm:text-base" aria-hidden="true">✦</span>
-                  <span className="text-sm sm:text-base lg:text-[16px] font-medium tracking-wide uppercase text-emerald-100/95">
+                  <span className="text-[#EAD08A] text-xs sm:text-sm" aria-hidden="true">✦</span>
+                  <span className="text-xs sm:text-sm lg:text-[14px] font-medium tracking-wide uppercase text-emerald-100/90">
                     Limited Early Access Offer
                   </span>
-                  <span className="text-[#EAD08A] text-sm sm:text-base" aria-hidden="true">✦</span>
+                  <span className="text-[#EAD08A] text-xs sm:text-sm" aria-hidden="true">✦</span>
                 </div>
               ))}
             </div>
             <div className="animate-hero-marquee flex items-center whitespace-nowrap shrink-0" aria-hidden="true">
               {[...Array(8)].map((_, i) => (
-                <div key={`dup-${i}`} className="flex items-center gap-7 sm:gap-9 mx-5 sm:mx-7 shrink-0">
-                  <span className="text-sm sm:text-base lg:text-[16.5px] font-bold tracking-wider uppercase text-white drop-shadow-sm flex items-center gap-2.5">
+                <div key={`dup-${i}`} className="flex items-center gap-6 sm:gap-8 mx-4 sm:mx-6 shrink-0">
+                  <span className="text-xs sm:text-sm lg:text-[14.5px] font-bold tracking-wider uppercase text-white drop-shadow-sm flex items-center gap-2">
                     <span>Join The Waitlist &amp; Get 20% Off</span>
-                    <span className="text-emerald-200 group-hover:translate-x-1 transition-transform text-sm sm:text-base">→</span>
+                    <span className="text-emerald-200 group-hover:translate-x-1 transition-transform text-xs sm:text-sm">→</span>
                   </span>
-                  <span className="text-[#EAD08A] text-sm sm:text-base" aria-hidden="true">✦</span>
-                  <span className="text-sm sm:text-base lg:text-[16px] font-medium tracking-wide uppercase text-emerald-100/95">
+                  <span className="text-[#EAD08A] text-xs sm:text-sm" aria-hidden="true">✦</span>
+                  <span className="text-xs sm:text-sm lg:text-[14px] font-medium tracking-wide uppercase text-emerald-100/90">
                     Limited Early Access Offer
                   </span>
-                  <span className="text-[#EAD08A] text-sm sm:text-base" aria-hidden="true">✦</span>
+                  <span className="text-[#EAD08A] text-xs sm:text-sm" aria-hidden="true">✦</span>
                 </div>
               ))}
             </div>
@@ -391,10 +391,10 @@ export default function HomePage() {
         <section
           id="mission"
           suppressHydrationWarning
-          className="relative z-20 overflow-hidden bg-white border-b border-stone-200/60 py-16 sm:py-20 lg:py-24 select-none"
+          className="relative z-20 overflow-hidden bg-white border-b border-stone-200/60 py-20 sm:py-24 lg:py-28 select-none"
         >
           <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-16 items-center">
               {/* Left Column: Mission & Core Value */}
               <motion.div
                 initial="hidden"
@@ -409,17 +409,17 @@ export default function HomePage() {
                     <span className="text-[#095F46]">Live With Purpose &amp; Iman</span>
                   </h2>
 
-                  <p className="mt-5 text-base sm:text-lg lg:text-[18px] font-normal leading-relaxed text-stone-600">
+                  <p className="mt-6 sm:mt-7 text-base sm:text-lg lg:text-[18px] font-normal leading-relaxed text-stone-600">
                     Finding patient, verified Islamic teachers shouldn&apos;t be difficult. Ilmbit connects students in Sri Lanka and Sri Lankan families living abroad directly with qualified scholars for structured 1:1 online lessons suited to your schedule and personal pace.
                   </p>
 
-                  <div className="mt-6 space-y-3.5 lg:space-y-4">
+                  <div className="mt-8 sm:mt-9 space-y-5 sm:space-y-6">
                     {[
                       { title: 'Personalized 1:1 Learning Paths', desc: 'From foundational Noorani Qaida to advanced Sanad Tajweed' },
                       { title: 'Verified Scholars & Certified Maulavis', desc: 'Carefully vetted teachers with authentic Sanad and clear guidance' },
                       { title: 'For Students in Sri Lanka & Abroad', desc: 'Flexible 1:1 session scheduling across local and overseas timezones' },
                     ].map((feature, idx) => (
-                      <div key={idx} className="flex items-start gap-3.5">
+                      <div key={idx} className="flex items-start gap-4">
                         <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#095F46]/10 text-[#095F46] mt-0.5">
                           <Check className="h-4 w-4 stroke-[2.5]" aria-hidden="true" />
                         </div>
@@ -427,7 +427,7 @@ export default function HomePage() {
                           <h3 className="text-base sm:text-[17px] lg:text-[18px] font-bold tracking-tight text-stone-900">
                             {feature.title}
                           </h3>
-                          <p className="text-sm sm:text-[15px] lg:text-[16px] text-stone-500 font-normal">
+                          <p className="mt-1 text-sm sm:text-[15px] lg:text-[16px] text-stone-500 font-normal leading-relaxed">
                             {feature.desc}
                           </p>
                         </div>
@@ -436,7 +436,7 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                <div className="mt-7 flex flex-wrap items-center gap-4">
+                <div className="mt-9 sm:mt-10 flex flex-wrap items-center gap-4">
                   <Link
                     href="/about"
                     className="brand-button brand-button-primary px-8 py-3.5 lg:px-9 lg:py-4 text-xs lg:text-sm tracking-wider uppercase !font-light inline-flex items-center gap-2 group"
@@ -455,7 +455,7 @@ export default function HomePage() {
                 variants={sectionReveal}
                 className="relative lg:col-span-6 flex items-center justify-center w-full"
               >
-                <div className="relative w-full h-[400px] sm:h-[460px] lg:h-[500px] xl:h-[520px]">
+                <div className="relative w-full h-[480px] sm:h-[540px] lg:h-[600px] xl:h-[640px]">
                   {/* Subtle warm golden background glow */}
                   <div className="absolute -inset-4 bg-gradient-to-tr from-[#095F46]/10 via-[#EAD08A]/20 to-transparent rounded-[36px] blur-2xl -z-10" />
 
@@ -481,7 +481,7 @@ export default function HomePage() {
         {/* ========================================================================= */}
         <section
           id="how-to-enroll"
-          className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-[#063529] via-[#083f33] to-[#04281e] text-white border-b border-emerald-950/60 scroll-mt-16 select-none relative overflow-hidden"
+          className="py-20 sm:py-24 lg:py-28 bg-gradient-to-b from-[#063529] via-[#083f33] to-[#04281e] text-white border-b border-emerald-950/60 scroll-mt-16 select-none relative overflow-hidden"
         >
           {/* Subtle Ambient Radial Glow */}
           <div className="absolute top-1/4 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] rounded-full bg-[#EAD08A]/10 blur-[140px] pointer-events-none" />
@@ -498,7 +498,7 @@ export default function HomePage() {
                 variants={sectionReveal}
                 className="relative lg:col-span-6 flex items-center justify-center order-2 lg:order-1"
               >
-                <div className="relative w-full max-w-[580px] lg:max-w-none">
+                <div className="relative w-full max-w-[620px] lg:max-w-none">
                   {/* Subtle warm glow around the laptop */}
                   <div className="absolute -inset-4 bg-gradient-to-tr from-[#EAD08A]/15 via-emerald-400/10 to-transparent rounded-[32px] blur-2xl -z-10" />
 
@@ -550,8 +550,8 @@ export default function HomePage() {
                 variants={sectionReveal}
                 className="lg:col-span-6 flex flex-col justify-center order-1 lg:order-2"
               >
-                <div className="mb-7 sm:mb-9 text-left">
-                  <h2 className="text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-bold tracking-tight text-white leading-[1.14] mb-2.5 sm:mb-3 font-bricolage">
+                <div className="mb-8 sm:mb-10 text-left">
+                  <h2 className="text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-bold tracking-tight text-white leading-[1.14] mb-3 font-bricolage">
                     How to Enroll
                   </h2>
                   <p className="text-emerald-100/80 font-normal text-sm sm:text-base lg:text-[17px] leading-relaxed">

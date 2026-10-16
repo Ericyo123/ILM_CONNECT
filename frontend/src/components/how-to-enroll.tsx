@@ -68,7 +68,7 @@ export default function HowToEnroll() {
           className="absolute left-[15px] sm:left-[21px] top-3.5 bottom-6 w-[2px] bg-gradient-to-b from-[#EAD08A] via-emerald-400/40 to-emerald-500/10 pointer-events-none"
         />
 
-        <div className="space-y-7 sm:space-y-9">
+        <div className="space-y-9 sm:space-y-11 lg:space-y-12">
           {enrollSteps.map((item) => (
             <motion.div
               key={item.step}
@@ -94,7 +94,7 @@ export default function HowToEnroll() {
                   </h3>
                 </div>
 
-                <p className="mt-1.5 text-xs sm:text-sm lg:text-[14.5px] text-emerald-100/80 leading-relaxed font-normal">
+                <p className="mt-2.5 sm:mt-3 text-xs sm:text-sm lg:text-[14.5px] text-emerald-100/80 leading-relaxed font-normal">
                   {item.desc}
                 </p>
               </div>

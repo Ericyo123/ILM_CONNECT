@@ -159,7 +159,6 @@ export default function PricingPage() {
       <PublicPageHero
         title="Simple, Transparent Pricing"
         subtitle="With Dedicated Certified Scholars"
-        description="Structured 1:1 lessons tailored to your personal goals and schedule. Start with a free trial session across any discipline with no commitments."
         image="/images/pricing-hero-quran-volumes.jpg"
         imageAlt="Quran volumes with gold detailing arranged on a shelf"
         imageClassName="object-cover object-center opacity-85"

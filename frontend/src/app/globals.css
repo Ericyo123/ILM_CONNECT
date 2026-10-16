@@ -6,6 +6,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Hide Next.js dev overlay in dev for pristine screenshots */
+nextjs-portal, [data-nextjs-dev-overlay] {
+  display: none !important;
+}
+
 /* ---- CSS Custom Properties (Design Tokens) ---- */
 :root {
   --brand-primary: #095f46;

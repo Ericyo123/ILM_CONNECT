@@ -462,9 +462,9 @@ export default function AboutPage() {
               variants={fadeUp}
               className="lg:col-span-7"
             >
-              <h2 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-stone-950 leading-[1.18] font-bricolage">
-                Make Serious Islamic Education{' '}
-                <span className="text-[#095F46]">Easier To Access,</span> And Easier To Stay With!
+              <h2 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-stone-950 leading-[1.22] font-bricolage">
+                Make Islamic Education<br />
+                <span className="text-[#095F46]">Easier To Access</span>
               </h2>
             </motion.div>
 
@@ -558,7 +558,7 @@ export default function AboutPage() {
       {/* 4. THE THREE FOUNDATIONAL PILLARS — Arkan al-Ilm (No Tags) */}
       {/* ========================================================================= */}
       <section className={`${styles.section} ${styles.pillarsSection} ${styles.patternBackground}`} aria-labelledby="pillars-heading">
-        <div className={`relative z-10 ${styles.pillarsContainer}`}>
+        <div className={`relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 ${styles.pillarsContainer}`}>
           
           <div className={styles.pillarsIntro}>
             <h2 id="pillars-heading" className="text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.18]">
@@ -607,7 +607,7 @@ export default function AboutPage() {
             <h2 id="vetting-heading" className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.18] text-center">
               How We Verify Every Scholar
             </h2>
-            <p className={styles.intro}>
+            <p className="text-stone-600 text-sm sm:text-base lg:text-[18px] leading-normal max-w-3xl mx-auto text-center font-normal">
               Qualifications are one part of the review. Recitation, communication, and care for students matter too.
             </p>
           </div>
@@ -651,7 +651,7 @@ export default function AboutPage() {
         <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
           
           <div className="text-center max-w-3xl mx-auto space-y-3">
-            <h2 id="pathway-heading" className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.18] text-center">
+            <h2 id="pathway-heading" className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-normal text-stone-950 font-bricolage leading-[1.24] text-center">
               A Gentle Pathway from First Letters to Fluency
             </h2>
             <p className="text-stone-600 text-sm sm:text-base lg:text-[18px] xl:text-[19px] leading-relaxed max-w-2xl mx-auto font-normal">

@@ -404,9 +404,8 @@ export default function HomePage() {
                 className="flex flex-col justify-between lg:col-span-6"
               >
                 <div>
-                  <h2 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-stone-950 leading-[1.16] font-bricolage" suppressHydrationWarning>
-                    Grow Your<br />
-                    Knowledge,<br />
+                  <h2 className="text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-bold tracking-tight text-stone-950 leading-[1.22] font-bricolage" suppressHydrationWarning>
+                    Grow Your Knowledge,<br />
                     <span className="text-[#095F46]">Live With Purpose &amp; Iman</span>
                   </h2>
 
@@ -490,7 +489,7 @@ export default function HomePage() {
           <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-16 items-center">
               
-              {/* Left Column: Picture of Dashboard on Laptop */}
+              {/* Left Column: Picture of Actual Dashboard on Laptop */}
               <motion.div
                 initial="hidden"
                 whileInView="visible"
@@ -498,19 +497,47 @@ export default function HomePage() {
                 variants={sectionReveal}
                 className="relative lg:col-span-6 flex items-center justify-center order-2 lg:order-1"
               >
-                <div className="relative w-full max-w-lg lg:max-w-none">
-                  {/* Subtle warm glow around the laptop frame */}
+                <div className="relative w-full max-w-[580px] lg:max-w-none">
+                  {/* Subtle warm glow around the laptop */}
                   <div className="absolute -inset-4 bg-gradient-to-tr from-[#EAD08A]/15 via-emerald-400/10 to-transparent rounded-[32px] blur-2xl -z-10" />
 
-                  <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden border border-[#EAD08A]/30 shadow-[0_20px_50px_rgba(0,0,0,0.35)] bg-[#04241b]">
-                    <Image
-                      src="/images/how-it-works-laptop.jpg"
-                      alt="Student learning Quran on Ilmbit platform dashboard"
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                      className="object-cover object-center"
-                    />
+                  {/* Laptop Screen Display Lid */}
+                  <div className="relative mx-auto w-full rounded-t-[18px] sm:rounded-t-[22px] bg-[#1a1b1e] p-2.5 sm:p-3 lg:p-3.5 pt-3 sm:pt-3.5 lg:pt-4 border border-zinc-700/80 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)]">
+                    {/* Top Center Camera Dot */}
+                    <div className="flex items-center justify-center mb-1.5 sm:mb-2">
+                      <div className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-zinc-900 border border-zinc-700 flex items-center justify-center">
+                        <div className="w-0.5 sm:w-1 h-0.5 sm:h-1 rounded-full bg-emerald-950/70" />
+                      </div>
+                    </div>
+
+                    {/* Actual Dashboard Screenshot Display */}
+                    <div className="relative w-full aspect-[1440/900] rounded-sm sm:rounded-md overflow-hidden bg-stone-900 border border-zinc-800">
+                      <Image
+                        src="/images/actual-dashboard-screenshot.png"
+                        alt="Actual Ilmbit student learning dashboard with real courses, upcoming live sessions, and scholar profile"
+                        fill
+                        priority
+                        sizes="(max-width: 1024px) 100vw, 50vw"
+                        className="object-cover object-top select-none pointer-events-none"
+                      />
+                      {/* Subtle Glass Reflection */}
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-white/0 via-white/[0.03] to-transparent" />
+                    </div>
                   </div>
+
+                  {/* Laptop Bottom Aluminum Base & Keyboard Deck */}
+                  <div className="relative mx-auto w-[102%] -ml-[1%]">
+                    {/* Aluminum Hinge & Notch */}
+                    <div className="h-3 sm:h-4 bg-gradient-to-b from-[#2a2c30] via-[#202226] to-[#151619] rounded-b-md sm:rounded-b-lg border-t border-zinc-600/40 relative shadow-md">
+                      {/* Center Opening Notch */}
+                      <div className="w-16 sm:w-24 h-1 sm:h-1.5 bg-[#0e0f11] rounded-b-md mx-auto" />
+                    </div>
+                    {/* Laptop Bottom Lip */}
+                    <div className="w-[104%] -ml-[2%] h-1 sm:h-1.5 bg-gradient-to-b from-zinc-700 to-zinc-800 rounded-b-xl shadow-[0_12px_30px_rgba(0,0,0,0.65)]" />
+                  </div>
+
+                  {/* Under-Laptop Soft Ambient Floor Shadow */}
+                  <div className="mx-auto w-[92%] h-4 sm:h-6 bg-black/60 blur-xl -mt-1 rounded-full" />
                 </div>
               </motion.div>
 
@@ -899,7 +926,7 @@ export default function HomePage() {
       {/* 5. BOTTOM CALL TO ACTION / WAITLIST LUXURY SANCTUARY CARD */}
       {/* ========================================================================= */}
       <section className="relative w-full overflow-hidden bg-[#f8faf8] py-16 sm:py-20 lg:py-28 text-stone-900 select-none border-t border-stone-200/60">
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 mx-auto w-full max-w-6xl xl:max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -933,9 +960,9 @@ export default function HomePage() {
 
             <div className="relative z-10 max-w-3xl">
               {/* Headline */}
-              <h2 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-white leading-[1.2] mb-5 font-bricolage">
-                Begin Your Journey of Knowledge
-                <span className="block text-[#EAD08A] font-serif italic text-2xl sm:text-3xl lg:text-[36px] font-normal mt-3 sm:mt-4 leading-normal">
+              <h2 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-white leading-[1.22] mb-5 font-bricolage">
+                Begin Your Journey
+                <span className="block text-[#EAD08A] font-serif italic text-2xl sm:text-3xl lg:text-[36px] font-normal mt-2 sm:mt-2.5 leading-normal">
                   with Certified Islamic Scholars
                 </span>
               </h2>

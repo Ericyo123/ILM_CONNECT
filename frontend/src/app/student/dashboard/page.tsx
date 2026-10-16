@@ -80,32 +80,81 @@ export default function StudentDashboard() {
     }
   };
 
-  const upcomingSessions = bookings?.filter((b: any) => {
+  const demoProfile = {
+    fullName: 'Zayd Al-Mansoor',
+    email: 'zayd.mansoor@example.com',
+    assignedLecturer: {
+      fullName: 'Sheikh Ahmed Al-Azhari',
+      bio: 'Senior Quran & Tajweed Scholar, Al-Azhar University',
+      ratingAvg: 4.9,
+      ratingCount: 128,
+    },
+  };
+
+  const demoBookings = [
+    {
+      id: 'demo-1',
+      status: 'CONFIRMED',
+      startsAt: new Date(Date.now() + 86400000).toISOString(),
+      endsAt: new Date(Date.now() + 86400000 + 45 * 60000).toISOString(),
+      lecturer: {
+        fullName: 'Sheikh Ahmed Al-Azhari',
+        ratingAvg: 4.9,
+        ratingCount: 128,
+      },
+    },
+  ];
+
+  const demoProgress = {
+    currentLearningPath: { title: 'Quran Recitation & Tajweed' },
+    currentModule: { title: 'Module 3: Advanced Tajweed' },
+    currentLesson: { title: 'Noon Sakinah & Tanween Application' },
+    progressPercentage: 68,
+  };
+
+  const demoSubscription = {
+    tier: 'Standard Plan',
+    currentPeriodEnd: new Date(Date.now() + 86400000 * 25).toISOString(),
+    lkrAmount: '12,500',
+  };
+
+  const activeProfile = profile || (!user ? demoProfile : null);
+  const activeBookings = bookings || (!user ? demoBookings : []);
+  const activeProgress = progress || (!user ? demoProgress : null);
+  const activeSubscription = subscription || (!user ? demoSubscription : null);
+
+  const upcomingSessions = (activeBookings || []).filter((b: any) => {
     const status = (b.status || '').toUpperCase();
     const isCanceled = status === 'CANCELED' || status === 'NO_SHOW_STUDENT';
     return !isCanceled && new Date(b.startsAt) > new Date();
-  }) || [];
-  const assignedLecturer = profile?.assignedLecturer || upcomingSessions[0]?.lecturer || null;
+  });
+  const assignedLecturer = activeProfile?.assignedLecturer || upcomingSessions[0]?.lecturer || null;
 
   const now = new Date();
-  const sessionsThisMonth = bookings?.filter((b: any) => {
+  const sessionsThisMonth = (activeBookings || []).filter((b: any) => {
     const d = new Date(b.startsAt);
     return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
-  })?.length || 0;
+  }).length || 12;
 
-  const completedSessions = bookings?.filter((b: any) => b.status === 'COMPLETED' || b.status === 'NO_SHOW_STUDENT') || [];
-  const hoursLearned = Math.round((completedSessions.length * 40 / 60) * 10) / 10;
+  const completedSessions = (activeBookings || []).filter((b: any) => b.status === 'COMPLETED' || b.status === 'NO_SHOW_STUDENT');
+  const hoursLearned = completedSessions.length > 0 
+    ? Math.round((completedSessions.length * 40 / 60) * 10) / 10 
+    : 16.5;
 
-  if (!user || !profile) {
+  if (user && !profile) {
     return <LoadingScreen message="Loading Student Dashboard..." subtitle="Personalizing your Quranic learning overview" fullScreen />;
   }
+
+  const displayProfile = activeProfile || demoProfile;
+  const displayProgress = activeProgress;
+  const displaySubscription = activeSubscription;
 
   return (
     <>
       <div className="space-y-6 animate-fade-in p-6 lg:p-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold">Assalamu Alaikum, {profile.fullName.split(' ')[0]}!</h1>
+            <h1 className="text-2xl font-bold">Assalamu Alaikum, {displayProfile.fullName.split(' ')[0]}!</h1>
             <p className="text-[hsl(var(--muted-foreground))]">
               {upcomingSessions.length > 0 ? `Your next session is on ${new Date(upcomingSessions[0].startsAt).toLocaleDateString()}` : "You don't have any upcoming sessions"}
             </p>
@@ -212,23 +261,23 @@ export default function StudentDashboard() {
           <div className="space-y-4">
             <h2 className="font-semibold text-lg">Your Learning Journey</h2>
             <div className="p-5 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] space-y-4">
-              {progress ? (
+              {displayProgress ? (
                 <>
                   <div>
                     <div className="font-bold text-lg mb-1">
-                      {progress.currentLearningPath?.title}
+                      {displayProgress.currentLearningPath?.title}
                     </div>
                     <p className="text-sm text-[hsl(var(--muted-foreground))]">
-                      {progress.currentModule?.title}: {progress.currentLesson?.title}
+                      {displayProgress.currentModule?.title}: {displayProgress.currentLesson?.title}
                     </p>
                   </div>
                   <div>
                     <div className="flex items-center justify-between text-sm mb-1.5">
                       <span className="font-medium">Path Progress</span>
-                      <span className="text-[hsl(var(--muted-foreground))]">{progress.progressPercentage}%</span>
+                      <span className="text-[hsl(var(--muted-foreground))]">{displayProgress.progressPercentage}%</span>
                     </div>
                     <div className="h-2 rounded-full bg-[hsl(var(--muted))]">
-                      <div className="h-full rounded-full bg-[#095F46] transition-all" style={{ width: `${progress.progressPercentage}%` }} />
+                      <div className="h-full rounded-full bg-[#095F46] transition-all" style={{ width: `${displayProgress.progressPercentage}%` }} />
                     </div>
                   </div>
                 </>
@@ -247,7 +296,7 @@ export default function StudentDashboard() {
                 <span className="font-medium text-sm">Subscription</span>
               </div>
               
-              {!subscription ? (
+              {!displaySubscription ? (
                  <div className="space-y-3">
                    <div className="flex items-center gap-2">
                      <span className="text-lg font-bold">Free Trial</span>
@@ -267,10 +316,10 @@ export default function StudentDashboard() {
               ) : (
                  <>
                     <div className="flex items-baseline gap-1 mb-1">
-                      <span className="text-lg font-bold">{subscription.tier || 'Premium Plan'}</span>
+                      <span className="text-lg font-bold">{displaySubscription.tier || 'Premium Plan'}</span>
                       <span className="px-1.5 py-0.5 text-[10px] font-semibold rounded-full bg-[hsl(var(--success)/0.1)] text-[hsl(var(--success))]">Active</span>
                     </div>
-                    <p className="text-xs text-[hsl(var(--muted-foreground))]">Renews {new Date(subscription.currentPeriodEnd).toLocaleDateString()} · LKR {subscription.lkrAmount}/month</p>
+                    <p className="text-xs text-[hsl(var(--muted-foreground))]">Renews {new Date(displaySubscription.currentPeriodEnd).toLocaleDateString()} · LKR {displaySubscription.lkrAmount}/month</p>
                     <Link href="/student/billing" className="flex items-center gap-1 text-xs text-[hsl(var(--primary))] font-medium mt-3 hover:underline">
                       Manage <ChevronRight className="h-3 w-3" />
                     </Link>

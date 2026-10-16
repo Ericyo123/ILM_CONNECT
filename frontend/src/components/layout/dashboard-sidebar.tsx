@@ -136,7 +136,7 @@ export default function DashboardSidebar() {
 
   if (pathname.startsWith('/student')) {
     roleName = 'Student';
-    userName = profile?.fullName || 'Student';
+    userName = profile?.fullName || (user ? 'Student' : 'Zayd Al-Mansoor');
     
     // Check if we are inside a specific course (e.g., /student/courses/beginner-qaida/...)
     const courseMatch = pathname.match(/^\/student\/courses\/([^/]+)/);

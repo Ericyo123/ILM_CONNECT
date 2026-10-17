@@ -5,11 +5,7 @@ import Image from 'next/image';
 import {
   Check,
   ChevronDown,
-  ClipboardList,
-  CalendarClock,
-  UserRoundCheck,
   ChevronRight,
-  X,
   GraduationCap,
   AudioLines,
   MessagesSquare,
@@ -165,9 +161,9 @@ const vettingTiers = [
   {
     step: '03',
     icon: MessagesSquare,
-    title: 'Families Abroad Pedagogy',
-    subtitle: 'English & Cultural Fluency',
-    desc: 'Assessment of clear English communication and age-appropriate teaching for children from Sri Lankan families in the UK, US, Europe, and Australia.',
+    title: 'Teaching Families Abroad',
+    subtitle: 'Clear English & Student Connection',
+    desc: 'Review of patient, clear communication in English, ensuring scholars connect warmly with children living in the UK, US, Europe, and Australia.',
   },
   {
     step: '04',
@@ -179,20 +175,21 @@ const vettingTiers = [
 ];
 
 // ---------------------------------------------------------------------------
-// Data: 4 Milestones of Our Pedagogy (How We Teach)
+// Data: 4 Milestones of Learning (Alternating Green & White Two-Tone Theme)
 // ---------------------------------------------------------------------------
 const pedagogyMilestones = [
   {
     step: '01',
     phase: 'Phase 01',
     title: 'Foundations & Qaida',
-    subtitle: 'Al-Asaas · Noorani Qaida',
+    subtitle: 'Letter Recognition & Articulation',
     desc: 'Master Arabic letters, articulation points (Makharij), and how letter sounds join through patient, guided oral repetition.',
     image: '/images/pricing-noorani-qaida.jpg',
     imageAlt: 'Open Noorani Qaida primer for Arabic letter foundations',
     cardBg: 'bg-[#06261e] border-emerald-950/80 shadow-[0_24px_50px_rgba(4,38,30,0.35)]',
-    badgeBg: 'bg-[#06261e]/85 text-[#EAD08A] border-white/20',
+    badgeBg: 'bg-white/15 text-white border-white/20 backdrop-blur-md',
     titleColor: 'text-white',
+    subtitleColor: 'text-emerald-200/80',
     descColor: 'text-emerald-100/80',
     offsetClass: 'lg:translate-y-0 lg:-rotate-[1deg]',
   },
@@ -200,13 +197,14 @@ const pedagogyMilestones = [
     step: '02',
     phase: 'Phase 02',
     title: 'Fluency & Tajweed',
-    subtitle: 'At-Tilawah · Tajweed Mastery',
+    subtitle: 'Recitation & Tajweed Mastery',
     desc: 'Practise Madd, Ghunnah, and pause rules with immediate, gentle pronunciation feedback from your dedicated scholar.',
     image: '/images/pricing-tajweed-quran.jpg',
     imageAlt: 'Recitation of the Holy Quran with Tajweed guidance',
-    cardBg: 'bg-[#e9ece5] border-stone-300 shadow-[0_20px_45px_rgba(0,0,0,0.06)]',
-    badgeBg: 'bg-white/90 text-stone-950 border-white/50',
+    cardBg: 'bg-white border-stone-200 shadow-[0_20px_45px_rgba(0,0,0,0.06)]',
+    badgeBg: 'bg-stone-100 text-stone-900 border-stone-200',
     titleColor: 'text-stone-950',
+    subtitleColor: 'text-stone-500',
     descColor: 'text-stone-600',
     offsetClass: 'lg:translate-y-7 xl:translate-y-9 lg:rotate-[1.25deg]',
   },
@@ -214,64 +212,49 @@ const pedagogyMilestones = [
     step: '03',
     phase: 'Phase 03',
     title: 'Preservation & Hifz',
-    subtitle: 'Al-Hifz · Memorisation',
-    desc: 'Build memorisation gradually, with structured Muraja’ah revision cycles alongside new passages for lifelong retention.',
+    subtitle: 'Memorisation & Revision Cycles',
+    desc: 'Build memorisation gradually, with structured revision cycles alongside new passages for lifelong retention.',
     image: '/images/pricing-hifz-memorization.jpg',
     imageAlt: 'Dedicated Quran memorisation and revision',
-    cardBg: 'bg-[#EAD08A] border-[#d8be78] shadow-[0_24px_55px_rgba(234,208,138,0.30)]',
-    badgeBg: 'bg-[#EAD08A]/95 text-stone-950 border-[#d8be78]',
-    titleColor: 'text-stone-950',
-    descColor: 'text-stone-900/85 font-medium',
+    cardBg: 'bg-[#06261e] border-emerald-950/80 shadow-[0_24px_50px_rgba(4,38,30,0.35)]',
+    badgeBg: 'bg-white/15 text-white border-white/20 backdrop-blur-md',
+    titleColor: 'text-white',
+    subtitleColor: 'text-emerald-200/80',
+    descColor: 'text-emerald-100/80',
     offsetClass: 'lg:translate-y-14 xl:translate-y-18 lg:-rotate-[1.25deg]',
   },
   {
     step: '04',
     phase: 'Phase 04',
     title: 'Character & Sunnah',
-    subtitle: 'Al-Akhlaq · Living Deen',
-    desc: 'Bring Quranic learning into daily life through prophetic du’as, Islamic adab, good manners, and moral reflection.',
+    subtitle: 'Prophetic Manners & Daily Deen',
+    desc: 'Bring Quranic learning into daily life through prophetic prayers, Islamic adab, good manners, and moral reflection.',
     image: '/images/about/pillar-character.jpg',
     imageAlt: 'Islamic adab, character, and prophetic manners',
-    cardBg: 'bg-[#051f18] border-emerald-950/80 shadow-[0_24px_50px_rgba(4,38,30,0.35)]',
-    badgeBg: 'bg-[#051f18]/85 text-[#EAD08A] border-white/20',
-    titleColor: 'text-white',
-    descColor: 'text-emerald-100/80',
+    cardBg: 'bg-white border-stone-200 shadow-[0_20px_45px_rgba(0,0,0,0.06)]',
+    badgeBg: 'bg-stone-100 text-stone-900 border-stone-200',
+    titleColor: 'text-stone-950',
+    subtitleColor: 'text-stone-500',
+    descColor: 'text-stone-600',
     offsetClass: 'lg:translate-y-6 xl:translate-y-8 lg:rotate-[1deg]',
   },
 ];
 
-
+// ---------------------------------------------------------------------------
+// Data: The Parent Promise (Peace of Mind for Families)
 // ---------------------------------------------------------------------------
 const parentPromises = [
   {
-    title: 'Dedicated 1:1 Scholar',
-    desc: 'The same scholar each week, with time to understand your child’s pace and learning needs.',
-    icon: UserRoundCheck,
-    points: [
-      'Vetted Maulavis & Aalimaat with authentic Sanad',
-      'Positive reinforcement with patient character (Adab)',
-      'Same consistent mentor for every single lesson',
-    ],
+    title: 'Dedicated Scholar',
+    desc: 'The same familiar scholar each week who builds genuine rapport with your child, adapts to their learning pace, and nurtures their recitation with patient Adab.',
   },
   {
     title: 'Continuous Visibility',
-    desc: 'Follow your child’s progress through recitation recordings and term reports in your parent dashboard.',
-    icon: ClipboardList,
-    points: [
-      'Replayable cloud recordings after every class',
-      'Detailed monthly Tajweed & Makharij evaluations',
-      'Direct WhatsApp updates & scholar communication',
-    ],
+    desc: 'Follow your child’s journey through replayable class recordings, monthly Tajweed milestones, and direct communication in your parent dashboard.',
   },
   {
     title: 'Adaptive Family Scheduling',
-    desc: 'Plan lessons around school, family commitments, and your time zone, with flexible rescheduling.',
-    icon: CalendarClock,
-    points: [
-      'Dedicated slots across UK, US, EU & Australia',
-      'Easy 12-hour free cancellation and rescheduling',
-      'No long-term contracts; cancel or adjust anytime',
-    ],
+    desc: 'Plan lessons seamlessly around school, weekend routines, and diaspora time zones, with free 12-hour rescheduling whenever family plans change.',
   },
 ];
 
@@ -345,118 +328,56 @@ export default function AboutPage() {
       />
 
       {/* ========================================================================= */}
-      {/* 2. OUR STORY — Why We Started Ilmbit (The Dilemma & The Mission) */}
+      {/* 2. OUR STORY — Why We Started Ilmbit (Who We Are & The Gap We Fill)      */}
       {/* ========================================================================= */}
       <section id="story" className={`relative z-10 py-20 sm:py-24 lg:py-32 xl:py-36 bg-white border-b border-stone-200/60 scroll-mt-20 ${styles.whiteSection} ${styles.patternBackground}`}>
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-14 sm:space-y-16">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           
-          <div className="text-center max-w-3xl mx-auto space-y-3">
-            <h2 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15]">
-              Why We Started Ilmbit
-            </h2>
-            <p className="text-stone-600 text-sm sm:text-base lg:text-[18px] xl:text-[19px] leading-relaxed max-w-3xl mx-auto font-normal">
-              Living in the West, finding authentic Islamic education for our children felt fraught with compromise. We built Ilmbit to eliminate those compromises forever.
-            </p>
-          </div>
-
-          {/* Clean 2-Column Comparison Cards (No Tags) */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-stretch">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-16 items-center">
             
-            {/* Left Card: The Common Struggles */}
+            {/* Left: Narrative — Who We Are & Why We Started Ilmbit */}
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.15 }}
               variants={fadeUp}
-              className="rounded-3xl border border-stone-200 bg-[#fafaf7] p-8 sm:p-10 lg:p-11 xl:p-12 min-h-[420px] sm:min-h-[450px] lg:min-h-[480px] shadow-[0_4px_20px_rgba(0,0,0,0.02)] flex flex-col justify-between"
+              className="lg:col-span-7 flex flex-col justify-center space-y-6"
             >
               <div>
-                <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-bold tracking-tight text-stone-950 font-bricolage mb-6 lg:mb-7">
-                  Before
-                </h3>
-                <ul className="space-y-5 sm:space-y-6 lg:space-y-7 text-stone-600 text-sm sm:text-base lg:text-[16px] xl:text-[17px] leading-relaxed font-normal">
-                  <li className="flex items-start gap-3.5">
-                    <span className="mt-1 flex h-5 w-5 lg:h-6 lg:w-6 shrink-0 items-center justify-center rounded-full bg-red-500 text-white text-xs font-bold">
-                      <X className="h-3 w-3 lg:h-3.5 lg:w-3.5 stroke-[2.5]" />
-                    </span>
-                    <span>
-                      <strong className="text-stone-900 font-semibold">Overcrowded Local Madrasahs:</strong>{' '}
-                      Exhausting weekday commutes followed by large classrooms where individual pronunciation mistakes often go unnoticed.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3.5">
-                    <span className="mt-1 flex h-5 w-5 lg:h-6 lg:w-6 shrink-0 items-center justify-center rounded-full bg-red-500 text-white text-xs font-bold">
-                      <X className="h-3 w-3 lg:h-3.5 lg:w-3.5 stroke-[2.5]" />
-                    </span>
-                    <span>
-                      <strong className="text-stone-900 font-semibold">Unvetted Online Freelancers:</strong>{' '}
-                      High tutor turnover, unpredictable attendance, language barriers, and zero child safeguarding standards.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3.5">
-                    <span className="mt-1 flex h-5 w-5 lg:h-6 lg:w-6 shrink-0 items-center justify-center rounded-full bg-red-500 text-white text-xs font-bold">
-                      <X className="h-3 w-3 lg:h-3.5 lg:w-3.5 stroke-[2.5]" />
-                    </span>
-                    <span>
-                      <strong className="text-stone-900 font-semibold">Cold, Gamified Apps:</strong>{' '}
-                      Impersonal software exercises that cannot replicate the heart-to-heart warmth of living oral transmission.
-                    </span>
-                  </li>
-                </ul>
+                <h2 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15]">
+                  Why We Started <span className="text-[#095F46]">Ilmbit</span>
+                </h2>
+              </div>
+
+              <div className="space-y-4 text-stone-600 text-sm sm:text-base lg:text-[17px] xl:text-[17.5px] leading-relaxed font-normal">
+                <p>
+                  We are a group of Sri Lankan Muslim parents, educators, and community members living across the UK, Europe, Australia, and North America. Like thousands of diaspora families raising children abroad, our deepest hope is to pass down the sacred beauty of the Holy Quran, accurate Tajweed, and living Islamic adab to our next generation.
+                </p>
+                <p>
+                  Between busy school routines, travel, and diaspora time zones, finding regular one-to-one time with qualified scholars can be challenging. We wanted a supportive way for children to learn directly from teachers who understand their language and culture, with patient encouragement in every lesson.
+                </p>
+                <p>
+                  We founded Ilmbit to provide that bridge. By connecting families directly with vetted Maulavis and Aalimaat from esteemed Sri Lankan Islamic institutions, we bring authentic oral recitation with verified chains of transmission directly into your home. It gives children a calm space where they can ask questions, improve their recitation, and build a lasting love for the Quran.
+                </p>
               </div>
             </motion.div>
 
-            {/* Right Card: The Ilmbit Sanctuary */}
+            {/* Right: Authentic Photograph of Recitation */}
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.15 }}
               variants={fadeUp}
-              className="relative overflow-hidden rounded-3xl bg-[#083f33] p-8 sm:p-10 lg:p-11 xl:p-12 min-h-[420px] sm:min-h-[450px] lg:min-h-[480px] text-white shadow-[0_16px_40px_rgba(8,63,51,0.18)] flex flex-col justify-between"
+              className="lg:col-span-5 relative"
             >
-              <div className="absolute inset-0 z-0 opacity-15">
+              <div className="relative mx-auto w-full max-w-md lg:max-w-none overflow-hidden rounded-3xl border border-stone-200 bg-stone-100 shadow-[0_20px_50px_rgba(4,38,30,0.12)] aspect-[4/5] sm:aspect-[3/3.8] lg:aspect-[4/4.8]">
                 <Image
-                  src="/images/about-standards-quran.jpg"
-                  alt=""
+                  src="/images/about/pillar-recitation.jpg"
+                  alt="Hands carefully holding an open Quran for recitation"
                   fill
-                  className="object-cover"
+                  className="object-cover object-[center_35%]"
+                  sizes="(max-width: 1024px) 100vw, 42vw"
                 />
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-[#052d23] via-[#083f33]/90 to-[#083f33]/80 z-0" />
-
-              <div className="relative z-10">
-                <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-bold tracking-tight text-white font-bricolage mb-6 lg:mb-7">
-                  After
-                </h3>
-                <ul className="space-y-5 sm:space-y-6 lg:space-y-7 text-emerald-50/90 text-sm sm:text-base lg:text-[16px] xl:text-[17px] leading-relaxed font-normal">
-                  <li className="flex items-start gap-3.5">
-                    <span className="mt-1 flex h-5 w-5 lg:h-6 lg:w-6 shrink-0 items-center justify-center rounded-full bg-emerald-400 text-stone-950 text-xs font-bold">
-                      <Check className="h-3 w-3 lg:h-3.5 lg:w-3.5 stroke-[3]" />
-                    </span>
-                    <span>
-                      <strong className="text-white font-semibold">Living Talaqqi:</strong>{' '}
-                      Dedicated 1:1 sessions with verified Sanad-certified scholars from historic centres of Islamic learning.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3.5">
-                    <span className="mt-1 flex h-5 w-5 lg:h-6 lg:w-6 shrink-0 items-center justify-center rounded-full bg-emerald-400 text-stone-950 text-xs font-bold">
-                      <Check className="h-3 w-3 lg:h-3.5 lg:w-3.5 stroke-[3]" />
-                    </span>
-                    <span>
-                      <strong className="text-white font-semibold">Encouragement &amp; Adab:</strong>{' '}
-                      A patient, shame-free space where children feel safe, respected, and eager to return every week.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3.5">
-                    <span className="mt-1 flex h-5 w-5 lg:h-6 lg:w-6 shrink-0 items-center justify-center rounded-full bg-emerald-400 text-stone-950 text-xs font-bold">
-                      <Check className="h-3 w-3 lg:h-3.5 lg:w-3.5 stroke-[3]" />
-                    </span>
-                    <span>
-                      <strong className="text-white font-semibold">Frictionless Modern Portal:</strong>{' '}
-                      Consistent scheduling tailored to UK, US, EU &amp; Australian time zones with direct parent visibility.
-                    </span>
-                  </li>
-                </ul>
               </div>
             </motion.div>
 
@@ -644,7 +565,9 @@ export default function AboutPage() {
               <path className={styles.vettingCurveShadow} d="M0 240 C80 265 105 270 150 270 C300 270 300 90 450 90 C600 90 600 270 750 270 C900 270 900 90 1050 90 C1120 90 1160 105 1200 115" />
               <path d="M0 240 C80 265 105 270 150 270 C300 270 300 90 450 90 C600 90 600 270 750 270 C900 270 900 90 1050 90 C1120 90 1160 105 1200 115" />
             </svg>
-            {vettingTiers.map((tier) => (
+            {vettingTiers.map((tier) => {
+              const Icon = tier.icon;
+              return (
                 <article
                   key={tier.step}
                   className={styles.vettingItem}
@@ -653,7 +576,9 @@ export default function AboutPage() {
                     <path d="M32 0 C0 40 0 80 32 120 C64 160 64 200 32 240" />
                   </svg>
                   <div className={styles.vettingMarker} aria-hidden="true">
-                    <div className={styles.vettingMarkerFace}><tier.icon /></div>
+                    <div className={styles.vettingMarkerFace}>
+                      {Icon ? <Icon /> : null}
+                    </div>
                   </div>
                   <div className={styles.vettingContent}>
                     <span aria-hidden="true" className={styles.vettingNumber}>{Number(tier.step)}</span>
@@ -666,7 +591,8 @@ export default function AboutPage() {
                   </div>
 
                 </article>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -730,7 +656,7 @@ export default function AboutPage() {
                     <h3 className={`font-bricolage text-2xl sm:text-[25px] font-bold tracking-tight leading-[1.15] mb-2 ${milestone.titleColor}`}>
                       {milestone.title}
                     </h3>
-                    <p className="text-[11px] sm:text-xs font-bold uppercase tracking-wider mb-3 opacity-75">
+                    <p className={`text-[11px] sm:text-xs font-bold uppercase tracking-wider mb-3 ${milestone.subtitleColor || 'opacity-75'}`}>
                       {milestone.subtitle}
                     </p>
                     <p className={`text-sm sm:text-[14.5px] leading-relaxed ${milestone.descColor}`}>
@@ -746,14 +672,18 @@ export default function AboutPage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 7. THE PARENT PROMISE — Peace of Mind for Families (Redesigned - Green) */}
+      {/* 7. THE PARENT PROMISE — Peace of Mind for Families (Generous Height - Plain Cards) */}
       {/* ========================================================================= */}
-      <section id="parents" className={`${styles.section} ${styles.greenSection} relative overflow-hidden select-none`} aria-labelledby="parents-heading">
+      <section
+        id="parents"
+        className="relative overflow-hidden select-none py-24 sm:py-32 lg:py-40 xl:py-44 bg-gradient-to-br from-[#04241B] via-[#07382B] to-[#031d16] text-white border-b border-[#04241B]"
+        aria-labelledby="parents-heading"
+      >
         {/* Ambient lighting glows */}
         <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-teal-500/10 blur-3xl pointer-events-none" />
 
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-14 sm:space-y-16 lg:space-y-18">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-14 sm:space-y-16 lg:space-y-20">
           
           <div className="text-center max-w-3xl mx-auto space-y-3">
             <h2 id="parents-heading" className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-white font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15] text-center">
@@ -771,58 +701,21 @@ export default function AboutPage() {
             variants={fadeUp}
             className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch"
           >
-            {parentPromises.map((promise, idx) => {
-              const Icon = promise.icon;
-              return (
-                <article
-                  key={promise.title}
-                  className="group relative flex flex-col justify-between rounded-3xl bg-white p-8 sm:p-9 lg:p-10 xl:p-11 min-h-[440px] sm:min-h-[470px] lg:min-h-[500px] xl:min-h-[520px] text-stone-900 shadow-[0_20px_50px_rgba(0,0,0,0.28)] border border-white/95 hover:shadow-[0_28px_60px_rgba(0,0,0,0.38)] hover:-translate-y-1.5 transition-all duration-300"
-                >
-                  <div>
-                    {/* Top Row: Icon + Station Number */}
-                    <div className="flex items-center justify-between mb-6">
-                      <div className="h-12 w-12 rounded-2xl bg-emerald-50 text-[#095F46] p-3 ring-1 ring-emerald-600/15 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                        <Icon className="h-6 w-6 stroke-[2]" />
-                      </div>
-                      <span className="font-bricolage font-bold text-3xl sm:text-4xl text-stone-200 select-none">
-                        0{idx + 1}
-                      </span>
-                    </div>
-
-                    {/* Title & Desc */}
-                    <h3 className="text-2xl sm:text-[24px] font-bold text-stone-950 font-bricolage tracking-tight mb-2.5">
-                      {promise.title}
-                    </h3>
-                    <p className="text-stone-600 text-sm sm:text-base leading-relaxed mb-6 font-normal">
-                      {promise.desc}
-                    </p>
-
-                    {/* Checklist of commitments */}
-                    <ul className="space-y-3.5 pt-6 border-t border-stone-100 text-sm text-stone-700">
-                      {promise.points?.map((point) => (
-                        <li key={point} className="flex items-start gap-3">
-                          <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-[#095F46]">
-                            <Check className="h-3.5 w-3.5 stroke-[2.5]" />
-                          </span>
-                          <span className="leading-snug">{point}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Bottom badge */}
-                  <div className="mt-8 pt-4 border-t border-stone-100 flex items-center justify-between">
-                    <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#095F46] bg-emerald-50/80 px-3 py-1.5 rounded-full border border-emerald-100">
-                      <ShieldCheck className="h-3.5 w-3.5" />
-                      {idx === 0 ? 'Authentic Sanad' : idx === 1 ? 'Total Transparency' : 'Cancel Anytime'}
-                    </span>
-                    <span className="text-xs font-semibold text-stone-400">
-                      Ilmbit Standard
-                    </span>
-                  </div>
-                </article>
-              );
-            })}
+            {parentPromises.map((promise) => (
+              <article
+                key={promise.title}
+                className="group relative flex flex-col justify-between rounded-3xl bg-white p-8 sm:p-10 lg:p-11 xl:p-12 min-h-[290px] sm:min-h-[320px] lg:min-h-[350px] text-stone-900 shadow-[0_20px_50px_rgba(0,0,0,0.22)] border border-white/95 hover:shadow-[0_28px_60px_rgba(0,0,0,0.32)] hover:-translate-y-1.5 transition-all duration-300"
+              >
+                <div>
+                  <h3 className="text-2xl sm:text-[26px] font-bold text-stone-950 font-bricolage tracking-tight mb-4">
+                    {promise.title}
+                  </h3>
+                  <p className="text-stone-600 text-sm sm:text-base lg:text-[16.5px] leading-relaxed font-normal">
+                    {promise.desc}
+                  </p>
+                </div>
+              </article>
+            ))}
           </motion.div>
 
         </div>

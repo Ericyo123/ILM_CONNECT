@@ -146,25 +146,53 @@ export default function TeachPage() {
         }
       />
 
-      {/* Quick Metrics Bar */}
-      <section className="border-b border-stone-200/80 bg-white py-6 shadow-sm">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-x divide-stone-100">
-            <div>
-              <p className="text-xl sm:text-2xl font-bold text-[#095F46] font-bricolage">100%</p>
-              <p className="text-xs text-stone-600 font-medium mt-0.5">Remote Teaching</p>
+      {/* Quick Metrics Bar ("The Counter") */}
+      <section className="border-b border-stone-200/80 bg-white py-10 sm:py-14 lg:py-16 shadow-xs relative z-10">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center divide-y sm:divide-y-0 sm:divide-x divide-stone-100">
+            <div className="px-3 sm:px-4">
+              <p className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#095F46] font-bricolage tracking-tight leading-none mb-2">
+                100%
+              </p>
+              <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-stone-900">
+                Remote Teaching
+              </p>
+              <p className="text-xs text-stone-500 font-normal mt-1 hidden sm:block">
+                Teach from the comfort of home
+              </p>
             </div>
-            <div>
-              <p className="text-xl sm:text-2xl font-bold text-[#095F46] font-bricolage">Flexible</p>
-              <p className="text-xs text-stone-600 font-medium mt-0.5">Daily Time Slots</p>
+            <div className="px-3 sm:px-4 pt-4 sm:pt-0">
+              <p className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#095F46] font-bricolage tracking-tight leading-none mb-2">
+                Flexible
+              </p>
+              <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-stone-900">
+                Daily Time Slots
+              </p>
+              <p className="text-xs text-stone-500 font-normal mt-1 hidden sm:block">
+                Set and adjust your own routine
+              </p>
             </div>
-            <div>
-              <p className="text-xl sm:text-2xl font-bold text-[#095F46] font-bricolage">1:1 Format</p>
-              <p className="text-xs text-stone-600 font-medium mt-0.5">Private Online Classroom</p>
+            <div className="px-3 sm:px-4 pt-4 sm:pt-0">
+              <p className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#095F46] font-bricolage tracking-tight leading-none mb-2">
+                1:1 Format
+              </p>
+              <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-stone-900">
+                Private Online Classroom
+              </p>
+              <p className="text-xs text-stone-500 font-normal mt-1 hidden sm:block">
+                Dedicated student attention &amp; adab
+              </p>
             </div>
-            <div>
-              <p className="text-xl sm:text-2xl font-bold text-[#095F46] font-bricolage">Bi-Weekly</p>
-              <p className="text-xs text-stone-600 font-medium mt-0.5">Direct Payouts</p>
+            <div className="px-3 sm:px-4 pt-4 sm:pt-0">
+              <p className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#095F46] font-bricolage tracking-tight leading-none mb-2">
+                Bi-Weekly
+              </p>
+              <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-stone-900">
+                Direct Payouts
+              </p>
+              <p className="text-xs text-stone-500 font-normal mt-1 hidden sm:block">
+                Bank transfer or Wise deposit
+              </p>
             </div>
           </div>
         </div>
@@ -173,18 +201,18 @@ export default function TeachPage() {
       {/* ========================================================================= */}
       {/* 2. WHY SCHOLARS CHOOSE TO TEACH ON ILMBIT — Beautified Gradient Cards     */}
       {/* ========================================================================= */}
-      <section id="why-teach" className="py-16 sm:py-24 bg-gradient-to-b from-white via-[#f4f8f5] to-white border-b border-stone-200/70 scroll-mt-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
-          <div className="text-center max-w-2xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-stone-950 font-bricolage">
-              Why Scholars Choose to Teach on Ilmbit
+      <section id="why-teach" className="py-20 sm:py-24 lg:py-32 xl:py-36 bg-gradient-to-b from-white via-[#f4f8f5] to-white border-b border-stone-200/70 scroll-mt-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto space-y-3">
+            <h2 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15]">
+              Why Scholars Choose to Teach on <span className="text-[#095F46]">Ilmbit</span>
             </h2>
-            <p className="mt-3 text-sm sm:text-base text-stone-600 font-normal">
+            <p className="text-stone-600 text-sm sm:text-base lg:text-[18px] leading-relaxed max-w-2xl mx-auto font-normal">
               A respectful, modern platform built to support and honor teachers of the Holy Quran.
             </p>
           </div>
 
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="mt-14 sm:mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7 items-stretch">
             {[
               {
                 icon: Globe,
@@ -209,24 +237,24 @@ export default function TeachPage() {
             ].map((card, idx) => (
               <div
                 key={idx}
-                className="group relative rounded-3xl border border-[#095F46]/15 bg-gradient-to-br from-white via-[#f7fbf9] to-[#edf7f3] p-7 transition-all duration-300 hover:-translate-y-1 hover:border-[#095F46]/40 hover:shadow-xl hover:shadow-[#095F46]/10 overflow-hidden flex flex-col justify-between"
+                className="group relative rounded-3xl border border-[#095F46]/15 bg-gradient-to-br from-white via-[#f7fbf9] to-[#edf7f3] p-8 sm:p-9 min-h-[340px] sm:min-h-[360px] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#095F46]/40 hover:shadow-xl hover:shadow-[#095F46]/10 overflow-hidden flex flex-col justify-between"
               >
                 {/* Decorative Soft Corner Glow */}
                 <div className="absolute -top-12 -right-12 w-28 h-28 rounded-full bg-gradient-to-br from-[#095F46]/10 to-transparent blur-2xl group-hover:from-[#095F46]/20 transition-all pointer-events-none" />
 
                 <div>
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#095F46] to-[#043E2E] text-[#EAD08A] shadow-md shadow-[#095F46]/25 group-hover:scale-105 transition-transform">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#095F46] to-[#043E2E] text-[#EAD08A] shadow-md shadow-[#095F46]/25 group-hover:scale-105 transition-transform mb-6">
                     <card.icon className="h-6 w-6 stroke-[1.9]" />
                   </div>
-                  <h3 className="mt-5 text-lg font-bold text-stone-900 font-bricolage group-hover:text-[#095F46] transition-colors">
+                  <h3 className="text-xl sm:text-[22px] font-bold text-stone-900 font-bricolage tracking-tight group-hover:text-[#095F46] transition-colors mb-2.5">
                     {card.title}
                   </h3>
-                  <p className="mt-2.5 text-xs sm:text-sm text-stone-600 leading-relaxed font-normal">
+                  <p className="text-sm sm:text-[14.5px] text-stone-600 leading-relaxed font-normal">
                     {card.desc}
                   </p>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-[#095F46]/10 flex items-center gap-1.5 text-xs font-semibold text-[#095F46]">
+                <div className="mt-8 pt-4 border-t border-[#095F46]/10 flex items-center gap-1.5 text-xs font-semibold text-[#095F46]">
                   <span>Verified Standard</span>
                   <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                 </div>
@@ -239,7 +267,7 @@ export default function TeachPage() {
       {/* ========================================================================= */}
       {/* 3. APPLICATION FORM SECTION — Expanded to Max-W-7xl                       */}
       {/* ========================================================================= */}
-      <section id="apply-form" className="py-16 sm:py-24 bg-[#f4f7f5] scroll-mt-20">
+      <section id="apply-form" className="py-20 sm:py-24 lg:py-32 xl:py-36 bg-[#f4f7f5] scroll-mt-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
           <AnimatePresence mode="wait">
             {isSubmitted ? (
@@ -255,7 +283,7 @@ export default function TeachPage() {
                 <span className="mt-5 inline-block text-xs font-semibold uppercase tracking-wider text-[#0B8663]">
                   Alhamdulillah
                 </span>
-                <h2 className="mt-2 text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-stone-950 font-bricolage">
+                <h2 className="mt-2 text-3xl sm:text-4xl lg:text-[44px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15]">
                   Application Received Successfully
                 </h2>
                 <p className="mt-4 text-sm sm:text-base text-stone-600 max-w-xl mx-auto leading-relaxed">
@@ -280,20 +308,20 @@ export default function TeachPage() {
             ) : (
               <div className="w-full rounded-3xl border border-stone-200/90 bg-white shadow-xl shadow-black/5 overflow-hidden">
                 {/* Form Top Header Band */}
-                <div className="border-b border-stone-200/80 bg-gradient-to-r from-[#095F46]/10 via-[#095F46]/5 to-transparent p-6 sm:p-10">
+                <div className="border-b border-stone-200/80 bg-gradient-to-r from-[#095F46]/10 via-[#095F46]/5 to-transparent p-7 sm:p-10 lg:p-12">
                   <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#095F46]">
                     <UserCheck className="w-4 h-4" />
                     Scholar Registration
                   </div>
-                  <h2 className="mt-2 text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-stone-950 font-bricolage">
+                  <h2 className="mt-2 text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15]">
                     Tutor Application Form
                   </h2>
-                  <p className="mt-2 text-sm sm:text-base text-stone-600 max-w-2xl">
+                  <p className="mt-2.5 text-sm sm:text-base text-stone-600 max-w-2xl leading-relaxed">
                     Please provide your authentic credentials. Verified scholars maintain trusted profiles for 1:1 student matching.
                   </p>
                 </div>
 
-                <div className="p-6 sm:p-10 lg:p-12">
+                <div className="p-7 sm:p-10 lg:p-14">
                   {error ? (
                     <div className="mb-8 rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-medium text-red-700">
                       {error}
@@ -586,39 +614,39 @@ export default function TeachPage() {
       {/* ========================================================================= */}
       {/* 4. TUTOR FAQS */}
       {/* ========================================================================= */}
-      <section className="py-16 sm:py-24 bg-white border-t border-stone-200/70">
+      <section className="py-20 sm:py-24 lg:py-32 xl:py-36 bg-white border-t border-stone-200/70">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-stone-950 font-bricolage">
-              Frequently Asked Questions by Scholars
+          <div className="text-center max-w-3xl mx-auto space-y-3">
+            <h2 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15]">
+              Frequently Asked Questions by <span className="text-[#095F46]">Scholars</span>
             </h2>
-            <p className="mt-2 text-sm text-stone-600">
+            <p className="text-stone-600 text-sm sm:text-base lg:text-[18px] leading-relaxed max-w-2xl mx-auto font-normal">
               Everything you need to know about teaching, onboarding, and payouts on Ilmbit.
             </p>
           </div>
 
-          <div className="mt-10 space-y-3">
+          <div className="mt-12 sm:mt-14 space-y-4">
             {faqs.map((faq, idx) => {
               const isOpen = openFaq === idx;
               return (
                 <div
                   key={idx}
-                  className="rounded-2xl border border-stone-200/80 bg-stone-50/50 overflow-hidden transition-colors"
+                  className="rounded-2xl border border-stone-200/90 bg-[#fafbf9] overflow-hidden transition-all duration-200 hover:border-[#095F46]/30 shadow-xs"
                 >
                   <button
                     type="button"
                     onClick={() => setOpenFaq(isOpen ? null : idx)}
-                    className="flex w-full items-center justify-between p-5 text-left text-sm sm:text-base font-bold text-stone-900 font-bricolage"
+                    className="flex w-full items-center justify-between p-6 sm:p-7 text-left text-base sm:text-lg font-bold text-stone-900 font-bricolage tracking-tight"
                   >
                     <span>{faq.q}</span>
                     <ChevronDown
-                      className={`h-4 w-4 shrink-0 text-stone-500 transition-transform duration-200 ${
-                        isOpen ? 'rotate-180' : ''
+                      className={`h-5 w-5 shrink-0 text-stone-400 transition-transform duration-200 ${
+                        isOpen ? 'rotate-180 text-[#095F46]' : ''
                       }`}
                     />
                   </button>
                   {isOpen && (
-                    <div className="px-5 pb-5 text-xs sm:text-sm text-stone-600 leading-relaxed font-normal border-t border-stone-100 pt-3">
+                    <div className="px-6 sm:px-7 pb-6 sm:pb-7 text-sm sm:text-[15.5px] text-stone-600 leading-relaxed font-normal border-t border-stone-200/60 pt-4">
                       {faq.a}
                     </div>
                   )}

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   Check,
   Globe,
@@ -11,10 +12,25 @@ import {
   ChevronDown,
   UserCheck,
   GraduationCap,
+  ShieldCheck,
+  CalendarCheck,
+  Eye,
+  EyeOff,
+  MessageCircle,
+  FileText,
   Sparkles,
+  ArrowRight,
+  BookOpen,
+  Award,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import PublicPageHero from '@/components/public-page-hero';
+import PublicPageHero, { publicPageFadeUp as fadeUp } from '@/components/public-page-hero';
+import CountryPhoneInput from '@/components/country-phone-input';
+import {
+  formatInternationalPhone,
+  getCountryCallingCode,
+  type CountryCallingCode,
+} from '@/lib/country-calling-codes';
 import { apiFetch } from '@/lib/api';
 
 const specializationsList = [
@@ -26,10 +42,37 @@ const specializationsList = [
   'Supplications & Daily Duas',
 ];
 
+const onboardingSteps = [
+  {
+    step: '01',
+    title: 'Submit Application',
+    desc: 'Fill out the 3-minute form below with your academic qualifications, Ijazah certificates, and teaching experience.',
+    icon: FileText,
+  },
+  {
+    step: '02',
+    title: 'Sanad & Recitation Review',
+    desc: 'Participate in a friendly 15-minute virtual conversation with our academic board to review your Tajweed rules and articulation.',
+    icon: Award,
+  },
+  {
+    step: '03',
+    title: 'Platform Orientation',
+    desc: 'Receive a quick walkthrough of our 1:1 virtual classroom, interactive digital Mushaf, and student progress notes.',
+    icon: CalendarCheck,
+  },
+  {
+    step: '04',
+    title: 'Welcome Students',
+    desc: 'Begin matching with diaspora students during your chosen time slots, with direct bi-weekly payouts to your bank.',
+    icon: BookOpen,
+  },
+];
+
 const faqs = [
   {
     q: 'What qualifications do I need to teach on Ilmbit?',
-    a: 'We welcome certified Maulavis, Alim/Alimah graduates, Hafiz-ul-Quran certificate holders, and scholars with verified Sanad or Ijazah in Tajweed from accredited Islamic institutions and Madrassas.',
+    a: 'We welcome certified Maulavis, Alim/Alimah graduates, Hafiz-ul-Quran certificate holders, and scholars with verified Sanad or Ijazah in Tajweed from accredited Islamic institutions and Madrassas in Sri Lanka and abroad.',
   },
   {
     q: 'How does the class scheduling work?',
@@ -53,7 +96,11 @@ export default function TeachPage() {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [phone, setPhone] = useState('');
+  const [phoneCountry, setPhoneCountry] = useState<CountryCallingCode>(() =>
+    getCountryCallingCode('LK')
+  );
   const [country, setCountry] = useState('Sri Lanka');
   const [city, setCity] = useState('');
   const [qualification, setQualification] = useState('Maulavi / Alim Graduate');
@@ -90,6 +137,7 @@ export default function TeachPage() {
 
     try {
       const cleanEmail = email.trim().toLowerCase();
+      const formattedPhone = formatInternationalPhone(phone, phoneCountry);
       await apiFetch('/auth/register', {
         method: 'POST',
         body: JSON.stringify({
@@ -97,8 +145,8 @@ export default function TeachPage() {
           password,
           role: 'LECTURER',
           fullName: fullName.trim(),
-          phone: phone.trim(),
-          country: country.trim() || 'Sri Lanka',
+          phone: formattedPhone || phone.trim(),
+          country: phoneCountry.name || country.trim() || 'Sri Lanka',
           timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
           bio: `${institution ? `Institution: ${institution}. ` : ''}Daily Availability: ${dailyAvailability}. ${bio.trim()}`,
           qualifications: `${qualification}${experience ? ` • ${experience} experience` : ''}`,
@@ -129,24 +177,28 @@ export default function TeachPage() {
   return (
     <div className="min-h-screen bg-[#f7faf8] text-stone-900 selection:bg-[#095F46] selection:text-white">
       {/* ========================================================================= */}
-      {/* 1. HERO SECTION — Height matches /pricing, No Tags, Simple Description    */}
+      {/* 1. HERO SECTION — Elevated with Subtitle & Direct Action Button           */}
       {/* ========================================================================= */}
       <PublicPageHero
-        title="Become a Tutor at Ilmbit"
-        description="Connect with students worldwide. Flexible schedules, verified 1:1 classes, and bi-weekly direct payouts."
+        title="Teach the Holy Quran"
+        subtitle="Empower Students Worldwide"
+        description="Join an esteemed community of verified Maulavis and Aalimaat. Conduct structured 1:1 online sessions with diaspora families across the UK, US, Europe, and Australia."
         image="/images/teach-hero-scholar.jpg"
         imageAlt="Islamic scholar library with classical Islamic texts"
         imageClassName="object-cover object-[center_35%] opacity-85"
+        className="min-h-[52vh] sm:min-h-[58vh] lg:min-h-[64vh] py-24 sm:py-28 lg:py-32 xl:py-36"
         overlay={
           <>
             <div className="absolute inset-0 bg-stone-950/60" />
             <div className="absolute inset-0 bg-[#095F46]/20 mix-blend-multiply" />
-            <div className="absolute inset-0 bg-gradient-to-b from-stone-950/80 via-stone-950/35 to-stone-950/85" />
+            <div className="absolute inset-0 bg-gradient-to-b from-stone-950/85 via-stone-950/40 to-[#031e18]/95" />
           </>
         }
       />
 
-      {/* Quick Metrics Bar ("The Counter") */}
+      {/* ========================================================================= */}
+      {/* 2. QUICK METRICS BAR ("The Counter")                                      */}
+      {/* ========================================================================= */}
       <section className="border-b border-stone-200/80 bg-white py-10 sm:py-14 lg:py-16 shadow-xs relative z-10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center divide-y sm:divide-y-0 sm:divide-x divide-stone-100">
@@ -155,10 +207,21 @@ export default function TeachPage() {
                 100%
               </p>
               <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-stone-900">
-                Remote Teaching
+                Remote Flexibility
               </p>
               <p className="text-xs text-stone-500 font-normal mt-1 hidden sm:block">
                 Teach from the comfort of home
+              </p>
+            </div>
+            <div className="px-3 sm:px-4 pt-4 sm:pt-0">
+              <p className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#095F46] font-bricolage tracking-tight leading-none mb-2">
+                1:1 Format
+              </p>
+              <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-stone-900">
+                Private Classroom
+              </p>
+              <p className="text-xs text-stone-500 font-normal mt-1 hidden sm:block">
+                Dedicated student attention &amp; adab
               </p>
             </div>
             <div className="px-3 sm:px-4 pt-4 sm:pt-0">
@@ -174,24 +237,13 @@ export default function TeachPage() {
             </div>
             <div className="px-3 sm:px-4 pt-4 sm:pt-0">
               <p className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#095F46] font-bricolage tracking-tight leading-none mb-2">
-                1:1 Format
-              </p>
-              <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-stone-900">
-                Private Online Classroom
-              </p>
-              <p className="text-xs text-stone-500 font-normal mt-1 hidden sm:block">
-                Dedicated student attention &amp; adab
-              </p>
-            </div>
-            <div className="px-3 sm:px-4 pt-4 sm:pt-0">
-              <p className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#095F46] font-bricolage tracking-tight leading-none mb-2">
                 Bi-Weekly
               </p>
               <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-stone-900">
                 Direct Payouts
               </p>
               <p className="text-xs text-stone-500 font-normal mt-1 hidden sm:block">
-                Bank transfer or Wise deposit
+                Direct bank or Wise deposit
               </p>
             </div>
           </div>
@@ -199,7 +251,7 @@ export default function TeachPage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 2. WHY SCHOLARS CHOOSE TO TEACH ON ILMBIT — Beautified Gradient Cards     */}
+      {/* 3. WHY SCHOLARS CHOOSE TO TEACH ON ILMBIT                                  */}
       {/* ========================================================================= */}
       <section id="why-teach" className="py-20 sm:py-24 lg:py-32 xl:py-36 bg-gradient-to-b from-white via-[#f4f8f5] to-white border-b border-stone-200/70 scroll-mt-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -217,7 +269,7 @@ export default function TeachPage() {
               {
                 icon: Globe,
                 title: 'Global Student Reach',
-                desc: 'Teach motivated students across Sri Lanka, UK, Australia, UAE, Canada, and diaspora communities.',
+                desc: 'Teach motivated students across the UK, Australia, US, Europe, and Sri Lankan diaspora communities.',
               },
               {
                 icon: Clock,
@@ -265,7 +317,100 @@ export default function TeachPage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 3. APPLICATION FORM SECTION — Expanded to Max-W-7xl                       */}
+      {/* 4. SIMPLE 4-STEP ONBOARDING JOURNEY                                       */}
+      {/* ========================================================================= */}
+      <section className="py-20 sm:py-24 lg:py-32 xl:py-36 bg-white border-b border-stone-200/70">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto space-y-3">
+            <h2 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15]">
+              Simple 4-Step <span className="text-[#095F46]">Onboarding</span>
+            </h2>
+            <p className="text-stone-600 text-sm sm:text-base lg:text-[18px] leading-relaxed max-w-2xl mx-auto font-normal">
+              From online application to your first 1:1 teaching session in less than a week.
+            </p>
+          </div>
+
+          <div className="mt-14 sm:mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7 items-stretch">
+            {onboardingSteps.map((step) => {
+              const Icon = step.icon;
+              return (
+                <div
+                  key={step.step}
+                  className="relative rounded-3xl border border-stone-200/90 bg-[#fafbf9] p-7 sm:p-8 flex flex-col justify-between shadow-xs hover:border-[#095F46]/40 hover:shadow-lg transition-all"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-6">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 text-[#095F46] border border-emerald-100">
+                        <Icon className="h-6 w-6 stroke-[2]" />
+                      </div>
+                      <span className="font-bricolage font-bold text-3xl sm:text-4xl text-stone-300">
+                        {step.step}
+                      </span>
+                    </div>
+
+                    <h3 className="text-xl font-bold text-stone-950 font-bricolage tracking-tight mb-2.5">
+                      {step.title}
+                    </h3>
+                    <p className="text-sm text-stone-600 leading-relaxed font-normal">
+                      {step.desc}
+                    </p>
+                  </div>
+
+                  <div className="mt-6 pt-4 border-t border-stone-200/60 flex items-center gap-1.5 text-xs font-semibold text-[#095F46]">
+                    <span>Step {step.step}</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* 5. SCHOLAR VOICES & COMMUNITY DIGNITY BANNER                              */}
+      {/* ========================================================================= */}
+      <section className="py-20 sm:py-24 lg:py-28 bg-[#06261e] text-white relative overflow-hidden select-none border-b border-[#04241B]">
+        <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-teal-500/10 blur-3xl pointer-events-none" />
+
+        <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center space-y-6">
+          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/10 text-[#EAD08A] border border-white/15">
+            <Sparkles className="w-3.5 h-3.5" />
+            Teacher Community
+          </span>
+
+          <blockquote className="text-xl sm:text-2xl lg:text-3xl font-bricolage font-bold leading-relaxed text-emerald-50/95 max-w-3xl mx-auto">
+            &ldquo;Teaching diaspora children who live thousands of miles away while sitting in Sri Lanka has been deeply rewarding. The platform handles scheduling and payments with complete dignity and respect.&rdquo;
+          </blockquote>
+
+          <div className="pt-2">
+            <p className="font-bold text-white text-base sm:text-lg">
+              Maulavi A. R. Mohamed
+            </p>
+            <p className="text-xs sm:text-sm text-emerald-200/75 mt-0.5">
+              Jamiah Naleemiah Graduate · Senior Tajweed Scholar on Ilmbit
+            </p>
+          </div>
+
+          <div className="pt-6 flex flex-wrap justify-center gap-4 sm:gap-6 text-xs text-emerald-100/75 border-t border-white/10 max-w-2xl mx-auto">
+            <span className="inline-flex items-center gap-1.5">
+              <ShieldCheck className="w-4 h-4 text-[#EAD08A]" />
+              Verified Sanad Community
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <CalendarCheck className="w-4 h-4 text-[#EAD08A]" />
+              Automated Scheduling
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <Wallet className="w-4 h-4 text-[#EAD08A]" />
+              Guaranteed Bi-Weekly Payouts
+            </span>
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* 6. APPLICATION FORM SECTION                                               */}
       {/* ========================================================================= */}
       <section id="apply-form" className="py-20 sm:py-24 lg:py-32 xl:py-36 bg-[#f4f7f5] scroll-mt-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
@@ -335,7 +480,7 @@ export default function TeachPage() {
                         <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#095F46] text-white text-[11px] font-sans">
                           1
                         </span>
-                        Personal &amp; Account Details
+                        Personal &amp; Contact Details
                       </h3>
 
                       <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -367,17 +512,17 @@ export default function TeachPage() {
                           />
                         </div>
 
+                        {/* Country Phone Input with Flag Selector */}
                         <div>
                           <label className="block text-xs font-semibold uppercase tracking-wide text-stone-700 mb-1.5">
                             WhatsApp / Phone Number *
                           </label>
-                          <input
-                            required
-                            type="tel"
+                          <CountryPhoneInput
                             value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
-                            placeholder="+94 77 123 4567"
-                            className="h-11 w-full rounded-xl border border-stone-300 bg-stone-50/50 px-3.5 text-sm text-stone-900 outline-none transition-colors focus:border-[#095F46] focus:bg-white focus:ring-2 focus:ring-[#095F46]/15"
+                            onChange={setPhone}
+                            selectedIso={phoneCountry.iso2}
+                            onCountryChange={setPhoneCountry}
+                            placeholder="77 123 4567"
                           />
                         </div>
 
@@ -412,15 +557,25 @@ export default function TeachPage() {
                           <label className="block text-xs font-semibold uppercase tracking-wide text-stone-700 mb-1.5">
                             Create Portal Password *
                           </label>
-                          <input
-                            required
-                            type="password"
-                            minLength={6}
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            placeholder="Minimum 6 characters"
-                            className="h-11 w-full rounded-xl border border-stone-300 bg-stone-50/50 px-3.5 text-sm text-stone-900 outline-none transition-colors focus:border-[#095F46] focus:bg-white focus:ring-2 focus:ring-[#095F46]/15"
-                          />
+                          <div className="relative">
+                            <input
+                              required
+                              type={showPassword ? 'text' : 'password'}
+                              minLength={6}
+                              value={password}
+                              onChange={(e) => setPassword(e.target.value)}
+                              placeholder="Minimum 6 characters"
+                              className="h-11 w-full rounded-xl border border-stone-300 bg-stone-50/50 pl-3.5 pr-10 text-sm text-stone-900 outline-none transition-colors focus:border-[#095F46] focus:bg-white focus:ring-2 focus:ring-[#095F46]/15"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => setShowPassword(!showPassword)}
+                              className="absolute inset-y-0 right-0 flex items-center pr-3 text-stone-400 hover:text-stone-600"
+                              aria-label={showPassword ? 'Hide password' : 'Show password'}
+                            >
+                              {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -600,7 +755,7 @@ export default function TeachPage() {
                         {isLoading ? 'Submitting Application...' : 'Submit Tutor Application'}
                       </button>
                       <p className="mt-3 text-center text-xs text-stone-500">
-                        By applying, you confirm the accuracy of your academic credentials and consent to evaluation by our academic board.
+                        By applying, you confirm the accuracy of your academic credentials and consent to evaluation by our academic board. Your information is kept strictly confidential.
                       </p>
                     </div>
                   </form>
@@ -612,7 +767,7 @@ export default function TeachPage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 4. TUTOR FAQS */}
+      {/* 7. TUTOR FAQS                                                             */}
       {/* ========================================================================= */}
       <section className="py-20 sm:py-24 lg:py-32 xl:py-36 bg-white border-t border-stone-200/70">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
@@ -653,6 +808,27 @@ export default function TeachPage() {
                 </div>
               );
             })}
+          </div>
+
+          {/* Help & WhatsApp Contact Banner */}
+          <div className="mt-12 p-6 sm:p-8 rounded-3xl bg-[#f4f7f5] border border-emerald-900/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+            <div>
+              <p className="font-bricolage font-bold text-lg text-stone-950">
+                Have questions before applying?
+              </p>
+              <p className="text-xs sm:text-sm text-stone-500 mt-1">
+                Our academic onboarding coordinator is available on WhatsApp to guide you through the process.
+              </p>
+            </div>
+            <a
+              href="https://wa.me/94771234567"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="brand-button brand-button-primary shrink-0 px-6 py-2.5 text-xs font-semibold uppercase tracking-wider inline-flex items-center gap-2"
+            >
+              <MessageCircle className="w-4 h-4" />
+              <span>Chat on WhatsApp</span>
+            </a>
           </div>
         </div>
       </section>

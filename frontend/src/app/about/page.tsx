@@ -10,6 +10,7 @@ import {
   AudioLines,
   MessagesSquare,
   ShieldCheck,
+  RotateCw,
 } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
 import styles from './about-refinement.module.css';
@@ -241,25 +242,46 @@ const pedagogyMilestones = [
 ];
 
 // ---------------------------------------------------------------------------
-// Data: The Parent Promise (Peace of Mind for Families)
+// Data: The Parent Promise (Interactive 3D Flip Cards with Circular Image)
 // ---------------------------------------------------------------------------
 const parentPromises = [
   {
-    title: 'Dedicated Scholar',
+    titleLine1: 'Dedicated',
+    titleLine2: 'Scholar',
+    fullTitle: 'Dedicated Scholar',
+    image: '/images/about/pillar-talaqqi.jpg',
+    imageAlt: 'Dedicated scholar guiding a student through Quranic recitation',
     desc: 'The same familiar scholar each week who builds genuine rapport with your child, adapts to their learning pace, and nurtures their recitation with patient Adab.',
   },
   {
-    title: 'Continuous Visibility',
+    titleLine1: 'Continuous',
+    titleLine2: 'Visibility',
+    fullTitle: 'Continuous Visibility',
+    image: '/images/about-student-learning-inset.jpg',
+    imageAlt: 'Parent visibility into student recitation and lesson milestones',
     desc: 'Follow your child’s journey through replayable class recordings, monthly Tajweed milestones, and direct communication in your parent dashboard.',
   },
   {
-    title: 'Adaptive Family Scheduling',
+    titleLine1: 'Adaptive',
+    titleLine2: 'Scheduling',
+    fullTitle: 'Adaptive Family Scheduling',
+    image: '/images/about/pillar-amanah.jpg',
+    imageAlt: 'Flexible Quran lesson scheduling designed around family routines',
     desc: 'Plan lessons seamlessly around school, weekend routines, and diaspora time zones, with free 12-hour rescheduling whenever family plans change.',
   },
 ];
 
 export default function AboutPage() {
   const shouldReduceMotion = useReducedMotion();
+  const [flippedCards, setFlippedCards] = useState<Record<number, boolean>>({});
+
+  const toggleCardFlip = (index: number) => {
+    setFlippedCards((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
+  };
+
   const [waitlistName, setWaitlistName] = useState('');
   const [waitlistEmail, setWaitlistEmail] = useState('');
   const [waitlistPhone, setWaitlistPhone] = useState('');
@@ -701,21 +723,105 @@ export default function AboutPage() {
             variants={fadeUp}
             className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch"
           >
-            {parentPromises.map((promise) => (
-              <article
-                key={promise.title}
-                className="group relative flex flex-col justify-between rounded-3xl bg-white p-8 sm:p-10 lg:p-11 xl:p-12 min-h-[290px] sm:min-h-[320px] lg:min-h-[350px] text-stone-900 shadow-[0_20px_50px_rgba(0,0,0,0.22)] border border-white/95 hover:shadow-[0_28px_60px_rgba(0,0,0,0.32)] hover:-translate-y-1.5 transition-all duration-300"
-              >
-                <div>
-                  <h3 className="text-2xl sm:text-[26px] font-bold text-stone-950 font-bricolage tracking-tight mb-4">
-                    {promise.title}
-                  </h3>
-                  <p className="text-stone-600 text-sm sm:text-base lg:text-[16.5px] leading-relaxed font-normal">
-                    {promise.desc}
-                  </p>
+            {parentPromises.map((promise, idx) => {
+              const isFlipped = !!flippedCards[idx];
+              return (
+                <div
+                  key={promise.fullTitle}
+                  className={`w-full min-h-[440px] sm:min-h-[460px] lg:min-h-[480px] ${styles.flipCardContainer}`}
+                >
+                  <div
+                    role="button"
+                    tabIndex={0}
+                    aria-pressed={isFlipped}
+                    aria-label={`${promise.fullTitle}. Click or tap to ${isFlipped ? 'flip back' : 'reveal details'}.`}
+                    onClick={() => toggleCardFlip(idx)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggleCardFlip(idx);
+                      }
+                    }}
+                    className={`group w-full h-full cursor-pointer select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-[#EAD08A] rounded-[28px] sm:rounded-[32px] ${styles.flipCardInner} ${
+                      isFlipped ? styles.flipCardInnerFlipped : ''
+                    }`}
+                  >
+                    {/* FRONT OF CARD */}
+                    <div
+                      className={`flex flex-col items-center justify-between text-center bg-white p-7 sm:p-8 lg:p-9 text-stone-900 shadow-[0_20px_50px_rgba(0,0,0,0.22)] border border-white/95 group-hover:shadow-[0_28px_60px_rgba(0,0,0,0.32)] transition-shadow duration-300 ${styles.flipCardFace}`}
+                    >
+                      <div className="w-full flex items-center justify-between">
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-[#095F46] bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100">
+                          Promise 0{idx + 1}
+                        </span>
+                        <span className="text-xs text-stone-400 font-medium">
+                          Press to flip
+                        </span>
+                      </div>
+
+                      {/* Circle Image and 2-Line Heading */}
+                      <div className="my-auto flex flex-col items-center py-2">
+                        <div className="relative w-36 h-36 sm:w-40 sm:h-40 lg:w-44 lg:h-44 rounded-full overflow-hidden border-4 border-stone-100 shadow-md ring-2 ring-[#095F46]/15 group-hover:scale-105 transition-transform duration-500 ease-out mb-5">
+                          <Image
+                            src={promise.image}
+                            alt={promise.imageAlt}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 640px) 144px, (max-width: 1024px) 160px, 176px"
+                          />
+                        </div>
+
+                        {/* Title in 2 lines */}
+                        <h3 className="text-2xl sm:text-[28px] lg:text-[30px] font-bold text-stone-950 font-bricolage tracking-tight leading-[1.12]">
+                          <span className="block">{promise.titleLine1}</span>
+                          <span className="block text-[#095F46]">{promise.titleLine2}</span>
+                        </h3>
+                      </div>
+
+                      {/* Interactive prompt button pill */}
+                      <div className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-stone-100 text-stone-700 border border-stone-200/80 group-hover:bg-emerald-50 group-hover:text-[#095F46] group-hover:border-emerald-200 transition-colors">
+                        <span>Tap to view promise</span>
+                        <RotateCw className="w-3.5 h-3.5 stroke-[2] transition-transform duration-500 group-hover:rotate-180" />
+                      </div>
+                    </div>
+
+                    {/* BACK OF CARD (REVEALED ON TOUCH/PRESS) */}
+                    <div
+                      className={`flex flex-col justify-between text-left bg-white p-7 sm:p-8 lg:p-9 text-stone-900 shadow-[0_24px_55px_rgba(0,0,0,0.28)] border border-white/95 ${styles.flipCardFace} ${styles.flipCardBack}`}
+                    >
+                      <div>
+                        {/* Header bar */}
+                        <div className="flex items-center justify-between pb-4 mb-5 border-b border-stone-100">
+                          <span className="text-xs font-bold uppercase tracking-wider text-[#095F46]">
+                            Parent Guarantee
+                          </span>
+                          <div className="inline-flex items-center gap-1 text-xs font-semibold text-stone-500 bg-stone-100 px-2.5 py-1 rounded-full hover:bg-stone-200/70 transition-colors">
+                            <RotateCw className="w-3 h-3 stroke-[2]" />
+                            <span>Flip back</span>
+                          </div>
+                        </div>
+
+                        {/* Full Title */}
+                        <h3 className="text-2xl sm:text-[26px] font-bold text-stone-950 font-bricolage tracking-tight mb-4 leading-snug">
+                          {promise.fullTitle}
+                        </h3>
+
+                        {/* Content text */}
+                        <p className="text-stone-600 text-sm sm:text-base lg:text-[16.5px] leading-relaxed font-normal">
+                          {promise.desc}
+                        </p>
+                      </div>
+
+                      {/* Footer */}
+                      <div className="pt-4 mt-6 border-t border-stone-100 flex items-center justify-between text-xs text-stone-500">
+                        <span className="font-semibold text-[#095F46]">Ilmbit Standard</span>
+                        <span className="text-stone-400">Tap anywhere to flip back</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </article>
-            ))}
+              );
+            })}
           </motion.div>
 
         </div>

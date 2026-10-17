@@ -14,8 +14,8 @@ import {
   AudioLines,
   MessagesSquare,
   ShieldCheck,
-  BookOpen,
-  Award,
+  ArrowUpRight,
+  ArrowDown,
 } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
 import styles from './about-refinement.module.css';
@@ -185,72 +185,64 @@ const vettingTiers = [
 // ---------------------------------------------------------------------------
 const pedagogyMilestones = [
   {
+    step: '01',
     phase: 'Phase 01',
     arabic: 'الأساس',
-    title: 'Al-Asaas',
-    subtitle: 'Foundations · Noorani Qaida',
-    duration: 'Foundations',
-    desc: 'Learn Arabic letters, articulation points, and how letters join through guided, patient Noorani Qaida practice.',
-    tag: 'Makharij & Letter Sounds',
-    competencies: [
-      'Single & joined Arabic letter recognition',
-      'Accurate Makharij (vocal articulation points)',
-    ],
-    icon: BookOpen,
-    badgeColor: 'bg-amber-50 text-amber-900 border-amber-200/90',
-    iconBoxColor: 'bg-amber-500/10 text-amber-700',
-    borderHover: 'hover:border-amber-400/60',
+    title: 'Foundations & Qaida',
+    subtitle: 'Al-Asaas · Noorani Qaida',
+    desc: 'Master Arabic letters, articulation points (Makharij), and how letter sounds join through patient, guided oral repetition.',
+    cardBg: 'bg-[#06261e] border-emerald-950/80 shadow-[0_24px_50px_rgba(4,38,30,0.35)]',
+    badgeBg: 'bg-white/10 text-white border-white/15',
+    arrowColor: 'text-white/80 group-hover:text-white',
+    arabicColor: 'text-[#EAD08A]',
+    titleColor: 'text-white',
+    descColor: 'text-emerald-100/80',
+    offsetClass: 'lg:translate-y-0 lg:-rotate-[1deg]',
   },
   {
+    step: '02',
     phase: 'Phase 02',
     arabic: 'التلاوة',
-    title: 'At-Tilawah',
-    subtitle: 'Fluency · Tajweed Mastery',
-    duration: 'Recitation',
+    title: 'Fluency & Tajweed',
+    subtitle: 'At-Tilawah · Tajweed Mastery',
     desc: 'Practise Madd, Ghunnah, and pause rules with immediate, gentle pronunciation feedback from your dedicated scholar.',
-    tag: 'Tajweed & Pause Rules',
-    competencies: [
-      'Mastery of Noon Sakinah, Tanween & Madd rules',
-      'Fluent recitation with correct Waqf (stops)',
-    ],
-    icon: AudioLines,
-    badgeColor: 'bg-teal-50 text-teal-900 border-teal-200/90',
-    iconBoxColor: 'bg-teal-600/10 text-teal-700',
-    borderHover: 'hover:border-teal-400/60',
+    cardBg: 'bg-[#e9ece5] border-stone-300 shadow-[0_20px_45px_rgba(0,0,0,0.06)]',
+    badgeBg: 'bg-stone-900/10 text-stone-900 border-stone-900/10',
+    arrowColor: 'text-stone-900/80 group-hover:text-stone-900',
+    arabicColor: 'text-[#095F46]',
+    titleColor: 'text-stone-950',
+    descColor: 'text-stone-600',
+    offsetClass: 'lg:translate-y-7 xl:translate-y-9 lg:rotate-[1.25deg]',
   },
   {
+    step: '03',
     phase: 'Phase 03',
     arabic: 'الحفظ',
-    title: 'Al-Hifz',
-    subtitle: 'Preservation · Memorisation',
-    duration: 'Memorisation',
-    desc: 'Build memorisation gradually, with regular revision (Muraja’ah) alongside new passages for lifelong retention.',
-    tag: 'Structured Muraja’ah Retention',
-    competencies: [
-      'Step-by-step Surah memorisation at personal pace',
-      'Structured Muraja’ah (retention revision cycle)',
-    ],
-    icon: GraduationCap,
-    badgeColor: 'bg-emerald-50 text-emerald-900 border-emerald-200/90',
-    iconBoxColor: 'bg-emerald-600/10 text-[#095F46]',
-    borderHover: 'hover:border-emerald-400/60',
+    title: 'Preservation & Hifz',
+    subtitle: 'Al-Hifz · Memorisation',
+    desc: 'Build memorisation gradually, with structured Muraja’ah revision cycles alongside new passages for lifelong retention.',
+    cardBg: 'bg-[#EAD08A] border-[#d8be78] shadow-[0_24px_55px_rgba(234,208,138,0.30)]',
+    badgeBg: 'bg-stone-950/10 text-stone-950 border-stone-950/15',
+    arrowColor: 'text-stone-950/80 group-hover:text-stone-950',
+    arabicColor: 'text-emerald-950',
+    titleColor: 'text-stone-950',
+    descColor: 'text-stone-900/85 font-medium',
+    offsetClass: 'lg:translate-y-14 xl:translate-y-18 lg:-rotate-[1.25deg]',
   },
   {
+    step: '04',
     phase: 'Phase 04',
     arabic: 'الأخلاق',
-    title: 'Al-Akhlaq',
-    subtitle: 'Living Deen · Character & Sunnah',
-    duration: 'Holistic Adab',
+    title: 'Character & Sunnah',
+    subtitle: 'Al-Akhlaq · Living Deen',
     desc: 'Bring Quranic learning into daily life through prophetic du’as, Islamic adab, good manners, and moral reflection.',
-    tag: 'Prophetic Adab & Daily Sunnah',
-    competencies: [
-      'Essential daily Sunnah du’as & Islamic manners',
-      'Living the virtues of the Quran with dignity & humility',
-    ],
-    icon: Award,
-    badgeColor: 'bg-stone-100 text-stone-900 border-stone-200/90',
-    iconBoxColor: 'bg-[#095F46]/10 text-[#095F46]',
-    borderHover: 'hover:border-[#095F46]/60',
+    cardBg: 'bg-[#051f18] border-emerald-950/80 shadow-[0_24px_50px_rgba(4,38,30,0.35)]',
+    badgeBg: 'bg-white/10 text-white border-white/15',
+    arrowColor: 'text-white/80 group-hover:text-white',
+    arabicColor: 'text-[#EAD08A]',
+    titleColor: 'text-white',
+    descColor: 'text-emerald-100/80',
+    offsetClass: 'lg:translate-y-6 xl:translate-y-8 lg:rotate-[1deg]',
   },
 ];
 
@@ -686,111 +678,90 @@ export default function AboutPage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 6. OUR PEDAGOGY — 4 Milestones of Learning (Connected Roadmap - White) */}
+      {/* 6. OUR PEDAGOGY — 4 Milestones of Learning (Reference Layout - Staggered Cards) */}
       {/* ========================================================================= */}
-      <section className={`${styles.section} ${styles.whiteSection} ${styles.patternBackground} relative overflow-hidden select-none`} aria-labelledby="pathway-heading">
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-14 sm:space-y-16 lg:space-y-18">
+      <section
+        id="pathway"
+        className={`${styles.section} ${styles.whiteSection} ${styles.patternBackground} relative overflow-hidden select-none pb-20 sm:pb-28 lg:pb-36 xl:pb-40`}
+        aria-labelledby="pathway-heading"
+      >
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           
-          <div className="text-center max-w-3xl mx-auto space-y-3">
-            <h2 id="pathway-heading" className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15] text-center">
-              A Gentle Pathway from First Letters to <span className="text-[#095F46]">Fluency</span>
-            </h2>
-            <p className="text-stone-600 text-sm sm:text-base lg:text-[18px] xl:text-[19px] leading-relaxed max-w-2xl mx-auto font-normal">
-              A structured progression through foundations, recitation, memorisation, and living character — adapted by your scholar to your child&apos;s unique pace.
-            </p>
-          </div>
+          {/* Top Header Row matching Reference: Badge, Title, Description, and Round Action Button */}
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6 mb-12 sm:mb-16 lg:mb-20">
+            <div className="max-w-3xl space-y-3">
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-stone-100 text-stone-700 border border-stone-200/90 shadow-xs">
+                The Learning Journey
+              </span>
+              <h2
+                id="pathway-heading"
+                className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[52px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15]"
+              >
+                A Gentle Pathway from First Letters to <span className="text-[#095F46]">Fluency</span>
+              </h2>
+              <p className="text-stone-600 text-sm sm:text-base lg:text-[17px] xl:text-[18px] leading-relaxed max-w-2xl font-normal pt-1">
+                A structured progression through foundations, recitation, memorisation, and living character — adapted by your scholar to your child&apos;s unique pace.
+              </p>
+            </div>
 
-          {/* Desktop Visual Progression Guide Rail */}
-          <div className="hidden lg:block relative max-w-5xl mx-auto px-6 mb-2" aria-hidden="true">
-            <div className="relative flex items-center justify-between">
-              {/* Connecting Track Line */}
-              <div className="absolute left-[8%] right-[8%] top-1/2 -translate-y-1/2 h-[2.5px] bg-gradient-to-r from-emerald-100 via-[#095F46]/30 to-emerald-100 z-0" />
-              
-              {/* 4 Waypoint Stations */}
-              {pedagogyMilestones.map((milestone, idx) => (
-                <div key={milestone.title} className="relative z-10 flex flex-col items-center">
-                  <div className="h-10 w-10 rounded-full bg-white border-2 border-[#095F46] flex items-center justify-center font-bricolage font-bold text-xs text-[#095F46] shadow-[0_2px_8px_rgba(9,95,70,0.12)] ring-4 ring-[#095F46]/10">
-                    0{idx + 1}
-                  </div>
-                  <span className="mt-2 text-[11px] font-bold uppercase tracking-wider text-emerald-950/80">
-                    {milestone.duration}
-                  </span>
-                </div>
-              ))}
+            {/* Top-Right Circular Action Button Scrolling to Parents Promise */}
+            <div className="hidden sm:flex shrink-0 pt-2">
+              <a
+                href="#parents"
+                aria-label="Scroll to parent promise"
+                className="h-12 w-12 sm:h-13 sm:w-13 rounded-full bg-stone-950 hover:bg-[#095F46] text-white flex items-center justify-center transition-all duration-300 shadow-[0_4px_16px_rgba(0,0,0,0.12)] hover:shadow-[0_8px_24px_rgba(9,95,70,0.25)] hover:scale-105 active:scale-95 group"
+              >
+                <ArrowDown className="h-5 w-5 stroke-[2.2] transition-transform duration-300 group-hover:translate-y-0.5" />
+              </a>
             </div>
           </div>
 
+          {/* 4 Staggered & Dynamic Tilted Cards */}
           <motion.div
             initial={shouldReduceMotion ? false : 'hidden'}
             whileInView="visible"
             viewport={{ once: true, amount: 0.15 }}
             variants={fadeUp}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-5 xl:gap-6 items-stretch"
           >
-            {pedagogyMilestones.map((milestone, idx) => {
-              const Icon = milestone.icon;
-              return (
-                <article
-                  key={milestone.title}
-                  className={`group relative flex flex-col justify-between rounded-3xl bg-white border border-stone-200/90 p-7 sm:p-8 lg:p-7 xl:p-8 min-h-[460px] sm:min-h-[480px] lg:min-h-[510px] xl:min-h-[530px] shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_40px_rgba(9,95,70,0.09)] hover:-translate-y-1.5 transition-all duration-300 ${milestone.borderHover}`}
-                >
-                  <div>
-                    {/* Top Row: Phase badge & Arabic calligraphy */}
-                    <div className="flex items-center justify-between gap-2 mb-4">
-                      <span className={`inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase border ${milestone.badgeColor}`}>
-                        Phase 0{idx + 1}
-                      </span>
-                      <span className="font-amiri text-2xl font-bold text-[#095F46] leading-none" lang="ar" dir="rtl">
-                        {milestone.arabic}
-                      </span>
-                    </div>
-
-                    {/* Step Icon */}
-                    <div className={`h-12 w-12 rounded-2xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110 ${milestone.iconBoxColor}`}>
-                      <Icon className="h-6 w-6 stroke-[2]" />
-                    </div>
-
-                    {/* Title & Subtitle */}
-                    <h3 className="text-xl sm:text-[22px] font-bold text-stone-950 font-bricolage tracking-tight leading-snug mb-1">
-                      {milestone.title}
-                    </h3>
-                    <p className="text-xs font-bold uppercase tracking-wider text-stone-500 mb-3.5">
-                      {milestone.subtitle}
-                    </p>
-
-                    {/* Description */}
-                    <p className="text-sm leading-relaxed text-stone-600 font-normal mb-4">
-                      {milestone.desc}
-                    </p>
-
-                    {/* Key Competencies Checkmarks */}
-                    <div className="space-y-2 pt-3 border-t border-stone-100">
-                      <p className="text-[11px] font-bold uppercase tracking-wider text-stone-400">
-                        Key Competencies
-                      </p>
-                      <ul className="space-y-1.5 text-xs text-stone-700">
-                        {milestone.competencies.map((comp) => (
-                          <li key={comp} className="flex items-start gap-2">
-                            <span className="mt-0.5 flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-[#095F46]">
-                              <Check className="h-2.5 w-2.5 stroke-[3]" />
-                            </span>
-                            <span className="leading-snug">{comp}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+            {pedagogyMilestones.map((milestone) => (
+              <article
+                key={milestone.title}
+                className={`group relative flex flex-col justify-between rounded-[28px] sm:rounded-[32px] p-7 sm:p-8 min-h-[420px] sm:min-h-[450px] lg:min-h-[480px] xl:min-h-[500px] border transition-all duration-500 ease-out hover:z-20 hover:scale-[1.03] hover:!rotate-0 hover:!translate-y-[-6px] hover:shadow-2xl ${milestone.cardBg} ${milestone.offsetClass}`}
+              >
+                {/* Card Top Row: Circular Step Badge & Arrow */}
+                <div className="flex items-center justify-between mb-8">
+                  <div
+                    className={`h-10 w-10 sm:h-11 sm:w-11 rounded-full border flex items-center justify-center font-bricolage font-bold text-xs sm:text-sm tracking-tight ${milestone.badgeBg}`}
+                  >
+                    {milestone.step}
                   </div>
-
-                  {/* Outcome Tag */}
-                  <div className="mt-6 pt-4 border-t border-stone-100 flex items-center gap-2 text-xs font-medium text-stone-700">
-                    <div className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-[#095F46]">
-                      <Check className="h-3 w-3 stroke-[2.5]" />
-                    </div>
-                    <span>{milestone.tag}</span>
+                  <div className={`p-1.5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 ${milestone.arrowColor}`}>
+                    <ArrowUpRight className="h-6 w-6 sm:h-7 sm:w-7 stroke-[2]" />
                   </div>
-                </article>
-              );
-            })}
+                </div>
+
+                {/* Card Bottom Group: Arabic Calligraphy, Title, Subtitle, & Description */}
+                <div>
+                  <span
+                    className={`font-amiri text-2xl sm:text-[28px] font-bold block mb-2 leading-none ${milestone.arabicColor}`}
+                    lang="ar"
+                    dir="rtl"
+                  >
+                    {milestone.arabic}
+                  </span>
+                  <h3 className={`font-bricolage text-2xl sm:text-[25px] font-bold tracking-tight leading-[1.15] mb-2 ${milestone.titleColor}`}>
+                    {milestone.title}
+                  </h3>
+                  <p className="text-[11px] sm:text-xs font-bold uppercase tracking-wider mb-3 opacity-75">
+                    {milestone.subtitle}
+                  </p>
+                  <p className={`text-sm sm:text-[14.5px] leading-relaxed ${milestone.descColor}`}>
+                    {milestone.desc}
+                  </p>
+                </div>
+              </article>
+            ))}
           </motion.div>
 
         </div>
@@ -799,7 +770,7 @@ export default function AboutPage() {
       {/* ========================================================================= */}
       {/* 7. THE PARENT PROMISE — Peace of Mind for Families (Redesigned - Green) */}
       {/* ========================================================================= */}
-      <section className={`${styles.section} ${styles.greenSection} relative overflow-hidden select-none`} aria-labelledby="parents-heading">
+      <section id="parents" className={`${styles.section} ${styles.greenSection} relative overflow-hidden select-none`} aria-labelledby="parents-heading">
         {/* Ambient lighting glows */}
         <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-teal-500/10 blur-3xl pointer-events-none" />

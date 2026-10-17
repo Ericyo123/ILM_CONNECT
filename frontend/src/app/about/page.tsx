@@ -14,7 +14,6 @@ import {
   AudioLines,
   MessagesSquare,
   ShieldCheck,
-  ArrowDown,
 } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
 import styles from './about-refinement.module.css';
@@ -682,33 +681,17 @@ export default function AboutPage() {
       >
         <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           
-          {/* Top Header Row matching Reference: Badge, Title, Description, and Round Action Button */}
-          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6 mb-12 sm:mb-16 lg:mb-20">
-            <div className="max-w-3xl space-y-3">
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-stone-100 text-stone-700 border border-stone-200/90 shadow-xs">
-                The Learning Journey
-              </span>
-              <h2
-                id="pathway-heading"
-                className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[52px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15]"
-              >
-                A Gentle Pathway from First Letters to <span className="text-[#095F46]">Fluency</span>
-              </h2>
-              <p className="text-stone-600 text-sm sm:text-base lg:text-[17px] xl:text-[18px] leading-relaxed max-w-2xl font-normal pt-1">
-                A structured progression through foundations, recitation, memorisation, and living character — adapted by your scholar to your child&apos;s unique pace.
-              </p>
-            </div>
-
-            {/* Top-Right Circular Action Button Scrolling to Parents Promise */}
-            <div className="hidden sm:flex shrink-0 pt-2">
-              <a
-                href="#parents"
-                aria-label="Scroll to parent promise"
-                className="h-12 w-12 sm:h-13 sm:w-13 rounded-full bg-stone-950 hover:bg-[#095F46] text-white flex items-center justify-center transition-all duration-300 shadow-[0_4px_16px_rgba(0,0,0,0.12)] hover:shadow-[0_8px_24px_rgba(9,95,70,0.25)] hover:scale-105 active:scale-95 group"
-              >
-                <ArrowDown className="h-5 w-5 stroke-[2.2] transition-transform duration-300 group-hover:translate-y-0.5" />
-              </a>
-            </div>
+          {/* Section Header */}
+          <div className="max-w-3xl space-y-3 mb-12 sm:mb-16 lg:mb-20">
+            <h2
+              id="pathway-heading"
+              className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[52px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15]"
+            >
+              A Gentle Pathway from First Letters to <span className="text-[#095F46]">Fluency</span>
+            </h2>
+            <p className="text-stone-600 text-sm sm:text-base lg:text-[17px] xl:text-[18px] leading-relaxed max-w-2xl font-normal pt-1">
+              A structured progression through foundations, recitation, memorisation, and living character — adapted by your scholar to your child&apos;s unique pace.
+            </p>
           </div>
 
           {/* 4 Staggered & Dynamic Tilted Cards with Photography Header */}

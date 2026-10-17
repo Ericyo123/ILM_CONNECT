@@ -350,6 +350,7 @@ export default function AboutPage() {
         image="/images/about-hero-scholar-monochrome.jpg"
         imageAlt="Islamic scholar reading the Quran in a mosque courtyard"
         imageClassName="object-cover object-[55%_48%] opacity-90"
+        className="min-h-[52vh] sm:min-h-[58vh] lg:min-h-[64vh] py-24 sm:py-28 lg:py-32 xl:py-36"
         overlay={<>
           <div className="absolute inset-0 bg-[#095F46]/25 mix-blend-multiply" />
           <div className="absolute inset-0 bg-gradient-to-b from-[#031e18]/85 via-[#095F46]/20 to-[#031e18]/95" />
@@ -360,11 +361,8 @@ export default function AboutPage() {
       {/* ========================================================================= */}
       {/* 2. OUR STORY — Why We Started Ilmbit (The Dilemma & The Mission) */}
       {/* ========================================================================= */}
-      {/* ========================================================================= */}
-      {/* 2. OUR STORY — Why We Started Ilmbit (The Dilemma & The Mission) */}
-      {/* ========================================================================= */}
-      <section id="story" className={`relative z-10 py-16 sm:py-20 lg:py-24 bg-white border-b border-stone-200/60 scroll-mt-20 ${styles.whiteSection} ${styles.patternBackground}`}>
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
+      <section id="story" className={`relative z-10 py-20 sm:py-24 lg:py-32 xl:py-36 bg-white border-b border-stone-200/60 scroll-mt-20 ${styles.whiteSection} ${styles.patternBackground}`}>
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-14 sm:space-y-16">
           
           <div className="text-center max-w-3xl mx-auto space-y-3">
             <h2 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.18]">
@@ -384,13 +382,13 @@ export default function AboutPage() {
               whileInView="visible"
               viewport={{ once: true, amount: 0.15 }}
               variants={fadeUp}
-              className="rounded-3xl border border-stone-200 bg-[#fafaf7] p-7 sm:p-9 lg:p-10 xl:p-11 shadow-[0_4px_20px_rgba(0,0,0,0.02)] flex flex-col justify-between"
+              className="rounded-3xl border border-stone-200 bg-[#fafaf7] p-8 sm:p-10 lg:p-11 xl:p-12 min-h-[420px] sm:min-h-[450px] lg:min-h-[480px] shadow-[0_4px_20px_rgba(0,0,0,0.02)] flex flex-col justify-between"
             >
               <div>
-                <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-bold tracking-tight text-stone-950 font-bricolage mb-5 lg:mb-6">
+                <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-bold tracking-tight text-stone-950 font-bricolage mb-6 lg:mb-7">
                   Before
                 </h3>
-                <ul className="space-y-4 sm:space-y-5 text-stone-600 text-sm sm:text-base lg:text-[16px] xl:text-[17px] leading-relaxed font-normal">
+                <ul className="space-y-5 sm:space-y-6 lg:space-y-7 text-stone-600 text-sm sm:text-base lg:text-[16px] xl:text-[17px] leading-relaxed font-normal">
                   <li className="flex items-start gap-3.5">
                     <span className="mt-1 flex h-5 w-5 lg:h-6 lg:w-6 shrink-0 items-center justify-center rounded-full bg-red-500 text-white text-xs font-bold">
                       <X className="h-3 w-3 lg:h-3.5 lg:w-3.5 stroke-[2.5]" />
@@ -428,7 +426,7 @@ export default function AboutPage() {
               whileInView="visible"
               viewport={{ once: true, amount: 0.15 }}
               variants={fadeUp}
-              className="relative overflow-hidden rounded-3xl bg-[#083f33] p-7 sm:p-9 lg:p-10 xl:p-11 text-white shadow-[0_16px_40px_rgba(8,63,51,0.18)] flex flex-col justify-between"
+              className="relative overflow-hidden rounded-3xl bg-[#083f33] p-8 sm:p-10 lg:p-11 xl:p-12 min-h-[420px] sm:min-h-[450px] lg:min-h-[480px] text-white shadow-[0_16px_40px_rgba(8,63,51,0.18)] flex flex-col justify-between"
             >
               <div className="absolute inset-0 z-0 opacity-15">
                 <Image
@@ -441,10 +439,10 @@ export default function AboutPage() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#052d23] via-[#083f33]/90 to-[#083f33]/80 z-0" />
 
               <div className="relative z-10">
-                <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-bold tracking-tight text-white font-bricolage mb-5 lg:mb-6">
+                <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-bold tracking-tight text-white font-bricolage mb-6 lg:mb-7">
                   After
                 </h3>
-                <ul className="space-y-4 sm:space-y-5 text-emerald-50/90 text-sm sm:text-base lg:text-[16px] xl:text-[17px] leading-relaxed font-normal">
+                <ul className="space-y-5 sm:space-y-6 lg:space-y-7 text-emerald-50/90 text-sm sm:text-base lg:text-[16px] xl:text-[17px] leading-relaxed font-normal">
                   <li className="flex items-start gap-3.5">
                     <span className="mt-1 flex h-5 w-5 lg:h-6 lg:w-6 shrink-0 items-center justify-center rounded-full bg-emerald-400 text-stone-950 text-xs font-bold">
                       <Check className="h-3 w-3 lg:h-3.5 lg:w-3.5 stroke-[3]" />
@@ -484,12 +482,12 @@ export default function AboutPage() {
       {/* ========================================================================= */}
       {/* 3. CORE PHILOSOPHY & BENTO GRID — Verified Scholars, Personal Attention, Global */}
       {/* ========================================================================= */}
-      <section id="philosophy" className="relative z-10 py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-[#04241B] via-[#07382B] to-[#031d16] text-white border-b border-[#04241B] select-none scroll-mt-20 overflow-hidden">
+      <section id="philosophy" className="relative z-10 py-20 sm:py-24 lg:py-32 xl:py-36 bg-gradient-to-br from-[#04241B] via-[#07382B] to-[#031d16] text-white border-b border-[#04241B] select-none scroll-mt-20 overflow-hidden">
         {/* Ambient lighting glows */}
         <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-teal-500/10 blur-3xl pointer-events-none" />
 
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-7 sm:space-y-8">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-10 sm:space-y-12 lg:space-y-14">
           
           {/* Top Row: Left Title vs Right Concise Text */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
@@ -527,10 +525,10 @@ export default function AboutPage() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.15 }}
             variants={fadeUp}
-            className="grid gap-4 lg:grid-cols-12 lg:grid-rows-2"
+            className="grid gap-4 sm:gap-5 lg:grid-cols-12 lg:grid-rows-2"
           >
             {/* Verified Scholars Big Card */}
-            <article className="group relative min-h-[390px] overflow-hidden rounded-3xl bg-stone-900 lg:col-span-7 lg:row-span-2 lg:min-h-[500px] border border-white/10 shadow-lg">
+            <article className="group relative min-h-[440px] sm:min-h-[490px] lg:min-h-[570px] xl:min-h-[610px] overflow-hidden rounded-3xl bg-stone-900 lg:col-span-7 lg:row-span-2 border border-white/10 shadow-lg">
               <Image
                 src="/images/about-verified-scholar.jpg"
                 alt="Quran teacher seated beside an open copy of the Holy Quran"
@@ -539,7 +537,7 @@ export default function AboutPage() {
                 sizes="(max-width: 1024px) 100vw, 58vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#021812]/95 via-[#021812]/40 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-7 text-white sm:p-9 lg:p-10 xl:p-11">
+              <div className="absolute inset-x-0 bottom-0 p-8 text-white sm:p-10 lg:p-11 xl:p-12">
                 <h3 className="max-w-md text-3xl sm:text-4xl lg:text-[40px] xl:text-[44px] font-bold tracking-[-0.035em] font-bricolage">
                   Verified Scholars
                 </h3>
@@ -550,7 +548,7 @@ export default function AboutPage() {
             </article>
 
             {/* Personal Attention Card */}
-            <article className="group relative min-h-[270px] overflow-hidden rounded-3xl bg-stone-900 lg:col-span-5 lg:min-h-0 border border-white/10 shadow-lg">
+            <article className="group relative min-h-[295px] sm:min-h-[315px] lg:min-h-[273px] xl:min-h-[293px] overflow-hidden rounded-3xl bg-stone-900 lg:col-span-5 border border-white/10 shadow-lg">
               <Image
                 src="/images/about-personal-attention-online.jpg"
                 alt="Student receiving personal online Quran instruction"
@@ -559,7 +557,7 @@ export default function AboutPage() {
                 sizes="(max-width: 1024px) 100vw, 42vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#021812]/90 via-[#021812]/30 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-6 text-white sm:p-7 lg:p-8">
+              <div className="absolute inset-x-0 bottom-0 p-7 text-white sm:p-8 lg:p-8 xl:p-9">
                 <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-bold tracking-tight font-bricolage">Personal Attention</h3>
                 <p className="mt-2 max-w-lg text-sm sm:text-base lg:text-[16px] leading-relaxed text-stone-200">
                   Private sessions paced around the student, with direct Tajweed correction.
@@ -568,7 +566,7 @@ export default function AboutPage() {
             </article>
 
             {/* Built Around You (Countries Flags) - High Contrast White Card */}
-            <article className="group relative flex min-h-[230px] flex-col justify-center overflow-hidden rounded-3xl bg-white p-6 sm:p-7 lg:p-8 text-stone-950 shadow-[0_16px_40px_rgba(0,0,0,0.25)] border border-white/90 lg:col-span-5 lg:min-h-0">
+            <article className="group relative flex min-h-[265px] sm:min-h-[285px] lg:min-h-[273px] xl:min-h-[293px] flex-col justify-center overflow-hidden rounded-3xl bg-white p-7 sm:p-8 lg:p-8 xl:p-9 text-stone-950 shadow-[0_16px_40px_rgba(0,0,0,0.25)] border border-white/90 lg:col-span-5">
               <div className="relative">
                 <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-bold tracking-tight font-bricolage text-stone-950">Built Around You</h3>
                 <p className="mt-2 max-w-lg text-sm sm:text-base lg:text-[16px] leading-relaxed text-stone-600">
@@ -691,7 +689,7 @@ export default function AboutPage() {
       {/* 6. OUR PEDAGOGY — 4 Milestones of Learning (Connected Roadmap - White) */}
       {/* ========================================================================= */}
       <section className={`${styles.section} ${styles.whiteSection} ${styles.patternBackground} relative overflow-hidden select-none`} aria-labelledby="pathway-heading">
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-14 sm:space-y-16 lg:space-y-18">
           
           <div className="text-center max-w-3xl mx-auto space-y-3">
             <h2 id="pathway-heading" className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-normal text-stone-950 font-bricolage leading-[1.2] text-center">
@@ -734,7 +732,7 @@ export default function AboutPage() {
               return (
                 <article
                   key={milestone.title}
-                  className={`group relative flex flex-col justify-between rounded-3xl bg-white border border-stone-200/90 p-6 sm:p-7 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_40px_rgba(9,95,70,0.09)] hover:-translate-y-1.5 transition-all duration-300 ${milestone.borderHover}`}
+                  className={`group relative flex flex-col justify-between rounded-3xl bg-white border border-stone-200/90 p-7 sm:p-8 lg:p-7 xl:p-8 min-h-[460px] sm:min-h-[480px] lg:min-h-[510px] xl:min-h-[530px] shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_16px_40px_rgba(9,95,70,0.09)] hover:-translate-y-1.5 transition-all duration-300 ${milestone.borderHover}`}
                 >
                   <div>
                     {/* Top Row: Phase badge & Arabic calligraphy */}
@@ -806,7 +804,7 @@ export default function AboutPage() {
         <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-teal-500/10 blur-3xl pointer-events-none" />
 
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-14 sm:space-y-16 lg:space-y-18">
           
           <div className="text-center max-w-3xl mx-auto space-y-3">
             <h2 id="parents-heading" className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-white font-bricolage leading-[1.18] text-center">
@@ -829,7 +827,7 @@ export default function AboutPage() {
               return (
                 <article
                   key={promise.title}
-                  className="group relative flex flex-col justify-between rounded-3xl bg-white p-7 sm:p-8 lg:p-9 text-stone-900 shadow-[0_20px_50px_rgba(0,0,0,0.28)] border border-white/95 hover:shadow-[0_28px_60px_rgba(0,0,0,0.38)] hover:-translate-y-1.5 transition-all duration-300"
+                  className="group relative flex flex-col justify-between rounded-3xl bg-white p-8 sm:p-9 lg:p-10 xl:p-11 min-h-[440px] sm:min-h-[470px] lg:min-h-[500px] xl:min-h-[520px] text-stone-900 shadow-[0_20px_50px_rgba(0,0,0,0.28)] border border-white/95 hover:shadow-[0_28px_60px_rgba(0,0,0,0.38)] hover:-translate-y-1.5 transition-all duration-300"
                 >
                   <div>
                     {/* Top Row: Icon + Station Number */}
@@ -851,7 +849,7 @@ export default function AboutPage() {
                     </p>
 
                     {/* Checklist of commitments */}
-                    <ul className="space-y-3 pt-5 border-t border-stone-100 text-sm text-stone-700">
+                    <ul className="space-y-3.5 pt-6 border-t border-stone-100 text-sm text-stone-700">
                       {promise.points.map((point) => (
                         <li key={point} className="flex items-start gap-3">
                           <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-[#095F46]">
@@ -884,7 +882,7 @@ export default function AboutPage() {
       {/* ========================================================================= */}
       {/* 8. PRIORITY WAITLIST REGISTRATION FORM SECTION (PRESERVED AS IS) */}
       {/* ========================================================================= */}
-      <section id="waitlist" className="relative z-10 scroll-mt-24 sm:scroll-mt-28 py-16 sm:py-20 lg:py-24">
+      <section id="waitlist" className="relative z-10 scroll-mt-24 sm:scroll-mt-28 py-20 sm:py-24 lg:py-32 xl:py-36">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
@@ -894,7 +892,7 @@ export default function AboutPage() {
             className="relative grid w-full overflow-hidden rounded-2xl sm:rounded-[2rem] border border-stone-200 bg-[#f7f7f3] shadow-[0_22px_70px_rgba(20,32,27,0.10)] lg:grid-cols-[0.82fr_1.18fr]"
           >
             {/* Left Waitlist Banner */}
-            <div className="relative flex min-h-[280px] sm:min-h-[320px] flex-col justify-between overflow-hidden bg-[#083f33] p-6 sm:p-9 lg:min-h-0 lg:p-10 text-white">
+            <div className="relative flex min-h-[320px] sm:min-h-[360px] flex-col justify-between overflow-hidden bg-[#083f33] p-7 sm:p-10 lg:min-h-0 lg:p-12 xl:p-14 text-white">
               <Image
                 src="/images/about-waitlist-quran.jpg"
                 alt=""
@@ -930,7 +928,7 @@ export default function AboutPage() {
             </div>
 
             {/* Right Waitlist Form */}
-            <div className="relative bg-[#fcfcf9] p-5 sm:p-8 lg:p-10">
+            <div className="relative bg-[#fcfcf9] p-6 sm:p-9 lg:p-11 xl:p-12">
               <div className="mb-6 sm:mb-7 flex items-end justify-between gap-4 border-b border-stone-200/60 pb-4 sm:pb-5">
                 <div>
                   <p className="text-xs font-bold uppercase tracking-wider text-[#095F46]">Join the waitlist</p>

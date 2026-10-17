@@ -19,6 +19,7 @@ interface PublicPageHeroProps {
   overlay: ReactNode;
   scrollTarget?: string;
   scrollLabel?: string;
+  className?: string;
 }
 
 export default function PublicPageHero({
@@ -29,11 +30,12 @@ export default function PublicPageHero({
   imageAlt,
   imageClassName,
   overlay,
+  className,
 }: PublicPageHeroProps) {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section className="relative min-h-[48vh] sm:min-h-[52vh] lg:min-h-[56vh] flex items-center justify-center overflow-hidden bg-stone-950 text-white select-none py-20 sm:py-24 lg:py-28">
+    <section className={`relative min-h-[48vh] sm:min-h-[52vh] lg:min-h-[56vh] flex items-center justify-center overflow-hidden bg-stone-950 text-white select-none py-20 sm:py-24 lg:py-28 ${className || ''}`}>
       <div className="absolute inset-0 z-0">
         <Image src={image} alt={imageAlt} fill priority sizes="100vw" className={imageClassName} />
         {overlay}

@@ -124,26 +124,67 @@ const revealViewport = {
   margin: '0px 0px -12% 0px',
 } as const;
 
+const heroBackgroundImages = [
+  {
+    src: '/home images/hero-student-yasin.jpg',
+    alt: 'Young student reading Surah Ya-Sin from open Holy Quran',
+    objectPosition: 'object-[65%_center] sm:object-center',
+  },
+  {
+    src: '/home images/hero-quran-rehal.jpg',
+    alt: 'Holy Quran on carved wooden rehal stand upon green carpet',
+    objectPosition: 'object-[60%_center] sm:object-center',
+  },
+  {
+    src: '/home images/hero-mosque-prayer.jpg',
+    alt: 'Congregation seated in prayer inside historic mosque under chandelier',
+    objectPosition: 'object-[30%_center] sm:object-center',
+  },
+  {
+    src: '/home images/test56.png',
+    alt: 'Student reciting Holy Quran in mosque',
+    objectPosition: 'object-[75%_center] sm:object-center',
+  },
+];
+
 export default function HomePage() {
   const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+  const [activeHeroIndex, setActiveHeroIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveHeroIndex((prev) => (prev + 1) % heroBackgroundImages.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <>
       {/* ========================================================================= */}
-      {/* 1. HERO SECTION — Single Image with Left-Aligned Typography & Logo Alignment */}
+      {/* 1. HERO SECTION — Rotating Cinematic Images with Fade-In Effect */}
       {/* ========================================================================= */}
       <section className="home-hero-section relative flex flex-col justify-between overflow-hidden bg-stone-950 text-white select-none">
-        {/* Background Single Image — Student Reciting Holy Quran */}
+        {/* Background Rotating Images with Cinematic Fade-In / Crossfade */}
         <div className="absolute inset-0 z-0 overflow-hidden bg-stone-950">
-          <Image
-            src="/home images/test56.png"
-            alt="Student reciting Holy Quran in mosque"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-[75%_center] sm:object-center"
-          />
+          {heroBackgroundImages.map((img, idx) => (
+            <div
+              key={img.src}
+              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                idx === activeHeroIndex ? 'opacity-100' : 'opacity-0 pointer-events-none'
+              }`}
+              aria-hidden={idx !== activeHeroIndex}
+            >
+              <Image
+                src={img.src}
+                alt={img.alt}
+                fill
+                priority={idx === 0}
+                sizes="100vw"
+                className={`object-cover ${img.objectPosition}`}
+              />
+            </div>
+          ))}
 
           {/* Angelic aesthetic warm golden filter & divine atmospheric radiance */}
           <div
@@ -223,6 +264,27 @@ export default function HomePage() {
             </div>
           </div>
         </motion.div>
+
+        {/* Subtle Slide Indicators */}
+        <div
+          className="relative z-20 mx-auto w-full max-w-7xl xl:max-w-[1440px] px-5 sm:px-7 lg:px-8 xl:px-9 pb-3 sm:pb-4 flex items-center justify-start gap-2"
+          aria-label="Hero background slideshow indicators"
+        >
+          {heroBackgroundImages.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => setActiveHeroIndex(i)}
+              className={`h-1.5 rounded-full transition-all duration-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#EAD08A] cursor-pointer ${
+                i === activeHeroIndex
+                  ? 'w-8 bg-[#EAD08A] shadow-[0_0_8px_rgba(234,208,138,0.5)]'
+                  : 'w-2 bg-white/40 hover:bg-white/75'
+              }`}
+              aria-label={`Switch to background image ${i + 1}`}
+              aria-current={i === activeHeroIndex ? 'true' : undefined}
+            />
+          ))}
+        </div>
 
         {/* ========================================================================= */}
         {/* Bottom Green Fat Line Marquee — Infinite Seamless Scroll to Waitlist */}
@@ -860,11 +922,11 @@ export default function HomePage() {
             />
 
             <div className="relative z-10 max-w-4xl">
-              {/* Headline with Relaxed Line-Height */}
-              <h2 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[52px] font-bold tracking-tight text-white leading-[1.25] sm:leading-[1.28] lg:leading-[1.3] mb-4 sm:mb-5 font-bricolage">
+              {/* Headline with Calibrated Tight Line-Height */}
+              <h2 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[52px] font-bold tracking-tight text-white leading-[1.12] sm:leading-[1.14] lg:leading-[1.15] mb-4 sm:mb-5 font-bricolage">
                 Begin Your Journey{' '}
-                <span className="block sm:inline text-[#EAD08A] font-bricolage font-bold">
-                  with Certified Islamic Scholars
+                <span className="text-[#EAD08A] font-bricolage font-bold">
+                  with<br className="hidden sm:inline" /> Certified Islamic Scholars
                 </span>
               </h2>
 

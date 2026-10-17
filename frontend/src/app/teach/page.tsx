@@ -5,26 +5,18 @@ import Link from 'next/link';
 import Image from 'next/image';
 import {
   Check,
-  Globe,
-  Clock,
-  Video,
-  Wallet,
   ChevronDown,
-  UserCheck,
-  GraduationCap,
-  ShieldCheck,
-  CalendarCheck,
   Eye,
   EyeOff,
   MessageCircle,
-  FileText,
   Sparkles,
-  ArrowRight,
-  BookOpen,
-  Award,
+  ShieldCheck,
+  CalendarCheck,
+  Wallet,
+  UserCheck,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import PublicPageHero, { publicPageFadeUp as fadeUp } from '@/components/public-page-hero';
+import PublicPageHero from '@/components/public-page-hero';
 import CountryPhoneInput from '@/components/country-phone-input';
 import {
   formatInternationalPhone,
@@ -42,30 +34,53 @@ const specializationsList = [
   'Supplications & Daily Duas',
 ];
 
+const whyTeachCards = [
+  {
+    title: 'Global Student Reach',
+    desc: 'Teach motivated students across the UK, Australia, US, Europe, and Sri Lankan diaspora communities from your home or study.',
+    image: '/images/about-scholar-teaching-main.jpg',
+    imageAlt: 'Islamic scholar conducting a live Quran teaching session',
+  },
+  {
+    title: 'Complete Flexibility',
+    desc: 'Select the exact daily time blocks that suit your personal schedule. Manage lessons effortlessly with automated calendars.',
+    image: '/images/about-home-learning.jpg',
+    imageAlt: 'Comfortable home study setting for online Quran lessons',
+  },
+  {
+    title: 'Bi-Weekly Direct Payouts',
+    desc: 'Earn competitive session compensation with guaranteed, transparent bi-weekly deposits to your bank or Wise account.',
+    image: '/images/about/pillar-amanah.jpg',
+    imageAlt: 'Quran on wooden stand representing trust and financial transparency',
+  },
+  {
+    title: 'Dedicated Virtual Classroom',
+    desc: 'Integrated 1:1 HD video, interactive digital Mushaf, crystal-clear audio, and student progress notes built specifically for Quran learning.',
+    image: '/images/quran-class-screen.png',
+    imageAlt: 'Ilmbit 1:1 virtual Quran classroom with digital Mushaf',
+  },
+];
+
 const onboardingSteps = [
   {
     step: '01',
     title: 'Submit Application',
     desc: 'Fill out the 3-minute form below with your academic qualifications, Ijazah certificates, and teaching experience.',
-    icon: FileText,
   },
   {
     step: '02',
     title: 'Sanad & Recitation Review',
     desc: 'Participate in a friendly 15-minute virtual conversation with our academic board to review your Tajweed rules and articulation.',
-    icon: Award,
   },
   {
     step: '03',
     title: 'Platform Orientation',
     desc: 'Receive a quick walkthrough of our 1:1 virtual classroom, interactive digital Mushaf, and student progress notes.',
-    icon: CalendarCheck,
   },
   {
     step: '04',
     title: 'Welcome Students',
     desc: 'Begin matching with diaspora students during your chosen time slots, with direct bi-weekly payouts to your bank.',
-    icon: BookOpen,
   },
 ];
 
@@ -177,16 +192,14 @@ export default function TeachPage() {
   return (
     <div className="min-h-screen bg-[#f7faf8] text-stone-900 selection:bg-[#095F46] selection:text-white">
       {/* ========================================================================= */}
-      {/* 1. HERO SECTION — Elevated with Subtitle & Direct Action Button           */}
+      {/* 1. HERO SECTION — Clean Headline Only Matching Other Pages                */}
       {/* ========================================================================= */}
       <PublicPageHero
         title="Teach the Holy Quran"
         subtitle="Empower Students Worldwide"
-        description="Join an esteemed community of verified Maulavis and Aalimaat. Conduct structured 1:1 online sessions with diaspora families across the UK, US, Europe, and Australia."
         image="/images/teach-hero-scholar.jpg"
         imageAlt="Islamic scholar library with classical Islamic texts"
         imageClassName="object-cover object-[center_35%] opacity-85"
-        className="min-h-[52vh] sm:min-h-[58vh] lg:min-h-[64vh] py-24 sm:py-28 lg:py-32 xl:py-36"
         overlay={
           <>
             <div className="absolute inset-0 bg-stone-950/60" />
@@ -197,63 +210,9 @@ export default function TeachPage() {
       />
 
       {/* ========================================================================= */}
-      {/* 2. QUICK METRICS BAR ("The Counter")                                      */}
+      {/* SECTION 1 (WHITE): WHY SCHOLARS CHOOSE TO TEACH ON ILMBIT                  */}
       {/* ========================================================================= */}
-      <section className="border-b border-stone-200/80 bg-white py-10 sm:py-14 lg:py-16 shadow-xs relative z-10">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center divide-y sm:divide-y-0 sm:divide-x divide-stone-100">
-            <div className="px-3 sm:px-4">
-              <p className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#095F46] font-bricolage tracking-tight leading-none mb-2">
-                100%
-              </p>
-              <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-stone-900">
-                Remote Flexibility
-              </p>
-              <p className="text-xs text-stone-500 font-normal mt-1 hidden sm:block">
-                Teach from the comfort of home
-              </p>
-            </div>
-            <div className="px-3 sm:px-4 pt-4 sm:pt-0">
-              <p className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#095F46] font-bricolage tracking-tight leading-none mb-2">
-                1:1 Format
-              </p>
-              <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-stone-900">
-                Private Classroom
-              </p>
-              <p className="text-xs text-stone-500 font-normal mt-1 hidden sm:block">
-                Dedicated student attention &amp; adab
-              </p>
-            </div>
-            <div className="px-3 sm:px-4 pt-4 sm:pt-0">
-              <p className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#095F46] font-bricolage tracking-tight leading-none mb-2">
-                Flexible
-              </p>
-              <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-stone-900">
-                Daily Time Slots
-              </p>
-              <p className="text-xs text-stone-500 font-normal mt-1 hidden sm:block">
-                Set and adjust your own routine
-              </p>
-            </div>
-            <div className="px-3 sm:px-4 pt-4 sm:pt-0">
-              <p className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-[#095F46] font-bricolage tracking-tight leading-none mb-2">
-                Bi-Weekly
-              </p>
-              <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-stone-900">
-                Direct Payouts
-              </p>
-              <p className="text-xs text-stone-500 font-normal mt-1 hidden sm:block">
-                Direct bank or Wise deposit
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================================================= */}
-      {/* 3. WHY SCHOLARS CHOOSE TO TEACH ON ILMBIT                                  */}
-      {/* ========================================================================= */}
-      <section id="why-teach" className="py-20 sm:py-24 lg:py-32 xl:py-36 bg-gradient-to-b from-white via-[#f4f8f5] to-white border-b border-stone-200/70 scroll-mt-20">
+      <section id="why-teach" className="py-20 sm:py-24 lg:py-32 xl:py-36 bg-white border-b border-stone-200/70 scroll-mt-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto space-y-3">
             <h2 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15]">
@@ -265,50 +224,27 @@ export default function TeachPage() {
           </div>
 
           <div className="mt-14 sm:mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7 items-stretch">
-            {[
-              {
-                icon: Globe,
-                title: 'Global Student Reach',
-                desc: 'Teach motivated students across the UK, Australia, US, Europe, and Sri Lankan diaspora communities.',
-              },
-              {
-                icon: Clock,
-                title: 'Complete Flexibility',
-                desc: 'Select the exact daily time blocks that suit your personal schedule. Manage lessons effortlessly.',
-              },
-              {
-                icon: Wallet,
-                title: 'Bi-Weekly Direct Payouts',
-                desc: 'Earn competitive session compensation with guaranteed bi-weekly deposits to your bank or Wise account.',
-              },
-              {
-                icon: Video,
-                title: 'Dedicated Virtual Classroom',
-                desc: 'Integrated 1:1 HD video, high-resolution digital Mushaf, crystal-clear audio, and student progress logs.',
-              },
-            ].map((card, idx) => (
+            {whyTeachCards.map((card, idx) => (
               <div
                 key={idx}
-                className="group relative rounded-3xl border border-[#095F46]/15 bg-gradient-to-br from-white via-[#f7fbf9] to-[#edf7f3] p-8 sm:p-9 min-h-[340px] sm:min-h-[360px] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#095F46]/40 hover:shadow-xl hover:shadow-[#095F46]/10 overflow-hidden flex flex-col justify-between"
+                className="group rounded-3xl border border-stone-200/90 bg-[#fafbf9] p-6 sm:p-7 flex flex-col justify-between shadow-xs hover:border-[#095F46]/30 hover:shadow-lg transition-all"
               >
-                {/* Decorative Soft Corner Glow */}
-                <div className="absolute -top-12 -right-12 w-28 h-28 rounded-full bg-gradient-to-br from-[#095F46]/10 to-transparent blur-2xl group-hover:from-[#095F46]/20 transition-all pointer-events-none" />
-
                 <div>
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#095F46] to-[#043E2E] text-[#EAD08A] shadow-md shadow-[#095F46]/25 group-hover:scale-105 transition-transform mb-6">
-                    <card.icon className="h-6 w-6 stroke-[1.9]" />
+                  <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden mb-5 bg-stone-100 border border-stone-200/60">
+                    <Image
+                      src={card.image}
+                      alt={card.imageAlt}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                      className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                    />
                   </div>
-                  <h3 className="text-xl sm:text-[22px] font-bold text-stone-900 font-bricolage tracking-tight group-hover:text-[#095F46] transition-colors mb-2.5">
+                  <h3 className="text-xl sm:text-[21px] font-bold text-stone-950 font-bricolage tracking-tight leading-[1.2] mb-2.5">
                     {card.title}
                   </h3>
                   <p className="text-sm sm:text-[14.5px] text-stone-600 leading-relaxed font-normal">
                     {card.desc}
                   </p>
-                </div>
-
-                <div className="mt-8 pt-4 border-t border-[#095F46]/10 flex items-center gap-1.5 text-xs font-semibold text-[#095F46]">
-                  <span>Verified Standard</span>
-                  <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                 </div>
               </div>
             ))}
@@ -317,102 +253,124 @@ export default function TeachPage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 4. SIMPLE 4-STEP ONBOARDING JOURNEY                                       */}
+      {/* SECTION 2 (GREEN): SIMPLE 4-STEP ONBOARDING PATHWAY                       */}
       {/* ========================================================================= */}
-      <section className="py-20 sm:py-24 lg:py-32 xl:py-36 bg-white border-b border-stone-200/70">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto space-y-3">
-            <h2 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15]">
-              Simple 4-Step <span className="text-[#095F46]">Onboarding</span>
-            </h2>
-            <p className="text-stone-600 text-sm sm:text-base lg:text-[18px] leading-relaxed max-w-2xl mx-auto font-normal">
-              From online application to your first 1:1 teaching session in less than a week.
-            </p>
-          </div>
+      <section
+        id="onboarding"
+        className="py-20 sm:py-24 lg:py-28 bg-gradient-to-b from-[#063529] via-[#083f33] to-[#04281e] text-white border-b border-emerald-950/60 scroll-mt-16 select-none relative overflow-hidden"
+      >
+        {/* Subtle Ambient Radial Glow */}
+        <div className="absolute top-1/4 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] rounded-full bg-[#EAD08A]/10 blur-[140px] pointer-events-none" />
+        <div className="absolute bottom-10 right-0 w-[500px] h-[500px] rounded-full bg-emerald-400/8 blur-[130px] pointer-events-none" />
 
-          <div className="mt-14 sm:mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7 items-stretch">
-            {onboardingSteps.map((step) => {
-              const Icon = step.icon;
-              return (
-                <div
-                  key={step.step}
-                  className="relative rounded-3xl border border-stone-200/90 bg-[#fafbf9] p-7 sm:p-8 flex flex-col justify-between shadow-xs hover:border-[#095F46]/40 hover:shadow-lg transition-all"
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-6">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 text-[#095F46] border border-emerald-100">
-                        <Icon className="h-6 w-6 stroke-[2]" />
-                      </div>
-                      <span className="font-bricolage font-bold text-3xl sm:text-4xl text-stone-300">
-                        {step.step}
-                      </span>
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-16 items-center">
+            {/* Left Column: Picture of Actual Dashboard on Laptop */}
+            <div className="relative lg:col-span-6 flex items-center justify-center order-2 lg:order-1">
+              <div className="relative w-full max-w-[620px] lg:max-w-none">
+                {/* Subtle warm glow around the laptop */}
+                <div className="absolute -inset-4 bg-gradient-to-tr from-[#EAD08A]/15 via-emerald-400/10 to-transparent rounded-[32px] blur-2xl -z-10" />
+
+                {/* Laptop Screen Display Lid */}
+                <div className="relative mx-auto w-full rounded-t-[18px] sm:rounded-t-[22px] bg-[#1a1b1e] p-2.5 sm:p-3 lg:p-3.5 pt-3 sm:pt-3.5 lg:pt-4 border border-zinc-700/80 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)]">
+                  {/* Top Center Camera Dot */}
+                  <div className="flex items-center justify-center mb-1.5 sm:mb-2">
+                    <div className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-zinc-900 border border-zinc-700 flex items-center justify-center">
+                      <div className="w-0.5 sm:w-1 h-0.5 sm:h-1 rounded-full bg-emerald-950/70" />
                     </div>
-
-                    <h3 className="text-xl font-bold text-stone-950 font-bricolage tracking-tight mb-2.5">
-                      {step.title}
-                    </h3>
-                    <p className="text-sm text-stone-600 leading-relaxed font-normal">
-                      {step.desc}
-                    </p>
                   </div>
 
-                  <div className="mt-6 pt-4 border-t border-stone-200/60 flex items-center gap-1.5 text-xs font-semibold text-[#095F46]">
-                    <span>Step {step.step}</span>
+                  {/* Actual Dashboard Screenshot Display */}
+                  <div className="relative w-full aspect-[1440/900] rounded-sm sm:rounded-md overflow-hidden bg-stone-900 border border-zinc-800">
+                    <Image
+                      src="/images/actual-dashboard-screenshot.png"
+                      alt="Actual Ilmbit verified scholar teaching dashboard and session scheduler"
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover object-top select-none pointer-events-none"
+                    />
+                    {/* Subtle Glass Reflection */}
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-white/0 via-white/[0.03] to-transparent" />
                   </div>
                 </div>
-              );
-            })}
+
+                {/* Laptop Bottom Aluminum Base & Keyboard Deck */}
+                <div className="relative mx-auto w-[102%] -ml-[1%]">
+                  {/* Aluminum Hinge & Notch */}
+                  <div className="h-3 sm:h-4 bg-gradient-to-b from-[#2a2c30] via-[#202226] to-[#151619] rounded-b-md sm:rounded-b-lg border-t border-zinc-600/40 relative shadow-md">
+                    {/* Center Opening Notch */}
+                    <div className="w-16 sm:w-24 h-1 sm:h-1.5 bg-[#0e0f11] rounded-b-md mx-auto" />
+                  </div>
+                  {/* Laptop Bottom Lip */}
+                  <div className="w-[104%] -ml-[2%] h-1 sm:h-1.5 bg-gradient-to-b from-zinc-700 to-zinc-800 rounded-b-xl shadow-[0_12px_30px_rgba(0,0,0,0.65)]" />
+                </div>
+
+                {/* Under-Laptop Soft Ambient Floor Shadow */}
+                <div className="mx-auto w-[92%] h-4 sm:h-6 bg-black/60 blur-xl -mt-1 rounded-full" />
+              </div>
+            </div>
+
+            {/* Right Column: Title + Vertical Timeline Pathway */}
+            <div className="lg:col-span-6 flex flex-col justify-center order-1 lg:order-2">
+              <div className="mb-8 sm:mb-10 text-left">
+                <h2 className="text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-bold tracking-tight text-white leading-[1.12] sm:leading-[1.14] lg:leading-[1.15] mb-3 font-bricolage">
+                  Simple 4-Step Onboarding
+                </h2>
+                <p className="text-emerald-100/80 font-normal text-sm sm:text-base lg:text-[17px] leading-relaxed">
+                  From online application to your first live lesson in less than a week
+                </p>
+              </div>
+
+              {/* Editorial Vertical Timeline */}
+              <div className="relative w-full pt-1">
+                {/* Continuous Vertical Timeline Line */}
+                <div
+                  aria-hidden="true"
+                  className="absolute left-[15px] sm:left-[21px] top-3.5 bottom-6 w-[2px] bg-gradient-to-b from-[#EAD08A] via-emerald-400/40 to-emerald-500/10 pointer-events-none"
+                />
+
+                <div className="space-y-8 sm:space-y-10 lg:space-y-11">
+                  {onboardingSteps.map((item) => (
+                    <div
+                      key={item.step}
+                      className="group relative flex items-start gap-4 sm:gap-5"
+                    >
+                      {/* Dot Node on Line */}
+                      <div
+                        aria-hidden="true"
+                        className="relative z-10 flex h-8 w-8 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-full bg-[#052d23] border-2 border-[#EAD08A]/80 shadow-[0_0_15px_rgba(234,208,138,0.28)] group-hover:border-[#EAD08A] group-hover:scale-105 transition-all duration-300"
+                      >
+                        <div className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full bg-[#EAD08A] group-hover:bg-white transition-colors" />
+                      </div>
+
+                      {/* Step Number + Content */}
+                      <div className="flex-1 pt-0.5 sm:pt-1">
+                        <div className="flex items-baseline gap-2.5 sm:gap-3">
+                          <span className="font-bricolage text-sm sm:text-base font-bold tracking-wider text-[#EAD08A] drop-shadow-sm">
+                            {item.step}
+                          </span>
+                          <h3 className="font-bricolage text-base sm:text-lg lg:text-[21px] font-bold text-white tracking-tight leading-snug group-hover:text-emerald-100 transition-colors">
+                            {item.title}
+                          </h3>
+                        </div>
+
+                        <p className="mt-2 text-xs sm:text-sm lg:text-[14.5px] text-emerald-100/80 leading-relaxed font-normal">
+                          {item.desc}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ========================================================================= */}
-      {/* 5. SCHOLAR VOICES & COMMUNITY DIGNITY BANNER                              */}
+      {/* SECTION 3 (WHITE): TUTOR APPLICATION FORM                                 */}
       {/* ========================================================================= */}
-      <section className="py-20 sm:py-24 lg:py-28 bg-[#06261e] text-white relative overflow-hidden select-none border-b border-[#04241B]">
-        <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-teal-500/10 blur-3xl pointer-events-none" />
-
-        <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center space-y-6">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/10 text-[#EAD08A] border border-white/15">
-            <Sparkles className="w-3.5 h-3.5" />
-            Teacher Community
-          </span>
-
-          <blockquote className="text-xl sm:text-2xl lg:text-3xl font-bricolage font-bold leading-relaxed text-emerald-50/95 max-w-3xl mx-auto">
-            &ldquo;Teaching diaspora children who live thousands of miles away while sitting in Sri Lanka has been deeply rewarding. The platform handles scheduling and payments with complete dignity and respect.&rdquo;
-          </blockquote>
-
-          <div className="pt-2">
-            <p className="font-bold text-white text-base sm:text-lg">
-              Maulavi A. R. Mohamed
-            </p>
-            <p className="text-xs sm:text-sm text-emerald-200/75 mt-0.5">
-              Jamiah Naleemiah Graduate · Senior Tajweed Scholar on Ilmbit
-            </p>
-          </div>
-
-          <div className="pt-6 flex flex-wrap justify-center gap-4 sm:gap-6 text-xs text-emerald-100/75 border-t border-white/10 max-w-2xl mx-auto">
-            <span className="inline-flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-[#EAD08A]" />
-              Verified Sanad Community
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <CalendarCheck className="w-4 h-4 text-[#EAD08A]" />
-              Automated Scheduling
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <Wallet className="w-4 h-4 text-[#EAD08A]" />
-              Guaranteed Bi-Weekly Payouts
-            </span>
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================================================= */}
-      {/* 6. APPLICATION FORM SECTION                                               */}
-      {/* ========================================================================= */}
-      <section id="apply-form" className="py-20 sm:py-24 lg:py-32 xl:py-36 bg-[#f4f7f5] scroll-mt-20">
+      <section id="apply-form" className="py-20 sm:py-24 lg:py-32 xl:py-36 bg-[#fbfcfb] border-b border-stone-200/70 scroll-mt-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
           <AnimatePresence mode="wait">
             {isSubmitted ? (
@@ -767,68 +725,111 @@ export default function TeachPage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 7. TUTOR FAQS                                                             */}
+      {/* SECTION 4 (GREEN): SCHOLAR VOICES & FREQUENTLY ASKED QUESTIONS            */}
       {/* ========================================================================= */}
-      <section className="py-20 sm:py-24 lg:py-32 xl:py-36 bg-white border-t border-stone-200/70">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto space-y-3">
-            <h2 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15]">
-              Frequently Asked Questions by <span className="text-[#095F46]">Scholars</span>
-            </h2>
-            <p className="text-stone-600 text-sm sm:text-base lg:text-[18px] leading-relaxed max-w-2xl mx-auto font-normal">
-              Everything you need to know about teaching, onboarding, and payouts on Ilmbit.
-            </p>
-          </div>
+      <section className="py-20 sm:py-24 lg:py-32 xl:py-36 bg-[#06261e] text-white relative overflow-hidden select-none border-t border-[#04241B]">
+        {/* Subtle Ambient Glows */}
+        <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-teal-500/10 blur-3xl pointer-events-none" />
 
-          <div className="mt-12 sm:mt-14 space-y-4">
-            {faqs.map((faq, idx) => {
-              const isOpen = openFaq === idx;
-              return (
-                <div
-                  key={idx}
-                  className="rounded-2xl border border-stone-200/90 bg-[#fafbf9] overflow-hidden transition-all duration-200 hover:border-[#095F46]/30 shadow-xs"
-                >
-                  <button
-                    type="button"
-                    onClick={() => setOpenFaq(isOpen ? null : idx)}
-                    className="flex w-full items-center justify-between p-6 sm:p-7 text-left text-base sm:text-lg font-bold text-stone-900 font-bricolage tracking-tight"
-                  >
-                    <span>{faq.q}</span>
-                    <ChevronDown
-                      className={`h-5 w-5 shrink-0 text-stone-400 transition-transform duration-200 ${
-                        isOpen ? 'rotate-180 text-[#095F46]' : ''
-                      }`}
-                    />
-                  </button>
-                  {isOpen && (
-                    <div className="px-6 sm:px-7 pb-6 sm:pb-7 text-sm sm:text-[15.5px] text-stone-600 leading-relaxed font-normal border-t border-stone-200/60 pt-4">
-                      {faq.a}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
+        <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-16 sm:space-y-20">
+          {/* Scholar Community Dignity Spotlight */}
+          <div className="text-center space-y-6">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/10 text-[#EAD08A] border border-white/15">
+              <Sparkles className="w-3.5 h-3.5" />
+              Teacher Community
+            </span>
 
-          {/* Help & WhatsApp Contact Banner */}
-          <div className="mt-12 p-6 sm:p-8 rounded-3xl bg-[#f4f7f5] border border-emerald-900/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-            <div>
-              <p className="font-bricolage font-bold text-lg text-stone-950">
-                Have questions before applying?
+            <blockquote className="text-xl sm:text-2xl lg:text-3xl font-bricolage font-bold leading-relaxed text-emerald-50/95 max-w-3xl mx-auto">
+              &ldquo;Teaching diaspora children who live thousands of miles away while sitting in Sri Lanka has been deeply rewarding. The platform handles scheduling and payments with complete dignity and respect.&rdquo;
+            </blockquote>
+
+            <div className="pt-2">
+              <p className="font-bold text-white text-base sm:text-lg">
+                Maulavi A. R. Mohamed
               </p>
-              <p className="text-xs sm:text-sm text-stone-500 mt-1">
-                Our academic onboarding coordinator is available on WhatsApp to guide you through the process.
+              <p className="text-xs sm:text-sm text-emerald-200/75 mt-0.5">
+                Jamiah Naleemiah Graduate · Senior Tajweed Scholar on Ilmbit
               </p>
             </div>
-            <a
-              href="https://wa.me/94771234567"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="brand-button brand-button-primary shrink-0 px-6 py-2.5 text-xs font-semibold uppercase tracking-wider inline-flex items-center gap-2"
-            >
-              <MessageCircle className="w-4 h-4" />
-              <span>Chat on WhatsApp</span>
-            </a>
+
+            <div className="pt-6 flex flex-wrap justify-center gap-4 sm:gap-6 text-xs text-emerald-100/75 border-t border-white/10 max-w-2xl mx-auto">
+              <span className="inline-flex items-center gap-1.5">
+                <ShieldCheck className="w-4 h-4 text-[#EAD08A]" />
+                Verified Sanad Community
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <CalendarCheck className="w-4 h-4 text-[#EAD08A]" />
+                Automated Scheduling
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <Wallet className="w-4 h-4 text-[#EAD08A]" />
+                Guaranteed Bi-Weekly Payouts
+              </span>
+            </div>
+          </div>
+
+          {/* Frequently Asked Questions */}
+          <div className="pt-8 sm:pt-12 border-t border-white/10">
+            <div className="text-center max-w-3xl mx-auto space-y-3 mb-10 sm:mb-12">
+              <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-bold tracking-tight text-white font-bricolage leading-[1.12]">
+                Frequently Asked Questions by <span className="text-[#EAD08A]">Scholars</span>
+              </h2>
+              <p className="text-emerald-100/80 text-sm sm:text-base lg:text-[17px] leading-relaxed max-w-2xl mx-auto font-normal">
+                Everything you need to know about teaching, onboarding, and payouts on Ilmbit.
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              {faqs.map((faq, idx) => {
+                const isOpen = openFaq === idx;
+                return (
+                  <div
+                    key={idx}
+                    className="rounded-2xl border border-emerald-500/20 bg-[#08352b]/80 overflow-hidden transition-all duration-200 hover:border-[#EAD08A]/40 shadow-xs"
+                  >
+                    <button
+                      type="button"
+                      onClick={() => setOpenFaq(isOpen ? null : idx)}
+                      className="flex w-full items-center justify-between p-6 sm:p-7 text-left text-base sm:text-lg font-bold text-white font-bricolage tracking-tight"
+                    >
+                      <span>{faq.q}</span>
+                      <ChevronDown
+                        className={`h-5 w-5 shrink-0 text-emerald-300 transition-transform duration-200 ${
+                          isOpen ? 'rotate-180 text-[#EAD08A]' : ''
+                        }`}
+                      />
+                    </button>
+                    {isOpen && (
+                      <div className="px-6 sm:px-7 pb-6 sm:pb-7 text-sm sm:text-[15.5px] text-emerald-100/85 leading-relaxed font-normal border-t border-emerald-500/20 pt-4">
+                        {faq.a}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Help & WhatsApp Contact Banner */}
+            <div className="mt-12 p-6 sm:p-8 rounded-3xl bg-[#042019] border border-emerald-500/30 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+              <div>
+                <p className="font-bricolage font-bold text-lg text-white">
+                  Have questions before applying?
+                </p>
+                <p className="text-xs sm:text-sm text-emerald-200/70 mt-1">
+                  Our academic onboarding coordinator is available on WhatsApp to guide you through the process.
+                </p>
+              </div>
+              <a
+                href="https://wa.me/94771234567"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="brand-button brand-button-primary shrink-0 px-6 py-2.5 text-xs font-semibold uppercase tracking-wider inline-flex items-center gap-2"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span>Chat on WhatsApp</span>
+              </a>
+            </div>
           </div>
         </div>
       </section>

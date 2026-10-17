@@ -750,8 +750,8 @@ export default function AboutPage() {
                       className={`flex flex-col items-center justify-between text-center bg-white p-7 sm:p-8 lg:p-9 text-stone-900 shadow-[0_20px_50px_rgba(0,0,0,0.22)] border border-white/95 group-hover:shadow-[0_28px_60px_rgba(0,0,0,0.32)] transition-shadow duration-300 ${styles.flipCardFace}`}
                     >
                       <div className="w-full flex items-center justify-start">
-                        <span className="text-[11px] font-bold uppercase tracking-wider text-[#095F46] bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100">
-                          Promise 0{idx + 1}
+                        <span className="text-xs font-bold uppercase tracking-wider text-[#095F46]">
+                          Promise {idx + 1}
                         </span>
                       </div>
 
@@ -787,8 +787,8 @@ export default function AboutPage() {
                       <div>
                         {/* Header bar */}
                         <div className="flex items-center justify-between pb-3 mb-4 border-b border-stone-100">
-                          <span className="text-[11px] font-bold uppercase tracking-wider text-[#095F46] bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100">
-                            Promise 0{idx + 1}
+                          <span className="text-xs font-bold uppercase tracking-wider text-[#095F46]">
+                            Promise {idx + 1}
                           </span>
                           <span className="text-xs text-stone-400 font-medium">
                             Press to flip

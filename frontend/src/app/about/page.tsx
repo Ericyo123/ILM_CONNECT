@@ -14,7 +14,6 @@ import {
   AudioLines,
   MessagesSquare,
   ShieldCheck,
-  ArrowUpRight,
   ArrowDown,
 } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
@@ -187,14 +186,13 @@ const pedagogyMilestones = [
   {
     step: '01',
     phase: 'Phase 01',
-    arabic: 'الأساس',
     title: 'Foundations & Qaida',
     subtitle: 'Al-Asaas · Noorani Qaida',
     desc: 'Master Arabic letters, articulation points (Makharij), and how letter sounds join through patient, guided oral repetition.',
+    image: '/images/pricing-noorani-qaida.jpg',
+    imageAlt: 'Open Noorani Qaida primer for Arabic letter foundations',
     cardBg: 'bg-[#06261e] border-emerald-950/80 shadow-[0_24px_50px_rgba(4,38,30,0.35)]',
-    badgeBg: 'bg-white/10 text-white border-white/15',
-    arrowColor: 'text-white/80 group-hover:text-white',
-    arabicColor: 'text-[#EAD08A]',
+    badgeBg: 'bg-[#06261e]/85 text-[#EAD08A] border-white/20',
     titleColor: 'text-white',
     descColor: 'text-emerald-100/80',
     offsetClass: 'lg:translate-y-0 lg:-rotate-[1deg]',
@@ -202,14 +200,13 @@ const pedagogyMilestones = [
   {
     step: '02',
     phase: 'Phase 02',
-    arabic: 'التلاوة',
     title: 'Fluency & Tajweed',
     subtitle: 'At-Tilawah · Tajweed Mastery',
     desc: 'Practise Madd, Ghunnah, and pause rules with immediate, gentle pronunciation feedback from your dedicated scholar.',
+    image: '/images/pricing-tajweed-quran.jpg',
+    imageAlt: 'Recitation of the Holy Quran with Tajweed guidance',
     cardBg: 'bg-[#e9ece5] border-stone-300 shadow-[0_20px_45px_rgba(0,0,0,0.06)]',
-    badgeBg: 'bg-stone-900/10 text-stone-900 border-stone-900/10',
-    arrowColor: 'text-stone-900/80 group-hover:text-stone-900',
-    arabicColor: 'text-[#095F46]',
+    badgeBg: 'bg-white/90 text-stone-950 border-white/50',
     titleColor: 'text-stone-950',
     descColor: 'text-stone-600',
     offsetClass: 'lg:translate-y-7 xl:translate-y-9 lg:rotate-[1.25deg]',
@@ -217,14 +214,13 @@ const pedagogyMilestones = [
   {
     step: '03',
     phase: 'Phase 03',
-    arabic: 'الحفظ',
     title: 'Preservation & Hifz',
     subtitle: 'Al-Hifz · Memorisation',
     desc: 'Build memorisation gradually, with structured Muraja’ah revision cycles alongside new passages for lifelong retention.',
+    image: '/images/pricing-hifz-memorization.jpg',
+    imageAlt: 'Dedicated Quran memorisation and revision',
     cardBg: 'bg-[#EAD08A] border-[#d8be78] shadow-[0_24px_55px_rgba(234,208,138,0.30)]',
-    badgeBg: 'bg-stone-950/10 text-stone-950 border-stone-950/15',
-    arrowColor: 'text-stone-950/80 group-hover:text-stone-950',
-    arabicColor: 'text-emerald-950',
+    badgeBg: 'bg-[#EAD08A]/95 text-stone-950 border-[#d8be78]',
     titleColor: 'text-stone-950',
     descColor: 'text-stone-900/85 font-medium',
     offsetClass: 'lg:translate-y-14 xl:translate-y-18 lg:-rotate-[1.25deg]',
@@ -232,14 +228,13 @@ const pedagogyMilestones = [
   {
     step: '04',
     phase: 'Phase 04',
-    arabic: 'الأخلاق',
     title: 'Character & Sunnah',
     subtitle: 'Al-Akhlaq · Living Deen',
     desc: 'Bring Quranic learning into daily life through prophetic du’as, Islamic adab, good manners, and moral reflection.',
+    image: '/images/about/pillar-character.jpg',
+    imageAlt: 'Islamic adab, character, and prophetic manners',
     cardBg: 'bg-[#051f18] border-emerald-950/80 shadow-[0_24px_50px_rgba(4,38,30,0.35)]',
-    badgeBg: 'bg-white/10 text-white border-white/15',
-    arrowColor: 'text-white/80 group-hover:text-white',
-    arabicColor: 'text-[#EAD08A]',
+    badgeBg: 'bg-[#051f18]/85 text-[#EAD08A] border-white/20',
     titleColor: 'text-white',
     descColor: 'text-emerald-100/80',
     offsetClass: 'lg:translate-y-6 xl:translate-y-8 lg:rotate-[1deg]',
@@ -716,7 +711,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* 4 Staggered & Dynamic Tilted Cards */}
+          {/* 4 Staggered & Dynamic Tilted Cards with Photography Header */}
           <motion.div
             initial={shouldReduceMotion ? false : 'hidden'}
             whileInView="visible"
@@ -724,41 +719,41 @@ export default function AboutPage() {
             variants={fadeUp}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-5 xl:gap-6 items-stretch"
           >
-            {pedagogyMilestones.map((milestone) => (
+            {pedagogyMilestones?.map((milestone) => (
               <article
                 key={milestone.title}
-                className={`group relative flex flex-col justify-between rounded-[28px] sm:rounded-[32px] p-7 sm:p-8 min-h-[420px] sm:min-h-[450px] lg:min-h-[480px] xl:min-h-[500px] border transition-all duration-500 ease-out hover:z-20 hover:scale-[1.03] hover:!rotate-0 hover:!translate-y-[-6px] hover:shadow-2xl ${milestone.cardBg} ${milestone.offsetClass}`}
+                className={`group relative flex flex-col justify-between rounded-[28px] sm:rounded-[32px] p-5 sm:p-6 min-h-[460px] sm:min-h-[490px] lg:min-h-[520px] xl:min-h-[540px] border transition-all duration-500 ease-out hover:z-20 hover:scale-[1.03] hover:!rotate-0 hover:!translate-y-[-6px] hover:shadow-2xl ${milestone.cardBg} ${milestone.offsetClass}`}
               >
-                {/* Card Top Row: Circular Step Badge & Arrow */}
-                <div className="flex items-center justify-between mb-8">
-                  <div
-                    className={`h-10 w-10 sm:h-11 sm:w-11 rounded-full border flex items-center justify-center font-bricolage font-bold text-xs sm:text-sm tracking-tight ${milestone.badgeBg}`}
-                  >
-                    {milestone.step}
-                  </div>
-                  <div className={`p-1.5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 ${milestone.arrowColor}`}>
-                    <ArrowUpRight className="h-6 w-6 sm:h-7 sm:w-7 stroke-[2]" />
-                  </div>
-                </div>
-
-                {/* Card Bottom Group: Arabic Calligraphy, Title, Subtitle, & Description */}
                 <div>
-                  <span
-                    className={`font-amiri text-2xl sm:text-[28px] font-bold block mb-2 leading-none ${milestone.arabicColor}`}
-                    lang="ar"
-                    dir="rtl"
-                  >
-                    {milestone.arabic}
-                  </span>
-                  <h3 className={`font-bricolage text-2xl sm:text-[25px] font-bold tracking-tight leading-[1.15] mb-2 ${milestone.titleColor}`}>
-                    {milestone.title}
-                  </h3>
-                  <p className="text-[11px] sm:text-xs font-bold uppercase tracking-wider mb-3 opacity-75">
-                    {milestone.subtitle}
-                  </p>
-                  <p className={`text-sm sm:text-[14.5px] leading-relaxed ${milestone.descColor}`}>
-                    {milestone.desc}
-                  </p>
+                  {/* Card Top: Image with overlay number badge (No arrows) */}
+                  <div className="relative w-full h-44 sm:h-48 lg:h-52 rounded-2xl overflow-hidden mb-5 sm:mb-6 shadow-sm">
+                    <Image
+                      src={milestone.image}
+                      alt={milestone.imageAlt}
+                      fill
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/20 pointer-events-none" />
+                    <div
+                      className={`absolute top-3 left-3 h-10 w-10 sm:h-11 sm:w-11 rounded-full border flex items-center justify-center font-bricolage font-bold text-xs sm:text-sm tracking-tight shadow-md backdrop-blur-md ${milestone.badgeBg}`}
+                    >
+                      {milestone.step}
+                    </div>
+                  </div>
+
+                  {/* Card Body: Title, Subtitle, & Description (No Arabic terms) */}
+                  <div>
+                    <h3 className={`font-bricolage text-2xl sm:text-[25px] font-bold tracking-tight leading-[1.15] mb-2 ${milestone.titleColor}`}>
+                      {milestone.title}
+                    </h3>
+                    <p className="text-[11px] sm:text-xs font-bold uppercase tracking-wider mb-3 opacity-75">
+                      {milestone.subtitle}
+                    </p>
+                    <p className={`text-sm sm:text-[14.5px] leading-relaxed ${milestone.descColor}`}>
+                      {milestone.desc}
+                    </p>
+                  </div>
                 </div>
               </article>
             ))}
@@ -821,7 +816,7 @@ export default function AboutPage() {
 
                     {/* Checklist of commitments */}
                     <ul className="space-y-3.5 pt-6 border-t border-stone-100 text-sm text-stone-700">
-                      {promise.points.map((point) => (
+                      {promise.points?.map((point) => (
                         <li key={point} className="flex items-start gap-3">
                           <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-[#095F46]">
                             <Check className="h-3.5 w-3.5 stroke-[2.5]" />

@@ -91,16 +91,26 @@ export default function Header() {
             : 'min-h-[66px] border border-transparent shadow-none sm:min-h-[68px] lg:min-h-[76px] xl:min-h-[80px]'
         }`}
       >
-        <Link href="/" className="flex items-center translate-y-0.5 sm:translate-y-1 lg:translate-y-1.5" aria-label="ILMBIT home">
-          <span className="relative block h-[52px] w-[40px] sm:h-[56px] sm:w-[42px] lg:h-[66px] lg:w-[50px] xl:h-[70px] xl:w-[53px]">
+        <Link
+          href="/"
+          className="flex items-center justify-center shrink-0 my-auto"
+          aria-label="ILMBIT home"
+        >
+          <span
+            className={`relative flex items-center justify-center transition-all duration-300 ${
+              scrolled
+                ? 'h-[36px] w-[28px] sm:h-[40px] sm:w-[31px] lg:h-[44px] lg:w-[34px] xl:h-[46px] xl:w-[36px]'
+                : 'h-[46px] w-[36px] sm:h-[50px] sm:w-[39px] lg:h-[56px] lg:w-[43px] xl:h-[58px] xl:w-[45px]'
+            }`}
+          >
             <Image
               src="/images/ilmbit-logo-white.png"
               alt="ILMBIT"
-              width={70}
-              height={94}
-              className={`absolute inset-0 h-full w-auto object-contain transition-[height,opacity] duration-300 ${
+              fill
+              sizes="60px"
+              className={`object-contain object-center transition-opacity duration-300 ${
                 showWhiteNav ? 'opacity-100' : 'opacity-0'
-              } ${scrolled ? 'h-[44px] sm:h-[48px] lg:h-[56px] xl:h-[60px]' : 'h-[52px] sm:h-[56px] lg:h-[66px] xl:h-[70px]'}`}
+              }`}
               loading="eager"
               priority
             />
@@ -108,11 +118,11 @@ export default function Header() {
               src="/images/ilmbit-logo-green.png"
               alt=""
               aria-hidden="true"
-              width={70}
-              height={94}
-              className={`absolute inset-0 h-full w-auto object-contain transition-[height,opacity] duration-300 ${
+              fill
+              sizes="60px"
+              className={`object-contain object-center transition-opacity duration-300 ${
                 showWhiteNav ? 'opacity-0' : 'opacity-100'
-              } ${scrolled ? 'h-[44px] sm:h-[48px] lg:h-[56px] xl:h-[60px]' : 'h-[52px] sm:h-[56px] lg:h-[66px] xl:h-[70px]'}`}
+              }`}
               loading="eager"
               priority
             />

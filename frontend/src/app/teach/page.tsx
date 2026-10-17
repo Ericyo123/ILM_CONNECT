@@ -8,11 +8,6 @@ import {
   ChevronDown,
   Eye,
   EyeOff,
-  MessageCircle,
-  Sparkles,
-  ShieldCheck,
-  CalendarCheck,
-  Wallet,
   UserCheck,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -38,8 +33,8 @@ const whyTeachCards = [
   {
     title: 'Global Student Reach',
     desc: 'Teach motivated students across the UK, Australia, US, Europe, and Sri Lankan diaspora communities from your home or study.',
-    image: '/images/about-scholar-teaching-main.jpg',
-    imageAlt: 'Islamic scholar conducting a live Quran teaching session',
+    image: '/images/teach-global-students.jpg',
+    imageAlt: 'Students reciting Holy Quran verses during class',
   },
   {
     title: 'Complete Flexibility',
@@ -48,16 +43,16 @@ const whyTeachCards = [
     imageAlt: 'Comfortable home study setting for online Quran lessons',
   },
   {
-    title: 'Bi-Weekly Direct Payouts',
-    desc: 'Earn competitive session compensation with guaranteed, transparent bi-weekly deposits to your bank or Wise account.',
-    image: '/images/hero-pexels-5.jpg',
-    imageAlt: 'Holy Quran recitation photography from Pexels',
+    title: 'Sacred One-on-One Mentorship',
+    desc: 'Dedicate your full guidance to one student at a time, patiently nurturing accurate Tajweed articulation and love for the Holy Quran.',
+    image: '/images/teach-one-on-one-recitation.jpg',
+    imageAlt: 'Reverent recitation of the Holy Quran',
   },
   {
     title: 'Dedicated Virtual Classroom',
     desc: 'Integrated 1:1 HD video, interactive digital Mushaf, crystal-clear audio, and student progress notes built specifically for Quran learning.',
-    image: '/images/about-platform-standards-scholar.jpg',
-    imageAlt: 'Islamic scholar reviewing Quran recitation with digital teaching tools',
+    image: '/images/teach-virtual-classroom.jpg',
+    imageAlt: 'Dedicated study space with laptop and Islamic reference texts',
   },
 ];
 
@@ -81,29 +76,6 @@ const onboardingSteps = [
     step: '04',
     title: 'Welcome Students',
     desc: 'Begin matching with diaspora students during your chosen time slots, with direct bi-weekly payouts to your bank.',
-  },
-];
-
-const faqs = [
-  {
-    q: 'What qualifications do I need to teach on Ilmbit?',
-    a: 'We welcome certified Maulavis, Alim/Alimah graduates, Hafiz-ul-Quran certificate holders, and scholars with verified Sanad or Ijazah in Tajweed from accredited Islamic institutions and Madrassas in Sri Lanka and abroad.',
-  },
-  {
-    q: 'How does the class scheduling work?',
-    a: 'You have complete freedom over your teaching routine. You set your daily available hours and session slots. Lessons are booked as private 1:1 sessions matching your confirmed availability.',
-  },
-  {
-    q: 'How and when are tutor payouts processed?',
-    a: 'Payouts are calculated per completed session and transferred directly to your Sri Lankan bank account or international account (Wise / direct bank transfer) bi-weekly with transparent statements.',
-  },
-  {
-    q: 'What equipment and setup is required?',
-    a: 'A stable high-speed internet connection, a laptop or computer with a working webcam, and a clear headset/microphone in a quiet, distraction-free environment.',
-  },
-  {
-    q: 'How long does the verification process take?',
-    a: 'Our academic board reviews applications within 2 to 3 business days. Shortlisted candidates are invited for a brief virtual evaluation and recitation assessment.',
   },
 ];
 
@@ -131,7 +103,6 @@ export default function TeachPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const toggleSpecialization = (item: string) => {
     setSpecializations((prev) =>
@@ -197,8 +168,8 @@ export default function TeachPage() {
       <PublicPageHero
         title="Teach the Holy Quran"
         subtitle="Empower Students Worldwide"
-        image="/images/teach-hero-scholar.jpg"
-        imageAlt="Islamic scholar library with classical Islamic texts"
+        image="/images/hero-pexels-1.jpg"
+        imageAlt="Sacred Islamic architecture sanctuary and courtyard"
         imageClassName="object-cover object-[center_35%] opacity-85"
         overlay={
           <>
@@ -207,7 +178,15 @@ export default function TeachPage() {
             <div className="absolute inset-0 bg-gradient-to-b from-stone-950/85 via-stone-950/40 to-[#031e18]/95" />
           </>
         }
-      />
+      >
+        <a
+          href="#apply-form"
+          className="brand-button brand-button-primary px-8 py-3.5 text-xs sm:text-sm tracking-wider uppercase font-semibold shadow-lg hover:shadow-emerald-950/40 inline-flex items-center gap-2"
+        >
+          <span>Tutor Application Form</span>
+          <ChevronDown className="w-4 h-4" />
+        </a>
+      </PublicPageHero>
 
       {/* ========================================================================= */}
       {/* SECTION 1 (WHITE): WHY SCHOLARS CHOOSE TO TEACH ON ILMBIT                  */}
@@ -276,31 +255,14 @@ export default function TeachPage() {
                 {/* Stately Scholar Portrait Frame */}
                 <div className="relative rounded-3xl overflow-hidden border border-emerald-500/30 bg-[#04281e] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.75)] aspect-[4/5] sm:aspect-[3/4]">
                   <Image
-                    src="/images/why-ilm-scholar.jpg"
-                    alt="Verified Islamic scholar and Quran lecturer on Ilmbit"
+                    src="/images/teach-onboarding-lecturer.jpg"
+                    alt="Authentic Islamic scholar and Quran teacher reciting Holy Quran"
                     fill
                     sizes="(max-width: 1024px) 100vw, 500px"
-                    className="object-cover object-[center_20%]"
+                    className="object-cover object-center"
                   />
-                  {/* Subtle Top & Bottom Cinematic Gradient Overlays */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#031e18] via-transparent to-black/20" />
-
-                  {/* Floating Lecturer Verification Badge */}
-                  <div className="absolute bottom-5 left-5 right-5 sm:bottom-6 sm:left-6 sm:right-6 rounded-2xl bg-stone-950/85 backdrop-blur-md border border-emerald-500/30 p-4 sm:p-5 shadow-2xl">
-                    <div className="flex items-center gap-3.5">
-                      <div className="h-11 w-11 rounded-full bg-[#095F46] border border-[#EAD08A]/50 flex items-center justify-center shrink-0 shadow-inner">
-                        <UserCheck className="h-5 w-5 text-[#EAD08A]" />
-                      </div>
-                      <div className="min-w-0">
-                        <div className="text-[11px] font-semibold uppercase tracking-wider text-[#EAD08A]">
-                          Verified Faculty
-                        </div>
-                        <div className="text-sm sm:text-[15px] font-bold text-white font-bricolage truncate">
-                          Sanad &amp; Tajweed Certified Scholars
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  {/* Subtle Cinematic Vignette */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#031e18]/80 via-transparent to-black/20" />
                 </div>
               </div>
             </div>
@@ -724,115 +686,6 @@ export default function TeachPage() {
         </div>
       </section>
 
-      {/* ========================================================================= */}
-      {/* SECTION 4 (GREEN): SCHOLAR VOICES & FREQUENTLY ASKED QUESTIONS            */}
-      {/* ========================================================================= */}
-      <section className="py-20 sm:py-24 lg:py-32 xl:py-36 bg-[#06261e] text-white relative overflow-hidden select-none border-t border-[#04241B]">
-        {/* Subtle Ambient Glows */}
-        <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-teal-500/10 blur-3xl pointer-events-none" />
-
-        <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-16 sm:space-y-20">
-          {/* Scholar Community Dignity Spotlight */}
-          <div className="text-center space-y-6">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/10 text-[#EAD08A] border border-white/15">
-              <Sparkles className="w-3.5 h-3.5" />
-              Teacher Community
-            </span>
-
-            <blockquote className="text-xl sm:text-2xl lg:text-3xl font-bricolage font-bold leading-relaxed text-emerald-50/95 max-w-3xl mx-auto">
-              &ldquo;Teaching diaspora children who live thousands of miles away while sitting in Sri Lanka has been deeply rewarding. The platform handles scheduling and payments with complete dignity and respect.&rdquo;
-            </blockquote>
-
-            <div className="pt-2">
-              <p className="font-bold text-white text-base sm:text-lg">
-                Maulavi A. R. Mohamed
-              </p>
-              <p className="text-xs sm:text-sm text-emerald-200/75 mt-0.5">
-                Jamiah Naleemiah Graduate · Senior Tajweed Scholar on Ilmbit
-              </p>
-            </div>
-
-            <div className="pt-6 flex flex-wrap justify-center gap-4 sm:gap-6 text-xs text-emerald-100/75 border-t border-white/10 max-w-2xl mx-auto">
-              <span className="inline-flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-[#EAD08A]" />
-                Verified Sanad Community
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <CalendarCheck className="w-4 h-4 text-[#EAD08A]" />
-                Automated Scheduling
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <Wallet className="w-4 h-4 text-[#EAD08A]" />
-                Guaranteed Bi-Weekly Payouts
-              </span>
-            </div>
-          </div>
-
-          {/* Frequently Asked Questions */}
-          <div className="pt-8 sm:pt-12 border-t border-white/10">
-            <div className="text-center max-w-3xl mx-auto space-y-3 mb-10 sm:mb-12">
-              <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-bold tracking-tight text-white font-bricolage leading-[1.12]">
-                Frequently Asked Questions by <span className="text-[#EAD08A]">Scholars</span>
-              </h2>
-              <p className="text-emerald-100/80 text-sm sm:text-base lg:text-[17px] leading-relaxed max-w-2xl mx-auto font-normal">
-                Everything you need to know about teaching, onboarding, and payouts on Ilmbit.
-              </p>
-            </div>
-
-            <div className="space-y-4">
-              {faqs.map((faq, idx) => {
-                const isOpen = openFaq === idx;
-                return (
-                  <div
-                    key={idx}
-                    className="rounded-2xl border border-emerald-500/20 bg-[#08352b]/80 overflow-hidden transition-all duration-200 hover:border-[#EAD08A]/40 shadow-xs"
-                  >
-                    <button
-                      type="button"
-                      onClick={() => setOpenFaq(isOpen ? null : idx)}
-                      className="flex w-full items-center justify-between p-6 sm:p-7 text-left text-base sm:text-lg font-bold text-white font-bricolage tracking-tight"
-                    >
-                      <span>{faq.q}</span>
-                      <ChevronDown
-                        className={`h-5 w-5 shrink-0 text-emerald-300 transition-transform duration-200 ${
-                          isOpen ? 'rotate-180 text-[#EAD08A]' : ''
-                        }`}
-                      />
-                    </button>
-                    {isOpen && (
-                      <div className="px-6 sm:px-7 pb-6 sm:pb-7 text-sm sm:text-[15.5px] text-emerald-100/85 leading-relaxed font-normal border-t border-emerald-500/20 pt-4">
-                        {faq.a}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Help & WhatsApp Contact Banner */}
-            <div className="mt-12 p-6 sm:p-8 rounded-3xl bg-[#042019] border border-emerald-500/30 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-              <div>
-                <p className="font-bricolage font-bold text-lg text-white">
-                  Have questions before applying?
-                </p>
-                <p className="text-xs sm:text-sm text-emerald-200/70 mt-1">
-                  Our academic onboarding coordinator is available on WhatsApp to guide you through the process.
-                </p>
-              </div>
-              <a
-                href="https://wa.me/94771234567"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="brand-button brand-button-primary shrink-0 px-6 py-2.5 text-xs font-semibold uppercase tracking-wider inline-flex items-center gap-2"
-              >
-                <MessageCircle className="w-4 h-4" />
-                <span>Chat on WhatsApp</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

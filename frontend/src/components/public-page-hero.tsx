@@ -20,6 +20,7 @@ interface PublicPageHeroProps {
   scrollTarget?: string;
   scrollLabel?: string;
   className?: string;
+  children?: ReactNode;
 }
 
 export default function PublicPageHero({
@@ -31,6 +32,7 @@ export default function PublicPageHero({
   imageClassName,
   overlay,
   className,
+  children,
 }: PublicPageHeroProps) {
   const shouldReduceMotion = useReducedMotion();
 
@@ -61,6 +63,12 @@ export default function PublicPageHero({
             <p className="mt-4 sm:mt-5 text-base sm:text-lg lg:text-[18px] text-stone-200/90 max-w-2xl mx-auto font-normal leading-relaxed drop-shadow-sm">
               {description}
             </p>
+          )}
+
+          {children && (
+            <div className="mt-7 sm:mt-8 flex justify-center">
+              {children}
+            </div>
           )}
         </div>
       </motion.div>

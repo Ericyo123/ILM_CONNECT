@@ -20,8 +20,8 @@ import HowToEnroll from '@/components/how-to-enroll';
 const audienceTracks = [
   {
     title: 'Children & Young Starters',
-    image: '/images/pricing-noorani-qaida.jpg',
-    imageAlt: 'Open Noorani Qaida book showing colorful Arabic letters for children',
+    image: '/images/about-personal-student.jpg',
+    imageAlt: 'Young student engaged in Quran study with open pages',
     desc: 'Gentle, interactive foundational lessons tailored for young attention spans, cultivating genuine love and fluency for Allah’s words.',
     highlights: [
       'Noorani Qaida & Arabic letter phonetics (Makharij)',
@@ -32,8 +32,8 @@ const audienceTracks = [
   },
   {
     title: 'Teens & Aspiring Huffaz',
-    image: '/images/about-personal-attention-online.jpg',
-    imageAlt: 'Teen student wearing headphones reciting Quran 1:1 on laptop with scholar',
+    image: '/images/about-student-male-laptop.jpg',
+    imageAlt: 'Teen student focused on online Quran recitation lesson on laptop',
     desc: 'Structured Quran memorization, rigorous Tajweed rules, and character-building mentorship for growing minds.',
     highlights: [
       'Detailed rules of Noon Sakinah, Meem & Madd',

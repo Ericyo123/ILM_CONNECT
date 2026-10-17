@@ -50,14 +50,14 @@ const whyTeachCards = [
   {
     title: 'Bi-Weekly Direct Payouts',
     desc: 'Earn competitive session compensation with guaranteed, transparent bi-weekly deposits to your bank or Wise account.',
-    image: '/images/about/pillar-amanah.jpg',
-    imageAlt: 'Quran on wooden stand representing trust and financial transparency',
+    image: '/images/hero-pexels-5.jpg',
+    imageAlt: 'Holy Quran recitation photography from Pexels',
   },
   {
     title: 'Dedicated Virtual Classroom',
     desc: 'Integrated 1:1 HD video, interactive digital Mushaf, crystal-clear audio, and student progress notes built specifically for Quran learning.',
-    image: '/images/quran-class-screen.png',
-    imageAlt: 'Ilmbit 1:1 virtual Quran classroom with digital Mushaf',
+    image: '/images/about-platform-standards-scholar.jpg',
+    imageAlt: 'Islamic scholar reviewing Quran recitation with digital teaching tools',
   },
 ];
 
@@ -227,10 +227,10 @@ export default function TeachPage() {
             {whyTeachCards.map((card, idx) => (
               <div
                 key={idx}
-                className="group rounded-3xl border border-stone-200/90 bg-[#fafbf9] p-6 sm:p-7 flex flex-col justify-between shadow-xs hover:border-[#095F46]/30 hover:shadow-lg transition-all"
+                className="group rounded-3xl border border-stone-200/90 bg-[#fafbf9] flex flex-col justify-between shadow-xs hover:border-[#095F46]/30 hover:shadow-lg transition-all overflow-hidden"
               >
                 <div>
-                  <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden mb-5 bg-stone-100 border border-stone-200/60">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden bg-stone-100 border-b border-stone-200/60">
                     <Image
                       src={card.image}
                       alt={card.imageAlt}
@@ -239,12 +239,14 @@ export default function TeachPage() {
                       className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
-                  <h3 className="text-xl sm:text-[21px] font-bold text-stone-950 font-bricolage tracking-tight leading-[1.2] mb-2.5">
-                    {card.title}
-                  </h3>
-                  <p className="text-sm sm:text-[14.5px] text-stone-600 leading-relaxed font-normal">
-                    {card.desc}
-                  </p>
+                  <div className="p-6 sm:p-7">
+                    <h3 className="text-xl sm:text-[21px] font-bold text-stone-950 font-bricolage tracking-tight leading-[1.2] mb-2.5">
+                      {card.title}
+                    </h3>
+                    <p className="text-sm sm:text-[14.5px] text-stone-600 leading-relaxed font-normal">
+                      {card.desc}
+                    </p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -253,7 +255,7 @@ export default function TeachPage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* SECTION 2 (GREEN): SIMPLE 4-STEP ONBOARDING PATHWAY                       */}
+      {/* SECTION 2 (GREEN): SIMPLE 4 STEPS ONBOARDING PATHWAY                      */}
       {/* ========================================================================= */}
       <section
         id="onboarding"
@@ -265,48 +267,41 @@ export default function TeachPage() {
 
         <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-16 items-center">
-            {/* Left Column: Picture of Actual Dashboard on Laptop */}
+            {/* Left Column: Authentic Portrait Frame of Verified Scholar / Lecturer */}
             <div className="relative lg:col-span-6 flex items-center justify-center order-2 lg:order-1">
-              <div className="relative w-full max-w-[620px] lg:max-w-none">
-                {/* Subtle warm glow around the laptop */}
-                <div className="absolute -inset-4 bg-gradient-to-tr from-[#EAD08A]/15 via-emerald-400/10 to-transparent rounded-[32px] blur-2xl -z-10" />
+              <div className="relative w-full max-w-[480px] lg:max-w-[500px]">
+                {/* Ambient warm glow behind the portrait */}
+                <div className="absolute -inset-4 bg-gradient-to-tr from-[#EAD08A]/20 via-emerald-400/15 to-transparent rounded-[36px] blur-2xl -z-10" />
 
-                {/* Laptop Screen Display Lid */}
-                <div className="relative mx-auto w-full rounded-t-[18px] sm:rounded-t-[22px] bg-[#1a1b1e] p-2.5 sm:p-3 lg:p-3.5 pt-3 sm:pt-3.5 lg:pt-4 border border-zinc-700/80 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)]">
-                  {/* Top Center Camera Dot */}
-                  <div className="flex items-center justify-center mb-1.5 sm:mb-2">
-                    <div className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-zinc-900 border border-zinc-700 flex items-center justify-center">
-                      <div className="w-0.5 sm:w-1 h-0.5 sm:h-1 rounded-full bg-emerald-950/70" />
+                {/* Stately Scholar Portrait Frame */}
+                <div className="relative rounded-3xl overflow-hidden border border-emerald-500/30 bg-[#04281e] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.75)] aspect-[4/5] sm:aspect-[3/4]">
+                  <Image
+                    src="/images/why-ilm-scholar.jpg"
+                    alt="Verified Islamic scholar and Quran lecturer on Ilmbit"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 500px"
+                    className="object-cover object-[center_20%]"
+                  />
+                  {/* Subtle Top & Bottom Cinematic Gradient Overlays */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#031e18] via-transparent to-black/20" />
+
+                  {/* Floating Lecturer Verification Badge */}
+                  <div className="absolute bottom-5 left-5 right-5 sm:bottom-6 sm:left-6 sm:right-6 rounded-2xl bg-stone-950/85 backdrop-blur-md border border-emerald-500/30 p-4 sm:p-5 shadow-2xl">
+                    <div className="flex items-center gap-3.5">
+                      <div className="h-11 w-11 rounded-full bg-[#095F46] border border-[#EAD08A]/50 flex items-center justify-center shrink-0 shadow-inner">
+                        <UserCheck className="h-5 w-5 text-[#EAD08A]" />
+                      </div>
+                      <div className="min-w-0">
+                        <div className="text-[11px] font-semibold uppercase tracking-wider text-[#EAD08A]">
+                          Verified Faculty
+                        </div>
+                        <div className="text-sm sm:text-[15px] font-bold text-white font-bricolage truncate">
+                          Sanad &amp; Tajweed Certified Scholars
+                        </div>
+                      </div>
                     </div>
                   </div>
-
-                  {/* Actual Dashboard Screenshot Display */}
-                  <div className="relative w-full aspect-[1440/900] rounded-sm sm:rounded-md overflow-hidden bg-stone-900 border border-zinc-800">
-                    <Image
-                      src="/images/actual-dashboard-screenshot.png"
-                      alt="Actual Ilmbit verified scholar teaching dashboard and session scheduler"
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                      className="object-cover object-top select-none pointer-events-none"
-                    />
-                    {/* Subtle Glass Reflection */}
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-white/0 via-white/[0.03] to-transparent" />
-                  </div>
                 </div>
-
-                {/* Laptop Bottom Aluminum Base & Keyboard Deck */}
-                <div className="relative mx-auto w-[102%] -ml-[1%]">
-                  {/* Aluminum Hinge & Notch */}
-                  <div className="h-3 sm:h-4 bg-gradient-to-b from-[#2a2c30] via-[#202226] to-[#151619] rounded-b-md sm:rounded-b-lg border-t border-zinc-600/40 relative shadow-md">
-                    {/* Center Opening Notch */}
-                    <div className="w-16 sm:w-24 h-1 sm:h-1.5 bg-[#0e0f11] rounded-b-md mx-auto" />
-                  </div>
-                  {/* Laptop Bottom Lip */}
-                  <div className="w-[104%] -ml-[2%] h-1 sm:h-1.5 bg-gradient-to-b from-zinc-700 to-zinc-800 rounded-b-xl shadow-[0_12px_30px_rgba(0,0,0,0.65)]" />
-                </div>
-
-                {/* Under-Laptop Soft Ambient Floor Shadow */}
-                <div className="mx-auto w-[92%] h-4 sm:h-6 bg-black/60 blur-xl -mt-1 rounded-full" />
               </div>
             </div>
 
@@ -314,7 +309,7 @@ export default function TeachPage() {
             <div className="lg:col-span-6 flex flex-col justify-center order-1 lg:order-2">
               <div className="mb-8 sm:mb-10 text-left">
                 <h2 className="text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-bold tracking-tight text-white leading-[1.12] sm:leading-[1.14] lg:leading-[1.15] mb-3 font-bricolage">
-                  Simple 4-Step Onboarding
+                  Simple 4 Steps Onboarding
                 </h2>
                 <p className="text-emerald-100/80 font-normal text-sm sm:text-base lg:text-[17px] leading-relaxed">
                   From online application to your first live lesson in less than a week
@@ -368,9 +363,9 @@ export default function TeachPage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* SECTION 3 (WHITE): TUTOR APPLICATION FORM                                 */}
+      {/* SECTION 3: TUTOR APPLICATION FORM                                         */}
       {/* ========================================================================= */}
-      <section id="apply-form" className="py-20 sm:py-24 lg:py-32 xl:py-36 bg-[#fbfcfb] border-b border-stone-200/70 scroll-mt-20">
+      <section id="apply-form" className="py-20 sm:py-24 lg:py-32 xl:py-36 bg-[#f4f7f4] border-b border-stone-200/70 scroll-mt-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
           <AnimatePresence mode="wait">
             {isSubmitted ? (
@@ -410,18 +405,23 @@ export default function TeachPage() {
               </motion.div>
             ) : (
               <div className="w-full rounded-3xl border border-stone-200/90 bg-white shadow-xl shadow-black/5 overflow-hidden">
-                {/* Form Top Header Band */}
-                <div className="border-b border-stone-200/80 bg-gradient-to-r from-[#095F46]/10 via-[#095F46]/5 to-transparent p-7 sm:p-10 lg:p-12">
-                  <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#095F46]">
-                    <UserCheck className="w-4 h-4" />
-                    Scholar Registration
+                {/* Form Top Header Band — Deep Islamic Green with Gold Accents */}
+                <div className="relative overflow-hidden bg-gradient-to-r from-[#06261e] via-[#095F46] to-[#042d22] text-white p-8 sm:p-11 lg:p-14 border-b border-emerald-900/40">
+                  {/* Subtle Background Radial Glow */}
+                  <div className="absolute -top-12 -right-12 w-64 h-64 rounded-full bg-[#EAD08A]/10 blur-3xl pointer-events-none" />
+
+                  <div className="relative z-10">
+                    <div className="inline-flex items-center gap-2 rounded-full bg-emerald-950/60 border border-[#EAD08A]/35 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-[#EAD08A] mb-3">
+                      <UserCheck className="w-3.5 h-3.5 text-[#EAD08A]" />
+                      Scholar Registration
+                    </div>
+                    <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-white font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15]">
+                      Tutor Application Form
+                    </h2>
+                    <p className="mt-2.5 text-sm sm:text-base text-emerald-100/85 max-w-2xl leading-relaxed font-normal">
+                      Please provide your authentic credentials. Verified scholars maintain trusted profiles for 1:1 student matching.
+                    </p>
                   </div>
-                  <h2 className="mt-2 text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15]">
-                    Tutor Application Form
-                  </h2>
-                  <p className="mt-2.5 text-sm sm:text-base text-stone-600 max-w-2xl leading-relaxed">
-                    Please provide your authentic credentials. Verified scholars maintain trusted profiles for 1:1 student matching.
-                  </p>
                 </div>
 
                 <div className="p-7 sm:p-10 lg:p-14">

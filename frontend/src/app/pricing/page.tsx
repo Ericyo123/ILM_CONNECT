@@ -68,7 +68,7 @@ const fastTrackCourses: CourseCardData[] = [
     title: 'Noorani Qaida',
     levelLabel: 'Beginner Level · Accelerated',
     description: 'Accelerate Arabic literacy and Quran reading fluency with intensive 3x weekly live sessions and replayable recordings.',
-    image: '/images/pricing-qaida-v2.jpg',
+    image: '/images/pricing-banner-qaida.jpg',
     features: [
       '12 live 1:1 sessions per month (3/week)',
       '45-minute sessions with qualified instructor',
@@ -83,7 +83,7 @@ const fastTrackCourses: CourseCardData[] = [
     title: 'Tajweed Quran Recitation',
     levelLabel: 'Intermediate Level · Accelerated',
     description: 'Master proper Tajweed rules and melodic recitation faster with 12 monthly sessions and recorded scholar feedback.',
-    image: '/images/pricing-tajweed-v4.jpg',
+    image: '/images/pricing-banner-tajweed.jpg',
     features: [
       '12 live 1:1 sessions per month (3/week)',
       '45-minute sessions with certified scholar',
@@ -98,7 +98,7 @@ const fastTrackCourses: CourseCardData[] = [
     title: 'Hifz Memorization',
     levelLabel: 'Advanced Level · Accelerated',
     description: 'Intensive Quran memorization with 3 weekly sessions, daily revision accountability, and milestone progress tracking.',
-    image: '/images/pricing-hifz-v2.jpg',
+    image: '/images/pricing-banner-hifz.jpg',
     features: [
       '12 live 1:1 sessions per month (3/week)',
       '45-minute sessions with dedicated Hifz coach',

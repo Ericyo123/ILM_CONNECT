@@ -358,7 +358,7 @@ export default function HomePage() {
                 className="flex flex-col lg:col-span-6"
               >
                 <div>
-                  <h2 className="text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-bold tracking-tight text-stone-950 leading-[1.22] font-bricolage" suppressHydrationWarning>
+                  <h2 className="text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-bold tracking-tight text-stone-950 leading-[1.12] sm:leading-[1.14] lg:leading-[1.15] font-bricolage" suppressHydrationWarning>
                     Grow Your Knowledge,<br />
                     <span className="text-[#095F46]">Live With Purpose &amp; Iman</span>
                   </h2>
@@ -505,7 +505,7 @@ export default function HomePage() {
                 className="lg:col-span-6 flex flex-col justify-center order-1 lg:order-2"
               >
                 <div className="mb-8 sm:mb-10 text-left">
-                  <h2 className="text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-bold tracking-tight text-white leading-[1.14] mb-3 font-bricolage">
+                  <h2 className="text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-bold tracking-tight text-white leading-[1.12] sm:leading-[1.14] lg:leading-[1.15] mb-3 font-bricolage">
                     How to Enroll
                   </h2>
                   <p className="text-emerald-100/80 font-normal text-sm sm:text-base lg:text-[17px] leading-relaxed">
@@ -535,7 +535,7 @@ export default function HomePage() {
               variants={sectionReveal}
               className="text-center max-w-2xl mx-auto mb-10 sm:mb-12 lg:mb-14"
             >
-              <h2 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.18] mb-3 sm:mb-4">
+              <h2 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15] mb-3 sm:mb-4">
                 Islamic Education Designed for{' '}
                 <span className="text-[#095F46]">Every Stage of Life</span>
               </h2>
@@ -616,7 +616,7 @@ export default function HomePage() {
               variants={sectionReveal}
               className="text-center max-w-2xl mx-auto mb-8 sm:mb-10 lg:mb-12"
             >
-              <h2 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-white font-bricolage leading-[1.16] mb-3">
+              <h2 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-white font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15] mb-3">
                 Our Courses
               </h2>
               <p className="text-emerald-100/80 font-normal text-sm sm:text-base lg:text-[18px] max-w-2xl mx-auto leading-relaxed">
@@ -825,7 +825,7 @@ export default function HomePage() {
               variants={sectionReveal}
               className="text-left mb-10"
             >
-              <h2 id="home-faq-heading" className="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 leading-[1.15]">
+              <h2 id="home-faq-heading" className="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 leading-[1.12] sm:leading-[1.14] lg:leading-[1.15]">
                 Frequently Asked Questions
               </h2>
             </motion.div>

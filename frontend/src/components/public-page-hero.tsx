@@ -48,10 +48,10 @@ export default function PublicPageHero({
         className="relative z-20 w-full px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-center"
       >
         <div className="relative mx-auto max-w-4xl w-full">
-          <h1 className="text-3xl sm:text-4xl lg:text-[50px] xl:text-[56px] font-bold tracking-tight text-white leading-[1.12] drop-shadow-md max-w-3xl mx-auto font-heading">
+          <h1 className="text-3xl sm:text-4xl lg:text-[50px] xl:text-[56px] font-bold tracking-tight text-white leading-[1.12] sm:leading-[1.14] lg:leading-[1.15] drop-shadow-md max-w-3xl mx-auto font-heading">
             <span className="block text-white">{title}</span>
             {subtitle && (
-              <span className="block text-[#EAD08A] font-serif italic text-2xl sm:text-3xl lg:text-[38px] xl:text-[44px] font-normal mt-2.5 sm:mt-3 leading-normal drop-shadow-sm">
+              <span className="block text-[#EAD08A] font-serif italic text-2xl sm:text-3xl lg:text-[38px] xl:text-[44px] font-normal mt-1 sm:mt-1.5 leading-[1.12] sm:leading-[1.14] lg:leading-[1.15] drop-shadow-sm">
                 {subtitle}
               </span>
             )}

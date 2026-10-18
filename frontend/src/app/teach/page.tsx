@@ -8,7 +8,6 @@ import {
   ChevronDown,
   Eye,
   EyeOff,
-  UserCheck,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicPageHero from '@/components/public-page-hero';
@@ -373,10 +372,6 @@ export default function TeachPage() {
                   <div className="absolute -top-12 -right-12 w-64 h-64 rounded-full bg-[#EAD08A]/10 blur-3xl pointer-events-none" />
 
                   <div className="relative z-10">
-                    <div className="inline-flex items-center gap-2 rounded-full bg-emerald-950/60 border border-[#EAD08A]/35 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-[#EAD08A] mb-3">
-                      <UserCheck className="w-3.5 h-3.5 text-[#EAD08A]" />
-                      Scholar Registration
-                    </div>
                     <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-white font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15]">
                       Tutor Application Form
                     </h2>

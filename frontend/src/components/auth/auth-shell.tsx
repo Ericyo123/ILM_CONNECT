@@ -83,8 +83,8 @@ export function AuthShell({
 
         <aside className="relative hidden min-h-dvh overflow-hidden bg-stone-950 lg:block">
           <Image
-            src="/images/signin-side.png"
-            alt="Islamic learning environment"
+            src="/images/hero-sacred-2.jpg"
+            alt="Historic mosque interior bathed in sunlight"
             fill
             priority
             sizes="53vw"

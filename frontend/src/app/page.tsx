@@ -32,8 +32,8 @@ const audienceTracks = [
   },
   {
     title: 'Teens & Aspiring Huffaz',
-    image: '/images/about-student-male-laptop.jpg',
-    imageAlt: 'Teen student focused on online Quran recitation lesson on laptop',
+    image: '/images/home-track-teens-huffaz.jpg',
+    imageAlt: 'Young students in thobes reciting the Holy Quran in traditional mosque halaqah',
     desc: 'Structured Quran memorization, rigorous Tajweed rules, and character-building mentorship for growing minds.',
     highlights: [
       'Detailed rules of Noon Sakinah, Meem & Madd',
@@ -44,8 +44,8 @@ const audienceTracks = [
   },
   {
     title: 'Adult Learners & Reverts',
-    image: '/images/why-ilm-quran-hands.jpg',
-    imageAlt: 'Adult student reading the Holy Quran with wooden pointer in traditional talaqqi',
+    image: '/images/home-track-adult-reverts.jpg',
+    imageAlt: 'Adult student reading Surah Az-Zukhruf on wooden rehal in focused Quran study',
     desc: 'Private, judgment-free 1:1 lessons whether starting from foundational Arabic letters or perfecting your recitation rhythm and understanding.',
     highlights: [
       'Dedicated male & female scholars for brothers and sisters',
@@ -242,18 +242,18 @@ export default function HomePage() {
               </h1>
 
               {/* Dual Pill CTA Buttons with scaled proportions */}
-              <div className="mt-6 sm:mt-7 lg:mt-8 flex flex-wrap items-center justify-start gap-4 sm:gap-5">
+              <div className="mt-6 sm:mt-7 lg:mt-8 flex flex-wrap items-center justify-start gap-3.5 sm:gap-4.5">
                 <Link
                   href="#courses"
-                  className="brand-button brand-button-inverse px-8 py-3 lg:px-10 lg:py-4 xl:px-11 xl:py-4.5 text-sm sm:text-base lg:text-[17px] xl:text-[18px] lg:min-h-[56px] xl:min-h-[58px] !font-light tracking-wide shadow-lg shadow-black/40"
+                  className="brand-button brand-button-inverse px-6.5 py-2.5 sm:px-7 sm:py-3 lg:px-8 lg:py-3.5 xl:px-8.5 xl:py-3.5 text-xs sm:text-sm lg:text-[14px] xl:text-[15px] lg:min-h-[48px] xl:min-h-[50px] uppercase tracking-wider font-semibold shadow-lg shadow-black/40"
                 >
-                  View Courses
+                  VIEW COURSES
                 </Link>
                 <Link
                   href="/about#waitlist"
-                  className="brand-button brand-button-primary px-8 py-3 lg:px-10 lg:py-4 xl:px-11 xl:py-4.5 text-sm sm:text-base lg:text-[17px] xl:text-[18px] lg:min-h-[56px] xl:min-h-[58px] !font-light tracking-wide shadow-lg shadow-black/40"
+                  className="brand-button brand-button-primary px-6.5 py-2.5 sm:px-7 sm:py-3 lg:px-8 lg:py-3.5 xl:px-8.5 xl:py-3.5 text-xs sm:text-sm lg:text-[14px] xl:text-[15px] lg:min-h-[48px] xl:min-h-[50px] uppercase tracking-wider font-semibold shadow-lg shadow-black/40"
                 >
-                  Join the Waitlist
+                  JOIN THE WAITLIST
                 </Link>
               </div>
 
@@ -416,8 +416,8 @@ export default function HomePage() {
                   {/* Main Image Frame */}
                   <div className="relative w-full h-full rounded-3xl overflow-hidden border border-stone-200/90 shadow-[0_20px_50px_rgba(9,95,70,0.08)] bg-stone-100">
                     <Image
-                      src="/images/grow-in-sacred-scholar.jpg"
-                      alt="Qualified Islamic scholar teaching Quran"
+                      src="/images/home-grow-in-scholar-talaqqi.jpg"
+                      alt="Qualified Islamic scholar teaching Quran in traditional talaqqi"
                       fill
                       priority
                       sizes="(max-width: 1024px) 100vw, 50vw"

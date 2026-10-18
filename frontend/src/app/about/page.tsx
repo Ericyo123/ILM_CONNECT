@@ -184,7 +184,7 @@ const pedagogyMilestones = [
     title: 'Foundations & Qaida',
     subtitle: 'Letter Recognition & Articulation',
     desc: 'Master Arabic letters, articulation points (Makharij), and how letter sounds join through patient, guided oral repetition.',
-    image: '/images/pricing-noorani-qaida.jpg',
+    image: '/images/pricing-qaida-v2.jpg',
     imageAlt: 'Open Noorani Qaida primer for Arabic letter foundations',
     cardBg: 'bg-[#06261e] border-emerald-950/80 shadow-[0_24px_50px_rgba(4,38,30,0.35)]',
     badgeBg: 'bg-white/15 text-white border-white/20 backdrop-blur-md',
@@ -199,8 +199,8 @@ const pedagogyMilestones = [
     title: 'Fluency & Tajweed',
     subtitle: 'Recitation & Tajweed Mastery',
     desc: 'Practise Madd, Ghunnah, and pause rules with immediate, gentle pronunciation feedback from your dedicated scholar.',
-    image: '/images/pricing-tajweed-quran.jpg',
-    imageAlt: 'Recitation of the Holy Quran with Tajweed guidance',
+    image: '/images/about-standards-quran.jpg',
+    imageAlt: 'Recitation of the Holy Quran on carved wooden rehal',
     cardBg: 'bg-white border-stone-200 shadow-[0_20px_45px_rgba(0,0,0,0.06)]',
     badgeBg: 'bg-stone-100 text-stone-900 border-stone-200',
     titleColor: 'text-stone-950',
@@ -214,8 +214,8 @@ const pedagogyMilestones = [
     title: 'Preservation & Hifz',
     subtitle: 'Memorisation & Revision Cycles',
     desc: 'Build memorisation gradually, with structured revision cycles alongside new passages for lifelong retention.',
-    image: '/images/pricing-hifz-memorization.jpg',
-    imageAlt: 'Dedicated Quran memorisation and revision',
+    image: '/images/about-pedagogy-hifz-wazir.jpg',
+    imageAlt: 'Students reciting and memorising the Holy Quran in historic mosque halaqah',
     cardBg: 'bg-[#06261e] border-emerald-950/80 shadow-[0_24px_50px_rgba(4,38,30,0.35)]',
     badgeBg: 'bg-white/15 text-white border-white/20 backdrop-blur-md',
     titleColor: 'text-white',
@@ -256,8 +256,8 @@ const parentPromises = [
     titleLine1: 'Continuous',
     titleLine2: 'Visibility',
     fullTitle: 'Continuous Visibility',
-    image: '/images/about-student-learning-inset.jpg',
-    imageAlt: 'Parent visibility into student recitation and lesson milestones',
+    image: '/images/about-parent-continuous-visibility.jpg',
+    imageAlt: 'Young student engaged in online Quran lesson on laptop with parent dashboard tracking',
     desc: 'Follow your child’s journey through replayable class recordings, monthly Tajweed milestones, and direct communication in your parent dashboard.',
   },
   {
@@ -836,11 +836,11 @@ export default function AboutPage() {
             {/* Left Waitlist Banner */}
             <div className="relative flex min-h-[320px] sm:min-h-[360px] flex-col justify-between overflow-hidden bg-[#083f33] p-7 sm:p-10 lg:min-h-0 lg:p-12 xl:p-14 text-white">
               <Image
-                src="/images/about-waitlist-quran.jpg"
+                src="/images/about-learning-journey.jpg"
                 alt=""
                 fill
                 aria-hidden="true"
-                className="pointer-events-none select-none object-cover object-[center_58%] opacity-70"
+                className="pointer-events-none select-none object-cover object-center opacity-70"
                 sizes="(max-width: 1024px) 100vw, 40vw"
               />
               <div className="absolute inset-0 bg-gradient-to-b from-[#052d23]/70 via-[#052d23]/80 to-[#031e18]/95" />

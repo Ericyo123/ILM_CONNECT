@@ -89,33 +89,27 @@ const faqs = [
   },
 ];
 
+const isMobileClient = () => typeof window !== 'undefined' && window.innerWidth < 768;
+
 const sectionReveal: Variants = {
-  hidden: { opacity: 0, y: 14 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.45, ease: [0.25, 0.1, 0.25, 1] as const },
-  },
+  hidden: () => (isMobileClient() ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }),
+  visible: () => (isMobileClient()
+    ? { opacity: 1, y: 0, transition: { duration: 0 } }
+    : { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.25, 0.1, 0.25, 1] as const } }),
 };
 
 const cardStagger: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.06,
-      delayChildren: 0.02,
-    },
-  },
+  hidden: () => (isMobileClient() ? { opacity: 1 } : { opacity: 0 }),
+  visible: () => (isMobileClient()
+    ? { opacity: 1, transition: { staggerChildren: 0, delayChildren: 0 } }
+    : { opacity: 1, transition: { staggerChildren: 0.06, delayChildren: 0.02 } }),
 };
 
 const cardItem: Variants = {
-  hidden: { opacity: 0, y: 12 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] as const },
-  },
+  hidden: () => (isMobileClient() ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }),
+  visible: () => (isMobileClient()
+    ? { opacity: 1, y: 0, transition: { duration: 0 } }
+    : { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] as const } }),
 };
 
 const revealViewport = {

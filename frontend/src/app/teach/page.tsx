@@ -29,15 +29,13 @@ const specializationsList = [
 ];
 
 
+const isMobileClient = () => typeof window !== 'undefined' && window.innerWidth < 768;
+
 const staggerContainer: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.04,
-    },
-  },
+  hidden: () => (isMobileClient() ? { opacity: 1 } : { opacity: 0 }),
+  visible: () => (isMobileClient()
+    ? { opacity: 1, transition: { staggerChildren: 0, delayChildren: 0 } }
+    : { opacity: 1, transition: { staggerChildren: 0.08, delayChildren: 0.04 } }),
 };
 
 const whyTeachCards = [

@@ -4,9 +4,13 @@ import type { ReactNode } from 'react';
 import Image from 'next/image';
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
 
+const isMobileClient = () => typeof window !== 'undefined' && window.innerWidth < 768;
+
 export const publicPageFadeUp: Variants = {
-  hidden: { opacity: 0, y: 14 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.25, 0.1, 0.25, 1] } },
+  hidden: () => (isMobileClient() ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }),
+  visible: () => (isMobileClient()
+    ? { opacity: 1, y: 0, transition: { duration: 0 } }
+    : { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.25, 0.1, 0.25, 1] } }),
 };
 
 export const publicPageViewPort = {

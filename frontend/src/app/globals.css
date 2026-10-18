@@ -548,6 +548,14 @@ p {
     animation: none !important;
     opacity: 0.25 !important;
   }
+
+  /* Disable entrance animations on mobile responsiveness to ensure instantaneous, rock-solid visibility */
+  .animate-fade-in,
+  .animate-fade-in-opacity {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 /* ========================================================================= */

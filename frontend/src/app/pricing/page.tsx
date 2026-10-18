@@ -194,7 +194,7 @@ export default function PricingPage() {
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-8 items-stretch">
             {standardCourses.map((course, i) => (
               <motion.div
                 key={`standard-${course.id}`}
@@ -228,7 +228,7 @@ export default function PricingPage() {
                 </div>
 
                 {/* Card Body */}
-                <div className="flex flex-col flex-1 justify-between p-6 sm:p-7">
+                <div className="flex flex-col flex-1 justify-between p-5 sm:p-6 lg:p-7">
                   <div>
                     {/* Price Tag */}
                     <div className="mb-6 pb-6 border-b border-stone-100">
@@ -288,8 +288,8 @@ export default function PricingPage() {
               aria-controls="fast-track-packages"
               className={
                 isFastTrackOpen
-                  ? "flex w-full items-center justify-between gap-4 py-3 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#095F46]"
-                  : "group relative flex w-full items-center justify-between gap-4 overflow-hidden rounded-2xl sm:rounded-3xl bg-[#095F46] hover:bg-[#08523c] px-6 py-5 sm:px-8 sm:py-6 text-left shadow-[0_12px_36px_rgba(9,95,70,0.18),0_2px_8px_rgba(0,0,0,0.06)] hover:shadow-[0_16px_44px_rgba(9,95,70,0.26)] transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#095F46]"
+                  ? "flex flex-col sm:flex-row w-full items-start sm:items-center justify-between gap-3 sm:gap-4 py-3 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#095F46]"
+                  : "group relative flex flex-col sm:flex-row w-full items-start sm:items-center justify-between gap-3 sm:gap-4 overflow-hidden rounded-2xl sm:rounded-3xl bg-[#095F46] hover:bg-[#08523c] p-5 sm:px-8 sm:py-6 text-left shadow-[0_12px_36px_rgba(9,95,70,0.18),0_2px_8px_rgba(0,0,0,0.06)] hover:shadow-[0_16px_44px_rgba(9,95,70,0.26)] transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#095F46]"
               }
             >
               {/* Subtle decorative glow effect (only when closed in green container) */}
@@ -304,7 +304,7 @@ export default function PricingPage() {
                 <span
                   className={
                     isFastTrackOpen
-                      ? "text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 leading-[1.2]"
+                      ? "text-2xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 leading-[1.2]"
                       : "text-2xl sm:text-3xl lg:text-[40px] font-bold tracking-tight text-white leading-[1.2]"
                   }
                 >
@@ -313,31 +313,31 @@ export default function PricingPage() {
                 <span
                   className={
                     isFastTrackOpen
-                      ? "text-sm sm:text-xl lg:text-2xl font-normal text-stone-500 whitespace-nowrap"
-                      : "text-sm sm:text-lg lg:text-2xl font-normal text-emerald-100/90 whitespace-nowrap"
+                      ? "text-xs sm:text-xl lg:text-2xl font-normal text-stone-500 whitespace-nowrap"
+                      : "text-xs sm:text-lg lg:text-2xl font-normal text-emerald-100/90 whitespace-nowrap"
                   }
                 >
-                  3 sessions / week
+                  (3 sessions / week)
                 </span>
               </span>
 
-              <span className={`relative z-10 flex shrink-0 items-center ${isFastTrackOpen ? 'gap-3 sm:gap-5' : 'gap-3 sm:gap-6'}`}>
+              <span className={`relative z-10 flex w-full sm:w-auto items-center justify-between sm:justify-end ${isFastTrackOpen ? 'gap-3 sm:gap-5 pt-2 sm:pt-0 border-t border-stone-200/60 sm:border-t-0' : 'gap-3 sm:gap-6 pt-2 sm:pt-0 border-t border-emerald-400/20 sm:border-t-0'}`}>
                 <span
                   className={
                     isFastTrackOpen
-                      ? "text-right text-base sm:text-2xl font-bold text-[#095F46]"
-                      : "text-right text-base sm:text-2xl lg:text-3xl font-bold text-white tracking-tight"
+                      ? "text-left sm:text-right text-base sm:text-2xl font-bold text-[#095F46]"
+                      : "text-left sm:text-right text-base sm:text-2xl lg:text-3xl font-bold text-white tracking-tight"
                   }
                 >
-                  $89 / $89 / $89
+                  $89
                   <span
                     className={
                       isFastTrackOpen
-                        ? "block text-xs sm:text-sm font-normal text-stone-500"
-                        : "block text-xs sm:text-sm font-normal text-emerald-100/80"
+                        ? "inline sm:block text-xs sm:text-sm font-normal text-stone-500 ml-1.5 sm:ml-0"
+                        : "inline sm:block text-xs sm:text-sm font-normal text-emerald-100/80 ml-1.5 sm:ml-0"
                     }
                   >
-                    per month
+                    / month
                   </span>
                 </span>
                 {isFastTrackOpen ? (
@@ -346,7 +346,7 @@ export default function PricingPage() {
                     className="h-5 w-5 sm:h-6 sm:w-6 text-stone-700 rotate-180 transition-transform duration-300"
                   />
                 ) : (
-                  <span className="flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur-sm group-hover:bg-white/25 transition-all duration-300">
+                  <span className="flex h-9 w-9 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur-sm group-hover:bg-white/25 transition-all duration-300">
                     <ChevronDown
                       aria-hidden="true"
                       className="h-5 w-5 sm:h-6 sm:w-6 transition-transform duration-300"
@@ -368,7 +368,7 @@ export default function PricingPage() {
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
               className="overflow-hidden"
             >
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch pt-2">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-8 items-stretch pt-2">
             {fastTrackCourses.map((course, i) => (
               <motion.div
                 key={`fasttrack-${course.id}`}
@@ -404,7 +404,7 @@ export default function PricingPage() {
                 </div>
 
                 {/* Card Body */}
-                <div className="flex flex-col flex-1 justify-between p-6 sm:p-7">
+                <div className="flex flex-col flex-1 justify-between p-5 sm:p-6 lg:p-7">
                   <div>
                     {/* Price Tag */}
                     <div className="mb-6 pb-6 border-b border-stone-100">

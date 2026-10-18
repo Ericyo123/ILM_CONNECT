@@ -235,22 +235,22 @@ export default function HomePage() {
               <h1 className="text-[32px] sm:text-[40px] md:text-[50px] lg:text-[62px] xl:text-[72px] 2xl:text-[76px] font-bold tracking-tight text-white leading-[1.02] sm:leading-[1.03] drop-shadow-[0_2px_10px_rgba(0,0,0,0.40)] font-bricolage text-left">
                 <span className="block text-white">Learn Quran</span>
                 <span className="block text-white mt-0.5 sm:mt-1">&amp; Islamic Studies</span>
-                <span className="block text-[#EAD08A] mt-1.5 sm:mt-2 lg:mt-2.5 text-[18px] sm:text-[24px] md:text-[28px] lg:text-[36px] xl:text-[42px] font-semibold tracking-tight whitespace-nowrap">
+                <span className="block text-[#EAD08A] mt-1.5 sm:mt-2 lg:mt-2.5 text-[18px] sm:text-[24px] md:text-[28px] lg:text-[36px] xl:text-[42px] font-semibold tracking-tight whitespace-normal sm:whitespace-nowrap">
                   from Qualified Scholars Worldwide
                 </span>
               </h1>
 
-              {/* Dual Pill CTA Buttons with scaled proportions */}
-              <div className="mt-6 sm:mt-7 lg:mt-8 flex flex-wrap items-center justify-start gap-3.5 sm:gap-4.5">
+              {/* Dual Pill CTA Buttons with scaled proportions & mobile-friendly tap targets */}
+              <div className="mt-6 sm:mt-7 lg:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-start gap-3 sm:gap-4 lg:gap-4.5 w-full sm:w-auto">
                 <Link
                   href="#courses"
-                  className="brand-button brand-button-inverse px-6.5 py-2.5 sm:px-7 sm:py-3 lg:px-8 lg:py-3.5 xl:px-8.5 xl:py-3.5 text-xs sm:text-sm lg:text-[14px] xl:text-[15px] lg:min-h-[48px] xl:min-h-[50px] uppercase tracking-[0.05em] !font-light shadow-lg shadow-black/40"
+                  className="brand-button brand-button-inverse w-full sm:w-auto text-center justify-center px-6.5 py-3 sm:px-7 sm:py-3 lg:px-8 lg:py-3.5 xl:px-8.5 xl:py-3.5 text-xs sm:text-sm lg:text-[14px] xl:text-[15px] min-h-[46px] lg:min-h-[48px] xl:min-h-[50px] uppercase tracking-[0.05em] !font-light shadow-lg shadow-black/40"
                 >
                   VIEW COURSES
                 </Link>
                 <Link
                   href="/about#waitlist"
-                  className="brand-button brand-button-primary px-6.5 py-2.5 sm:px-7 sm:py-3 lg:px-8 lg:py-3.5 xl:px-8.5 xl:py-3.5 text-xs sm:text-sm lg:text-[14px] xl:text-[15px] lg:min-h-[48px] xl:min-h-[50px] uppercase tracking-[0.05em] !font-light shadow-lg shadow-black/40"
+                  className="brand-button brand-button-primary w-full sm:w-auto text-center justify-center px-6.5 py-3 sm:px-7 sm:py-3 lg:px-8 lg:py-3.5 xl:px-8.5 xl:py-3.5 text-xs sm:text-sm lg:text-[14px] xl:text-[15px] min-h-[46px] lg:min-h-[48px] xl:min-h-[50px] uppercase tracking-[0.05em] !font-light shadow-lg shadow-black/40"
                 >
                   JOIN THE WAITLIST
                 </Link>
@@ -408,7 +408,7 @@ export default function HomePage() {
                 variants={sectionReveal}
                 className="relative lg:col-span-6 flex items-center justify-center w-full"
               >
-                <div className="relative w-full h-[480px] sm:h-[540px] lg:h-[600px] xl:h-[640px]">
+                <div className="relative w-full h-[280px] sm:h-[380px] md:h-[460px] lg:h-[580px] xl:h-[620px]">
                   {/* Subtle warm golden background glow */}
                   <div className="absolute -inset-4 bg-gradient-to-tr from-[#095F46]/10 via-[#EAD08A]/20 to-transparent rounded-[36px] blur-2xl -z-10" />
 
@@ -548,7 +548,7 @@ export default function HomePage() {
               whileInView="visible"
               viewport={revealViewport}
               variants={cardStagger}
-              className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch"
+              className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-8 items-stretch"
             >
               {audienceTracks.map((track, idx) => (
                 <motion.div
@@ -569,7 +569,7 @@ export default function HomePage() {
                   </div>
 
                   {/* Card Body */}
-                  <div className="p-6 sm:p-7 lg:p-8 flex flex-col flex-1">
+                  <div className="p-5 sm:p-6 lg:p-8 flex flex-col flex-1">
                     <h3 className="text-xl sm:text-2xl font-bold text-stone-950 tracking-tight mb-2.5 font-bricolage">
                       {track.title}
                     </h3>
@@ -629,12 +629,12 @@ export default function HomePage() {
               whileInView="visible"
               viewport={revealViewport}
               variants={cardStagger}
-              className="grid md:grid-cols-3 gap-6 lg:gap-8 items-stretch"
+              className="grid md:grid-cols-3 gap-5 lg:gap-8 items-stretch"
             >
               {/* CARD 1: Beginner Plan (Noorani Qaida) */}
               <motion.div
                 variants={cardItem}
-                className="rounded-3xl bg-white border border-stone-200/90 text-stone-900 p-6 sm:p-7 lg:p-8 shadow-[0_16px_40px_rgba(0,0,0,0.25)] flex flex-col justify-between hover:shadow-[0_24px_50px_rgba(0,0,0,0.35)] hover:-translate-y-1.5 transition-all duration-300 group"
+                className="rounded-3xl bg-white border border-stone-200/90 text-stone-900 p-5 sm:p-6 lg:p-8 shadow-[0_16px_40px_rgba(0,0,0,0.25)] flex flex-col justify-between hover:shadow-[0_24px_50px_rgba(0,0,0,0.35)] hover:-translate-y-1.5 transition-all duration-300 group"
               >
                 <div>
                   <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-bold text-stone-950 tracking-tight mb-2.5 font-bricolage">
@@ -688,7 +688,7 @@ export default function HomePage() {
               {/* CARD 2: Intermediate Plan (Tajweed Mastery) */}
               <motion.div
                 variants={cardItem}
-                className="rounded-3xl bg-white border border-stone-200/90 text-stone-900 p-6 sm:p-7 lg:p-8 shadow-[0_16px_40px_rgba(0,0,0,0.25)] flex flex-col justify-between hover:shadow-[0_24px_50px_rgba(0,0,0,0.35)] hover:-translate-y-1.5 transition-all duration-300 group relative"
+                className="rounded-3xl bg-white border border-stone-200/90 text-stone-900 p-5 sm:p-6 lg:p-8 shadow-[0_16px_40px_rgba(0,0,0,0.25)] flex flex-col justify-between hover:shadow-[0_24px_50px_rgba(0,0,0,0.35)] hover:-translate-y-1.5 transition-all duration-300 group relative"
               >
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-2.5">
@@ -751,7 +751,7 @@ export default function HomePage() {
               {/* CARD 3: Intensive Memorization (Hifz) */}
               <motion.div
                 variants={cardItem}
-                className="rounded-3xl bg-white border border-stone-200/90 text-stone-900 p-6 sm:p-7 lg:p-8 shadow-[0_16px_40px_rgba(0,0,0,0.25)] flex flex-col justify-between hover:shadow-[0_24px_50px_rgba(0,0,0,0.35)] hover:-translate-y-1.5 transition-all duration-300 group"
+                className="rounded-3xl bg-white border border-stone-200/90 text-stone-900 p-5 sm:p-6 lg:p-8 shadow-[0_16px_40px_rgba(0,0,0,0.25)] flex flex-col justify-between hover:shadow-[0_24px_50px_rgba(0,0,0,0.35)] hover:-translate-y-1.5 transition-all duration-300 group"
               >
                 <div>
                   <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-bold text-stone-950 tracking-tight mb-2.5 font-bricolage">
@@ -948,17 +948,17 @@ export default function HomePage() {
               </ul>
 
               {/* CTA Action Area */}
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-6">
                 <button
                   type="button"
                   onClick={() => setIsWaitlistOpen(true)}
-                  className="inline-flex items-center justify-center gap-3 rounded-full bg-white px-8 sm:px-10 py-3.5 sm:py-4 text-stone-950 !font-light text-xs sm:text-sm lg:text-[14px] uppercase tracking-[0.05em] hover:bg-stone-100 transition-all duration-300 shadow-[0_10px_25px_rgba(0,0,0,0.25)] hover:shadow-[0_14px_30px_rgba(0,0,0,0.35)] hover:-translate-y-0.5 active:translate-y-0 cursor-pointer group"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-3 rounded-full bg-white px-8 sm:px-10 py-3.5 sm:py-4 text-stone-950 !font-light text-xs sm:text-sm lg:text-[14px] uppercase tracking-[0.05em] hover:bg-stone-100 transition-all duration-300 shadow-[0_10px_25px_rgba(0,0,0,0.25)] hover:shadow-[0_14px_30px_rgba(0,0,0,0.35)] hover:-translate-y-0.5 active:translate-y-0 cursor-pointer group"
                 >
                   <span>JOIN THE WAITLIST</span>
                   <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 text-[#095F46] transition-transform group-hover:translate-x-1" />
                 </button>
 
-                <span className="text-xs sm:text-sm text-emerald-200/80 font-normal">
+                <span className="text-xs sm:text-sm text-emerald-200/80 font-normal text-center sm:text-left">
                   Takes 2 minutes · No payment required today
                 </span>
               </div>

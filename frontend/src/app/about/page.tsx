@@ -514,7 +514,7 @@ export default function AboutPage() {
               {/* Half-Globe embedded in background */}
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute -bottom-20 -right-20 sm:-bottom-16 sm:-right-16 lg:-bottom-14 lg:-right-12 h-64 w-64 sm:h-72 sm:w-72 lg:h-80 lg:w-80 select-none opacity-85 transition-transform duration-700 ease-out group-hover:scale-105 group-hover:rotate-2"
+                className="pointer-events-none absolute -bottom-20 -right-20 sm:-bottom-16 sm:-right-16 lg:-bottom-14 lg:-right-12 h-52 w-52 sm:h-72 sm:w-72 lg:h-80 lg:w-80 select-none opacity-40 sm:opacity-75 lg:opacity-85 transition-transform duration-700 ease-out group-hover:scale-105 group-hover:rotate-2"
               >
                 <EmbeddedGlobeIllustration className="h-full w-full" />
               </div>
@@ -637,7 +637,7 @@ export default function AboutPage() {
       {/* ========================================================================= */}
       <section
         id="pathway"
-        className={`${styles.section} ${styles.whiteSection} ${styles.pathwaySection} ${styles.patternBackground} relative overflow-hidden select-none pb-40 sm:pb-52 lg:pb-64 xl:pb-72 pt-20 sm:pt-24 lg:pt-28`}
+        className={`${styles.section} ${styles.whiteSection} ${styles.pathwaySection} ${styles.patternBackground} relative overflow-hidden select-none pb-16 sm:pb-24 lg:pb-60 xl:pb-72 pt-16 sm:pt-20 lg:pt-28`}
         aria-labelledby="pathway-heading"
       >
         <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -666,7 +666,7 @@ export default function AboutPage() {
             {pedagogyMilestones?.map((milestone) => (
               <article
                 key={milestone.title}
-                className={`group relative flex flex-col justify-between rounded-[28px] sm:rounded-[32px] p-5 sm:p-6 min-h-[460px] sm:min-h-[490px] lg:min-h-[520px] xl:min-h-[540px] border transition-all duration-500 ease-out hover:z-20 hover:scale-[1.03] hover:!rotate-0 hover:!translate-y-[-6px] hover:shadow-2xl ${milestone.cardBg} ${milestone.offsetClass}`}
+                className={`group relative flex flex-col justify-between rounded-[28px] sm:rounded-[32px] p-5 sm:p-6 min-h-[400px] sm:min-h-[440px] lg:min-h-[520px] xl:min-h-[540px] border transition-all duration-500 ease-out hover:z-20 hover:scale-[1.03] hover:!rotate-0 hover:!translate-y-[-6px] hover:shadow-2xl ${milestone.cardBg} ${milestone.offsetClass}`}
               >
                 <div>
                   {/* Card Top: Image with overlay number badge (No arrows) */}
@@ -741,7 +741,7 @@ export default function AboutPage() {
               return (
                 <div
                   key={promise.fullTitle}
-                  className={`w-full min-h-[410px] sm:min-h-[420px] lg:min-h-[430px] ${styles.flipCardContainer}`}
+                  className={`w-full min-h-[380px] sm:min-h-[400px] lg:min-h-[430px] ${styles.flipCardContainer}`}
                 >
                   <div
                     role="button"
@@ -884,7 +884,7 @@ export default function AboutPage() {
             </div>
 
             {/* Right Waitlist Form */}
-            <div className="relative bg-[#fcfcf9] p-6 sm:p-9 lg:p-11 xl:p-12">
+            <div className="relative bg-[#fcfcf9] p-5 sm:p-9 lg:p-11 xl:p-12">
               <div className="mb-6 sm:mb-7 flex items-end justify-between gap-4 border-b border-stone-200/60 pb-4 sm:pb-5">
                 <div>
                   <p className="text-xs font-bold uppercase tracking-wider text-[#095F46]">Join the waitlist</p>

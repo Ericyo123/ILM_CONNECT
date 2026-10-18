@@ -45,14 +45,14 @@
 .pillarsContainer { width: 100%; max-width: 1280px; margin-inline: auto; padding-inline: 1rem; }
 .pillarsIntro { display: grid; gap: 0.5rem; margin-bottom: 1rem; }
 .pillarsGrid { display: grid; justify-content: center; gap: 2.5rem; }
-.pillar { min-width: 0; width: 184px; }
-.pillarPhoto { position: relative; height: 28rem; isolation: isolate; overflow: hidden; border-radius: 999px 999px 0 0; background: #172b23; }
+.pillar { min-width: 0; width: min(240px, 85vw); margin-inline: auto; }
+.pillarPhoto { position: relative; height: clamp(18rem, 44vh, 22rem); isolation: isolate; overflow: hidden; border-radius: 999px 999px 0 0; background: #172b23; }
 .pillarImage { object-fit: cover; }
 .pillarPhoto::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(12, 24, 18, 0.85) 0, rgba(12, 24, 18, 0.85) 3.5rem, transparent 35%); z-index: 1; }
-.pillarTitle { position: absolute; bottom: 1rem; left: 0.75rem; right: 0.75rem; z-index: 2; white-space: nowrap; font-family: var(--font-heading); font-size: 1rem; font-weight: 600; line-height: 1.3; letter-spacing: -0.035em; color: #fff; }
-.pillarArabic { margin-top: 0.625rem; text-align: left; white-space: nowrap; font-family: var(--font-amiri), serif; font-size: 1.375rem; line-height: 1.4; color: #095f46; }
+.pillarTitle { position: absolute; bottom: 1rem; left: 0.75rem; right: 0.75rem; z-index: 2; text-align: center; font-family: var(--font-heading); font-size: clamp(0.9375rem, 2.5vw, 1rem); font-weight: 600; line-height: 1.25; letter-spacing: -0.025em; color: #fff; }
+.pillarArabic { margin-top: 0.625rem; text-align: center; font-family: var(--font-amiri), serif; font-size: 1.375rem; line-height: 1.4; color: #095f46; }
 .pillarCaption { margin-top: 0.25rem; color: #172b23; font-size: 0.875rem; font-weight: 600; line-height: 1.5; }
-.pillarDescription { margin-top: 0.5rem; color: #52574f; font-family: var(--font-subtext); font-size: 0.9375rem; line-height: 1.6; }
+.pillarDescription { margin-top: 0.5rem; text-align: center; color: #52574f; font-family: var(--font-subtext); font-size: 0.9375rem; line-height: 1.6; }
 .number { color: #095f46; font-size: 0.875rem; font-weight: 700; font-variant-numeric: tabular-nums; }
 .arabic { font-family: var(--font-amiri), serif; font-size: 1.625rem; line-height: 1.5; color: #095f46; }
 .itemHeading,
@@ -67,19 +67,19 @@
 .itemHeading { margin-bottom: 0.875rem; }
 .caption { margin-bottom: 1rem; color: #52574f; font-size: 0.875rem; line-height: 1.5; }
 .body { color: #52574f; font-size: 1rem; line-height: 1.7; }
-.section.vettingSection { scroll-margin-top: 6.25rem; padding-block: clamp(8rem, 14svh, 12.5rem) !important; }
-.section.pathwaySection { padding-top: clamp(5.5rem, 9svh, 8rem) !important; padding-bottom: clamp(11rem, 19svh, 19rem) !important; }
-.vettingContainer { display: grid; gap: 3rem; }
+.section.vettingSection { scroll-margin-top: 6.25rem; padding-block: clamp(5.5rem, 11svh, 10rem) !important; }
+.section.pathwaySection { padding-top: clamp(4.5rem, 8svh, 7rem) !important; padding-bottom: clamp(5.5rem, 12svh, 15rem) !important; }
+.vettingContainer { display: grid; gap: 2.5rem; }
 .vettingGrid { position: relative; display: grid; }
 .vettingCurve { display: none; }
-.vettingMobileCurve { position: absolute; inset: 0 auto 0 0; width: 64px; height: 100%; fill: none; stroke: #095f46; stroke-width: 2; pointer-events: none; }
+.vettingMobileCurve { position: absolute; inset: 0 auto 0 0; width: 48px; height: 100%; fill: none; stroke: #095f46; stroke-width: 2; pointer-events: none; }
 .greenSection .vettingMobileCurve { stroke: #ffffff; }
-.vettingItem { position: relative; min-width: 0; min-height: 240px; display: flex; align-items: center; padding: 1.5rem 0 1.5rem 5rem; }
-.vettingMarker { position: absolute; left: 32px; top: 50%; width: 56px; height: 56px; transform: translate(-50%, -50%); filter: drop-shadow(0 8px 10px rgba(9, 95, 70, 0.12)); }
+.vettingItem { position: relative; min-width: 0; min-height: 180px; display: flex; align-items: center; padding: 1.25rem 0 1.25rem 4rem; }
+.vettingMarker { position: absolute; left: 24px; top: 50%; width: 48px; height: 48px; transform: translate(-50%, -50%); filter: drop-shadow(0 8px 10px rgba(9, 95, 70, 0.12)); }
 .vettingMarkerFace { display: grid; place-items: center; width: 100%; height: 100%; background: #fff; clip-path: polygon(50% 0, 93% 23%, 93% 77%, 50% 100%, 7% 77%, 7% 23%); }
-.vettingMarker svg { width: 25px; height: 25px; color: #095f46; stroke-width: 2; }
-.vettingContent { position: relative; display: grid; grid-template-columns: 2.75rem minmax(0, 1fr); column-gap: 0.75rem; width: 100%; max-width: 40ch; }
-.vettingNumber { grid-column: 1; grid-row: 1; color: #c7d2c9; font-family: var(--font-heading); font-size: 3.5rem; font-weight: 700; line-height: 1; }
+.vettingMarker svg { width: 22px; height: 22px; color: #095f46; stroke-width: 2; }
+.vettingContent { position: relative; display: grid; grid-template-columns: 2.5rem minmax(0, 1fr); column-gap: 0.75rem; width: 100%; max-width: 44ch; }
+.vettingNumber { grid-column: 1; grid-row: 1; color: #c7d2c9; font-family: var(--font-heading); font-size: 2.75rem; font-weight: 700; line-height: 1; }
 .greenSection .vettingNumber { color: rgba(255, 255, 255, 0.25); }
 .vettingHeading { grid-column: 2; grid-row: 1; align-self: center; }
 .greenSection .vettingHeading { color: #ffffff; }
@@ -106,14 +106,23 @@
 
 @media (min-width: 640px) {
   .pillarsContainer { padding-inline: 1.5rem; }
-  .pillarsGrid { grid-template-columns: repeat(3, minmax(0, 184px)); gap: clamp(1.25rem, 5vw, 6rem); }
-  .pillar { width: 100%; }
-  .pillarPhoto { height: clamp(22.5rem, 47svh, 28rem); }
-  .pillar:nth-child(2) .pillarPhoto { height: clamp(19.5rem, calc(47svh - 3rem), 25rem); }
+  .pillarsGrid { grid-template-columns: repeat(3, minmax(0, 184px)); gap: clamp(1.25rem, 4vw, 3.5rem); }
+  .pillar { width: 100%; margin-inline: 0; }
+  .pillarTitle { text-align: left; }
+  .pillarArabic { text-align: left; }
+  .pillarDescription { text-align: left; }
+  .pillarPhoto { height: clamp(21rem, 44svh, 27rem); }
+  .pillar:nth-child(2) .pillarPhoto { height: clamp(18.5rem, calc(44svh - 2.5rem), 24rem); }
   .pillarsIntro .intro { max-width: none; font-size: 1rem; line-height: 1.5; }
   .section { padding-block: 5rem; }
   .heading { font-size: 2.25rem; }
   .itemHeading, .vettingHeading, .promiseHeading { font-size: 1.375rem; }
+  .vettingItem { min-height: 210px; padding: 1.5rem 0 1.5rem 5.5rem; }
+  .vettingMarker { left: 32px; width: 56px; height: 56px; }
+  .vettingMarker svg { width: 25px; height: 25px; }
+  .vettingMobileCurve { width: 64px; }
+  .vettingContent { max-width: 54ch; grid-template-columns: 3rem minmax(0, 1fr); }
+  .vettingNumber { font-size: 3.5rem; }
   .pathwayGrid, .parentsGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .parentsGrid .promise:last-child { grid-column: 1 / -1; width: calc((100% - 2rem) / 2); }
 }
@@ -191,10 +200,22 @@
   position: relative;
   width: 100%;
   height: 100%;
-  min-height: 410px;
+  min-height: 380px;
   transform-style: preserve-3d;
   -webkit-transform-style: preserve-3d;
   transition: transform 0.65s cubic-bezier(0.34, 1.25, 0.64, 1);
+}
+
+@media (min-width: 640px) {
+  .flipCardInner {
+    min-height: 400px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .flipCardInner {
+    min-height: 410px;
+  }
 }
 
 .flipCardInnerFlipped {

@@ -35,7 +35,7 @@ export default function Footer() {
   return (
     <footer className="bg-gradient-to-br from-[#071412] via-[#0c211e] to-[#112f2a] border-t border-emerald-300/15 text-white select-none">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-14 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/" className="inline-flex items-center mb-5 group" aria-label="ILMBIT home">

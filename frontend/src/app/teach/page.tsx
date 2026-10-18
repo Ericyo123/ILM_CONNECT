@@ -232,7 +232,7 @@ export default function TeachPage() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.15 }}
             variants={staggerContainer}
-            className="mt-14 sm:mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7 items-stretch"
+            className="mt-14 sm:mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 lg:gap-7 items-stretch"
           >
             {whyTeachCards.map((card, idx) => (
               <motion.div
@@ -246,7 +246,7 @@ export default function TeachPage() {
                       src={card.image}
                       alt={card.imageAlt}
                       fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                       className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
@@ -286,7 +286,7 @@ export default function TeachPage() {
               variants={fadeUp}
               className="relative lg:col-span-6 flex items-center justify-center order-2 lg:order-1"
             >
-              <div className="relative w-full max-w-[480px] lg:max-w-[500px]">
+              <div className="relative w-full max-w-[360px] sm:max-w-[440px] lg:max-w-[500px]">
                 {/* Ambient warm glow behind the portrait */}
                 <div className="absolute -inset-4 bg-gradient-to-tr from-[#EAD08A]/20 via-emerald-400/15 to-transparent rounded-[36px] blur-2xl -z-10" />
 
@@ -418,7 +418,7 @@ export default function TeachPage() {
                 className="w-full rounded-3xl border border-stone-200/90 bg-white shadow-xl shadow-black/5 overflow-hidden"
               >
                 {/* Form Top Header Band — Deep Islamic Green with Gold Accents */}
-                <div className="relative overflow-hidden bg-gradient-to-r from-[#06261e] via-[#095F46] to-[#042d22] text-white p-8 sm:p-11 lg:p-14 border-b border-emerald-900/40">
+                <div className="relative overflow-hidden bg-gradient-to-r from-[#06261e] via-[#095F46] to-[#042d22] text-white p-6 sm:p-10 lg:p-14 border-b border-emerald-900/40">
                   {/* Subtle Background Radial Glow */}
                   <div className="absolute -top-12 -right-12 w-64 h-64 rounded-full bg-[#EAD08A]/10 blur-3xl pointer-events-none" />
 
@@ -432,7 +432,7 @@ export default function TeachPage() {
                   </div>
                 </div>
 
-                <div className="p-7 sm:p-10 lg:p-14">
+                <div className="p-5 sm:p-8 lg:p-14">
                   {error ? (
                     <div className="mb-8 rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-medium text-red-700">
                       {error}
@@ -460,7 +460,7 @@ export default function TeachPage() {
                             value={fullName}
                             onChange={(e) => setFullName(e.target.value)}
                             placeholder="e.g. Maulavi Mohamed Ismail"
-                            className="h-11 w-full rounded-xl border border-stone-300 bg-stone-50/50 px-3.5 text-sm text-stone-900 outline-none transition-colors focus:border-[#095F46] focus:bg-white focus:ring-2 focus:ring-[#095F46]/15"
+                            className="h-11 w-full rounded-xl border border-stone-300 bg-stone-50/50 px-3.5 text-base sm:text-sm text-stone-900 outline-none transition-colors focus:border-[#095F46] focus:bg-white focus:ring-2 focus:ring-[#095F46]/15"
                           />
                         </div>
 
@@ -474,7 +474,7 @@ export default function TeachPage() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="scholar@example.com"
-                            className="h-11 w-full rounded-xl border border-stone-300 bg-stone-50/50 px-3.5 text-sm text-stone-900 outline-none transition-colors focus:border-[#095F46] focus:bg-white focus:ring-2 focus:ring-[#095F46]/15"
+                            className="h-11 w-full rounded-xl border border-stone-300 bg-stone-50/50 px-3.5 text-base sm:text-sm text-stone-900 outline-none transition-colors focus:border-[#095F46] focus:bg-white focus:ring-2 focus:ring-[#095F46]/15"
                           />
                         </div>
 
@@ -502,7 +502,7 @@ export default function TeachPage() {
                             value={country}
                             onChange={(e) => setCountry(e.target.value)}
                             placeholder="Sri Lanka"
-                            className="h-11 w-full rounded-xl border border-stone-300 bg-stone-50/50 px-3.5 text-sm text-stone-900 outline-none transition-colors focus:border-[#095F46] focus:bg-white focus:ring-2 focus:ring-[#095F46]/15"
+                            className="h-11 w-full rounded-xl border border-stone-300 bg-stone-50/50 px-3.5 text-base sm:text-sm text-stone-900 outline-none transition-colors focus:border-[#095F46] focus:bg-white focus:ring-2 focus:ring-[#095F46]/15"
                           />
                         </div>
 
@@ -515,7 +515,7 @@ export default function TeachPage() {
                             value={city}
                             onChange={(e) => setCity(e.target.value)}
                             placeholder="e.g. Colombo, Kandy, Galle"
-                            className="h-11 w-full rounded-xl border border-stone-300 bg-stone-50/50 px-3.5 text-sm text-stone-900 outline-none transition-colors focus:border-[#095F46] focus:bg-white focus:ring-2 focus:ring-[#095F46]/15"
+                            className="h-11 w-full rounded-xl border border-stone-300 bg-stone-50/50 px-3.5 text-base sm:text-sm text-stone-900 outline-none transition-colors focus:border-[#095F46] focus:bg-white focus:ring-2 focus:ring-[#095F46]/15"
                           />
                         </div>
 
@@ -531,7 +531,7 @@ export default function TeachPage() {
                               value={password}
                               onChange={(e) => setPassword(e.target.value)}
                               placeholder="Minimum 6 characters"
-                              className="h-11 w-full rounded-xl border border-stone-300 bg-stone-50/50 pl-3.5 pr-10 text-sm text-stone-900 outline-none transition-colors focus:border-[#095F46] focus:bg-white focus:ring-2 focus:ring-[#095F46]/15"
+                              className="h-11 w-full rounded-xl border border-stone-300 bg-stone-50/50 pl-3.5 pr-10 text-base sm:text-sm text-stone-900 outline-none transition-colors focus:border-[#095F46] focus:bg-white focus:ring-2 focus:ring-[#095F46]/15"
                             />
                             <button
                               type="button"
@@ -563,7 +563,7 @@ export default function TeachPage() {
                           <select
                             value={qualification}
                             onChange={(e) => setQualification(e.target.value)}
-                            className="h-11 w-full rounded-xl border border-stone-300 bg-stone-50/50 px-3.5 text-sm text-stone-900 outline-none transition-colors focus:border-[#095F46] focus:bg-white focus:ring-2 focus:ring-[#095F46]/15"
+                            className="h-11 w-full rounded-xl border border-stone-300 bg-stone-50/50 px-3.5 text-base sm:text-sm text-stone-900 outline-none transition-colors focus:border-[#095F46] focus:bg-white focus:ring-2 focus:ring-[#095F46]/15"
                           >
                             <option value="Maulavi / Alim Graduate">Maulavi / Alim Graduate</option>
                             <option value="Hafiz-ul-Quran (Certified)">Hafiz-ul-Quran (Certified)</option>
@@ -583,7 +583,7 @@ export default function TeachPage() {
                             value={institution}
                             onChange={(e) => setInstitution(e.target.value)}
                             placeholder="e.g. Jamiah Naleemiah, Ghaffooriyyah, etc."
-                            className="h-11 w-full rounded-xl border border-stone-300 bg-stone-50/50 px-3.5 text-sm text-stone-900 outline-none transition-colors focus:border-[#095F46] focus:bg-white focus:ring-2 focus:ring-[#095F46]/15"
+                            className="h-11 w-full rounded-xl border border-stone-300 bg-stone-50/50 px-3.5 text-base sm:text-sm text-stone-900 outline-none transition-colors focus:border-[#095F46] focus:bg-white focus:ring-2 focus:ring-[#095F46]/15"
                           />
                         </div>
 
@@ -705,7 +705,7 @@ export default function TeachPage() {
                             value={bio}
                             onChange={(e) => setBio(e.target.value)}
                             placeholder="Share a short summary of your teaching style, patience with children or adult learners, and memorization methods..."
-                            className="w-full rounded-xl border border-stone-300 bg-stone-50/50 p-3.5 text-sm text-stone-900 outline-none transition-colors focus:border-[#095F46] focus:bg-white focus:ring-2 focus:ring-[#095F46]/15"
+                            className="w-full rounded-xl border border-stone-300 bg-stone-50/50 p-3.5 text-base sm:text-sm text-stone-900 outline-none transition-colors focus:border-[#095F46] focus:bg-white focus:ring-2 focus:ring-[#095F46]/15"
                           />
                         </div>
                       </div>

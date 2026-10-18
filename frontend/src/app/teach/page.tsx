@@ -314,10 +314,10 @@ export default function TeachPage() {
               className="lg:col-span-6 flex flex-col justify-center order-1 lg:order-2"
             >
               <div className="mb-8 sm:mb-10 text-left">
-                <h2 className="text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-bold tracking-tight text-white leading-[1.12] sm:leading-[1.14] lg:leading-[1.15] mb-3 font-bricolage">
+                <h2 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-bold tracking-tight text-white leading-[1.12] sm:leading-[1.14] lg:leading-[1.15] mb-3 font-bricolage">
                   Simple 4 Steps Onboarding
                 </h2>
-                <p className="text-emerald-100/80 font-normal text-sm sm:text-base lg:text-[17px] leading-relaxed">
+                <p className="text-emerald-100/85 font-normal text-sm sm:text-base lg:text-[18px] leading-relaxed">
                   From online application to your first live lesson in less than a week
                 </p>
               </div>
@@ -423,10 +423,10 @@ export default function TeachPage() {
                   <div className="absolute -top-12 -right-12 w-64 h-64 rounded-full bg-[#EAD08A]/10 blur-3xl pointer-events-none" />
 
                   <div className="relative z-10">
-                    <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-white font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15]">
+                    <h2 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-bold tracking-tight text-white font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15]">
                       Tutor Application Form
                     </h2>
-                    <p className="mt-2.5 text-sm sm:text-base text-emerald-100/85 max-w-2xl leading-relaxed font-normal">
+                    <p className="mt-2.5 text-sm sm:text-base lg:text-[18px] text-emerald-100/85 max-w-2xl leading-relaxed font-normal">
                       Please provide your authentic credentials. Verified scholars maintain trusted profiles for 1:1 student matching.
                     </p>
                   </div>

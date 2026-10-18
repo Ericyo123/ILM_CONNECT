@@ -443,7 +443,7 @@ export default function AboutPage() {
               variants={fadeUp}
               className="lg:col-span-7"
             >
-              <h2 className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-white leading-[1.12] sm:leading-[1.14] lg:leading-[1.15] font-bricolage">
+              <h2 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-bold tracking-tight text-white leading-[1.12] sm:leading-[1.14] lg:leading-[1.15] font-bricolage">
                 Make Islamic Education<br />
                 <span className="text-[#EAD08A]">Easier To Access</span>
               </h2>
@@ -540,7 +540,7 @@ export default function AboutPage() {
         <div className={`relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 ${styles.pillarsContainer}`}>
           
           <div className={styles.pillarsIntro}>
-            <h2 id="pillars-heading" className="text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15]">
+            <h2 id="pillars-heading" className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15]">
               Three Pillars<br />
               of Every Lesson
             </h2>
@@ -587,7 +587,7 @@ export default function AboutPage() {
         <div className={`relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 ${styles.vettingContainer}`}>
           
           <div className={styles.centerIntro}>
-            <h2 id="vetting-heading" className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-white font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15] text-center">
+            <h2 id="vetting-heading" className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-bold tracking-tight text-white font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15] text-center">
               How We Verify Every Scholar
             </h2>
             <p className="text-emerald-100/85 text-sm sm:text-base lg:text-[18px] leading-normal max-w-3xl mx-auto text-center font-normal mt-3">
@@ -646,11 +646,11 @@ export default function AboutPage() {
           <div className="max-w-3xl space-y-3 mb-12 sm:mb-16 lg:mb-20">
             <h2
               id="pathway-heading"
-              className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[52px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15]"
+              className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15]"
             >
               A Gentle Pathway from First Letters to <span className="text-[#095F46]">Fluency</span>
             </h2>
-            <p className="text-stone-600 text-sm sm:text-base lg:text-[17px] xl:text-[18px] leading-relaxed max-w-2xl font-normal pt-1">
+            <p className="text-stone-600 text-sm sm:text-base lg:text-[18px] leading-relaxed max-w-2xl font-normal pt-1">
               A structured progression through foundations, recitation, memorisation, and living character — adapted by your scholar to your child&apos;s unique pace.
             </p>
           </div>
@@ -711,20 +711,20 @@ export default function AboutPage() {
       {/* ========================================================================= */}
       <section
         id="parents"
-        className="relative overflow-hidden select-none py-24 sm:py-32 lg:py-40 xl:py-44 bg-gradient-to-br from-[#04241B] via-[#07382B] to-[#031d16] text-white border-b border-[#04241B]"
+        className="relative overflow-hidden select-none py-14 sm:py-16 lg:py-20 xl:py-24 bg-gradient-to-br from-[#04241B] via-[#07382B] to-[#031d16] text-white border-b border-[#04241B]"
         aria-labelledby="parents-heading"
       >
         {/* Ambient lighting glows */}
         <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-teal-500/10 blur-3xl pointer-events-none" />
 
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-14 sm:space-y-16 lg:space-y-20">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-10 lg:space-y-12">
           
           <div className="text-center max-w-3xl mx-auto space-y-3">
-            <h2 id="parents-heading" className="text-3xl sm:text-4xl lg:text-[48px] xl:text-[54px] font-bold tracking-tight text-white font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15] text-center">
+            <h2 id="parents-heading" className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-bold tracking-tight text-white font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15] text-center">
               Complete Peace of Mind <span className="text-[#EAD08A]">for Parents</span>
             </h2>
-            <p className="text-emerald-100/85 text-sm sm:text-base lg:text-[18px] xl:text-[19px] leading-relaxed max-w-2xl mx-auto font-normal">
+            <p className="text-emerald-100/85 text-sm sm:text-base lg:text-[18px] leading-relaxed max-w-2xl mx-auto font-normal">
               A familiar teacher, a clear view of progress, and lesson times that work for your family.
             </p>
           </div>
@@ -734,14 +734,14 @@ export default function AboutPage() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.15 }}
             variants={fadeUp}
-            className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch"
+            className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-7 items-stretch"
           >
             {parentPromises.map((promise, idx) => {
               const isFlipped = !!flippedCards[idx];
               return (
                 <div
                   key={promise.fullTitle}
-                  className={`w-full min-h-[520px] sm:min-h-[540px] lg:min-h-[560px] xl:min-h-[580px] ${styles.flipCardContainer}`}
+                  className={`w-full min-h-[410px] sm:min-h-[420px] lg:min-h-[430px] ${styles.flipCardContainer}`}
                 >
                   <div
                     role="button"
@@ -761,7 +761,7 @@ export default function AboutPage() {
                   >
                     {/* FRONT OF CARD */}
                     <div
-                      className={`flex flex-col items-center justify-between text-center bg-white p-6 sm:p-7 lg:p-8 xl:p-9 text-stone-900 shadow-[0_20px_50px_rgba(0,0,0,0.22)] border border-white/95 group-hover:shadow-[0_28px_60px_rgba(0,0,0,0.32)] transition-shadow duration-300 ${styles.flipCardFace}`}
+                      className={`flex flex-col items-center justify-between text-center bg-white p-5 sm:p-6 lg:p-6 xl:p-7 text-stone-900 shadow-[0_16px_40px_rgba(0,0,0,0.22)] border border-white/95 group-hover:shadow-[0_24px_50px_rgba(0,0,0,0.30)] transition-shadow duration-300 ${styles.flipCardFace}`}
                     >
                       <div className="w-full flex items-center justify-start">
                         <span className="text-xs font-bold uppercase tracking-wider text-[#095F46]">
@@ -770,19 +770,19 @@ export default function AboutPage() {
                       </div>
 
                       {/* Circle Image and 2-Line Heading */}
-                      <div className="my-auto flex flex-col items-center py-2">
-                        <div className="relative w-52 h-52 sm:w-56 sm:h-56 lg:w-60 lg:h-60 xl:w-64 xl:h-64 rounded-full overflow-hidden border-[6px] border-stone-100 shadow-[0_12px_32px_rgba(9,95,70,0.18)] ring-2 ring-[#095F46]/20 group-hover:scale-105 transition-transform duration-500 ease-out mb-5">
+                      <div className="my-auto flex flex-col items-center py-1">
+                        <div className="relative w-36 h-36 sm:w-40 sm:h-40 lg:w-44 lg:h-44 rounded-full overflow-hidden border-[4px] border-stone-100 shadow-md ring-2 ring-[#095F46]/15 group-hover:scale-105 transition-transform duration-500 ease-out mb-3.5">
                           <Image
                             src={promise.image}
                             alt={promise.imageAlt}
                             fill
                             className="object-cover"
-                            sizes="(max-width: 640px) 208px, (max-width: 1024px) 240px, 256px"
+                            sizes="(max-width: 640px) 144px, (max-width: 1024px) 160px, 176px"
                           />
                         </div>
 
                         {/* Title in 2 lines */}
-                        <h3 className="text-2xl sm:text-[28px] lg:text-[30px] font-bold text-stone-950 font-bricolage tracking-tight leading-[1.12]">
+                        <h3 className="text-xl sm:text-[22px] lg:text-[24px] font-bold text-stone-950 font-bricolage tracking-tight leading-[1.14]">
                           <span className="block">{promise.titleLine1}</span>
                           <span className="block text-[#095F46]">{promise.titleLine2}</span>
                         </h3>
@@ -796,11 +796,11 @@ export default function AboutPage() {
 
                     {/* BACK OF CARD (REVEALED ON TOUCH/PRESS) */}
                     <div
-                      className={`flex flex-col justify-between text-left bg-white p-7 sm:p-8 lg:p-9 text-stone-900 shadow-[0_24px_55px_rgba(0,0,0,0.28)] border border-white/95 ${styles.flipCardFace} ${styles.flipCardBack}`}
+                      className={`flex flex-col justify-between text-left bg-white p-5 sm:p-6 lg:p-6 xl:p-7 text-stone-900 shadow-[0_20px_45px_rgba(0,0,0,0.25)] border border-white/95 ${styles.flipCardFace} ${styles.flipCardBack}`}
                     >
                       <div>
                         {/* Header bar */}
-                        <div className="flex items-center justify-between pb-3 mb-4 border-b border-stone-100">
+                        <div className="flex items-center justify-between pb-2.5 mb-3 border-b border-stone-100">
                           <span className="text-xs font-bold uppercase tracking-wider text-[#095F46]">
                             Promise {idx + 1}
                           </span>
@@ -810,18 +810,18 @@ export default function AboutPage() {
                         </div>
 
                         {/* Full Title */}
-                        <h3 className="text-2xl sm:text-[26px] font-bold text-stone-950 font-bricolage tracking-tight mb-4 leading-snug">
+                        <h3 className="text-xl sm:text-[22px] font-bold text-stone-950 font-bricolage tracking-tight mb-3 leading-snug">
                           {promise.fullTitle}
                         </h3>
 
                         {/* Content text */}
-                        <p className="text-stone-600 text-sm sm:text-base lg:text-[16.5px] leading-relaxed font-normal">
+                        <p className="text-stone-600 text-xs sm:text-sm lg:text-[15px] leading-relaxed font-normal">
                           {promise.desc}
                         </p>
                       </div>
 
                       {/* Footer */}
-                      <div className="pt-4 mt-6 border-t border-stone-100 flex items-center justify-between text-xs text-stone-400">
+                      <div className="pt-3 mt-4 border-t border-stone-100 flex items-center justify-between text-xs text-stone-400">
                         <span className="font-semibold text-[#095F46]">Ilmbit Guarantee</span>
                         <span>Press to flip</span>
                       </div>

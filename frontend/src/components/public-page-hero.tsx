@@ -5,9 +5,15 @@ import Image from 'next/image';
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
 
 export const publicPageFadeUp: Variants = {
-  hidden: { opacity: 0, y: 22 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+  hidden: { opacity: 0, y: 14 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.25, 0.1, 0.25, 1] } },
 };
+
+export const publicPageViewPort = {
+  once: true,
+  amount: 0.02,
+  margin: '0px 0px 140px 0px',
+} as const;
 
 interface PublicPageHeroProps {
   title: string;

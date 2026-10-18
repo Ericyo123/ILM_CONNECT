@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Check, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
-import PublicPageHero, { publicPageFadeUp as fadeUp } from '@/components/public-page-hero';
+import PublicPageHero, { publicPageFadeUp as fadeUp, publicPageViewPort } from '@/components/public-page-hero';
 import styles from './pricing.module.css';
 
 interface CourseCardData {
@@ -182,7 +182,7 @@ export default function PricingPage() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
+            viewport={publicPageViewPort}
             variants={fadeUp}
             className="text-left"
           >
@@ -202,7 +202,7 @@ export default function PricingPage() {
                 key={`standard-${course.id}`}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, amount: 0.15 }}
+                viewport={publicPageViewPort}
                 variants={fadeUp}
                 transition={{ delay: i * 0.1 }}
                 className="group relative flex flex-col justify-between rounded-3xl overflow-hidden transition-all duration-300 bg-white border border-stone-200/80 hover:border-stone-300 shadow-[0_12px_36px_rgba(0,0,0,0.08),0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_48px_rgba(0,0,0,0.12)] hover:-translate-y-1"
@@ -279,7 +279,7 @@ export default function PricingPage() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
+            viewport={publicPageViewPort}
             variants={fadeUp}
           >
             <h2>
@@ -376,7 +376,7 @@ export default function PricingPage() {
                 key={`fasttrack-${course.id}`}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, amount: 0.15 }}
+                viewport={publicPageViewPort}
                 variants={fadeUp}
                 transition={{ delay: i * 0.1 }}
                 className="group relative flex flex-col justify-between rounded-3xl overflow-hidden transition-all duration-300 bg-white border border-stone-200/80 hover:border-emerald-500/50 shadow-[0_12px_36px_rgba(0,0,0,0.08),0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_22px_48px_rgba(9,95,70,0.16)] hover:-translate-y-1 ring-1 ring-emerald-500/15"
@@ -463,7 +463,7 @@ export default function PricingPage() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
+            viewport={publicPageViewPort}
             variants={fadeUp}
             className="text-left mb-10"
           >
@@ -480,7 +480,7 @@ export default function PricingPage() {
                   key={faq.q}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true, amount: 0.15 }}
+                  viewport={publicPageViewPort}
                   variants={fadeUp}
                   transition={{ delay: i * 0.05 }}
                   className={`${styles.faqItem} ${isOpen ? styles.open : ''}`}

@@ -90,11 +90,11 @@ const faqs = [
 ];
 
 const sectionReveal: Variants = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 14 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const },
+    transition: { duration: 0.45, ease: [0.25, 0.1, 0.25, 1] as const },
   },
 };
 
@@ -103,24 +103,25 @@ const cardStagger: Variants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.04,
+      staggerChildren: 0.06,
+      delayChildren: 0.02,
     },
   },
 };
 
 const cardItem: Variants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 12 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
+    transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] as const },
   },
 };
 
 const revealViewport = {
   once: true,
-  amount: 0.15,
+  amount: 0.02,
+  margin: '0px 0px 140px 0px',
 } as const;
 
 const heroBackgroundImages = [

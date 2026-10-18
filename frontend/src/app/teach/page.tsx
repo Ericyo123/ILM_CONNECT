@@ -10,7 +10,7 @@ import {
   EyeOff,
 } from 'lucide-react';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
-import PublicPageHero from '@/components/public-page-hero';
+import PublicPageHero, { publicPageFadeUp as fadeUp, publicPageViewPort } from '@/components/public-page-hero';
 import CountryPhoneInput from '@/components/country-phone-input';
 import {
   formatInternationalPhone,
@@ -28,14 +28,6 @@ const specializationsList = [
   'Supplications & Daily Duas',
 ];
 
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 22 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
-  },
-};
 
 const staggerContainer: Variants = {
   hidden: { opacity: 0 },
@@ -215,7 +207,7 @@ export default function TeachPage() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
+            viewport={publicPageViewPort}
             variants={fadeUp}
             className="text-center max-w-3xl mx-auto space-y-3"
           >
@@ -230,7 +222,7 @@ export default function TeachPage() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
+            viewport={publicPageViewPort}
             variants={staggerContainer}
             className="mt-14 sm:mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 lg:gap-7 items-stretch"
           >
@@ -282,7 +274,7 @@ export default function TeachPage() {
             <motion.div
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.15 }}
+              viewport={publicPageViewPort}
               variants={fadeUp}
               className="relative lg:col-span-6 flex items-center justify-center order-2 lg:order-1"
             >
@@ -309,7 +301,7 @@ export default function TeachPage() {
             <motion.div
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.15 }}
+              viewport={publicPageViewPort}
               variants={fadeUp}
               className="lg:col-span-6 flex flex-col justify-center order-1 lg:order-2"
             >
@@ -413,7 +405,7 @@ export default function TeachPage() {
               <motion.div
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, amount: 0.08 }}
+                viewport={publicPageViewPort}
                 variants={fadeUp}
                 className="w-full rounded-3xl border border-stone-200/90 bg-white shadow-xl shadow-black/5 overflow-hidden"
               >

@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
 import styles from './about-refinement.module.css';
-import PublicPageHero, { publicPageFadeUp as fadeUp } from '@/components/public-page-hero';
+import PublicPageHero, { publicPageFadeUp as fadeUp, publicPageViewPort } from '@/components/public-page-hero';
 import CountryPhoneInput from '@/components/country-phone-input';
 import {
   formatInternationalPhone,
@@ -376,7 +376,7 @@ export default function AboutPage() {
             <motion.div
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.15 }}
+              viewport={publicPageViewPort}
               variants={fadeUp}
               className="lg:col-span-7 flex flex-col justify-center space-y-6"
             >
@@ -403,7 +403,7 @@ export default function AboutPage() {
             <motion.div
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.15 }}
+              viewport={publicPageViewPort}
               variants={fadeUp}
               className="lg:col-span-5 relative"
             >
@@ -439,7 +439,7 @@ export default function AboutPage() {
             <motion.div
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.15 }}
+              viewport={publicPageViewPort}
               variants={fadeUp}
               className="lg:col-span-7"
             >
@@ -453,7 +453,7 @@ export default function AboutPage() {
             <motion.div
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.15 }}
+              viewport={publicPageViewPort}
               variants={fadeUp}
               className="lg:col-span-5 text-emerald-100/85 text-sm sm:text-base lg:text-[17px] xl:text-[18px] leading-relaxed font-normal"
             >
@@ -467,7 +467,7 @@ export default function AboutPage() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
+            viewport={publicPageViewPort}
             variants={fadeUp}
             className="grid gap-4 sm:gap-5 lg:grid-cols-12 lg:grid-rows-2"
           >
@@ -656,7 +656,7 @@ export default function AboutPage() {
           <motion.div
             initial={shouldReduceMotion ? false : 'hidden'}
             whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
+            viewport={publicPageViewPort}
             variants={fadeUp}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-5 xl:gap-6 items-stretch"
           >
@@ -729,7 +729,7 @@ export default function AboutPage() {
           <motion.div
             initial={shouldReduceMotion ? false : 'hidden'}
             whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
+            viewport={publicPageViewPort}
             variants={fadeUp}
             className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-7 items-stretch"
           >
@@ -840,7 +840,7 @@ export default function AboutPage() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
+            viewport={publicPageViewPort}
             variants={fadeUp}
             className="relative grid w-full overflow-hidden rounded-2xl sm:rounded-[2rem] border border-stone-200 bg-[#f7f7f3] shadow-[0_22px_70px_rgba(20,32,27,0.10)] lg:grid-cols-[0.82fr_1.18fr]"
           >

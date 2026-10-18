@@ -531,6 +531,25 @@ p {
   animation: ambientOrb2 25s ease-in-out infinite;
 }
 
+/* Prevent iOS Safari WebKit layer promotion flicker / blink during scroll */
+[style*="opacity"],
+[style*="transform"],
+[class*="motion-"] {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+@media (max-width: 768px) {
+  /* Pause intense background orb animations on mobile that cause WebKit GPU tile thrashing & scroll blinking */
+  .animate-ambient-orb-1,
+  .animate-ambient-orb-2 {
+    animation: none !important;
+    opacity: 0.25 !important;
+  }
+}
+
 /* ========================================================================= */
 /* How It Works Reference Card: Scooped Top-Right Notched Design */
 /* ========================================================================= */

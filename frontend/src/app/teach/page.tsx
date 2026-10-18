@@ -9,7 +9,7 @@ import {
   Eye,
   EyeOff,
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import PublicPageHero from '@/components/public-page-hero';
 import CountryPhoneInput from '@/components/country-phone-input';
 import {
@@ -27,6 +27,26 @@ const specializationsList = [
   'Arabic Language & Grammar',
   'Supplications & Daily Duas',
 ];
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 22 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const staggerContainer: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.04,
+    },
+  },
+};
 
 const whyTeachCards = [
   {
@@ -180,9 +200,9 @@ export default function TeachPage() {
       >
         <a
           href="#apply-form"
-          className="brand-button brand-button-primary px-8 py-3.5 text-xs sm:text-sm tracking-wider uppercase font-semibold shadow-lg hover:shadow-emerald-950/40 inline-flex items-center gap-2"
+          className="brand-button brand-button-primary px-8 py-3.5 text-xs sm:text-sm tracking-[0.05em] uppercase !font-light shadow-lg hover:shadow-emerald-950/40 inline-flex items-center gap-2"
         >
-          <span>Tutor Application Form</span>
+          <span>TUTOR APPLICATION FORM</span>
           <ChevronDown className="w-4 h-4" />
         </a>
       </PublicPageHero>
@@ -192,19 +212,32 @@ export default function TeachPage() {
       {/* ========================================================================= */}
       <section id="why-teach" className="py-20 sm:py-24 lg:py-32 xl:py-36 bg-white border-b border-stone-200/70 scroll-mt-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto space-y-3">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.15 }}
+            variants={fadeUp}
+            className="text-center max-w-3xl mx-auto space-y-3"
+          >
             <h2 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15]">
               Why Scholars Choose to Teach on <span className="text-[#095F46]">Ilmbit</span>
             </h2>
             <p className="text-stone-600 text-sm sm:text-base lg:text-[18px] leading-relaxed max-w-2xl mx-auto font-normal">
               A respectful, modern platform built to support and honor teachers of the Holy Quran.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="mt-14 sm:mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7 items-stretch">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.15 }}
+            variants={staggerContainer}
+            className="mt-14 sm:mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7 items-stretch"
+          >
             {whyTeachCards.map((card, idx) => (
-              <div
+              <motion.div
                 key={idx}
+                variants={fadeUp}
                 className="group rounded-3xl border border-stone-200/90 bg-[#fafbf9] flex flex-col justify-between shadow-xs hover:border-[#095F46]/30 hover:shadow-lg transition-all overflow-hidden"
               >
                 <div>
@@ -226,9 +259,9 @@ export default function TeachPage() {
                     </p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -246,7 +279,13 @@ export default function TeachPage() {
         <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-16 items-center">
             {/* Left Column: Authentic Portrait Frame of Verified Scholar / Lecturer */}
-            <div className="relative lg:col-span-6 flex items-center justify-center order-2 lg:order-1">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.15 }}
+              variants={fadeUp}
+              className="relative lg:col-span-6 flex items-center justify-center order-2 lg:order-1"
+            >
               <div className="relative w-full max-w-[480px] lg:max-w-[500px]">
                 {/* Ambient warm glow behind the portrait */}
                 <div className="absolute -inset-4 bg-gradient-to-tr from-[#EAD08A]/20 via-emerald-400/15 to-transparent rounded-[36px] blur-2xl -z-10" />
@@ -264,10 +303,16 @@ export default function TeachPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-[#031e18]/80 via-transparent to-black/20" />
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Right Column: Title + Vertical Timeline Pathway */}
-            <div className="lg:col-span-6 flex flex-col justify-center order-1 lg:order-2">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.15 }}
+              variants={fadeUp}
+              className="lg:col-span-6 flex flex-col justify-center order-1 lg:order-2"
+            >
               <div className="mb-8 sm:mb-10 text-left">
                 <h2 className="text-3xl sm:text-4xl lg:text-[44px] xl:text-[48px] font-bold tracking-tight text-white leading-[1.12] sm:leading-[1.14] lg:leading-[1.15] mb-3 font-bricolage">
                   Simple 4 Steps Onboarding
@@ -318,7 +363,7 @@ export default function TeachPage() {
                   ))}
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -352,20 +397,26 @@ export default function TeachPage() {
                 <div className="mt-8 pt-8 border-t border-stone-200/80 flex flex-wrap justify-center gap-4">
                   <Link
                     href="/"
-                    className="brand-button brand-button-primary px-8 py-3 text-xs tracking-wider uppercase !font-light"
+                    className="brand-button brand-button-primary px-8 py-3 text-xs tracking-[0.05em] uppercase !font-light"
                   >
-                    Return to Home
+                    RETURN TO HOME
                   </Link>
                   <Link
                     href="/about"
-                    className="brand-button brand-button-inverse px-8 py-3 text-xs tracking-wider uppercase !font-light"
+                    className="brand-button brand-button-inverse px-8 py-3 text-xs tracking-[0.05em] uppercase !font-light"
                   >
-                    Learn More About Ilmbit
+                    LEARN MORE ABOUT ILMBIT
                   </Link>
                 </div>
               </motion.div>
             ) : (
-              <div className="w-full rounded-3xl border border-stone-200/90 bg-white shadow-xl shadow-black/5 overflow-hidden">
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.08 }}
+                variants={fadeUp}
+                className="w-full rounded-3xl border border-stone-200/90 bg-white shadow-xl shadow-black/5 overflow-hidden"
+              >
                 {/* Form Top Header Band — Deep Islamic Green with Gold Accents */}
                 <div className="relative overflow-hidden bg-gradient-to-r from-[#06261e] via-[#095F46] to-[#042d22] text-white p-8 sm:p-11 lg:p-14 border-b border-emerald-900/40">
                   {/* Subtle Background Radial Glow */}
@@ -665,9 +716,9 @@ export default function TeachPage() {
                       <button
                         type="submit"
                         disabled={isLoading}
-                        className="brand-button brand-button-primary w-full py-4 text-sm font-semibold tracking-wider uppercase transition-all shadow-md shadow-emerald-950/10 hover:shadow-lg disabled:opacity-60"
+                        className="brand-button brand-button-primary w-full py-4 text-xs sm:text-sm !font-light tracking-[0.05em] uppercase transition-all shadow-md shadow-emerald-950/10 hover:shadow-lg disabled:opacity-60"
                       >
-                        {isLoading ? 'Submitting Application...' : 'Submit Tutor Application'}
+                        {isLoading ? 'SUBMITTING APPLICATION...' : 'SUBMIT TUTOR APPLICATION'}
                       </button>
                       <p className="mt-3 text-center text-xs text-stone-500">
                         By applying, you confirm the accuracy of your academic credentials and consent to evaluation by our academic board. Your information is kept strictly confidential.
@@ -675,7 +726,7 @@ export default function TeachPage() {
                     </div>
                   </form>
                 </div>
-              </div>
+              </motion.div>
             )}
           </AnimatePresence>
         </div>

@@ -90,26 +90,6 @@ const faqs = [
 ];
 
 const sectionReveal: Variants = {
-  hidden: { opacity: 0, y: 32 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] as const },
-  },
-};
-
-const cardStagger: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.05,
-    },
-  },
-};
-
-const cardItem: Variants = {
   hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
@@ -118,10 +98,29 @@ const cardItem: Variants = {
   },
 };
 
+const cardStagger: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.04,
+    },
+  },
+};
+
+const cardItem: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
+  },
+};
+
 const revealViewport = {
   once: true,
-  amount: 0.22,
-  margin: '0px 0px -12% 0px',
+  amount: 0.15,
 } as const;
 
 const heroBackgroundImages = [
@@ -245,13 +244,13 @@ export default function HomePage() {
               <div className="mt-6 sm:mt-7 lg:mt-8 flex flex-wrap items-center justify-start gap-3.5 sm:gap-4.5">
                 <Link
                   href="#courses"
-                  className="brand-button brand-button-inverse px-6.5 py-2.5 sm:px-7 sm:py-3 lg:px-8 lg:py-3.5 xl:px-8.5 xl:py-3.5 text-xs sm:text-sm lg:text-[14px] xl:text-[15px] lg:min-h-[48px] xl:min-h-[50px] uppercase tracking-wider font-semibold shadow-lg shadow-black/40"
+                  className="brand-button brand-button-inverse px-6.5 py-2.5 sm:px-7 sm:py-3 lg:px-8 lg:py-3.5 xl:px-8.5 xl:py-3.5 text-xs sm:text-sm lg:text-[14px] xl:text-[15px] lg:min-h-[48px] xl:min-h-[50px] uppercase tracking-[0.05em] !font-light shadow-lg shadow-black/40"
                 >
                   VIEW COURSES
                 </Link>
                 <Link
                   href="/about#waitlist"
-                  className="brand-button brand-button-primary px-6.5 py-2.5 sm:px-7 sm:py-3 lg:px-8 lg:py-3.5 xl:px-8.5 xl:py-3.5 text-xs sm:text-sm lg:text-[14px] xl:text-[15px] lg:min-h-[48px] xl:min-h-[50px] uppercase tracking-wider font-semibold shadow-lg shadow-black/40"
+                  className="brand-button brand-button-primary px-6.5 py-2.5 sm:px-7 sm:py-3 lg:px-8 lg:py-3.5 xl:px-8.5 xl:py-3.5 text-xs sm:text-sm lg:text-[14px] xl:text-[15px] lg:min-h-[48px] xl:min-h-[50px] uppercase tracking-[0.05em] !font-light shadow-lg shadow-black/40"
                 >
                   JOIN THE WAITLIST
                 </Link>
@@ -393,9 +392,9 @@ export default function HomePage() {
                 <div className="mt-9 sm:mt-10 flex flex-wrap items-center gap-4">
                   <Link
                     href="/about"
-                    className="brand-button brand-button-primary px-8 py-3.5 lg:px-9 lg:py-4 text-xs lg:text-sm tracking-wider uppercase !font-light inline-flex items-center gap-2 group"
+                    className="brand-button brand-button-primary px-8 py-3.5 lg:px-9 lg:py-4 text-xs lg:text-sm tracking-[0.05em] uppercase !font-light inline-flex items-center gap-2 group"
                   >
-                    <span>Learn More</span>
+                    <span>LEARN MORE</span>
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                   </Link>
                 </div>
@@ -657,9 +656,9 @@ export default function HomePage() {
 
                   <Link
                     href="/about#waitlist"
-                    className="brand-button brand-button-primary w-full py-3.5 lg:py-4 text-xs lg:text-sm tracking-wider uppercase !font-bold mb-6 cursor-pointer shadow-md shadow-[#095F46]/20 hover:shadow-lg transition-all"
+                    className="brand-button brand-button-primary w-full py-3.5 lg:py-4 text-xs lg:text-sm tracking-[0.05em] uppercase !font-light mb-6 cursor-pointer shadow-md shadow-[#095F46]/20 hover:shadow-lg transition-all"
                   >
-                    Select Plan
+                    SELECT PLAN
                   </Link>
 
                   <div className="text-xs lg:text-[12px] font-bold uppercase tracking-wider text-stone-400 mb-3.5">
@@ -716,9 +715,9 @@ export default function HomePage() {
 
                   <Link
                     href="/about#waitlist"
-                    className="brand-button brand-button-primary w-full py-3.5 lg:py-4 text-xs lg:text-sm tracking-wider uppercase !font-bold mb-6 cursor-pointer shadow-md shadow-[#095F46]/25 hover:shadow-lg transition-all"
+                    className="brand-button brand-button-primary w-full py-3.5 lg:py-4 text-xs lg:text-sm tracking-[0.05em] uppercase !font-light mb-6 cursor-pointer shadow-md shadow-[#095F46]/25 hover:shadow-lg transition-all"
                   >
-                    Select Plan
+                    SELECT PLAN
                   </Link>
 
                   <div className="text-xs lg:text-[12px] font-bold uppercase tracking-wider text-stone-400 mb-3.5">
@@ -774,9 +773,9 @@ export default function HomePage() {
 
                   <Link
                     href="/about#waitlist"
-                    className="brand-button brand-button-primary w-full py-3.5 lg:py-4 text-xs lg:text-sm tracking-wider uppercase !font-bold mb-6 cursor-pointer shadow-md shadow-[#095F46]/20 hover:shadow-lg transition-all"
+                    className="brand-button brand-button-primary w-full py-3.5 lg:py-4 text-xs lg:text-sm tracking-[0.05em] uppercase !font-light mb-6 cursor-pointer shadow-md shadow-[#095F46]/20 hover:shadow-lg transition-all"
                   >
-                    Select Plan
+                    SELECT PLAN
                   </Link>
 
                   <div className="text-xs lg:text-[12px] font-bold uppercase tracking-wider text-stone-400 mb-3.5">
@@ -953,10 +952,10 @@ export default function HomePage() {
                 <button
                   type="button"
                   onClick={() => setIsWaitlistOpen(true)}
-                  className="inline-flex items-center justify-center gap-3 rounded-full bg-[#EAD08A] px-8 sm:px-10 py-4 sm:py-[18px] text-stone-950 font-bold text-base sm:text-lg hover:bg-[#F2DEAA] transition-all duration-300 shadow-[0_10px_25px_rgba(234,208,138,0.25)] hover:shadow-[0_14px_30px_rgba(234,208,138,0.35)] hover:-translate-y-0.5 active:translate-y-0 cursor-pointer group"
+                  className="inline-flex items-center justify-center gap-3 rounded-full bg-[#EAD08A] px-8 sm:px-10 py-3.5 sm:py-4 text-stone-950 !font-light text-xs sm:text-sm lg:text-[14px] uppercase tracking-[0.05em] hover:bg-[#F2DEAA] transition-all duration-300 shadow-[0_10px_25px_rgba(234,208,138,0.25)] hover:shadow-[0_14px_30px_rgba(234,208,138,0.35)] hover:-translate-y-0.5 active:translate-y-0 cursor-pointer group"
                 >
-                  <span>Join the Waitlist</span>
-                  <ChevronRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                  <span>JOIN THE WAITLIST</span>
+                  <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 transition-transform group-hover:translate-x-1" />
                 </button>
 
                 <span className="text-xs sm:text-sm text-emerald-200/80 font-normal">

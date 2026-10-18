@@ -171,7 +171,7 @@ export default function Header() {
           >
             <Link
               href="/teach"
-              className={`flex items-center rounded-l-full pl-4 sm:pl-5 lg:pl-6 xl:pl-6.5 pr-2.5 lg:pr-3 text-xs lg:text-[13px] xl:text-[13.5px] uppercase tracking-[0.02em] font-normal transition-colors duration-200 ${
+              className={`flex items-center rounded-l-full pl-4 sm:pl-5 lg:pl-6 xl:pl-6.5 pr-2.5 lg:pr-3 text-xs lg:text-[13px] xl:text-[13.5px] uppercase tracking-[0.03em] !font-light transition-colors duration-200 ${
                 showWhiteNav
                   ? pathname === '/teach'
                     ? 'text-[#095F46]'
@@ -181,16 +181,16 @@ export default function Header() {
                   : 'text-[#095F46] hover:text-[#043f2e]'
               }`}
             >
-              Become a Tutor
+              BECOME A TUTOR
             </Link>
 
             <Link
               href="/about#waitlist"
-              className={`-my-px -mr-px flex items-center rounded-full bg-[#095F46] px-5 lg:px-6.5 xl:px-7 text-xs lg:text-[13px] xl:text-[13.5px] font-normal uppercase tracking-[0.02em] text-white transition-colors duration-200 hover:bg-[#043f2e] shadow-sm ${
+              className={`-my-px -mr-px flex items-center rounded-full bg-[#095F46] px-5 lg:px-6.5 xl:px-7 text-xs lg:text-[13px] xl:text-[13.5px] !font-light uppercase tracking-[0.03em] text-white transition-colors duration-200 hover:bg-[#043f2e] shadow-sm ${
                 showWhiteNav ? 'border border-white' : 'border border-[#095F46]'
               }`}
             >
-              Get Started
+              GET STARTED
             </Link>
           </div>
         </div>
@@ -262,20 +262,20 @@ export default function Header() {
               <Link
                 href="/teach"
                 onClick={() => setMobileOpen(false)}
-                className={`block w-full py-2.5 px-4 rounded-xl text-center text-xs tracking-[0.02em] uppercase transition-colors border ${
+                className={`block w-full py-2.5 px-4 rounded-xl text-center text-xs tracking-[0.03em] uppercase transition-colors border !font-light ${
                   showWhiteNav
-                    ? 'border-white bg-white text-[#095F46] font-normal hover:bg-stone-50'
-                    : 'border-[#095F46] bg-white text-[#095F46] font-normal hover:bg-stone-50'
+                    ? 'border-white bg-white text-[#095F46] hover:bg-stone-50'
+                    : 'border-[#095F46] bg-white text-[#095F46] hover:bg-stone-50'
                 }`}
               >
-                Become a Tutor
+                BECOME A TUTOR
               </Link>
               <Link
                 href="/about#waitlist"
                 onClick={() => setMobileOpen(false)}
-                className="brand-button brand-button-primary w-full text-xs tracking-[0.02em] uppercase !font-normal"
+                className="brand-button brand-button-primary w-full text-xs tracking-[0.03em] uppercase !font-light"
               >
-                Get Started
+                GET STARTED
               </Link>
             </div>
           </div>

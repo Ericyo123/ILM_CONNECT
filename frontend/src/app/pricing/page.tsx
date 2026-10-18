@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Check, ChevronDown } from 'lucide-react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import PublicPageHero, { publicPageFadeUp as fadeUp } from '@/components/public-page-hero';
 import styles from './pricing.module.css';
 
@@ -258,9 +258,9 @@ export default function PricingPage() {
                     </div>
                     <Link
                       href="/about#waitlist"
-                      className="brand-button brand-button-primary w-full"
+                      className="brand-button brand-button-primary w-full text-xs sm:text-sm tracking-[0.05em] uppercase !font-light py-3.5 shadow-md shadow-[#095F46]/20 hover:shadow-lg transition-all"
                     >
-                      Join Waitlist
+                      JOIN WAITLIST
                     </Link>
                   </div>
                 </div>
@@ -274,7 +274,13 @@ export default function PricingPage() {
         {/* SECTION 2: Fast Track Plans (3 Sessions / Week · Direct Enrollment)       */}
         {/* ========================================================================= */}
         <section id="fast-track-plans" className="scroll-mt-24 space-y-8">
-          <h2>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.15 }}
+            variants={fadeUp}
+          >
+            <h2>
             <button
               type="button"
               onClick={() => setIsFastTrackOpen((open) => !open)}
@@ -350,9 +356,19 @@ export default function PricingPage() {
               </span>
             </button>
           </h2>
+        </motion.div>
 
-          <div id="fast-track-packages" hidden={!isFastTrackOpen}>
-          {isFastTrackOpen && <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+        <AnimatePresence>
+          {isFastTrackOpen && (
+            <motion.div
+              id="fast-track-packages"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="overflow-hidden"
+            >
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch pt-2">
             {fastTrackCourses.map((course, i) => (
               <motion.div
                 key={`fasttrack-${course.id}`}
@@ -424,16 +440,18 @@ export default function PricingPage() {
                     </div>
                     <Link
                       href="/about#waitlist"
-                      className="brand-button brand-button-primary w-full"
+                      className="brand-button brand-button-primary w-full text-xs sm:text-sm tracking-[0.05em] uppercase !font-light py-3.5 shadow-md shadow-[#095F46]/20 hover:shadow-lg transition-all"
                     >
-                      Enroll in Fast Track
+                      ENROLL IN FAST TRACK
                     </Link>
                   </div>
                 </div>
               </motion.div>
             ))}
-          </div>}
-          </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </section>
 
         {/* ========================================================================= */}

@@ -22,87 +22,103 @@ import {
 } from '@/lib/country-calling-codes';
 
 // ---------------------------------------------------------------------------
-// Flag SVGs & Regions Data (UK, Europe, Australia, US)
+// Global World Globe Illustration (Embedded in Built Around You Card)
 // ---------------------------------------------------------------------------
-const learningRegions = [
-  { label: 'UK', flag: 'uk' },
-  { label: 'Europe', flag: 'eu' },
-  { label: 'Australia', flag: 'au' },
-  { label: 'US', flag: 'us' },
-] as const;
-
-const EU_FLAG_STARS = [
-  { cx: 14, cy: 4 },
-  { cx: 16.5, cy: 4.67 },
-  { cx: 18.33, cy: 6.5 },
-  { cx: 19, cy: 9 },
-  { cx: 18.33, cy: 11.5 },
-  { cx: 16.5, cy: 13.33 },
-  { cx: 14, cy: 14 },
-  { cx: 11.5, cy: 13.33 },
-  { cx: 9.67, cy: 11.5 },
-  { cx: 9, cy: 9 },
-  { cx: 9.67, cy: 6.5 },
-  { cx: 11.5, cy: 4.67 },
-];
-
-function RegionFlag({
-  region,
-  className = 'h-3.5 w-[22px] shrink-0 overflow-hidden rounded-[2px] ring-1 ring-white/25',
-}: {
-  region: (typeof learningRegions)[number]['flag'];
-  className?: string;
-}) {
-  const sharedClassName = className;
-
-  if (region === 'uk') {
-    return (
-      <svg aria-hidden="true" viewBox="0 0 28 18" className={sharedClassName}>
-        <rect width="28" height="18" fill="#17365D" />
-        <path d="M0 0 28 18M28 0 0 18" stroke="#fff" strokeWidth="5" />
-        <path d="M0 0 28 18M28 0 0 18" stroke="#C8102E" strokeWidth="2" />
-        <path d="M14 0v18M0 9h28" stroke="#fff" strokeWidth="6" />
-        <path d="M14 0v18M0 9h28" stroke="#C8102E" strokeWidth="3.2" />
-      </svg>
-    );
-  }
-
-  if (region === 'eu') {
-    return (
-      <svg aria-hidden="true" viewBox="0 0 28 18" className={sharedClassName}>
-        <rect width="28" height="18" fill="#003399" />
-        {EU_FLAG_STARS.map((star, i) => (
-          <circle key={i} cx={star.cx} cy={star.cy} r="0.75" fill="#FFCC00" />
-        ))}
-      </svg>
-    );
-  }
-
-  if (region === 'au') {
-    return (
-      <svg aria-hidden="true" viewBox="0 0 28 18" className={sharedClassName}>
-        <rect width="28" height="18" fill="#012169" />
-        <path d="M0 0 12 8M12 0 0 8" stroke="#fff" strokeWidth="2.8" />
-        <path d="M0 0 12 8M12 0 0 8" stroke="#C8102E" strokeWidth="1.2" />
-        <path d="M6 0v8M0 4h12" stroke="#fff" strokeWidth="3" />
-        <path d="M6 0v8M0 4h12" stroke="#C8102E" strokeWidth="1.5" />
-        <circle cx="7" cy="13" r="1.25" fill="#fff" />
-        <circle cx="20" cy="4" r="1" fill="#fff" />
-        <circle cx="24" cy="8" r="0.9" fill="#fff" />
-        <circle cx="20" cy="14" r="1" fill="#fff" />
-        <circle cx="16" cy="9" r="0.8" fill="#fff" />
-      </svg>
-    );
-  }
-
+function EmbeddedGlobeIllustration({ className = '' }: { className?: string }) {
   return (
-    <svg aria-hidden="true" viewBox="0 0 28 18" className={sharedClassName}>
-      <rect width="28" height="18" fill="#fff" />
-      {[0, 2.76, 5.52, 8.28, 11.04, 13.8, 16.56].map((y) => (
-        <rect key={y} y={y} width="28" height="1.38" fill="#B22234" />
-      ))}
-      <rect width="12" height="9.7" fill="#3C3B6E" />
-      {[2, 6, 10].flatMap((x) => [2, 5, 8].map((y) => <circle key={`${x}-${y}`} cx={x} cy={y} r="0.55" fill="#fff" />))}
+    <svg
+      viewBox="0 0 360 360"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      aria-hidden="true"
+    >
+      <defs>
+        <radialGradient id="globeAtmosphere" cx="35%" cy="30%" r="70%">
+          <stop offset="0%" stopColor="#095F46" stopOpacity="0.16" />
+          <stop offset="60%" stopColor="#095F46" stopOpacity="0.06" />
+          <stop offset="100%" stopColor="#095F46" stopOpacity="0.0" />
+        </radialGradient>
+        <linearGradient id="globeStroke" x1="0" y1="0" x2="360" y2="360" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#095F46" stopOpacity="0.35" />
+          <stop offset="50%" stopColor="#EAD08A" stopOpacity="0.45" />
+          <stop offset="100%" stopColor="#095F46" stopOpacity="0.15" />
+        </linearGradient>
+        <linearGradient id="orbitGrad" x1="40" y1="80" x2="320" y2="280">
+          <stop stopColor="#EAD08A" stopOpacity="0.6" />
+          <stop offset="100%" stopColor="#095F46" stopOpacity="0.1" />
+        </linearGradient>
+      </defs>
+
+      {/* Outer ambient glow */}
+      <circle cx="180" cy="180" r="150" fill="url(#globeAtmosphere)" />
+
+      {/* Main Globe Sphere Boundary */}
+      <circle
+        cx="180"
+        cy="180"
+        r="140"
+        fill="#f4f8f5"
+        fillOpacity="0.85"
+        stroke="url(#globeStroke)"
+        strokeWidth="1.75"
+      />
+
+      {/* Parallels (Latitude Lines) */}
+      <g stroke="#095F46" strokeOpacity="0.18" strokeWidth="1.2" fill="none">
+        <ellipse cx="180" cy="180" rx="140" ry="46" transform="rotate(-15 180 180)" strokeWidth="1.5" strokeOpacity="0.28" />
+        <ellipse cx="180" cy="130" rx="128" ry="36" transform="rotate(-15 180 130)" />
+        <ellipse cx="180" cy="85" rx="98" ry="24" transform="rotate(-15 180 85)" strokeDasharray="3 3" />
+        <ellipse cx="180" cy="230" rx="128" ry="36" transform="rotate(-15 180 230)" />
+        <ellipse cx="180" cy="275" rx="98" ry="24" transform="rotate(-15 180 275)" strokeDasharray="3 3" />
+      </g>
+
+      {/* Meridians (Longitude Lines) */}
+      <g stroke="#095F46" strokeOpacity="0.18" strokeWidth="1.2" fill="none" transform="rotate(-15 180 180)">
+        <ellipse cx="180" cy="180" rx="42" ry="140" strokeWidth="1.5" strokeOpacity="0.25" />
+        <ellipse cx="180" cy="180" rx="90" ry="140" />
+        <ellipse cx="180" cy="180" rx="125" ry="140" strokeDasharray="4 3" />
+        <line x1="180" y1="40" x2="180" y2="320" stroke="#095F46" strokeOpacity="0.28" strokeWidth="1.5" />
+      </g>
+
+      {/* Stylized Continents / Landmass Silhouettes */}
+      <g fill="#095F46" fillOpacity="0.14" transform="rotate(-15 180 180)">
+        <path d="M165 95 C175 92 195 90 205 98 C215 105 218 120 210 130 C202 140 185 145 172 140 C162 135 155 125 158 112 Z" />
+        <path d="M168 142 C182 142 196 150 198 165 C200 180 190 205 180 215 C172 222 165 210 162 195 C158 178 155 160 168 142 Z" />
+        <path d="M205 118 C220 115 240 120 248 135 C252 145 245 158 232 160 C220 162 212 150 208 138 Z" />
+        <path d="M236 150 C242 148 250 152 254 160 C256 168 250 178 244 184 C240 188 235 182 234 172 Z" />
+        <circle cx="247" cy="190" r="3.5" fill="#EAD08A" fillOpacity="0.95" />
+        <path d="M255 125 C270 122 285 130 292 145 C295 155 285 168 275 168 C265 168 255 155 252 140 Z" />
+        <path d="M260 210 C272 208 288 215 292 228 C294 238 285 248 272 248 C260 248 254 235 256 222 Z" />
+        <path d="M72 110 C82 105 95 112 98 125 C100 138 92 155 82 160 C74 150 68 130 72 110 Z" />
+        <path d="M88 175 C98 175 110 188 112 205 C114 220 102 238 92 245 C84 235 80 210 84 190 Z" />
+      </g>
+
+      {/* Network Nodes (Global Diaspora Student Hubs) */}
+      <circle cx="178" cy="112" r="3" fill="#095F46" />
+      <circle cx="178" cy="112" r="7" stroke="#095F46" strokeOpacity="0.4" strokeWidth="1" />
+
+      <circle cx="86" cy="132" r="3" fill="#095F46" />
+      <circle cx="86" cy="132" r="7" stroke="#095F46" strokeOpacity="0.35" strokeWidth="1" />
+
+      <circle cx="218" cy="148" r="3" fill="#095F46" />
+      <circle cx="218" cy="148" r="6" stroke="#095F46" strokeOpacity="0.4" strokeWidth="1" />
+
+      <circle cx="238" cy="182" r="4" fill="#095F46" />
+      <circle cx="238" cy="182" r="8" stroke="#EAD08A" strokeOpacity="0.8" strokeWidth="1.5" />
+      <circle cx="238" cy="182" r="14" stroke="#EAD08A" strokeOpacity="0.35" strokeWidth="1" />
+
+      <circle cx="275" cy="225" r="3" fill="#095F46" />
+      <circle cx="275" cy="225" r="6.5" stroke="#095F46" strokeOpacity="0.35" strokeWidth="1" />
+
+      {/* Connection Arcs */}
+      <path d="M238 182 Q 210 140 178 112" stroke="#EAD08A" strokeWidth="1.5" strokeDasharray="3 3" strokeOpacity="0.75" fill="none" />
+      <path d="M238 182 Q 228 160 218 148" stroke="#EAD08A" strokeWidth="1.2" strokeDasharray="2.5 2.5" strokeOpacity="0.65" fill="none" />
+      <path d="M178 112 Q 130 110 86 132" stroke="#095F46" strokeWidth="1.2" strokeDasharray="3 3" strokeOpacity="0.45" fill="none" />
+      <path d="M238 182 Q 260 200 275 225" stroke="#EAD08A" strokeWidth="1.2" strokeDasharray="3 3" strokeOpacity="0.65" fill="none" />
+
+      {/* Subtle Orbital Axis Ring */}
+      <ellipse cx="180" cy="180" rx="165" ry="65" transform="rotate(-28 180 180)" stroke="url(#orbitGrad)" strokeWidth="1.5" strokeDasharray="6 4" fill="none" />
     </svg>
   );
 }
@@ -493,25 +509,23 @@ export default function AboutPage() {
               </div>
             </article>
 
-            {/* Built Around You (Countries Flags) - High Contrast White Card */}
+            {/* Built Around You (Global Diaspora) - High Contrast White Card with Embedded Globe */}
             <article className="group relative flex min-h-[265px] sm:min-h-[285px] lg:min-h-[273px] xl:min-h-[293px] flex-col justify-center overflow-hidden rounded-3xl bg-white p-7 sm:p-8 lg:p-8 xl:p-9 text-stone-950 shadow-[0_16px_40px_rgba(0,0,0,0.25)] border border-white/90 lg:col-span-5">
-              <div className="relative">
-                <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-bold tracking-tight font-bricolage text-stone-950">Built Around You</h3>
-                <p className="mt-2 max-w-lg text-sm sm:text-base lg:text-[16px] leading-relaxed text-stone-600">
-                  Flexible scheduling designed around international time zones.
+              {/* Half-Globe embedded in background */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute -bottom-20 -right-20 sm:-bottom-16 sm:-right-16 lg:-bottom-14 lg:-right-12 h-64 w-64 sm:h-72 sm:w-72 lg:h-80 lg:w-80 select-none opacity-85 transition-transform duration-700 ease-out group-hover:scale-105 group-hover:rotate-2"
+              >
+                <EmbeddedGlobeIllustration className="h-full w-full" />
+              </div>
+
+              <div className="relative z-10 max-w-sm sm:max-w-md">
+                <h3 className="text-2xl sm:text-[26px] lg:text-[28px] font-bold tracking-tight font-bricolage text-stone-950">
+                  Built Around You
+                </h3>
+                <p className="mt-3 text-sm sm:text-base lg:text-[16px] leading-relaxed text-stone-600 font-normal">
+                  Flexible 1:1 scheduling designed around families in any timezone worldwide, whenever learning works best for your home.
                 </p>
-                <div
-                  className="mt-5 flex items-center justify-center gap-3 sm:justify-start"
-                  aria-label="Available across the United Kingdom, Europe, Australia, and the United States"
-                >
-                  {learningRegions.map((region) => (
-                    <RegionFlag
-                      key={region.flag}
-                      region={region.flag}
-                      className="h-auto w-10 overflow-hidden rounded-[4px] shadow-sm ring-1 ring-stone-900/10 sm:w-11 lg:w-12"
-                    />
-                  ))}
-                </div>
               </div>
             </article>
           </motion.div>
@@ -522,7 +536,7 @@ export default function AboutPage() {
       {/* ========================================================================= */}
       {/* 4. THE THREE FOUNDATIONAL PILLARS — Arkan al-Ilm (White Background) */}
       {/* ========================================================================= */}
-      <section className={`${styles.section} ${styles.whiteSection} ${styles.pillarsSection} ${styles.patternBackground}`} aria-labelledby="pillars-heading">
+      <section className={`${styles.section} ${styles.whiteSection} ${styles.pillarsSection} ${styles.patternBackground} py-24 sm:py-28 lg:py-36 xl:py-40`} aria-labelledby="pillars-heading">
         <div className={`relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 ${styles.pillarsContainer}`}>
           
           <div className={styles.pillarsIntro}>
@@ -565,7 +579,7 @@ export default function AboutPage() {
       {/* ========================================================================= */}
       {/* 5. THE SANAD GUARANTEE — 4-Tier Scholar Accreditation Protocol (Green Background) */}
       {/* ========================================================================= */}
-      <section className={`${styles.section} ${styles.greenSection} ${styles.vettingSection} relative overflow-hidden select-none`} aria-labelledby="vetting-heading">
+      <section className={`${styles.section} ${styles.greenSection} ${styles.vettingSection} py-28 sm:py-32 lg:py-40 xl:py-48 relative overflow-hidden select-none`} aria-labelledby="vetting-heading">
         {/* Ambient background glows */}
         <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-teal-500/10 blur-3xl pointer-events-none" />
@@ -623,7 +637,7 @@ export default function AboutPage() {
       {/* ========================================================================= */}
       <section
         id="pathway"
-        className={`${styles.section} ${styles.whiteSection} ${styles.patternBackground} relative overflow-hidden select-none pb-20 sm:pb-28 lg:pb-36 xl:pb-40`}
+        className={`${styles.section} ${styles.whiteSection} ${styles.pathwaySection} ${styles.patternBackground} relative overflow-hidden select-none pb-40 sm:pb-52 lg:pb-64 xl:pb-72 pt-20 sm:pt-24 lg:pt-28`}
         aria-labelledby="pathway-heading"
       >
         <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -727,7 +741,7 @@ export default function AboutPage() {
               return (
                 <div
                   key={promise.fullTitle}
-                  className={`w-full min-h-[440px] sm:min-h-[460px] lg:min-h-[480px] ${styles.flipCardContainer}`}
+                  className={`w-full min-h-[520px] sm:min-h-[540px] lg:min-h-[560px] xl:min-h-[580px] ${styles.flipCardContainer}`}
                 >
                   <div
                     role="button"
@@ -747,7 +761,7 @@ export default function AboutPage() {
                   >
                     {/* FRONT OF CARD */}
                     <div
-                      className={`flex flex-col items-center justify-between text-center bg-white p-7 sm:p-8 lg:p-9 text-stone-900 shadow-[0_20px_50px_rgba(0,0,0,0.22)] border border-white/95 group-hover:shadow-[0_28px_60px_rgba(0,0,0,0.32)] transition-shadow duration-300 ${styles.flipCardFace}`}
+                      className={`flex flex-col items-center justify-between text-center bg-white p-6 sm:p-7 lg:p-8 xl:p-9 text-stone-900 shadow-[0_20px_50px_rgba(0,0,0,0.22)] border border-white/95 group-hover:shadow-[0_28px_60px_rgba(0,0,0,0.32)] transition-shadow duration-300 ${styles.flipCardFace}`}
                     >
                       <div className="w-full flex items-center justify-start">
                         <span className="text-xs font-bold uppercase tracking-wider text-[#095F46]">
@@ -757,13 +771,13 @@ export default function AboutPage() {
 
                       {/* Circle Image and 2-Line Heading */}
                       <div className="my-auto flex flex-col items-center py-2">
-                        <div className="relative w-36 h-36 sm:w-40 sm:h-40 lg:w-44 lg:h-44 rounded-full overflow-hidden border-4 border-stone-100 shadow-md ring-2 ring-[#095F46]/15 group-hover:scale-105 transition-transform duration-500 ease-out mb-5">
+                        <div className="relative w-52 h-52 sm:w-56 sm:h-56 lg:w-60 lg:h-60 xl:w-64 xl:h-64 rounded-full overflow-hidden border-[6px] border-stone-100 shadow-[0_12px_32px_rgba(9,95,70,0.18)] ring-2 ring-[#095F46]/20 group-hover:scale-105 transition-transform duration-500 ease-out mb-5">
                           <Image
                             src={promise.image}
                             alt={promise.imageAlt}
                             fill
                             className="object-cover"
-                            sizes="(max-width: 640px) 144px, (max-width: 1024px) 160px, 176px"
+                            sizes="(max-width: 640px) 208px, (max-width: 1024px) 240px, 256px"
                           />
                         </div>
 
@@ -1011,9 +1025,9 @@ export default function AboutPage() {
                     <button
                       type="submit"
                       disabled={isWaitlistSubmitting}
-                      className="brand-button brand-button-primary justify-center w-full sm:w-auto px-8 py-3.5 sm:py-3 lg:px-9 lg:py-3.5 text-base sm:text-sm lg:text-[16px] font-bold shadow-md shadow-[#095F46]/15 hover:shadow-lg transition-all min-h-[48px] lg:min-h-[50px]"
+                      className="brand-button brand-button-primary justify-center w-full sm:w-auto px-8 py-3.5 sm:py-3 lg:px-9 lg:py-3.5 text-xs sm:text-sm lg:text-[14px] !font-light uppercase tracking-[0.05em] shadow-md shadow-[#095F46]/15 hover:shadow-lg transition-all min-h-[48px] lg:min-h-[50px]"
                     >
-                      <span>{isWaitlistSubmitting ? 'Joining Waitlist...' : 'Join the Priority Waitlist'}</span>
+                      <span>{isWaitlistSubmitting ? 'JOINING WAITLIST...' : 'JOIN THE PRIORITY WAITLIST'}</span>
                       <ChevronRight className="h-4 w-4" />
                     </button>
                   </div>

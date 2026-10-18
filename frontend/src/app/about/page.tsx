@@ -597,7 +597,6 @@ export default function AboutPage() {
 
           <div className={styles.vettingGrid}>
             <svg className={styles.vettingCurve} viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
-              <path className={styles.vettingCurveShadow} d="M0 240 C80 265 105 270 150 270 C300 270 300 90 450 90 C600 90 600 270 750 270 C900 270 900 90 1050 90 C1120 90 1160 105 1200 115" />
               <path d="M0 240 C80 265 105 270 150 270 C300 270 300 90 450 90 C600 90 600 270 750 270 C900 270 900 90 1050 90 C1120 90 1160 105 1200 115" />
             </svg>
             {vettingTiers.map((tier) => {

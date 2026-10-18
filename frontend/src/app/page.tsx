@@ -952,10 +952,10 @@ export default function HomePage() {
                 <button
                   type="button"
                   onClick={() => setIsWaitlistOpen(true)}
-                  className="inline-flex items-center justify-center gap-3 rounded-full bg-[#EAD08A] px-8 sm:px-10 py-3.5 sm:py-4 text-stone-950 !font-light text-xs sm:text-sm lg:text-[14px] uppercase tracking-[0.05em] hover:bg-[#F2DEAA] transition-all duration-300 shadow-[0_10px_25px_rgba(234,208,138,0.25)] hover:shadow-[0_14px_30px_rgba(234,208,138,0.35)] hover:-translate-y-0.5 active:translate-y-0 cursor-pointer group"
+                  className="inline-flex items-center justify-center gap-3 rounded-full bg-white px-8 sm:px-10 py-3.5 sm:py-4 text-stone-950 !font-light text-xs sm:text-sm lg:text-[14px] uppercase tracking-[0.05em] hover:bg-stone-100 transition-all duration-300 shadow-[0_10px_25px_rgba(0,0,0,0.25)] hover:shadow-[0_14px_30px_rgba(0,0,0,0.35)] hover:-translate-y-0.5 active:translate-y-0 cursor-pointer group"
                 >
                   <span>JOIN THE WAITLIST</span>
-                  <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 transition-transform group-hover:translate-x-1" />
+                  <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 text-[#095F46] transition-transform group-hover:translate-x-1" />
                 </button>
 
                 <span className="text-xs sm:text-sm text-emerald-200/80 font-normal">

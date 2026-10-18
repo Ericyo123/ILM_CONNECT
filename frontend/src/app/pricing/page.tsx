@@ -173,7 +173,7 @@ export default function PricingPage() {
 
       <div className={`${styles.patternBackground} pb-16 sm:pb-20 lg:pb-24`}>
       {/* Main Plans & FAQs Container with identical separation spacing */}
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 space-y-14 sm:space-y-16 lg:space-y-20">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-8 py-16 sm:py-20 lg:py-24 space-y-14 sm:space-y-16 lg:space-y-20">
 
         {/* ========================================================================= */}
         {/* SECTION 1: Standard Plans (2 Sessions / Week · Free Trial Included)       */}
@@ -186,10 +186,12 @@ export default function PricingPage() {
             variants={fadeUp}
             className="text-left"
           >
-            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 leading-[1.2]">
-              <span>Standard Plans</span>{' '}
-              <span className="text-sm sm:text-xl lg:text-2xl font-normal text-stone-500 tracking-normal whitespace-nowrap">
-                (2 Sessions / Week)
+            <h2 className="flex flex-col items-start gap-1">
+              <span className="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 leading-[1.14]">
+                Standard Plans
+              </span>
+              <span className="text-base sm:text-xl lg:text-2xl font-normal text-stone-500 tracking-normal">
+                2 sessions a week
               </span>
             </h2>
           </motion.div>
@@ -300,12 +302,12 @@ export default function PricingPage() {
                 />
               )}
 
-              <span className={`relative z-10 flex flex-wrap items-baseline gap-y-1 ${isFastTrackOpen ? 'gap-x-3' : 'gap-x-3 sm:gap-x-4'}`}>
+              <span className="relative z-10 flex flex-col items-start gap-1">
                 <span
                   className={
                     isFastTrackOpen
-                      ? "text-2xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 leading-[1.2]"
-                      : "text-2xl sm:text-3xl lg:text-[40px] font-bold tracking-tight text-white leading-[1.2]"
+                      ? "text-2xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 leading-[1.14]"
+                      : "text-2xl sm:text-3xl lg:text-[40px] font-bold tracking-tight text-white leading-[1.14]"
                   }
                 >
                   Fast Track Plans
@@ -313,11 +315,11 @@ export default function PricingPage() {
                 <span
                   className={
                     isFastTrackOpen
-                      ? "text-xs sm:text-xl lg:text-2xl font-normal text-stone-500 whitespace-nowrap"
-                      : "text-xs sm:text-lg lg:text-2xl font-normal text-emerald-100/90 whitespace-nowrap"
+                      ? "text-sm sm:text-xl lg:text-2xl font-normal text-stone-500 tracking-normal"
+                      : "text-sm sm:text-lg lg:text-2xl font-normal text-emerald-100/90 tracking-normal"
                   }
                 >
-                  (3 sessions / week)
+                  3 sessions a week
                 </span>
               </span>
 

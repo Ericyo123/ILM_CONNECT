@@ -227,37 +227,37 @@ export default function HomePage() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-20 my-auto w-full px-4 sm:px-6 lg:px-12 flex flex-col items-center py-2 sm:py-4"
+          className="relative z-20 my-auto w-full px-0 sm:px-6 lg:px-12 flex flex-col items-center py-1.5 sm:py-4"
         >
-          <div className="w-full max-w-7xl xl:max-w-[1440px] px-5 sm:px-7 lg:px-8 xl:px-9">
+          <div className="w-full max-w-7xl xl:max-w-[1440px] px-6 sm:px-8 lg:px-8 xl:px-9">
             <div className="max-w-2xl lg:max-w-3xl xl:max-w-5xl flex flex-col items-start text-left">
               {/* 3-Line Triangle Format Headline (Scaled to match 125% visual appearance) */}
-              <h1 className="text-[32px] sm:text-[40px] md:text-[50px] lg:text-[62px] xl:text-[72px] 2xl:text-[76px] font-bold tracking-tight text-white leading-[1.02] sm:leading-[1.03] drop-shadow-[0_2px_10px_rgba(0,0,0,0.40)] font-bricolage text-left">
+              <h1 className="text-[30px] sm:text-[40px] md:text-[50px] lg:text-[62px] xl:text-[72px] 2xl:text-[76px] font-bold tracking-tight text-white leading-[1.03] sm:leading-[1.03] drop-shadow-[0_2px_10px_rgba(0,0,0,0.40)] font-bricolage text-left">
                 <span className="block text-white">Learn Quran</span>
                 <span className="block text-white mt-0.5 sm:mt-1">&amp; Islamic Studies</span>
-                <span className="block text-[#EAD08A] mt-1.5 sm:mt-2 lg:mt-2.5 text-[18px] sm:text-[24px] md:text-[28px] lg:text-[36px] xl:text-[42px] font-semibold tracking-tight whitespace-normal sm:whitespace-nowrap">
+                <span className="block text-[#EAD08A] mt-1.5 sm:mt-2 lg:mt-2.5 text-[17px] sm:text-[24px] md:text-[28px] lg:text-[36px] xl:text-[42px] font-semibold tracking-tight whitespace-normal sm:whitespace-nowrap">
                   from Qualified Scholars Worldwide
                 </span>
               </h1>
 
               {/* Dual Pill CTA Buttons with scaled proportions & mobile-friendly tap targets */}
-              <div className="mt-6 sm:mt-7 lg:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-start gap-3 sm:gap-4 lg:gap-4.5 w-full sm:w-auto">
+              <div className="mt-4 sm:mt-7 lg:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-start gap-2.5 sm:gap-4 lg:gap-4.5 w-full sm:w-auto">
                 <Link
                   href="#courses"
-                  className="brand-button brand-button-inverse w-full sm:w-auto text-center justify-center px-6.5 py-3 sm:px-7 sm:py-3 lg:px-8 lg:py-3.5 xl:px-8.5 xl:py-3.5 text-xs sm:text-sm lg:text-[14px] xl:text-[15px] min-h-[46px] lg:min-h-[48px] xl:min-h-[50px] uppercase tracking-[0.05em] !font-light shadow-lg shadow-black/40"
+                  className="brand-button brand-button-inverse w-full sm:w-auto text-center justify-center px-6.5 py-2.5 sm:px-7 sm:py-3 lg:px-8 lg:py-3.5 xl:px-8.5 xl:py-3.5 text-xs sm:text-sm lg:text-[14px] xl:text-[15px] min-h-[44px] sm:min-h-[46px] lg:min-h-[48px] xl:min-h-[50px] uppercase tracking-[0.05em] !font-light shadow-lg shadow-black/40"
                 >
                   VIEW COURSES
                 </Link>
                 <Link
                   href="/about#waitlist"
-                  className="brand-button brand-button-primary w-full sm:w-auto text-center justify-center px-6.5 py-3 sm:px-7 sm:py-3 lg:px-8 lg:py-3.5 xl:px-8.5 xl:py-3.5 text-xs sm:text-sm lg:text-[14px] xl:text-[15px] min-h-[46px] lg:min-h-[48px] xl:min-h-[50px] uppercase tracking-[0.05em] !font-light shadow-lg shadow-black/40"
+                  className="brand-button brand-button-primary w-full sm:w-auto text-center justify-center px-6.5 py-2.5 sm:px-7 sm:py-3 lg:px-8 lg:py-3.5 xl:px-8.5 xl:py-3.5 text-xs sm:text-sm lg:text-[14px] xl:text-[15px] min-h-[44px] sm:min-h-[46px] lg:min-h-[48px] xl:min-h-[50px] uppercase tracking-[0.05em] !font-light shadow-lg shadow-black/40"
                 >
                   JOIN THE WAITLIST
                 </Link>
               </div>
 
               {/* Description Content — Clear summary of Ilmbit for Sri Lankans abroad */}
-              <p className="mt-6 sm:mt-7 lg:mt-8 max-w-xl lg:max-w-2xl xl:max-w-3xl text-sm sm:text-[15px] lg:text-[18px] xl:text-[19px] text-stone-200/90 leading-relaxed lg:leading-[1.65] drop-shadow-sm font-normal">
+              <p className="mt-4 sm:mt-7 lg:mt-8 max-w-xl lg:max-w-2xl xl:max-w-3xl text-[13.5px] sm:text-[15px] lg:text-[18px] xl:text-[19px] text-stone-200/90 leading-relaxed lg:leading-[1.65] drop-shadow-sm font-normal">
                 Connecting Sri Lankan families living abroad directly with verified scholars for a personalized Quran recitation and Islamic learning experience, suited to your<br className="hidden sm:inline" />time and personal pace.
               </p>
             </div>
@@ -266,7 +266,7 @@ export default function HomePage() {
 
         {/* Subtle Slide Indicators */}
         <div
-          className="relative z-20 mx-auto w-full max-w-7xl xl:max-w-[1440px] px-5 sm:px-7 lg:px-8 xl:px-9 pb-3 sm:pb-4 flex items-center justify-start gap-2"
+          className="relative z-20 mx-auto w-full max-w-7xl xl:max-w-[1440px] px-6 sm:px-8 lg:px-8 xl:px-9 pb-2.5 sm:pb-4 flex items-center justify-start gap-2"
           aria-label="Hero background slideshow indicators"
         >
           {heroBackgroundImages.map((_, i) => (
@@ -346,7 +346,7 @@ export default function HomePage() {
           suppressHydrationWarning
           className="relative z-20 overflow-hidden bg-white border-b border-stone-200/60 py-20 sm:py-24 lg:py-28 select-none"
         >
-          <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-16 items-center">
               {/* Left Column: Mission & Core Value */}
               <motion.div
@@ -440,7 +440,7 @@ export default function HomePage() {
           <div className="absolute top-1/4 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] rounded-full bg-[#EAD08A]/10 blur-[140px] pointer-events-none" />
           <div className="absolute bottom-10 right-0 w-[500px] h-[500px] rounded-full bg-emerald-400/8 blur-[130px] pointer-events-none" />
 
-          <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="relative z-10 mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-16 items-center">
               
               {/* Left Column: Picture of Actual Dashboard on Laptop */}
@@ -526,7 +526,7 @@ export default function HomePage() {
           id="pathways"
           className="py-16 sm:py-20 lg:py-24 bg-[#fbfcfb] text-stone-900 scroll-mt-16 relative overflow-hidden border-b border-stone-200/60 select-none"
         >
-          <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="relative mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-8">
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -606,7 +606,7 @@ export default function HomePage() {
           <div className="absolute top-0 right-0 w-[550px] h-[550px] rounded-full bg-[#EAD08A]/10 blur-[140px] pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-[550px] h-[550px] rounded-full bg-emerald-400/10 blur-[140px] pointer-events-none" />
 
-          <div className="relative z-10 mx-auto w-full max-w-6xl xl:max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="relative z-10 mx-auto w-full max-w-6xl xl:max-w-7xl px-6 sm:px-8 lg:px-8">
             {/* Header */}
             <motion.div
               initial="hidden"
@@ -816,7 +816,7 @@ export default function HomePage() {
           id="faq"
           className="pt-16 sm:pt-20 lg:pt-24 pb-10 sm:pb-12 lg:pb-14 bg-[#fbfcfb] text-stone-900 scroll-mt-16 relative overflow-hidden select-none"
         >
-          <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="relative mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-8">
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -884,7 +884,7 @@ export default function HomePage() {
       {/* 5. BOTTOM CALL TO ACTION / WAITLIST LUXURY SANCTUARY CARD */}
       {/* ========================================================================= */}
       <section className="relative w-full overflow-hidden bg-[#fbfcfb] pt-0 pb-16 sm:pb-20 lg:pb-24 text-stone-900 select-none">
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-8">
           <motion.div
             initial="hidden"
             whileInView="visible"

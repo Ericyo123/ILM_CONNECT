@@ -368,7 +368,7 @@ export default function AboutPage() {
       {/* 2. OUR STORY — Why We Started Ilmbit (Who We Are & The Gap We Fill)      */}
       {/* ========================================================================= */}
       <section id="story" className={`relative z-10 py-20 sm:py-24 lg:py-32 xl:py-36 bg-white border-b border-stone-200/60 scroll-mt-20 ${styles.whiteSection} ${styles.patternBackground}`}>
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-8">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-16 items-center">
             
@@ -431,7 +431,7 @@ export default function AboutPage() {
         <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-teal-500/10 blur-3xl pointer-events-none" />
 
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-10 sm:space-y-12 lg:space-y-14">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-8 space-y-10 sm:space-y-12 lg:space-y-14">
           
           {/* Top Row: Left Title vs Right Concise Text */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
@@ -537,7 +537,7 @@ export default function AboutPage() {
       {/* 4. THE THREE FOUNDATIONAL PILLARS — Arkan al-Ilm (White Background) */}
       {/* ========================================================================= */}
       <section className={`${styles.section} ${styles.whiteSection} ${styles.pillarsSection} ${styles.patternBackground} py-24 sm:py-28 lg:py-36 xl:py-40`} aria-labelledby="pillars-heading">
-        <div className={`relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 ${styles.pillarsContainer}`}>
+        <div className={`relative z-10 mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-8 ${styles.pillarsContainer}`}>
           
           <div className={styles.pillarsIntro}>
             <h2 id="pillars-heading" className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-bold tracking-tight text-stone-950 font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15]">
@@ -584,7 +584,7 @@ export default function AboutPage() {
         <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-teal-500/10 blur-3xl pointer-events-none" />
 
-        <div className={`relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 ${styles.vettingContainer}`}>
+        <div className={`relative z-10 mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-8 ${styles.vettingContainer}`}>
           
           <div className={styles.centerIntro}>
             <h2 id="vetting-heading" className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-bold tracking-tight text-white font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15] text-center">
@@ -607,9 +607,7 @@ export default function AboutPage() {
                   key={tier.step}
                   className={styles.vettingItem}
                 >
-                  <svg className={styles.vettingMobileCurve} viewBox="0 0 64 240" preserveAspectRatio="none" aria-hidden="true">
-                    <path d="M32 0 C0 40 0 80 32 120 C64 160 64 200 32 240" />
-                  </svg>
+                  <div className={styles.vettingMobileLine} aria-hidden="true" />
                   <div className={styles.vettingMarker} aria-hidden="true">
                     <div className={styles.vettingMarkerFace}>
                       {Icon ? <Icon /> : null}
@@ -640,7 +638,7 @@ export default function AboutPage() {
         className={`${styles.section} ${styles.whiteSection} ${styles.pathwaySection} ${styles.patternBackground} relative overflow-hidden select-none pb-16 sm:pb-24 lg:pb-60 xl:pb-72 pt-16 sm:pt-20 lg:pt-28`}
         aria-labelledby="pathway-heading"
       >
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-8">
           
           {/* Section Header */}
           <div className="max-w-3xl space-y-3 mb-12 sm:mb-16 lg:mb-20">
@@ -718,7 +716,7 @@ export default function AboutPage() {
         <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-teal-500/10 blur-3xl pointer-events-none" />
 
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-10 lg:space-y-12">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-8 space-y-8 sm:space-y-10 lg:space-y-12">
           
           <div className="text-center max-w-3xl mx-auto space-y-3">
             <h2 id="parents-heading" className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-bold tracking-tight text-white font-bricolage leading-[1.12] sm:leading-[1.14] lg:leading-[1.15] text-center">
@@ -839,7 +837,7 @@ export default function AboutPage() {
       {/* 8. PRIORITY WAITLIST REGISTRATION FORM SECTION (PRESERVED AS IS) */}
       {/* ========================================================================= */}
       <section id="waitlist" className="relative z-10 scroll-mt-24 sm:scroll-mt-28 py-20 sm:py-24 lg:py-32 xl:py-36">
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-8">
           <motion.div
             initial="hidden"
             whileInView="visible"

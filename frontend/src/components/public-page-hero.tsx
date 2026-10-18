@@ -47,7 +47,7 @@ export default function PublicPageHero({
         initial={shouldReduceMotion ? false : 'hidden'}
         animate="visible"
         variants={publicPageFadeUp}
-        className="relative z-20 w-full px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-center"
+        className="relative z-20 w-full px-6 sm:px-8 lg:px-12 text-center flex flex-col items-center justify-center"
       >
         <div className="relative mx-auto max-w-4xl w-full">
           <h1 className="text-3xl sm:text-4xl lg:text-[50px] xl:text-[56px] font-bold tracking-tight text-white leading-[1.12] sm:leading-[1.14] lg:leading-[1.15] drop-shadow-md max-w-3xl mx-auto font-heading">

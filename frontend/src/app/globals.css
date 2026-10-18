@@ -151,18 +151,26 @@ button {
 .home-hero-section {
   height: 100vh;
   height: 100svh;
+  min-height: 100svh;
 }
 
 @supports (height: 100dvh) {
   .home-hero-section {
     height: 100dvh;
+    min-height: 100dvh;
   }
 }
 
 @media (max-width: 767px) {
   .home-hero-section {
-    min-height: calc(100dvh + env(safe-area-inset-bottom, 0px));
-    height: auto;
+    height: 100svh;
+    min-height: 100svh;
+  }
+  @supports (height: 100dvh) {
+    .home-hero-section {
+      height: 100dvh;
+      min-height: 100dvh;
+    }
   }
 }
 

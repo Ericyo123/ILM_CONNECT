@@ -211,7 +211,7 @@ export default function TeachPage() {
       {/* SECTION 1 (WHITE): WHY SCHOLARS CHOOSE TO TEACH ON ILMBIT                  */}
       {/* ========================================================================= */}
       <section id="why-teach" className="py-20 sm:py-24 lg:py-32 xl:py-36 bg-white border-b border-stone-200/70 scroll-mt-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-8">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -276,7 +276,7 @@ export default function TeachPage() {
         <div className="absolute top-1/4 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] rounded-full bg-[#EAD08A]/10 blur-[140px] pointer-events-none" />
         <div className="absolute bottom-10 right-0 w-[500px] h-[500px] rounded-full bg-emerald-400/8 blur-[130px] pointer-events-none" />
 
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-16 items-center">
             {/* Left Column: Authentic Portrait Frame of Verified Scholar / Lecturer */}
             <motion.div
@@ -372,7 +372,7 @@ export default function TeachPage() {
       {/* SECTION 3: TUTOR APPLICATION FORM                                         */}
       {/* ========================================================================= */}
       <section id="apply-form" className="py-20 sm:py-24 lg:py-32 xl:py-36 bg-[#f4f7f4] border-b border-stone-200/70 scroll-mt-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
+        <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
           <AnimatePresence mode="wait">
             {isSubmitted ? (
               <motion.div

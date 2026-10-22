@@ -225,7 +225,9 @@ export default function AboutPage() {
   );
   const [waitlistCourse, setWaitlistCourse] = useState('Tajweed Quran Recitation');
   const [waitlistPace, setWaitlistPace] = useState<'standard' | 'fast-track'>('standard');
+  const price = (tier: string) => { const plan = plans.find(item => item.course === waitlistCourse && item.tier === tier); return plan ? format(plan) : 'Price unavailable'; };
   const [waitlistNotes, setWaitlistNotes] = useState('');
+  const [waitlistError, setWaitlistError] = useState('');
   const [isWaitlistSubmitting, setIsWaitlistSubmitting] = useState(false);
   const [isWaitlistSubmitted, setIsWaitlistSubmitted] = useState(false);
 
@@ -233,29 +235,13 @@ export default function AboutPage() {
     e.preventDefault();
     if (!waitlistName || !waitlistEmail) return;
     setIsWaitlistSubmitting(true);
+    setWaitlistError('');
     try {
       const formattedPhone = formatInternationalPhone(waitlistPhone, waitlistPhoneCountry);
-      const waitlistEntry = {
-        fullName: waitlistName,
-        email: waitlistEmail,
-        phone: formattedPhone,
-        rawPhone: waitlistPhone,
-        phoneCountry: waitlistPhoneCountry.name,
-        phoneCountryCode: waitlistPhoneCountry.iso2,
-        phoneDialCode: waitlistPhoneCountry.dialCode,
-        course: waitlistCourse,
-        pace: waitlistPace,
-        notes: waitlistNotes,
-        submittedAt: new Date().toISOString(),
-        source: 'about_page',
-      };
-      if (typeof window !== 'undefined') {
-        const existing = JSON.parse(localStorage.getItem('ilm_waitlist_entries') || '[]');
-        existing.push(waitlistEntry);
-        localStorage.setItem('ilm_waitlist_entries', JSON.stringify(existing));
-      }
-      await new Promise((res) => setTimeout(res, 600));
+      await apiFetch('/auth/waitlist', { method: 'POST', body: JSON.stringify({ fullName: waitlistName, email: waitlistEmail, phone: formattedPhone, country: waitlistPhoneCountry.name, course: waitlistCourse, pace: waitlistPace, notes: waitlistNotes }), skipRedirect: true });
       setIsWaitlistSubmitted(true);
+    } catch (error) {
+      setWaitlistError(error instanceof Error ? error.message : 'Unable to join the waitlist. Please try again.');
     } finally {
       setIsWaitlistSubmitting(false);
     }

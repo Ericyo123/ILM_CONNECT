@@ -220,7 +220,18 @@ export default function Header() {
               }`}
             >
               <Link
-                href="/about#waitlist"
+                href="/auth/signin"
+                onClick={() => setMobileOpen(false)}
+                className={`mb-2 flex min-h-11 w-full items-center justify-center rounded-full px-4 text-sm font-bold transition-colors ${
+                  showWhiteNav
+                    ? 'text-white hover:bg-white/10'
+                    : 'text-stone-700 hover:bg-stone-100'
+                }`}
+              >
+                Sign In
+              </Link>
+              <Link
+                href="/auth/signup"
                 onClick={() => setMobileOpen(false)}
                 className="brand-button brand-button-primary w-full text-xs tracking-wider uppercase !font-light"
               >

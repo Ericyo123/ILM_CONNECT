@@ -121,7 +121,7 @@ const faqs = [
   },
   {
     q: 'What is the main difference between Standard and Fast Track?',
-    a: 'The Standard Plan provides 8 sessions per month (2 sessions a week) for $59. The Fast Track Plan accelerates learning with 12 sessions per month (3 sessions a week) for $89, and adds replayable cloud recordings and detailed monthly progress evaluations.',
+    a: 'Standard includes 8 sessions per month (2 per week). Fast Track includes 12 sessions per month (3 per week), replayable cloud recordings, and detailed monthly progress evaluations. Current prices are displayed with each course.',
   },
   {
     q: 'Can I switch from Standard to Fast Track later?',
@@ -170,6 +170,7 @@ export default function PricingPage() {
       {/* Main Plans & FAQs Container with identical separation spacing */}
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 space-y-14 sm:space-y-16 lg:space-y-20">
 
+        <div className="text-center"><CurrencySelector /></div>
         {/* ========================================================================= */}
         {/* SECTION 1: Standard Plans (2 Sessions / Week · Free Trial Included)       */}
         {/* ========================================================================= */}

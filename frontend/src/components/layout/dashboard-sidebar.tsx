@@ -30,6 +30,7 @@ import {
   Award,
   HelpCircle,
   BookCheck,
+  UserCheck,
 } from 'lucide-react';
 
 interface NavItem {
@@ -81,6 +82,7 @@ const getLecturerCourseNav = (courseId: string): NavItem[] => [
 
 const adminNav: NavItem[] = [
   { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/admin/waitlist', label: 'Waitlist', icon: UserCheck },
   { href: '/admin/requests', label: 'Requests', icon: ClipboardList },
   { href: '/admin/users', label: 'Users', icon: Users },
   { href: '/admin/history', label: 'People & History', icon: FileText },
@@ -155,6 +157,15 @@ export default function DashboardSidebar() {
   const pendingRequestsCount = adminTickets?.filter(
     (ticket) => ticket.status === 'PENDING' || ticket.status === 'IN_REVIEW'
   ).length ?? 0;
+
+  // Live admin waitlist leads count — polls every 30s
+  const { data: adminWaitlist } = useQuery<unknown[]>({
+    queryKey: ['adminWaitlistSidebarCount'],
+    queryFn: () => apiFetch('/admin/waitlist'),
+    enabled: !!user && isAdminRoute,
+    refetchInterval: 30000,
+  });
+  const waitlistCount = adminWaitlist?.length ?? 0;
   
   let navItems: NavItem[] = [];
   let roleName = '';
@@ -213,11 +224,14 @@ export default function DashboardSidebar() {
           // Show live unread count on Messages nav item
           const isMessages = item.href.endsWith('/messages');
           const isRequests = item.href === '/admin/requests';
+          const isWaitlist = item.href === '/admin/waitlist';
           let displayBadge = item.badge;
           if (isMessages && unreadCount > 0) {
             displayBadge = String(unreadCount > 99 ? '99+' : unreadCount);
           } else if (isRequests) {
             displayBadge = pendingRequestsCount > 0 ? String(pendingRequestsCount > 99 ? '99+' : pendingRequestsCount) : undefined;
+          } else if (isWaitlist) {
+            displayBadge = waitlistCount > 0 ? String(waitlistCount > 99 ? '99+' : waitlistCount) : undefined;
           }
           return (
             <Link
@@ -244,6 +258,11 @@ export default function DashboardSidebar() {
                 {collapsed && isRequests && pendingRequestsCount > 0 && (
                   <span className="absolute -top-1 -right-1 h-3.5 w-3.5 rounded-full bg-amber-500 text-white text-[8px] font-bold flex items-center justify-center">
                     {pendingRequestsCount > 9 ? '9' : pendingRequestsCount}
+                  </span>
+                )}
+                {collapsed && isWaitlist && waitlistCount > 0 && (
+                  <span className="absolute -top-1 -right-1 h-3.5 w-3.5 rounded-full bg-[#10BF8D] text-[#0b3027] text-[8px] font-bold flex items-center justify-center">
+                    {waitlistCount > 9 ? '9' : waitlistCount}
                   </span>
                 )}
               </div>

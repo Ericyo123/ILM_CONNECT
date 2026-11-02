@@ -11,6 +11,10 @@ export class AdminService {
 
   async getWaitlist() { return this.prisma.waitlistEntry.findMany({ orderBy: { createdAt: 'desc' } }); }
 
+  async deleteWaitlistEntry(id: string) {
+    return this.prisma.waitlistEntry.delete({ where: { id } });
+  }
+
   async getStats() {
     const totalStudents = await this.prisma.user.count({ where: { role: 'STUDENT' } });
     const activeStudents = await this.prisma.user.count({ where: { role: 'STUDENT', status: 'ACTIVE' } });

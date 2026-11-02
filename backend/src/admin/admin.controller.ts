@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Patch, Param, Body, Query, UseGuards, Req, Header } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Delete, Param, Body, Query, UseGuards, Req, Header } from '@nestjs/common';
 import { AdminService } from './admin.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
@@ -22,6 +22,11 @@ export class AdminController {
   @Get('waitlist')
   @Header('Cache-Control', 'no-store')
   getWaitlist() { return this.adminService.getWaitlist(); }
+
+  @Delete('waitlist/:id')
+  deleteWaitlistEntry(@Param('id') id: string) {
+    return this.adminService.deleteWaitlistEntry(id);
+  }
 
   @Get('stats')
   @Header('Cache-Control', 'no-store')

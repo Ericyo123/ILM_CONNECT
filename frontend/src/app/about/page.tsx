@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
+import { useAuth } from '@/lib/auth-context';
 import { apiFetch } from '@/lib/api';
 import { useSubscriptionPlans } from '@/lib/subscription-plans';
 import { CurrencySelector, usePricingCurrency } from '@/lib/pricing-currency';
@@ -219,6 +221,8 @@ const parentPromises = [
 ];
 
 export default function AboutPage() {
+  const { user } = useAuth();
+  const isAdmin = user?.role === 'ADMIN' || user?.role === 'SUPER_ADMIN';
   const { data: plans = [], isPending: plansPending, isError: plansError } = useSubscriptionPlans();
   const { format } = usePricingCurrency();
   const shouldReduceMotion = useReducedMotion();
@@ -753,13 +757,21 @@ export default function AboutPage() {
 
             {/* Right Waitlist Form */}
             <div className="relative bg-[#fcfcf9] p-5 sm:p-8 lg:p-10">
-              <div className="mb-6 sm:mb-7 flex items-end justify-between gap-4 border-b border-stone-200/60 pb-4 sm:pb-5">
+              <div className="mb-6 sm:mb-7 flex flex-wrap items-end justify-between gap-4 border-b border-stone-200/60 pb-4 sm:pb-5">
                 <div>
                   <p className="text-xs font-bold uppercase tracking-wider text-[#095F46]">Join the waitlist</p>
                   <h3 className="mt-1 text-2xl font-black tracking-tight text-stone-950 sm:text-[26px]">
                     Your learning preferences
                   </h3>
                 </div>
+                {isAdmin && (
+                  <Link
+                    href="/admin/waitlist"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-[#095F46]/30 bg-emerald-50 px-3.5 py-1.5 text-xs font-bold text-[#095F46] hover:bg-emerald-100 transition shadow-xs"
+                  >
+                    <span>Admin: View Leads Dashboard →</span>
+                  </Link>
+                )}
               </div>
 
               {!isWaitlistSubmitted ? (

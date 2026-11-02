@@ -1,6 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import { apiFetch } from '@/lib/api';
+import { useSubscriptionPlans } from '@/lib/subscription-plans';
+import { CurrencySelector, usePricingCurrency } from '@/lib/pricing-currency';
 import Image from 'next/image';
 import {
   Check,
@@ -216,6 +219,8 @@ const parentPromises = [
 ];
 
 export default function AboutPage() {
+  const { data: plans = [], isPending: plansPending, isError: plansError } = useSubscriptionPlans();
+  const { format } = usePricingCurrency();
   const shouldReduceMotion = useReducedMotion();
   const [waitlistName, setWaitlistName] = useState('');
   const [waitlistEmail, setWaitlistEmail] = useState('');
@@ -225,7 +230,11 @@ export default function AboutPage() {
   );
   const [waitlistCourse, setWaitlistCourse] = useState('Tajweed Quran Recitation');
   const [waitlistPace, setWaitlistPace] = useState<'standard' | 'fast-track'>('standard');
-  const price = (tier: string) => { const plan = plans.find(item => item.course === waitlistCourse && item.tier === tier); return plan ? format(plan) : 'Price unavailable'; };
+  const price = (tier: string) => {
+    if (plansPending) return 'Loading prices…';
+    const plan = plans.find(item => item.course === waitlistCourse && item.tier === tier);
+    return !plansError && plan ? format(plan) : 'Price unavailable';
+  };
   const [waitlistNotes, setWaitlistNotes] = useState('');
   const [waitlistError, setWaitlistError] = useState('');
   const [isWaitlistSubmitting, setIsWaitlistSubmitting] = useState(false);
@@ -820,7 +829,7 @@ export default function AboutPage() {
                     </div>
                   </div>
 
-                  {/* Form Field: Preferred Learning Pace */}
+                  <CurrencySelector />
                   <fieldset className="pt-1">
                     <legend className="mb-2 text-xs font-bold uppercase tracking-wider text-stone-700">
                       Preferred learning pace
@@ -841,7 +850,7 @@ export default function AboutPage() {
                           {waitlistPace === 'standard' && <span className="h-2 w-2 rounded-full bg-emerald-300" />}
                         </div>
                         <span className={`mt-0.5 block text-[11px] ${waitlistPace === 'standard' ? 'text-emerald-50/80 font-medium' : 'text-stone-500'}`}>
-                          2 sessions / wk · $59/mo
+                          2 sessions / wk · {price('Standard')}/mo
                         </span>
                       </button>
                       <button
@@ -859,7 +868,7 @@ export default function AboutPage() {
                           {waitlistPace === 'fast-track' && <span className="h-2 w-2 rounded-full bg-emerald-300" />}
                         </div>
                         <span className={`mt-0.5 block text-[11px] ${waitlistPace === 'fast-track' ? 'text-emerald-50/80 font-medium' : 'text-stone-500'}`}>
-                          3 sessions / wk · $89/mo
+                          3 sessions / wk · {price('Fast Track')}/mo
                         </span>
                       </button>
                     </div>
@@ -881,6 +890,7 @@ export default function AboutPage() {
 
                   {/* Form Submit Button */}
                   <div className="pt-2">
+                    {waitlistError && <p role="alert" className="mb-3 text-sm text-red-700">{waitlistError}</p>}
                     <button
                       type="submit"
                       disabled={isWaitlistSubmitting}

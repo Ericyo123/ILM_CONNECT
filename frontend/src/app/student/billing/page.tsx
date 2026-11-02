@@ -68,7 +68,7 @@ function BillingContent() {
         description="Review your plan, trial status, billing date, and payment history."
       />
 
-      <CurrencySelector />
+      <CurrencySelector mobileMenu />
       {selectedPlan && <StudentCard className="border-[#b9cac2] p-5">
         <h2 className="text-xl font-bold">{selectedPlan.course} · {selectedPlan.tier}</h2>
         <p className="mt-2 text-sm text-[#56635c]">{format(selectedPlan)}/month · {selectedPlan.sessions} live sessions per month</p>

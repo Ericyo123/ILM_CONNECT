@@ -12,4 +12,8 @@ Sri Lankan displayed prices use `monthlyLkr` directly. GBP/EUR/AUD displayed pri
 
 Finance and public/student plan displays refresh every thirty seconds. Configuration avoids focus/interval refreshes while editing so unsaved inputs are not reset. Manual currency PATCH routes and inputs have been removed.
 
+Public pricing, the home course cards, waitlist quotes, and student plan selection share the same currency preference. An explicit account preference wins, followed by the student's profile country, a saved guest preference, and the country returned by the existing `/api/geo` endpoint. Sri Lanka uses LKR, the United Kingdom GBP, supported euro-area countries EUR, and Australia AUD. Other countries or unavailable detection use international USD pricing. A new account does not inherit another account's preference.
+
+All five currency choices remain accessible even if exchange retrieval fails. Foreign conversions are hidden while their rate metadata is unavailable or stale, with a retry action that reloads both rates and plan prices. Configured LKR and USD amounts do not require exchange metadata. Blocked browser storage retains the chosen currency for the current visit.
+
 Sources: https://frankfurter.dev/ and https://support.google.com/docs/answer/3093281?hl=en

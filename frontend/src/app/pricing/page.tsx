@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { Check, ChevronDown } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
 import PublicPageHero, { publicPageFadeUp as fadeUp } from '@/components/public-page-hero';
+import { useSubscriptionPlans } from '@/lib/subscription-plans';
+import { CurrencySelector, usePricingCurrency } from '@/lib/pricing-currency';
 import styles from './pricing.module.css';
 
 interface CourseCardData {
@@ -145,6 +147,16 @@ export default function PricingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const reduceMotion = useReducedMotion();
   const [isFastTrackOpen, setIsFastTrackOpen] = useState(false);
+  const { data: plans = [], isPending: plansPending, isError: plansError, refetch } = useSubscriptionPlans();
+  const { format } = usePricingCurrency();
+  const price = (courseId: string, tier: string) => {
+    if (plansPending) return 'Loading prices…';
+    if (plansError) return 'Price unavailable';
+    const plan = plans.find(item => item.courseId === courseId && item.tier === tier);
+    return plan ? format(plan) : 'Price unavailable';
+  };
+  const fastTrackPrices = fastTrackCourses.map(course => price(course.id, 'Fast Track'));
+  const fastTrackSummary = [...new Set(fastTrackPrices)].join(' / ');
 
   const toggleFaq = (index: number) => {
     setOpenFaq((previous) => previous === index ? null : index);
@@ -170,7 +182,12 @@ export default function PricingPage() {
       {/* Main Plans & FAQs Container with identical separation spacing */}
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 space-y-14 sm:space-y-16 lg:space-y-20">
 
-        <div className="text-center"><CurrencySelector /></div>
+        <div className="text-center"><CurrencySelector mobileMenu /></div>
+        {plansError && <div role="alert" className="text-center text-sm text-[#56635c]">
+          <p>Unable to load plan prices. Please try again.</p>
+          <button type="button" onClick={() => refetch()} className="min-h-11 font-semibold text-[#095F46] underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#095F46]">Retry plan prices</button>
+        </div>}
+        {!plansPending && !plansError && !plans.length && <p role="status" className="text-center text-sm text-[#56635c]">Plan prices have not been configured yet. You can still request a trial.</p>}
         {/* ========================================================================= */}
         {/* SECTION 1: Standard Plans (2 Sessions / Week · Free Trial Included)       */}
         {/* ========================================================================= */}
@@ -228,8 +245,8 @@ export default function PricingPage() {
                   <div>
                     {/* Price Tag */}
                     <div className="mb-6 pb-6 border-b border-stone-100">
-                      <div className="flex items-baseline gap-1.5">
-                        <span className="text-4xl font-black text-stone-950 tracking-tight">$59</span>
+                      <div className="flex flex-wrap items-baseline gap-1.5" aria-live="polite">
+                        <span className="min-w-0 text-3xl lg:text-4xl font-black text-stone-950 tracking-tight [overflow-wrap:anywhere]">{price(course.id, 'Standard')}</span>
                         <span className="text-xs sm:text-sm font-medium text-stone-500">/ month</span>
                       </div>
                     </div>
@@ -276,14 +293,14 @@ export default function PricingPage() {
               onClick={() => setIsFastTrackOpen((open) => !open)}
               aria-expanded={isFastTrackOpen}
               aria-controls="fast-track-packages"
-              className="flex w-full items-center justify-between gap-4 py-3 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#095F46]"
+              className="flex w-full flex-wrap items-center justify-between gap-4 py-3 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#095F46]"
             >
               <span className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                 <span className="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 leading-[1.2]">Fast Track Plans</span>
                 <span className="text-sm sm:text-xl lg:text-2xl font-normal text-stone-500 whitespace-nowrap">3 sessions / week</span>
               </span>
-              <span className="flex shrink-0 items-center gap-3 sm:gap-5">
-                <span className="text-right text-base sm:text-2xl font-bold text-[#095F46]">$89 / $89 / $89<span className="block text-xs sm:text-sm font-normal text-stone-500">per month</span></span>
+              <span className="flex min-w-0 items-center gap-3 sm:gap-5">
+                <span className="text-base sm:text-xl font-bold text-[#095F46]" aria-live="polite">{fastTrackSummary}<span className="block text-xs sm:text-sm font-normal text-stone-500">per month</span></span>
                 <ChevronDown aria-hidden="true" className={`h-5 w-5 sm:h-6 sm:w-6 ${isFastTrackOpen ? 'rotate-180' : ''}`} />
               </span>
             </button>
@@ -330,8 +347,8 @@ export default function PricingPage() {
                   <div>
                     {/* Price Tag */}
                     <div className="mb-6 pb-6 border-b border-stone-100">
-                      <div className="flex items-baseline gap-1.5">
-                        <span className="text-4xl font-black text-[#095F46] tracking-tight">$89</span>
+                      <div className="flex flex-wrap items-baseline gap-1.5" aria-live="polite">
+                        <span className="min-w-0 text-3xl lg:text-4xl font-black text-[#095F46] tracking-tight [overflow-wrap:anywhere]">{price(course.id, 'Fast Track')}</span>
                         <span className="text-xs sm:text-sm font-medium text-stone-500">/ month</span>
                       </div>
                     </div>

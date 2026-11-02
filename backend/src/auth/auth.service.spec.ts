@@ -4,6 +4,102 @@ import { Resend } from 'resend';
 import { Role, UserStatus } from '@prisma/client';
 const send = jest.fn();
 jest.mock('resend', () => ({ Resend: jest.fn().mockImplementation(() => ({ emails: { send } })) }));
+describe('Public waitlist email delivery', () => {
+  const originalEnv = process.env;
+  const entry = {
+    id: 'waitlist-entry', fullName: 'Trial Student', email: 'student@example.test',
+    phone: '+94771234567', country: 'Sri Lanka', course: 'Noorani Qaida',
+    pace: 'standard', notes: 'Weekend mornings\nPlease contact by email.', createdAt: new Date('2026-11-02T10:00:00Z'),
+  };
+  const prisma = { waitlistEntry: { createMany: jest.fn(), findUniqueOrThrow: jest.fn() } };
+  const service = new AuthService(prisma as any, {} as any);
+  beforeEach(() => {
+    jest.resetAllMocks();
+    process.env = { ...originalEnv, RESEND_API_KEY: 'test-key', RESEND_FROM_EMAIL: 'Ilmbit <notifications@example.test>', WAITLIST_NOTIFICATION_EMAIL: 'contact@bitmosolutions.com' };
+    (Resend as unknown as jest.Mock).mockImplementation(() => ({ emails: { send } }));
+    prisma.waitlistEntry.createMany.mockResolvedValue({ count: 1 });
+    prisma.waitlistEntry.findUniqueOrThrow.mockResolvedValue(entry);
+    send.mockResolvedValue({ data: { id: 'notification' }, error: null });
+  });
+  afterAll(() => { process.env = originalEnv; });
+
+  it('saves the enquiry and sends every submitted field to Bitmo with a reply address', async () => {
+    await expect(service.joinWaitlist({ ...entry, fullName: ' Trial Student ', email: 'STUDENT@example.test' })).resolves.toHaveProperty('message');
+    expect(prisma.waitlistEntry.createMany).toHaveBeenCalledWith({ data: [expect.objectContaining({ fullName: 'Trial Student', email: 'student@example.test' })], skipDuplicates: true });
+    expect(prisma.waitlistEntry.createMany.mock.invocationCallOrder[0]).toBeLessThan(send.mock.invocationCallOrder[0]);
+    expect(send).toHaveBeenCalledWith({
+      from: 'Ilmbit <notifications@example.test>', to: ['contact@bitmosolutions.com'], replyTo: entry.email,
+      subject: 'New Ilmbit trial / waitlist request', text: expect.any(String),
+    }, { idempotencyKey: 'waitlist/waitlist-entry' });
+    const text = send.mock.calls[0][0].text;
+    for (const value of [entry.fullName, entry.email, entry.phone, entry.country, entry.course, 'Standard', entry.notes, entry.id, entry.createdAt.toISOString()]) expect(text).toContain(value);
+  });
+
+  it('uses the same saved request and provider key on duplicate submissions and retries', async () => {
+    await service.joinWaitlist(entry);
+    prisma.waitlistEntry.createMany.mockResolvedValue({ count: 0 });
+    await service.joinWaitlist({ ...entry, notes: 'Changed notes on a retry' });
+    expect(send.mock.calls[1]).toEqual(send.mock.calls[0]);
+  });
+
+  it('preserves the saved request when Resend rejects delivery, so submitting again can retry', async () => {
+    send.mockResolvedValueOnce({ data: null, error: { message: 'Rejected' } });
+    await expect(service.joinWaitlist(entry)).rejects.toThrow('Your request is saved');
+    prisma.waitlistEntry.createMany.mockResolvedValue({ count: 0 });
+    await expect(service.joinWaitlist(entry)).resolves.toHaveProperty('message');
+    expect(send.mock.calls[1]).toEqual(send.mock.calls[0]);
+  });
+
+  it('reports network errors instead of presenting a simulated delivery as success', async () => {
+    send.mockRejectedValue(new Error('Network unavailable'));
+    await expect(service.joinWaitlist(entry)).rejects.toThrow('Please try submitting again');
+  });
+
+  it('requires provider acceptance with an email ID', async () => {
+    send.mockResolvedValue({ data: null, error: null });
+    await expect(service.joinWaitlist(entry)).rejects.toThrow('could not email the team');
+  });
+
+  it.each(['RESEND_API_KEY', 'RESEND_FROM_EMAIL'])('reports missing %s without sending', async key => {
+    delete process.env[key];
+    await expect(service.joinWaitlist(entry)).rejects.toThrow('email notifications are not configured');
+    expect(prisma.waitlistEntry.createMany).toHaveBeenCalled();
+    expect(send).not.toHaveBeenCalled();
+  });
+
+  it('defaults to the confirmed Bitmo address when no recipient override is set', async () => {
+    delete process.env.WAITLIST_NOTIFICATION_EMAIL;
+    await service.joinWaitlist(entry);
+    expect(send.mock.calls[0][0].to).toEqual(['contact@bitmosolutions.com']);
+  });
+
+  it('supports a configured notification recipient without changing the visitor reply address', async () => {
+    process.env.WAITLIST_NOTIFICATION_EMAIL = 'team@example.test';
+    await service.joinWaitlist(entry);
+    expect(send.mock.calls[0][0]).toMatchObject({ to: ['team@example.test'], replyTo: entry.email });
+  });
+
+  it('includes Fast Track, literal markup and empty optional fields in the plain-text message', async () => {
+    prisma.waitlistEntry.findUniqueOrThrow.mockResolvedValue({ ...entry, pace: 'fast-track', phone: '', notes: '<script>literal notes</script>' });
+    await service.joinWaitlist(entry);
+    expect(send.mock.calls[0][0].text).toContain('Learning pace: Fast Track');
+    expect(send.mock.calls[0][0].text).toContain('Phone / WhatsApp: Not provided');
+    expect(send.mock.calls[0][0].text).toContain('<script>literal notes</script>');
+    expect(send.mock.calls[0][0].html).toBeUndefined();
+  });
+
+  it('rejects blank names before creating an enquiry', async () => {
+    await expect(service.joinWaitlist({ ...entry, fullName: '   ' })).rejects.toThrow('Enter your full name');
+    expect(prisma.waitlistEntry.createMany).not.toHaveBeenCalled();
+    expect(send).not.toHaveBeenCalled();
+  });
+
+  it('does not send an enquiry that failed to save', async () => {
+    prisma.waitlistEntry.createMany.mockRejectedValue(new Error('Database unavailable'));
+    await expect(service.joinWaitlist(entry)).rejects.toThrow('Database unavailable');
+    expect(send).not.toHaveBeenCalled();
+  });
+});
 describe('Automatic student assignment requests', () => {
   const tx = {
     user: { create: jest.fn() }, studentProfile: { create: jest.fn() }, lecturerProfile: { create: jest.fn() },

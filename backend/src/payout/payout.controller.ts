@@ -24,7 +24,8 @@ export class PayoutController {
     @Request() req: any,
     @Body('amountLkr') amountLkr: number,
     @Body('method') method: string,
+    @Body('periodMonth') periodMonth: string,
   ) {
-    return this.payoutService.requestPayout(req.user.id, amountLkr, method);
+    return this.payoutService.requestPayout(req.user.id, amountLkr, method, periodMonth);
   }
 }

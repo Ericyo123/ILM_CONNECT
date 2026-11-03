@@ -1,6 +1,8 @@
-import { Injectable, NotFoundException, BadRequestException, NotImplementedException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException, NotImplementedException, ConflictException } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { ExchangeRateService } from '../pricing/exchange-rate.service';
+import { MONTHLY_POLICY, colomboMonth, monthPeriod, money, monthlyQuote, studentRegion } from '../pricing/monthly-pricing';
 
 @Injectable()
 export class SubscriptionService {
@@ -11,7 +13,8 @@ export class SubscriptionService {
   }
 
   async getPlans() {
-    const plans = await this.prisma.subscriptionPlan.findMany({ orderBy: [{ courseId: 'asc' }, { sessions: 'asc' }] });
+    const stored = await this.prisma.subscriptionPlan.findMany({ orderBy: [{ courseId: 'asc' }, { sessions: 'asc' }] });
+    const plans = stored.map(plan => ({ ...plan, monthlyUsd: plan.tier === 'Fast Track' ? MONTHLY_POLICY.fastTrackFeeUsd : MONTHLY_POLICY.standardFeeUsd, monthlyLkr: plan.tier === 'Fast Track' ? null : MONTHLY_POLICY.localFeeLkr }));
     if (!this.exchange) return plans;
     const rates = await this.exchange.snapshot();
     const usd = rates.find(row => row.code === 'USD');
@@ -27,26 +30,89 @@ export class SubscriptionService {
   }
 
   async updatePlans(input: unknown, actorId: string) {
-    if (!Array.isArray(input) || input.length !== 6) throw new BadRequestException('Provide prices for all six plans');
-    const updates: { id: string; monthlyUsd: number; monthlyLkr: number }[] = [];
-    for (const row of input) {
-      if (!row || typeof row.id !== 'string' || ![row.monthlyUsd, row.monthlyLkr].every(value => typeof value === 'number' && Number.isFinite(value) && value > 0 && Math.abs(value * 100 - Math.round(value * 100)) <= 0.000001) || row.monthlyUsd > 10000 || row.monthlyLkr > 10000000) {
-        throw new BadRequestException('Prices must be positive amounts with at most two decimal places');
-      }
-      updates.push({ id: row.id, monthlyUsd: row.monthlyUsd, monthlyLkr: row.monthlyLkr });
+    throw new BadRequestException('Monthly prices are fixed by the ILMBIT pricing policy');
+  }
+
+  async getQuote(planId: string, region: string, packageSize: number) {
+    if (typeof planId !== 'string') throw new BadRequestException('Choose a plan');
+    const plan = await this.prisma.subscriptionPlan.findUnique({ where: { id: planId } });
+    if (!plan) throw new NotFoundException('Plan not found');
+    return monthlyQuote(plan.tier, region, packageSize);
+  }
+
+  private validateMonthlyInput(input: { studentIds?: unknown; planId?: unknown; billingMonth?: unknown; reference?: unknown }) {
+    if (!input || !Array.isArray(input.studentIds) || ![1, 2, 3].includes(input.studentIds.length) || input.studentIds.some(id => typeof id !== 'string' || !id.trim()) || new Set(input.studentIds).size !== input.studentIds.length) throw new BadRequestException('Choose one, two, or three different students');
+    if (typeof input.planId !== 'string' || !input.planId) throw new BadRequestException('Choose a plan');
+    if (typeof input.billingMonth !== 'string') throw new BadRequestException('Choose a billing month');
+    monthPeriod(input.billingMonth);
+    if (input.billingMonth > colomboMonth()) throw new BadRequestException('Future tuition cannot be recorded yet');
+    return { studentIds: input.studentIds as string[], planId: input.planId, billingMonth: input.billingMonth };
+  }
+
+  async quoteMonthlyPayment(input: { studentIds?: unknown; planId?: unknown; billingMonth?: unknown }, db: Prisma.TransactionClient = this.prisma, conversion?: { region: string; fxRate: number; rateDate: string | null }) {
+    const { studentIds, planId, billingMonth } = this.validateMonthlyInput(input);
+    const [students, plan] = await Promise.all([
+      db.studentProfile.findMany({ where: { userId: { in: studentIds } }, include: { user: true, assignedLecturer: { include: { user: true } } } }),
+      db.subscriptionPlan.findUnique({ where: { id: planId } }),
+    ]);
+    if (!plan) throw new NotFoundException('Plan not found');
+    if (students.length !== studentIds.length) throw new BadRequestException('One or more students could not be found');
+    if (students.some(student => student.user.status !== 'ACTIVE' || student.user.deletedAt || !student.assignedLecturer || student.assignedLecturer.status !== 'ACTIVE' || student.assignedLecturer.user.status !== 'ACTIVE' || student.assignedLecturer.user.deletedAt)) throw new BadRequestException('Every student must be active and assigned to an active lecturer');
+    const region = studentRegion(students[0].country);
+    if (students.some(student => studentRegion(student.country) !== region)) throw new BadRequestException('Choose students from the same pricing region for a package');
+    const quote = monthlyQuote(plan.tier, region, students.length);
+    if (conversion && conversion.region !== region) throw new ConflictException('The student pricing region changed. Refresh the calculation before recording payment');
+    const rates = region === 'LK' || conversion ? [] : await this.exchange?.snapshot() ?? [];
+    const usd = rates.find(rate => rate.code === 'USD');
+    if (region !== 'LK' && !conversion && (!usd?.available || usd.stale)) throw new BadRequestException('A current USD exchange rate is required. Refresh exchange rates and retry');
+    const fxRate = region === 'LK' ? 1 : conversion?.fxRate ?? usd!.lkrPerUnit;
+    const feePerStudentLkr = money(new Prisma.Decimal(quote.feePerStudent).mul(fxRate));
+    const totalLkr = money(new Prisma.Decimal(feePerStudentLkr).mul(students.length));
+    const payoutPerStudentLkr = region === 'LK' ? MONTHLY_POLICY.localPayoutLkr : MONTHLY_POLICY.internationalPayoutLkr;
+    const payoutTotalLkr = payoutPerStudentLkr * students.length;
+    return {
+      ...quote, planId, tier: plan.tier, billingMonth, region, fxRate, rateDate: conversion?.rateDate ?? usd?.rateDate ?? null,
+      feePerStudentLkr, totalLkr, payoutPerStudentLkr, payoutTotalLkr,
+      remainingLkr: money(new Prisma.Decimal(totalLkr).minus(payoutTotalLkr)),
+      students: students.map(student => ({ id: student.userId, name: student.fullName, lecturerId: student.assignedLecturerId!, lecturerName: student.assignedLecturer!.fullName })),
+    };
+  }
+
+  async recordMonthlyPayment(input: { studentIds?: unknown; planId?: unknown; billingMonth?: unknown; reference?: unknown; expectedTotalLkr?: unknown }, actorId: string) {
+    const validated = this.validateMonthlyInput(input);
+    if (typeof input.reference !== 'string' || !input.reference.trim() || input.reference.trim().length > 120) throw new BadRequestException('Enter an external payment reference (up to 120 characters)');
+    const reference = input.reference.trim();
+    // A provider refresh must finish before the tuition transaction holds student locks.
+    const preview = await this.quoteMonthlyPayment(input);
+    if (input.expectedTotalLkr !== preview.totalLkr) throw new ConflictException('The quote changed. Refresh the calculation and check the amount before recording payment');
+    try {
+      return await this.prisma.$transaction(async tx => {
+        // Sorted student locks serialize overlapping packages without deadlocks.
+        for (const id of [...validated.studentIds].sort()) await tx.$queryRaw`SELECT pg_advisory_xact_lock(hashtext(${`tuition:${id}`}))::text`;
+        const existing = await tx.subscription.count({ where: { studentId: { in: validated.studentIds }, billingMonth: validated.billingMonth } });
+        if (existing) throw new ConflictException('Tuition is already recorded for a selected student in this month');
+        const quote = await this.quoteMonthlyPayment(input, tx, preview);
+        if (input.expectedTotalLkr !== quote.totalLkr) throw new ConflictException('The quote changed. Refresh the calculation and check the amount before recording payment');
+        const period = monthPeriod(quote.billingMonth);
+        for (const student of quote.students) {
+          const subscription = await tx.subscription.create({ data: {
+            studentId: student.id, tier: quote.tier,
+            status: 'ACTIVE', billingMonth: quote.billingMonth,
+            currentPeriodStart: period.start, currentPeriodEnd: period.end,
+            lkrAmount: quote.feePerStudentLkr, fxRateApplied: quote.fxRate,
+            pricingSnapshot: { planId: quote.planId, currency: quote.currency, baseFee: quote.baseFee, discountPercent: quote.discountPercent, packageSize: quote.packageSize, feePerStudent: quote.feePerStudent, fxRate: quote.fxRate, rateDate: quote.rateDate, reference },
+          } });
+          await tx.payment.create({ data: { subscriptionId: subscription.id, amountLkr: quote.feePerStudentLkr, fxRate: quote.fxRate, gateway: 'external_record', gatewayChargeId: reference, status: 'SUCCESSFUL', processedAt: new Date() } });
+          await tx.monthlyLecturerEarning.create({ data: { studentId: student.id, lecturerId: student.lecturerId, subscriptionId: subscription.id, periodMonth: quote.billingMonth, region: quote.region, amountLkr: quote.payoutPerStudentLkr } });
+          if (quote.billingMonth === colomboMonth()) await tx.studentProfile.update({ where: { userId: student.id }, data: { currentTier: subscription.tier } });
+        }
+        await tx.auditLog.create({ data: { actorId, action: 'MONTHLY_TUITION_RECORDED', entity: 'MONTHLY_TUITION', entityId: quote.billingMonth, details: { ...quote, reference } } });
+        return quote;
+      }, { maxWait: 10000, timeout: 30000 });
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') throw new ConflictException('Tuition or earnings are already recorded for a selected student in this month');
+      throw error;
     }
-    const current = await this.getPlans();
-    if (new Set(updates.map(row => row.id)).size !== current.length || updates.some(row => !current.some(plan => plan.id === row.id))) throw new BadRequestException('Unknown or duplicate plan');
-    for (const standard of current.filter(plan => plan.tier === 'Standard')) {
-      const fastTrack = current.find(plan => plan.courseId === standard.courseId && plan.tier === 'Fast Track')!;
-      if (updates.find(row => row.id === fastTrack.id)!.monthlyUsd < updates.find(row => row.id === standard.id)!.monthlyUsd) throw new BadRequestException('Fast Track must cost at least as much as Standard');
-      if (updates.find(row => row.id === fastTrack.id)!.monthlyLkr < updates.find(row => row.id === standard.id)!.monthlyLkr) throw new BadRequestException('Sri Lankan Fast Track must cost at least as much as Standard');
-    }
-    await this.prisma.$transaction(async tx => {
-      for (const row of updates) await tx.subscriptionPlan.update({ where: { id: row.id }, data: { monthlyUsd: row.monthlyUsd, monthlyLkr: row.monthlyLkr } });
-      await tx.auditLog.create({ data: { actorId, action: 'PRICING_UPDATED', entity: 'SUBSCRIPTION_PLANS', entityId: 'catalog', details: { prices: updates } } });
-    });
-    return this.getPlans();
   }
 
   async getAccess(studentId: string) {

@@ -7,6 +7,8 @@ import { Check, ChevronDown } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
 import PublicPageHero, { publicPageFadeUp as fadeUp } from '@/components/public-page-hero';
 import styles from './pricing.module.css';
+import { useSubscriptionPlans } from '@/lib/subscription-plans';
+import MonthlyTuitionCalculator, { currencyAmount } from '@/components/pricing/monthly-tuition-calculator';
 
 interface CourseCardData {
   id: string;
@@ -142,6 +144,13 @@ const faqs = [
 ];
 
 export default function PricingPage() {
+  const [pricingRegion, setPricingRegion] = useState('INTERNATIONAL');
+  const { data: plans = [], isPending: pricesLoading, isError: pricesError } = useSubscriptionPlans();
+  const price = (courseId: string, tier: string) => {
+    if (pricingRegion === 'LK' && tier === 'Fast Track') return 'International only';
+    const plan = plans.find(row => row.courseId === courseId && row.tier === tier);
+    return pricesLoading ? 'Loading…' : pricesError || !plan ? 'Price unavailable' : currencyAmount(pricingRegion === 'LK' ? plan.monthlyLkr! : plan.monthlyUsd, pricingRegion === 'LK' ? 'LKR' : 'USD');
+  };
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const reduceMotion = useReducedMotion();
   const [isFastTrackOpen, setIsFastTrackOpen] = useState(false);
@@ -170,7 +179,7 @@ export default function PricingPage() {
       {/* Main Plans & FAQs Container with identical separation spacing */}
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 space-y-14 sm:space-y-16 lg:space-y-20">
 
-        <div className="text-center"><CurrencySelector /></div>
+        <MonthlyTuitionCalculator pricingRegion={pricingRegion} onRegionChange={setPricingRegion} />
         {/* ========================================================================= */}
         {/* SECTION 1: Standard Plans (2 Sessions / Week · Free Trial Included)       */}
         {/* ========================================================================= */}
@@ -229,7 +238,7 @@ export default function PricingPage() {
                     {/* Price Tag */}
                     <div className="mb-6 pb-6 border-b border-stone-100">
                       <div className="flex items-baseline gap-1.5">
-                        <span className="text-4xl font-black text-stone-950 tracking-tight">$59</span>
+                        <span className="text-3xl font-bold text-stone-950 tracking-tight">{price(course.id, 'Standard')}</span>
                         <span className="text-xs sm:text-sm font-medium text-stone-500">/ month</span>
                       </div>
                     </div>
@@ -283,7 +292,7 @@ export default function PricingPage() {
                 <span className="text-sm sm:text-xl lg:text-2xl font-normal text-stone-500 whitespace-nowrap">3 sessions / week</span>
               </span>
               <span className="flex shrink-0 items-center gap-3 sm:gap-5">
-                <span className="text-right text-base sm:text-2xl font-bold text-[#095F46]">$89 / $89 / $89<span className="block text-xs sm:text-sm font-normal text-stone-500">per month</span></span>
+                <span className="text-right text-base sm:text-xl font-bold text-[#095F46]">USD 69<span className="block text-xs sm:text-sm font-normal text-stone-600">per student/month · international</span></span>
                 <ChevronDown aria-hidden="true" className={`h-5 w-5 sm:h-6 sm:w-6 ${isFastTrackOpen ? 'rotate-180' : ''}`} />
               </span>
             </button>
@@ -331,7 +340,7 @@ export default function PricingPage() {
                     {/* Price Tag */}
                     <div className="mb-6 pb-6 border-b border-stone-100">
                       <div className="flex items-baseline gap-1.5">
-                        <span className="text-4xl font-black text-[#095F46] tracking-tight">$89</span>
+                        <span className="text-3xl font-bold text-[#095F46] tracking-tight">{price(course.id, 'Fast Track')}</span>
                         <span className="text-xs sm:text-sm font-medium text-stone-500">/ month</span>
                       </div>
                     </div>

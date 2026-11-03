@@ -98,6 +98,11 @@ function BillingContent() {
               <div className="text-3xl font-extrabold text-[#202823]">
                 LKR {subscription?.lkrAmount?.toLocaleString() ?? 0}<span className="text-base font-normal text-[#56635c]">/month</span>
               </div>
+              {subscription?.pricingSnapshot && <div className="mt-3 space-y-1 text-sm leading-6 text-[#56635c]">
+                <p>Billing month: {subscription.billingMonth} · {subscription.pricingSnapshot.packageSize === 3 ? 'Trio' : subscription.pricingSnapshot.packageSize === 2 ? 'Duo' : 'Solo'} · {subscription.pricingSnapshot.discountPercent}% tuition discount.</p>
+                <p>Tuition per student after discount: {subscription.pricingSnapshot.currency} {Number(subscription.pricingSnapshot.feePerStudent).toFixed(2)}. Your lessons remain private, one-to-one.</p>
+                {subscription.pricingSnapshot.currency === 'USD' && <p>The LKR amount above is the reference value recorded for this payment. Your tuition is priced in USD.</p>}
+              </div>}
               {subscription ? (
                 <div className="mt-4 grid gap-3 sm:grid-cols-2">
                   <div className="rounded-xl border border-[#d6e0db] bg-[#f5f7f6] p-3">

@@ -123,6 +123,7 @@ model StudentProfile {
   user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
   assignedLecturer  LecturerProfile?  @relation("AssignedLecturer", fields: [assignedLecturerId], references: [userId], onDelete: SetNull)
   subscriptions     Subscription[]
+  monthlyEarnings   MonthlyLecturerEarning[]
   sessions          Session[]
   sessionBlocks     SessionBlock[]
   ratingsGiven      Rating[]          @relation("StudentRatings")
@@ -155,6 +156,7 @@ model LecturerProfile {
   sessionBlocks        SessionBlock[]
   sessionNotes         SessionNotes[]
   payouts              Payout[]
+  monthlyEarnings      MonthlyLecturerEarning[]
   progressReports      ProgressReport[]
   ratingsReceived      Rating[]           @relation("LecturerRatings")
 
@@ -175,11 +177,15 @@ model Subscription {
   currentPeriodEnd     DateTime           @map("current_period_end")
   lkrAmount            Float              @map("lkr_amount")
   fxRateApplied        Float              @map("fx_rate_applied")
+  billingMonth         String?            @map("billing_month")
+  pricingSnapshot      Json?              @map("pricing_snapshot")
 
   // Relations
   student              StudentProfile     @relation(fields: [studentId], references: [userId], onDelete: Cascade)
   payments             Payment[]
+  monthlyEarning       MonthlyLecturerEarning?
 
+  @@unique([studentId, billingMonth])
   @@index([studentId])
   @@index([status])
   @@map("subscriptions")
@@ -334,13 +340,36 @@ model Payout {
   initiatedAt            DateTime        @default(now()) @map("initiated_at")
   completedAt            DateTime?       @map("completed_at")
   failureReason          String?         @map("failure_reason")
+  periodMonth            String?         @map("period_month")
+  earningsSnapshot       Json?           @map("earnings_snapshot")
 
   // Relations
   lecturer               LecturerProfile @relation(fields: [lecturerId], references: [userId], onDelete: Cascade)
+  monthlyEarnings        MonthlyLecturerEarning[]
 
   @@index([lecturerId])
   @@index([status])
   @@map("payouts")
+}
+
+model MonthlyLecturerEarning {
+  id             String @id @default(uuid())
+  studentId      String @map("student_id")
+  lecturerId     String @map("lecturer_id")
+  subscriptionId String @unique @map("subscription_id")
+  periodMonth    String @map("period_month")
+  region         String
+  amountLkr      Int @map("amount_lkr")
+  payoutId       String? @map("payout_id")
+  createdAt      DateTime @default(now()) @map("created_at")
+  student        StudentProfile @relation(fields: [studentId], references: [userId], onDelete: Restrict)
+  lecturer       LecturerProfile @relation(fields: [lecturerId], references: [userId], onDelete: Restrict)
+  subscription   Subscription @relation(fields: [subscriptionId], references: [id], onDelete: Restrict)
+  payout         Payout? @relation(fields: [payoutId], references: [id], onDelete: Restrict)
+
+  @@unique([studentId, periodMonth])
+  @@index([lecturerId, periodMonth, payoutId])
+  @@map("monthly_lecturer_earnings")
 }
 
 model ProgressReport {

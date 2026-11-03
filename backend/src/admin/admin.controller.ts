@@ -5,13 +5,19 @@ import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { Role } from '@prisma/client';
 import { HistoryService } from './history.service';
+import { PayoutService } from '../payout/payout.service';
 import { CreateLecturerDto, AssignLecturerDto, UpdateLecturerDto, UpdateUserStatusDto } from './dto/create-lecturer.dto';
 
 @Controller('admin')
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles(Role.ADMIN, Role.SUPER_ADMIN)
 export class AdminController {
-  constructor(private readonly adminService: AdminService, private readonly historyService: HistoryService) {}
+  constructor(private readonly adminService: AdminService, private readonly historyService: HistoryService, private readonly payoutService: PayoutService) {}
+
+  @Post('payouts/monthly')
+  prepareMonthlyPayouts(@Req() req: any, @Body('periodMonth') periodMonth: string) {
+    return this.payoutService.prepareMonthlyPayouts(periodMonth, req.user.id);
+  }
 
   @Get('users/:id/history')
   @Header('Cache-Control', 'no-store')

@@ -4,6 +4,7 @@ import { ExchangeRateService } from '../pricing/exchange-rate.service';
 import { Role, UserStatus } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { CreateLecturerDto, UpdateLecturerDto } from './dto/create-lecturer.dto';
+import { MONTHLY_POLICY, colomboMonth, monthPeriod, money } from '../pricing/monthly-pricing';
 
 @Injectable()
 export class AdminService {
@@ -28,7 +29,7 @@ export class AdminService {
     const endOfWeek = new Date(startOfWeek);
     endOfWeek.setDate(startOfWeek.getDate() + 7);
     
-    const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    const startOfMonth = monthPeriod(colomboMonth()).start;
 
     const sessionsToday = await this.prisma.session.count({
       where: { startsAt: { gte: today, lt: endOfToday } },
@@ -318,10 +319,12 @@ export class AdminService {
     });
 
     const payouts = await this.prisma.payout.findMany({
+      include: { lecturer: { select: { fullName: true } }, monthlyEarnings: { select: { studentId: true, region: true, amountLkr: true } } },
       orderBy: { initiatedAt: 'desc' },
     });
 
-    const monthStart = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+    const currentMonth = colomboMonth();
+    const monthStart = monthPeriod(currentMonth).start;
     const monthlyPayments = await this.prisma.payment.findMany({
       where: { status: 'SUCCESSFUL', processedAt: { gte: monthStart } },
       select: { amountLkr: true, subscription: { select: { tier: true, studentId: true } } },
@@ -338,8 +341,17 @@ export class AdminService {
     const exchangeRates = this.exchange ? await this.exchange.snapshot() : [];
     const usd = exchangeRates.find(row => row.code === 'USD');
     const plans = this.exchange ? await this.prisma.subscriptionPlan.findMany({ orderBy: [{ courseId: 'asc' }, { sessions: 'asc' }] }) : [];
-    const pricing = plans.map(plan => ({ ...plan, internationalLkr: usd?.available && !usd.stale ? Math.round(plan.monthlyUsd * usd.lkrPerUnit * 100) / 100 : null }));
-    return { payments, payouts, revenueByPlan, exchangeRates, pricing };
+    const pricing = plans.map(plan => {
+      const monthlyUsd = plan.tier === 'Fast Track' ? MONTHLY_POLICY.fastTrackFeeUsd : MONTHLY_POLICY.standardFeeUsd;
+      return { ...plan, monthlyUsd, monthlyLkr: plan.tier === 'Fast Track' ? null : MONTHLY_POLICY.localFeeLkr, internationalLkr: usd?.available && !usd.stale ? money(monthlyUsd * usd.lkrPerUnit) : null };
+    });
+    const earnings = await this.prisma.monthlyLecturerEarning.findMany({ include: { subscription: { select: { lkrAmount: true } } } });
+    const current = earnings.filter(row => row.periodMonth === currentMonth);
+    const tuitionLkr = money(current.reduce((sum, row) => sum + row.subscription.lkrAmount, 0));
+    const lecturerLkr = current.reduce((sum, row) => sum + row.amountLkr, 0);
+    const unpaidMonths = [...new Set(earnings.filter(row => !row.payoutId && row.periodMonth < currentMonth).map(row => row.periodMonth))].sort().reverse();
+    return { payments, payouts, revenueByPlan, exchangeRates, pricing, policy: MONTHLY_POLICY, unpaidMonths,
+      monthlySummary: { month: currentMonth, students: current.length, tuitionLkr, lecturerLkr, remainingLkr: money(tuitionLkr - lecturerLkr) } };
   }
 
   async getFeedback() {
@@ -364,6 +376,7 @@ export class AdminService {
       await tx.$queryRaw`SELECT 1 AS locked FROM pg_advisory_xact_lock(hashtext(${payout.lecturerId}))`;
       const updated = await tx.payout.updateMany({ where: { id, status: 'PENDING' }, data: { status: status as any, completedAt: status === 'SUCCESSFUL' ? new Date() : null } });
       if (updated.count !== 1) throw new BadRequestException('Only pending payouts can be processed');
+      if (status === 'FAILED') await tx.monthlyLecturerEarning.updateMany({ where: { payoutId: id }, data: { payoutId: null } });
       const blockIds = Array.isArray(payout.sessionBlocksIncluded) ? payout.sessionBlocksIncluded.filter((value): value is string => typeof value === 'string') : [];
       await tx.sessionBlock.updateMany({ where: { id: { in: blockIds }, lecturerId: payout.lecturerId }, data: { status: status === 'SUCCESSFUL' ? 'PAID_OUT' : 'COMPLETED' } });
       if (actorId) await tx.auditLog.create({ data: { actorId, action: 'PAYOUT_STATUS_UPDATED', entity: 'PAYOUT', entityId: id, details: { status, amountLkr: payout.amountLkr } } });

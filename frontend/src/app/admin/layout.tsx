@@ -4,6 +4,7 @@ import { DashboardShell } from '@/components/layout/dashboard-shell';
 import { useAuth } from '@/lib/auth-context';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import formStyles from '@/components/ui/form-controls.module.css';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const { user, isLoading } = useAuth();
@@ -16,5 +17,5 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }, [user, isLoading, isAdmin, router]);
   if (isLoading) return <p role="status" className="p-6">Loading your account...</p>;
   if (!isAdmin) return <p role="alert" className="p-6">Administrator access is required.</p>;
-  return <DashboardShell>{children}</DashboardShell>;
+  return <DashboardShell><div className={formStyles.controls}>{children}</div></DashboardShell>;
 }

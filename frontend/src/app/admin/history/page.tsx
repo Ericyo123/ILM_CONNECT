@@ -572,7 +572,7 @@ function PersonHistory({
                 <Fact label="Pending payouts" value={money(n('pendingPayoutLkr'))} />
               </dl>
               <p className="mb-4 text-xs text-[#56635c]">
-                Unfinished session blocks do not earn a payout yet.
+                Monthly earnings come from recorded tuition: LKR 1,500 per Sri Lankan student or LKR 3,000 per international student. Earnings become payable after month end in Sri Lanka.
               </p>
               {!profile.payouts?.length ? (
                 <Empty>No payout requests recorded.</Empty>
@@ -589,17 +589,15 @@ function PersonHistory({
                       <p>
                         {payout.method} · Requested {date(payout.initiatedAt)}
                       </p>
+                      {payout.periodMonth && <p>Billing month: {payout.periodMonth} · {payout.earningsSnapshot?.length ?? 0} students</p>}
                       {payout.completedAt && <p>Paid {date(payout.completedAt)}</p>}
                       {payout.failureReason && <p>Failure: {payout.failureReason}</p>}
                       <details className="mt-2 text-[#56635c]">
                         <summary className="cursor-pointer rounded py-1 text-[#095F46] focus-visible:outline-2 focus-visible:outline-[#095F46]">
-                          Payout reference & blocks
+                          Payout reference & included earnings
                         </summary>
                         <p className="break-all">Reference: {payout.id}</p>
-                        <p className="break-all">
-                          Session blocks:{' '}
-                          {payout.sessionBlocksIncluded.join(', ') || 'None recorded'}
-                        </p>
+                        {payout.periodMonth ? <ul>{payout.earningsSnapshot?.map((student, index) => <li key={index}>{student.name} · {money(student.amountLkr)}</li>)}</ul> : <p className="break-all">Historical session blocks: {payout.sessionBlocksIncluded.join(', ') || 'None recorded'}</p>}
                       </details>
                     </article>
                   ))}
@@ -612,7 +610,7 @@ function PersonHistory({
                 Manage payouts in Finance
               </Link>
             </Section>
-            <Section title="Session block earnings" area="billing">
+            <Section title="Historical session blocks" area="billing">
               {!profile.sessionBlocks?.length ? (
                 <Empty>No session blocks recorded.</Empty>
               ) : (

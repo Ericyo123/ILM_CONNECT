@@ -121,8 +121,10 @@ Scope is the added/changed monthly pricing, billing and payout controls, not the
 - R-20/R-21 PASS: controls and content remain distinct in the existing light theme; no ornamental visual system was introduced.
 - R-29/R-30/R-31 PASS: existing brand colors and typography are retained, no product is visually cloned, and major decisions have written reasons.
 
-## Existing main-branch build limitation
+## Base-branch issue resolved during PR integration
 
-The full frontend build compiles but fails while prerendering `/` because `useInView` is undefined. Full TypeScript checking also reports existing undefined references on the home and About pages (`useRef`, `useEffect`, `diasporaTestimonials`, `plans`, `format`, `apiFetch`, and related symbols). These were confirmed in the fetched owner's main and left unchanged because the requested scope excludes unrelated pages. This is not a clean full-site build.
+The initial owner-main checkout failed while prerendering `/` because `useInView` was undefined. TypeScript also reported existing undefined references on the home and About pages. The open PR already contained the fixes for these public pages. Before publication, its changes were integrated with the monthly pricing implementation, preserving the latest tuition calculator and dropdowns.
+
+The final integrated frontend production build and standalone TypeScript check pass. The combined backend suite passes 263 tests across 27 suites, the country-mapping tests pass, and the five-width dropdown/accessibility checks pass. No merge-conflict markers or whitespace errors remain.
 
 The scoped routes run directly in the development server: `/pricing`, `/admin/finance`, `/admin/config`, `/lecturer/earnings`, and `/student/billing`. The normal review server uses port 3001 and the configured backend on port 3002.

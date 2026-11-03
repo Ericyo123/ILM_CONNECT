@@ -42,4 +42,4 @@ Screenshots and measurements are saved in `output/monthly-pricing/dropdown-redes
 - Liveliness PASS: declared dials match the restrained utility; the form/result composition and ILMBIT typography distinguish the calculator without competing with the pricing content.
 - Craft and consistency PASS: shared field/menu components, documented type/spacing/radius choices, real quote checks, responsive screenshots and accessibility results support the result (C-1 through C-5; R-05/11/15/16/20/21/29/30/31).
 
-The previously documented unrelated home/About build errors remain outside this change.
+Before publication, the existing open PR's public-page fixes were integrated. The final combined frontend production build and standalone TypeScript check pass. The dropdown browser and accessibility checks also passed again at all five widths after integration.

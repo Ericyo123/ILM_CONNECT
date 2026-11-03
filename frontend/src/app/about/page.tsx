@@ -1,6 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
+import { useAuth } from '@/lib/auth-context';
+import { apiFetch } from '@/lib/api';
+import { useSubscriptionPlans } from '@/lib/subscription-plans';
+import { CurrencySelector, usePricingCurrency } from '@/lib/pricing-currency';
 import Image from 'next/image';
 import {
   Check,
@@ -216,6 +221,10 @@ const parentPromises = [
 ];
 
 export default function AboutPage() {
+  const { user } = useAuth();
+  const isAdmin = user?.role === 'ADMIN' || user?.role === 'SUPER_ADMIN';
+  const { data: plans = [], isPending: plansPending, isError: plansError } = useSubscriptionPlans();
+  const { format } = usePricingCurrency();
   const shouldReduceMotion = useReducedMotion();
   const [waitlistName, setWaitlistName] = useState('');
   const [waitlistEmail, setWaitlistEmail] = useState('');
@@ -225,7 +234,11 @@ export default function AboutPage() {
   );
   const [waitlistCourse, setWaitlistCourse] = useState('Tajweed Quran Recitation');
   const [waitlistPace, setWaitlistPace] = useState<'standard' | 'fast-track'>('standard');
-  const price = (tier: string) => { const plan = plans.find(item => item.course === waitlistCourse && item.tier === tier); return plan ? format(plan) : 'Price unavailable'; };
+  const price = (tier: string) => {
+    if (plansPending) return 'Loading prices…';
+    const plan = plans.find(item => item.course === waitlistCourse && item.tier === tier);
+    return !plansError && plan ? format(plan) : 'Price unavailable';
+  };
   const [waitlistNotes, setWaitlistNotes] = useState('');
   const [waitlistError, setWaitlistError] = useState('');
   const [isWaitlistSubmitting, setIsWaitlistSubmitting] = useState(false);
@@ -744,13 +757,21 @@ export default function AboutPage() {
 
             {/* Right Waitlist Form */}
             <div className="relative bg-[#fcfcf9] p-5 sm:p-8 lg:p-10">
-              <div className="mb-6 sm:mb-7 flex items-end justify-between gap-4 border-b border-stone-200/60 pb-4 sm:pb-5">
+              <div className="mb-6 sm:mb-7 flex flex-wrap items-end justify-between gap-4 border-b border-stone-200/60 pb-4 sm:pb-5">
                 <div>
                   <p className="text-xs font-bold uppercase tracking-wider text-[#095F46]">Join the waitlist</p>
                   <h3 className="mt-1 text-2xl font-black tracking-tight text-stone-950 sm:text-[26px]">
                     Your learning preferences
                   </h3>
                 </div>
+                {isAdmin && (
+                  <Link
+                    href="/admin/waitlist"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-[#095F46]/30 bg-emerald-50 px-3.5 py-1.5 text-xs font-bold text-[#095F46] hover:bg-emerald-100 transition shadow-xs"
+                  >
+                    <span>Admin: View Leads Dashboard →</span>
+                  </Link>
+                )}
               </div>
 
               {!isWaitlistSubmitted ? (
@@ -820,7 +841,7 @@ export default function AboutPage() {
                     </div>
                   </div>
 
-                  {/* Form Field: Preferred Learning Pace */}
+                  <CurrencySelector />
                   <fieldset className="pt-1">
                     <legend className="mb-2 text-xs font-bold uppercase tracking-wider text-stone-700">
                       Preferred learning pace
@@ -841,7 +862,7 @@ export default function AboutPage() {
                           {waitlistPace === 'standard' && <span className="h-2 w-2 rounded-full bg-emerald-300" />}
                         </div>
                         <span className={`mt-0.5 block text-[11px] ${waitlistPace === 'standard' ? 'text-emerald-50/80 font-medium' : 'text-stone-500'}`}>
-                          2 sessions / wk · $59/mo
+                          2 sessions / wk · {price('Standard')}/mo
                         </span>
                       </button>
                       <button
@@ -859,7 +880,7 @@ export default function AboutPage() {
                           {waitlistPace === 'fast-track' && <span className="h-2 w-2 rounded-full bg-emerald-300" />}
                         </div>
                         <span className={`mt-0.5 block text-[11px] ${waitlistPace === 'fast-track' ? 'text-emerald-50/80 font-medium' : 'text-stone-500'}`}>
-                          3 sessions / wk · $89/mo
+                          3 sessions / wk · {price('Fast Track')}/mo
                         </span>
                       </button>
                     </div>
@@ -881,6 +902,7 @@ export default function AboutPage() {
 
                   {/* Form Submit Button */}
                   <div className="pt-2">
+                    {waitlistError && <p role="alert" className="mb-3 text-sm text-red-700">{waitlistError}</p>}
                     <button
                       type="submit"
                       disabled={isWaitlistSubmitting}

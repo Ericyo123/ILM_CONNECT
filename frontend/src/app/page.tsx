@@ -8,6 +8,7 @@ import Image from 'next/image';
 import {
   ChevronRight,
   Check,
+  ArrowRight,
 } from 'lucide-react';
 import { motion, type Variants } from 'framer-motion';
 import WaitlistModal from '@/components/waitlist-modal';
@@ -53,40 +54,6 @@ export default function HomePage() {
   const { format } = usePricingCurrency();
   const price = (id: string) => { const plan = plans.find(item => item.id === id); return plan ? format(plan) : 'Price unavailable'; };
   const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
-  const [testimonialIndex, setTestimonialIndex] = useState(0);
-  const [selectedStory, setSelectedStory] = useState<TestimonialStory | null>(null);
-  const testimonialRef = useRef<HTMLDivElement>(null);
-  const testimonialsInView = useInView(testimonialRef, { once: true, amount: 0.2 });
-
-  const statsRef = useRef<HTMLDivElement>(null);
-  const statsActive = useInView(statsRef, {
-    once: true,
-    amount: 0.35,
-    margin: '0px 0px -10% 0px',
-  });
-
-  const changeTestimonial = (direction: 'previous' | 'next') => {
-    setTestimonialIndex((current) => {
-      if (direction === 'previous') {
-        return (current - 1 + diasporaTestimonials.length) % diasporaTestimonials.length;
-      }
-      return (current + 1) % diasporaTestimonials.length;
-    });
-  };
-
-  useEffect(() => {
-    if (!testimonialsInView || selectedStory) {
-      return;
-    }
-
-    const timer = window.setTimeout(() => {
-      setTestimonialIndex((current) => (current + 1) % diasporaTestimonials.length);
-    }, TESTIMONIAL_ROTATION_MS);
-
-    return () => window.clearTimeout(timer);
-  }, [testimonialIndex, testimonialsInView, selectedStory]);
-
-  const activeTestimonial = diasporaTestimonials[testimonialIndex];
 
   return (
     <>
@@ -372,7 +339,7 @@ export default function HomePage() {
               </p>
             </motion.div>
 
-            <div className="mb-6 text-center"><CurrencySelector /></div>
+            <div className="mb-6 text-center"><CurrencySelector mobileMenu /></div>
             {/* 3 Pricing & Course Cards Grid matching Reference Image */}
             <motion.div
               initial="hidden"

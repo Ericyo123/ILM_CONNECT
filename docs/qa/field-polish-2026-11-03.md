@@ -26,4 +26,4 @@ Direction remains ILMBIT's existing light appearance, guided by Apple's picker a
 - Liveliness PASS: existing identity and calm dials remain; values and calculations retain the screen's focal hierarchy.
 - Craft and consistency PASS: one reusable control style covers the requested surfaces, native semantics remain, and browser/contrast evidence supports the result (C-1 through C-5; R-05/11/15/16/20/21/29/30/31).
 
-The previously documented unrelated home/About build errors remain outside this follow-up.
+Before publication, the existing open PR's public-page fixes were integrated. The final combined frontend production build and standalone TypeScript check pass.

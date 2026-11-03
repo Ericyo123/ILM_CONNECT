@@ -54,7 +54,7 @@ export function SubscriptionGate({ children }: { children: React.ReactNode }) {
       <dialog ref={dialog} onCancel={event => event.preventDefault()} aria-labelledby="subscription-gate-title" aria-describedby="subscription-gate-description" className="fixed inset-0 m-auto max-h-[90dvh] w-[calc(100%-2rem)] max-w-[960px] overflow-y-auto rounded-2xl border border-[#d6e0db] bg-[#f5f7f6] p-5 text-[#202823] shadow-xl backdrop:bg-[#0b3027]/40 backdrop:backdrop-blur-md sm:p-7">
         <div className="flex items-center gap-3"><LockKeyhole className="h-6 w-6 text-[#095F46]" /><h2 id="subscription-gate-title" className="text-2xl font-bold">Your trial has ended</h2></div>
         <p id="subscription-gate-description" className="mt-2 text-sm text-[#56635c]">Choose a paid subscription to continue learning. Your dashboard will unlock when an active paid subscription is confirmed.</p>
-        <div className="mt-4"><CurrencySelector /></div>
+        <div className="mt-4"><CurrencySelector mobileMenu /></div>
         {plansError && <p role="alert" className="mt-5">Unable to load plans. Please refresh to retry.</p>}
         <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {subscriptionPlans.filter(plan => plan.tier === 'Standard').map(standard => (

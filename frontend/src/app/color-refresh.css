@@ -314,16 +314,26 @@ main > [class*="bg-[#f7f8f5]"] header {
 }
 
 /* Form boundaries, placeholders, and focus use the same neutral/green roles. */
-.bg-sanctuary-light > #waitlist :is(input, select, textarea) {
+:is(#waitlist, #apply-form, dialog[aria-labelledby="waitlist-modal-title"]) :is(input:not([type="hidden"]), select, textarea, .public-phone-control) {
   border-color: var(--site-control-line);
 }
 
-.bg-sanctuary-light > #waitlist :is(input, textarea)::placeholder {
+:is(#waitlist, #apply-form, dialog[aria-labelledby="waitlist-modal-title"]) :is(input, textarea)::placeholder {
   color: var(--site-muted);
 }
 
-.bg-sanctuary-light > #waitlist :is(input, select, textarea):focus {
+:is(#waitlist, #apply-form, dialog[aria-labelledby="waitlist-modal-title"]) :is(input, select, textarea):focus,
+:is(#waitlist, #apply-form, dialog[aria-labelledby="waitlist-modal-title"]) .public-phone-control:focus-within {
   border-color: var(--site-green);
+}
+
+:is(#waitlist, #apply-form) button[aria-pressed="false"] {
+  border-color: var(--site-control-line);
+}
+
+:is(#waitlist, #apply-form) :is(input, select, textarea, button):focus-visible {
+  outline: 2px solid var(--site-green);
+  outline-offset: 3px;
 }
 
 header.pointer-events-auto :is(.text-stone-600, .text-stone-700, .text-stone-800) {
@@ -338,7 +348,7 @@ header.pointer-events-auto nav a:hover {
   color: var(--site-green);
 }
 
-header.pointer-events-auto.shadow-none:has(img[src*="ilmbit-logo-white"]) nav a:hover {
+header.pointer-events-auto.shadow-none nav a:hover {
   color: var(--site-on-dark);
 }
 

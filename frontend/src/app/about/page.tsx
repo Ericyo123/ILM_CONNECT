@@ -1,4 +1,5 @@
 'use client';
+import { FormSelect } from '@/components/ui/form-select';
 
 import { useState } from 'react';
 import Link from 'next/link';
@@ -9,7 +10,6 @@ import { CurrencySelector, usePricingCurrency } from '@/lib/pricing-currency';
 import Image from 'next/image';
 import {
   Check,
-  ChevronDown,
   ClipboardList,
   CalendarClock,
   UserRoundCheck,
@@ -717,7 +717,7 @@ export default function AboutPage() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.15 }}
             variants={fadeUp}
-            className="relative grid w-full max-w-6xl mx-auto overflow-hidden rounded-2xl sm:rounded-[2rem] border border-stone-200 bg-[#f7f7f3] shadow-[0_22px_70px_rgba(20,32,27,0.10)] lg:grid-cols-[0.82fr_1.18fr]"
+            className="relative grid grid-cols-1 w-full max-w-6xl mx-auto overflow-hidden rounded-2xl sm:rounded-[2rem] border border-stone-200 bg-[#f7f7f3] shadow-[0_22px_70px_rgba(20,32,27,0.10)] lg:grid-cols-[0.82fr_1.18fr]"
           >
             {/* Left Waitlist Banner */}
             <div className="relative flex min-h-[280px] sm:min-h-[320px] flex-col justify-between overflow-hidden bg-[#083f33] p-6 sm:p-9 lg:min-h-0 lg:p-10 text-white">
@@ -825,7 +825,8 @@ export default function AboutPage() {
                         Discipline of interest
                       </label>
                       <div className="relative">
-                        <select
+                        <FormSelect
+                          aria-label="Discipline of interest"
                           value={waitlistCourse}
                           onChange={(e) => setWaitlistCourse(e.target.value)}
                           className="w-full appearance-none rounded-xl border border-stone-200 bg-white pl-3.5 pr-10 py-3 sm:py-2.5 text-base sm:text-sm font-semibold text-stone-900 shadow-[0_1px_2px_rgba(0,0,0,0.03)] focus:border-[#095F46] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#095F46]/15 transition-all cursor-pointer min-h-[46px]"
@@ -833,10 +834,7 @@ export default function AboutPage() {
                           <option value="Noorani Qaida">Noorani Qaida (Beginner)</option>
                           <option value="Tajweed Quran Recitation">Tajweed Quran Recitation</option>
                           <option value="Hifz Memorization">Hifz Memorization (Advanced)</option>
-                        </select>
-                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-stone-400">
-                          <ChevronDown className="h-4 w-4 stroke-[2]" />
-                        </div>
+                        </FormSelect>
                       </div>
                     </div>
                   </div>

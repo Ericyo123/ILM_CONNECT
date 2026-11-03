@@ -1,4 +1,5 @@
 'use client';
+import { FormSelect } from '@/components/ui/form-select';
 
 import { useState, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
@@ -194,7 +195,7 @@ export default function AdminSessionsPage() {
             className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] text-sm focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
           />
         </div>
-        <select
+        <FormSelect
           aria-label="Filter sessions by course"
           value={courseFilter}
           onChange={(e) => {
@@ -209,7 +210,7 @@ export default function AdminSessionsPage() {
               {c}
             </option>
           ))}
-        </select>
+        </FormSelect>
       </div>
 
       <div className="flex flex-wrap gap-2">

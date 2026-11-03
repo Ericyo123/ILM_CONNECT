@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { Menu, X } from 'lucide-react';
+import styles from './header.module.css';
 
 const navLinks = [
   { href: '/', label: 'HOME' },
@@ -12,13 +13,20 @@ const navLinks = [
   { href: '/pricing', label: 'PRICING' },
 ];
 
+function HeaderActions({ onNavigate }: { onNavigate?: () => void }) {
+  return <div className={styles.actions}>
+    <Link href="/teach" onClick={onNavigate} className={styles.tutor}>BECOME A TUTOR</Link>
+    <Link href="/about#waitlist" onClick={onNavigate} className={styles.start}>GET STARTED</Link>
+  </div>;
+}
+
 export default function Header() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const scrolledRef = useRef(false);
 
-  const isDarkHero = pathname === '/' || pathname === '/about';
+  const isDarkHero = ['/', '/about', '/pricing', '/teach'].includes(pathname);
 
   useEffect(() => {
     let frameId = 0;
@@ -61,15 +69,14 @@ export default function Header() {
 
   if (shouldHideHeader) return null;
 
-  // When not scrolled, pages with dark hero (Home & About) use white text/logo, while light pages use green/dark styling
   const showWhiteNav = !scrolled && isDarkHero;
+  const solidNav = scrolled || !isDarkHero;
 
   return (
     <div className="fixed top-4 sm:top-5 inset-x-0 z-50 flex flex-col items-center px-4 sm:px-6 lg:px-12 pointer-events-none">
-      {/* Floating Liquid Glass Pill Navbar (Transparent at top, rounded white pill on scroll across all pages) */}
       <header
         style={
-          scrolled
+          solidNav
             ? {
                 backdropFilter: 'blur(24px) saturate(180%)',
                 WebkitBackdropFilter: 'blur(24px) saturate(180%)',
@@ -82,7 +89,7 @@ export default function Header() {
               }
         }
         className={`pointer-events-auto flex w-full max-w-7xl items-center justify-between rounded-full px-5 transition-all duration-300 sm:px-7 ${
-          scrolled
+          solidNav
             ? 'min-h-[62px] border border-white/90 shadow-[0_12px_36px_rgba(0,0,0,0.10),0_2px_6px_rgba(0,0,0,0.04),inset_0_1px_1.5px_rgba(255,255,255,1)] sm:min-h-[64px]'
             : 'min-h-[66px] border border-transparent shadow-none sm:min-h-[68px]'
         }`}
@@ -147,12 +154,7 @@ export default function Header() {
             })}
           </nav>
 
-          <Link
-            href="/about#waitlist"
-            className="brand-button brand-button-primary min-h-10 px-5 text-xs tracking-wider uppercase !font-light"
-          >
-            GET STARTED
-          </Link>
+          <HeaderActions />
         </div>
 
         {/* Mobile menu toggle */}
@@ -230,13 +232,7 @@ export default function Header() {
               >
                 Sign In
               </Link>
-              <Link
-                href="/auth/signup"
-                onClick={() => setMobileOpen(false)}
-                className="brand-button brand-button-primary w-full text-xs tracking-wider uppercase !font-light"
-              >
-                GET STARTED
-              </Link>
+              <HeaderActions onNavigate={() => setMobileOpen(false)} />
             </div>
           </div>
         </div>

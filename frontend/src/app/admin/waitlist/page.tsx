@@ -1,4 +1,5 @@
 'use client';
+import { FormSelect } from '@/components/ui/form-select';
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
@@ -270,7 +271,8 @@ export default function AdminWaitlistPage() {
 
         <div className="flex flex-wrap items-center gap-2">
           {/* Course filter */}
-          <select
+          <FormSelect
+            aria-label="Filter waitlist by course"
             value={courseFilter}
             onChange={(e) => setCourseFilter(e.target.value)}
             className="rounded-xl border border-stone-200 bg-stone-50/60 px-3 py-2.5 text-xs font-semibold text-stone-700 focus:border-[#095F46] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#095F46]"
@@ -281,10 +283,11 @@ export default function AdminWaitlistPage() {
                 {c}
               </option>
             ))}
-          </select>
+          </FormSelect>
 
           {/* Pace filter */}
-          <select
+          <FormSelect
+            aria-label="Filter waitlist by pace"
             value={paceFilter}
             onChange={(e) => setPaceFilter(e.target.value)}
             className="rounded-xl border border-stone-200 bg-stone-50/60 px-3 py-2.5 text-xs font-semibold text-stone-700 focus:border-[#095F46] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#095F46]"
@@ -292,7 +295,7 @@ export default function AdminWaitlistPage() {
             <option value="all">All Paces</option>
             <option value="standard">Standard (2 sessions/wk)</option>
             <option value="fast-track">Fast Track (3 sessions/wk)</option>
-          </select>
+          </FormSelect>
         </div>
       </div>
 

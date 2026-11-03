@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useId } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { FormSelect } from '@/components/ui/form-select';
 import {
   COUNTRY_CALLING_CODES,
   DEFAULT_COUNTRY_ISO,
@@ -63,13 +63,13 @@ export default function CountryPhoneInput({
 
   return (
     <div
-      className={`flex flex-col sm:flex-row min-w-0 overflow-hidden rounded-xl border border-stone-200 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.03)] focus-within:border-[#095F46] focus-within:ring-2 focus-within:ring-[#095F46]/15 transition-all ${wrapperClassName}`}
+      className={`public-phone-control flex flex-col sm:flex-row min-w-0 overflow-hidden rounded-xl border border-stone-200 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.03)] focus-within:border-[#095F46] focus-within:ring-2 focus-within:ring-[#095F46]/15 transition-all ${wrapperClassName}`}
     >
       <label className="sr-only" htmlFor={countrySelectId}>
         Country code
       </label>
-      <div className="relative shrink-0 w-full sm:w-auto">
-        <select
+      <div className="relative shrink-0 w-full sm:w-[240px]">
+        <FormSelect
           id={countrySelectId}
           value={selectedCountry.iso2}
           onChange={(event) => onCountryChange(getCountryCallingCode(event.target.value))}
@@ -81,10 +81,7 @@ export default function CountryPhoneInput({
               {countryFlag(country.iso2)} {country.dialCode} {country.name}
             </option>
           ))}
-        </select>
-        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2.5 text-stone-400">
-          <ChevronDown className="h-4 w-4 stroke-[2]" />
-        </div>
+        </FormSelect>
       </div>
       <input
         type="tel"

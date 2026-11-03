@@ -1,11 +1,12 @@
 'use client';
+import { FormSelect } from '@/components/ui/form-select';
 
 import { apiFetch } from '@/lib/api';
 import { useSubscriptionPlans } from '@/lib/subscription-plans';
 import { CurrencySelector, usePricingCurrency } from '@/lib/pricing-currency';
 import { useState } from 'react';
 import Image from 'next/image';
-import { X, Check, Loader2, ArrowRight, ChevronDown } from 'lucide-react';
+import { X, Check, Loader2, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Portal } from '@/components/ui/portal';
 import CountryPhoneInput from '@/components/country-phone-input';
@@ -169,7 +170,8 @@ export default function WaitlistModal({
                       Learning Discipline
                     </label>
                     <div className="relative">
-                      <select
+                      <FormSelect
+                        aria-label="Learning discipline"
                         value={course}
                         onChange={(e) => setCourse(e.target.value)}
                         className="w-full appearance-none px-3.5 pr-10 py-3 sm:py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-base sm:text-sm font-semibold text-stone-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#095F46] min-h-[46px] cursor-pointer"
@@ -177,10 +179,7 @@ export default function WaitlistModal({
                         <option value="Noorani Qaida">Noorani Qaida (Beginner)</option>
                         <option value="Tajweed Quran Recitation">Tajweed Quran Recitation</option>
                         <option value="Hifz Memorization">Hifz Memorization (Advanced)</option>
-                      </select>
-                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-stone-400">
-                        <ChevronDown className="h-4 w-4 stroke-[2]" />
-                      </div>
+                      </FormSelect>
                     </div>
                   </div>
 
@@ -189,17 +188,15 @@ export default function WaitlistModal({
                       Preferred Pace
                     </label>
                     <div className="relative">
-                      <select
+                      <FormSelect
+                        aria-label="Preferred pace"
                         value={pace}
                         onChange={(e) => setPace(e.target.value as 'standard' | 'fast-track')}
                         className="w-full appearance-none px-3.5 pr-10 py-3 sm:py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-base sm:text-sm font-semibold text-stone-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#095F46] min-h-[46px] cursor-pointer"
                       >
                         <option value="standard">Standard (2 sessions / wk)</option>
                         <option value="fast-track">Fast Track (3 sessions / wk)</option>
-                      </select>
-                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-stone-400">
-                        <ChevronDown className="h-4 w-4 stroke-[2]" />
-                      </div>
+                      </FormSelect>
                     </div>
                   </div>
                 </div>

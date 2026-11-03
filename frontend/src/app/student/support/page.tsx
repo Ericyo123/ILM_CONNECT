@@ -1,4 +1,5 @@
 'use client';
+import { FormSelect } from '@/components/ui/form-select';
 
 import { useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
@@ -270,7 +271,7 @@ function StudentSupportContent() {
                     <label className="text-xs font-bold text-[#202823]">
                       Reason for Request <span className="text-red-500">*</span>
                     </label>
-                    <select
+                    <FormSelect
                       aria-label="Reason for request"
                       value={changeReason}
                       onChange={(e) => setChangeReason(e.target.value)}
@@ -281,7 +282,7 @@ function StudentSupportContent() {
                           {r}
                         </option>
                       ))}
-                    </select>
+                    </FormSelect>
                   </div>
 
                   {/* Preferred Days / Timings */}
@@ -425,7 +426,7 @@ function StudentSupportContent() {
                       <label className="text-xs font-bold text-[hsl(var(--foreground))]">
                         Issue Category <span className="text-red-500">*</span>
                       </label>
-                      <select
+                      <FormSelect
                         aria-label="Issue category"
                         value={issueCategory}
                         onChange={(e) => setIssueCategory(e.target.value)}
@@ -436,7 +437,7 @@ function StudentSupportContent() {
                             {cat.label}
                           </option>
                         ))}
-                      </select>
+                      </FormSelect>
                     </div>
 
                     {/* Subject Line */}

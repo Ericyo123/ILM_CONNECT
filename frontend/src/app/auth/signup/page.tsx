@@ -1,4 +1,5 @@
 'use client';
+import { FormSelect } from '@/components/ui/form-select';
 
 import Link from 'next/link';
 import { Eye, EyeOff } from 'lucide-react';
@@ -120,13 +121,13 @@ export default function SignUpPage() {
         <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
           <div className="min-w-0">
             <label htmlFor="gender" className="mb-1.5 block text-[13px] font-bold text-stone-800">Gender</label>
-            <select id="gender" required autoComplete="sex" value={gender} onChange={(event) => setGender(event.target.value)} className={inputClassName}>
+            <FormSelect id="gender" required autoComplete="sex" value={gender} onChange={(event) => setGender(event.target.value)} className={inputClassName}>
               <option value="" disabled>Select gender</option>
               <option value="MALE">Male</option>
               <option value="FEMALE">Female</option>
               <option value="OTHER">Other</option>
               <option value="PREFER_NOT_TO_SAY">Prefer not to say</option>
-            </select>
+            </FormSelect>
           </div>
           <div className="min-w-0">
             <label htmlFor="date-of-birth" className="mb-1.5 block text-[13px] font-bold text-stone-800">Date of birth</label>
@@ -137,10 +138,10 @@ export default function SignUpPage() {
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <div className="min-w-0">
             <label htmlFor="country" className="mb-1.5 block text-[13px] font-bold text-stone-800">Country</label>
-            <select id="country" required autoComplete="country" value={countryIso} onChange={(event) => setCountryIso(event.target.value)} className={inputClassName}>
+            <FormSelect id="country" required autoComplete="country" value={countryIso} onChange={(event) => setCountryIso(event.target.value)} className={inputClassName}>
               <option value="" disabled>Select country</option>
               {COUNTRY_CALLING_CODES.map((country) => <option key={country.iso2} value={country.iso2}>{country.name}</option>)}
-            </select>
+            </FormSelect>
           </div>
           <div className="min-w-0">
             <label htmlFor="whatsapp-number" className="mb-1.5 block text-[13px] font-bold text-stone-800">WhatsApp number</label>

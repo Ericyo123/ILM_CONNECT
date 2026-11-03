@@ -1,4 +1,5 @@
 'use client';
+import { FormSelect } from '@/components/ui/form-select';
 
 import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -80,7 +81,7 @@ export function CourseAssessments({ courseId }: { courseId: string }) {
             <div className="flex items-center justify-between gap-2"><label htmlFor={`question-${index}`} className="text-sm font-semibold">Question {index + 1}</label><button type="button" className={buttonClass} disabled={questions.length === 1} onClick={() => setQuestions(previous => previous.filter((_, i) => i !== index))}>Remove question {index + 1}</button></div>
             <textarea id={`question-${index}`} className={`${inputClass} mt-2`} rows={2} maxLength={2000} value={question.prompt} onChange={event => updateQuestion(index, { prompt: event.target.value })} />
             <div className="mt-3 grid gap-3 sm:grid-cols-2">{question.options.map((option, optionIndex) => <label key={optionIndex} className="text-sm">Option {String.fromCharCode(65 + optionIndex)}<input aria-label={`Question ${index + 1} option ${String.fromCharCode(65 + optionIndex)}`} className={`${inputClass} mt-1`} maxLength={500} value={option} onChange={event => updateQuestion(index, { options: question.options.map((text, i) => i === optionIndex ? event.target.value : text) })} /></label>)}</div>
-            <label className="mt-3 block text-sm">Correct answer<select aria-label={`Question ${index + 1} correct answer`} className={`${inputClass} mt-1`} value={question.correctOption} onChange={event => updateQuestion(index, { correctOption: Number(event.target.value) })}>{question.options.map((_, i) => <option key={i} value={i}>Option {String.fromCharCode(65 + i)}</option>)}</select></label>
+            <label className="mt-3 block text-sm">Correct answer<FormSelect aria-label={`Question ${index + 1} correct answer`} className={`${inputClass} mt-1`} value={question.correctOption} onChange={event => updateQuestion(index, { correctOption: Number(event.target.value) })}>{question.options.map((_, i) => <option key={i} value={i}>Option {String.fromCharCode(65 + i)}</option>)}</FormSelect></label>
           </>}
         </div>)}
       </fieldset>

@@ -1,4 +1,5 @@
 'use client';
+import { FormSelect } from '@/components/ui/form-select';
 
 import { Download, CheckCircle } from 'lucide-react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
@@ -144,7 +145,7 @@ export default function AdminFinancePage() {
           <h2>Monthly lecturer payouts</h2>
           <p className={pricingStyles.help}>LKR 1,500 per Sri Lankan student; LKR 3,000 per international student, including Fast Track. One earning per paid student per month. Package discounts do not change these amounts.</p>
           {finance.unpaidMonths?.length ? <div className={pricingStyles.actions}>
-            <label className={pricingStyles.field}>Completed billing month<select value={month || finance.unpaidMonths[0]} onChange={event => setMonth(event.target.value)} className={pricingStyles.control}>{finance.unpaidMonths.map((value: string) => <option key={value} value={value}>{value}</option>)}</select></label>
+            <label className={pricingStyles.field}>Completed billing month<FormSelect aria-label="Completed billing month" value={month || finance.unpaidMonths[0]} onChange={event => setMonth(event.target.value)} className={pricingStyles.control}>{finance.unpaidMonths.map((value: string) => <option key={value} value={value}>{value}</option>)}</FormSelect></label>
             <button className={`${pricingStyles.button} ${pricingStyles.primary}`} onClick={preparePayouts} disabled={preparing}>{preparing ? 'Preparing payouts…' : 'Prepare monthly payouts'}</button>
           </div> : <p className={pricingStyles.notice}>No completed months have unpaid earnings. Current-month earnings become payable after month end in Sri Lanka.</p>}
           {payoutMessage && <p role="status" className={pricingStyles.success}>{payoutMessage}</p>}

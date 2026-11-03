@@ -1,4 +1,5 @@
 'use client';
+import { FormSelect } from '@/components/ui/form-select';
 
 import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -56,8 +57,8 @@ export default function EarningsPage() {
       <h2 id="request-monthly-payout">Request a monthly payout</h2>
       {months.length ? <form onSubmit={event => { event.preventDefault(); request.mutate(); }}>
         <fieldset disabled={request.isPending} className={styles.fields}>
-          <label className={styles.field}>Billing month<select className={styles.control} value={selectedMonth} onChange={event => { setMonth(event.target.value); request.reset(); }}>{months.map(value => <option key={value} value={value}>{value}</option>)}</select></label>
-          <label className={styles.field}>Payout method<select className={styles.control} value={method} onChange={event => { setMethod(event.target.value); request.reset(); }}><option value="bank_transfer">Bank transfer</option><option value="wise">Wise</option><option value="wise_lkr">Wise in LKR</option></select></label>
+          <label className={styles.field}>Billing month<FormSelect aria-label="Billing month" className={styles.control} value={selectedMonth} onChange={event => { setMonth(event.target.value); request.reset(); }}>{months.map(value => <option key={value} value={value}>{value}</option>)}</FormSelect></label>
+          <label className={styles.field}>Payout method<FormSelect aria-label="Payout method" className={styles.control} value={method} onChange={event => { setMethod(event.target.value); request.reset(); }}><option value="bank_transfer">Bank transfer</option><option value="wise">Wise</option><option value="wise_lkr">Wise in LKR</option></FormSelect></label>
         </fieldset>
         <p className={styles.notice}>Full unpaid balance for {selectedMonth}: <strong>{currencyAmount(selectedAmount)}</strong>. This creates a request for ILMBIT to pay externally.</p>
         <div className={styles.actions}><button disabled={request.isPending || !selectedAmount} className={`${styles.button} ${styles.primary}`}>{request.isPending ? 'Requesting payout…' : 'Request monthly payout'}</button></div>

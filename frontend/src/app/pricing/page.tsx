@@ -169,10 +169,10 @@ export default function PricingPage() {
         title="Simple, Transparent Pricing"
         image="/images/pricing-hero-quran-volumes.jpg"
         imageAlt="Quran volumes with gold detailing arranged on a shelf"
-        imageClassName="object-cover object-center opacity-85"
+        imageClassName="object-cover object-center"
         scrollTarget="#standard-plans"
         scrollLabel="Scroll down to Standard Plans"
-        overlay={<div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/10 to-black/60" />}
+        overlay={<div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/50" />}
       />
 
       <div className={`${styles.patternBackground} pb-16 sm:pb-20 lg:pb-24`}>

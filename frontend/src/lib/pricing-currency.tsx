@@ -1,4 +1,5 @@
 'use client';
+import { FormSelect } from '@/components/ui/form-select';
 import { useSyncExternalStore } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { apiFetch } from './api';
@@ -89,9 +90,9 @@ export function CurrencySelector({ mobileMenu = false }: { mobileMenu?: boolean 
     {mobileMenu && <MobileCurrencySelector code={code} onSelect={select} />}
     <label className={`${mobileMenu ? 'hidden sm:flex' : 'flex'} max-w-full flex-wrap items-center gap-2 font-medium text-[#095F46]`}>
       Country / currency
-      <select aria-label="Country and pricing currency" value={code} onChange={event => select(event.target.value)} className="min-h-11 min-w-0 max-w-full rounded-lg border border-[#d6e0db] bg-white px-3 text-base text-[#202823] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#095F46]">
+      <FormSelect aria-label="Country and pricing currency" value={code} onChange={event => select(event.target.value)} className="min-h-11 min-w-0 max-w-full rounded-lg border border-[#d6e0db] bg-white px-3 text-base text-[#202823] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#095F46]">
         {PRICING_REGIONS.map(item => <option key={item.code} value={item.code}>{item.region} · {item.code}</option>)}
-      </select>
+      </FormSelect>
     </label>
     {needsConversion && isPending && <p role="status" className="text-[#56635c]">Loading exchange rates…</p>}
     {unavailable && <div role="alert" className="text-[#56635c]">

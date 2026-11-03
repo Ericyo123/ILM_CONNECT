@@ -57,6 +57,27 @@
 .option[data-highlighted] { background: #edf5f0; }
 .option:focus-visible { outline: 2px solid #095f46; outline-offset: -3px; }
 .check { position: absolute; inset-inline-end: 14px; display: flex; color: #095f46; }
+.formField { position: relative; display: block; min-width: 0; max-width: 100%; }
+.nativeSelect { position: absolute; width: 1px; height: 1px; padding: 0; border: 0; opacity: 0; pointer-events: none; }
+.trigger.compact {
+  min-height: 48px;
+  height: auto;
+  padding: 11px 18px;
+  border: 1px solid #7d8e83;
+  border-radius: 12px;
+  background: #f8faf8;
+  color: #202823;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  white-space: normal;
+}
+.compact > span:first-child { min-width: 0; text-align: start; overflow-wrap: anywhere; }
+.compact .chevron { margin-inline-start: auto; }
+.compactMenu { z-index: 200; }
+.option.compactOption { min-height: 44px; padding-block: 10px; }
+.option[data-disabled] { opacity: .5; cursor: not-allowed; }
+.validationError { display: block; margin-top: 6px; color: #b91c1c; font-size: .875rem; }
 @media (min-width: 640px) { .fullWidth { grid-column: 1 / -1; } }
 @media (prefers-reduced-motion: reduce) { .trigger, .chevron { transition: none; } }
 @media (forced-colors: active) {

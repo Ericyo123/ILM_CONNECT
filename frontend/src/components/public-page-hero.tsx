@@ -17,8 +17,9 @@ interface PublicPageHeroProps {
   imageAlt: string;
   imageClassName: string;
   overlay: ReactNode;
-  scrollTarget: string;
-  scrollLabel: string;
+  scrollTarget?: string;
+  scrollLabel?: string;
+  children?: ReactNode;
 }
 
 export default function PublicPageHero({
@@ -30,6 +31,7 @@ export default function PublicPageHero({
   overlay,
   scrollTarget,
   scrollLabel,
+  children,
 }: PublicPageHeroProps) {
   const shouldReduceMotion = useReducedMotion();
 
@@ -56,13 +58,13 @@ export default function PublicPageHero({
             </span>
           </h1>
 
-          <a
+          {children ? <div className="mt-8 flex justify-center">{children}</div> : scrollTarget && <a
             href={scrollTarget}
             aria-label={scrollLabel}
             className="group mx-auto mt-8 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white shadow-sm backdrop-blur-sm transition-colors duration-200 hover:border-white/60 hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
           >
             <ChevronDown aria-hidden="true" className="block h-5 w-5 shrink-0 transition-transform duration-200 motion-safe:group-hover:translate-y-0.5" />
-          </a>
+          </a>}
         </div>
       </motion.div>
 

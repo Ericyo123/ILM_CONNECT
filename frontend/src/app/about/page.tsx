@@ -609,13 +609,13 @@ export default function AboutPage() {
               <defs>
                 <linearGradient id="vettingCurveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                   <stop offset="0%" stopColor="#ffffff" stopOpacity="0" />
-                  <stop offset="8%" stopColor="#ffffff" stopOpacity="1" />
-                  <stop offset="92%" stopColor="#ffffff" stopOpacity="1" />
+                  <stop offset="12%" stopColor="#ffffff" stopOpacity="1" />
+                  <stop offset="88%" stopColor="#ffffff" stopOpacity="1" />
                   <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
                 </linearGradient>
               </defs>
               <path
-                d="M 60 252 C 95 266 120 270 150 270 C 300 270 300 90 450 90 C 600 90 600 270 750 270 C 900 270 900 90 1050 90 C 1080 90 1110 98 1140 108"
+                d="M 0 238 C 65 264 105 270 150 270 C 300 270 300 90 450 90 C 600 90 600 270 750 270 C 900 270 900 90 1050 90 C 1095 90 1135 96 1200 122"
                 stroke="url(#vettingCurveGradient)"
                 strokeWidth="2.5"
                 strokeLinecap="round"

@@ -606,7 +606,21 @@ export default function AboutPage() {
 
           <div className={styles.vettingGrid}>
             <svg className={styles.vettingCurve} viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
-              <path d="M0 240 C80 265 105 270 150 270 C300 270 300 90 450 90 C600 90 600 270 750 270 C900 270 900 90 1050 90 C1120 90 1160 105 1200 115" />
+              <defs>
+                <linearGradient id="vettingCurveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#ffffff" stopOpacity="0" />
+                  <stop offset="8%" stopColor="#ffffff" stopOpacity="1" />
+                  <stop offset="92%" stopColor="#ffffff" stopOpacity="1" />
+                  <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+                </linearGradient>
+              </defs>
+              <path
+                d="M 60 252 C 95 266 120 270 150 270 C 300 270 300 90 450 90 C 600 90 600 270 750 270 C 900 270 900 90 1050 90 C 1080 90 1110 98 1140 108"
+                stroke="url(#vettingCurveGradient)"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                fill="none"
+              />
             </svg>
             {vettingTiers.map((tier) => {
               const Icon = tier.icon;

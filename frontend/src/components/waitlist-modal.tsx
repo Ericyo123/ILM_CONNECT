@@ -220,16 +220,16 @@ export default function WaitlistModal({
                 <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="brand-button brand-button-primary h-12 w-full"
+                    className="brand-button brand-button-primary h-12 w-full text-xs sm:text-sm tracking-[0.05em] uppercase !font-light"
                   >
                     {isSubmitting ? (
                       <>
                         <Loader2 className="w-4 h-4 animate-spin" />
-                        <span>Sending request…</span>
+                        <span>JOINING PRIORITY WAITLIST...</span>
                       </>
                     ) : (
                       <>
-                        <span>Request a trial</span>
+                        <span>JOIN PRIORITY WAITLIST</span>
                         <ArrowRight className="w-4 h-4" />
                       </>
                     )}
@@ -261,9 +261,9 @@ export default function WaitlistModal({
               <button
                 type="button"
                 onClick={handleResetAndClose}
-                className="brand-button bg-stone-900 px-7 text-white hover:bg-stone-800"
+                className="brand-button bg-stone-900 px-7 text-white hover:bg-stone-800 text-xs sm:text-sm tracking-[0.05em] uppercase !font-light"
               >
-                Close Window
+                CLOSE WINDOW
               </button>
             </motion.div>
           )}

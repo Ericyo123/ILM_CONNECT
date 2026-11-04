@@ -163,7 +163,6 @@ main > section:has(.hero-brand-video) > div:first-child > div:last-child {
 }
 
 /* A restrained green-to-neutral wash, reused on the pricing page. */
-.bg-sanctuary-light > #courses,
 .bg-sanctuary-light:has(#standard-plans) {
   background: linear-gradient(135deg, var(--site-tint), var(--site-canvas) 65%);
   border-color: var(--site-line);

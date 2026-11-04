@@ -1,9 +1,10 @@
 'use client';
 import { FormSelect } from '@/components/ui/form-select';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useUserLocation } from '@/lib/use-user-location';
 import {
   Check,
   ChevronDown,
@@ -99,7 +100,17 @@ export default function TeachPage() {
   const [phoneCountry, setPhoneCountry] = useState<CountryCallingCode>(() =>
     getCountryCallingCode('LK')
   );
+  const { isSriLanka, country: detectedCountry } = useUserLocation();
   const [country, setCountry] = useState('Sri Lanka');
+
+  useEffect(() => {
+    if (detectedCountry) {
+      setPhoneCountry(getCountryCallingCode(isSriLanka ? 'LK' : detectedCountry));
+      if (!country || country === 'Sri Lanka') {
+        setCountry(isSriLanka ? 'Sri Lanka' : detectedCountry);
+      }
+    }
+  }, [detectedCountry, isSriLanka]);
   const [city, setCity] = useState('');
   const [qualification, setQualification] = useState('Maulavi / Alim Graduate');
   const [institution, setInstitution] = useState('');

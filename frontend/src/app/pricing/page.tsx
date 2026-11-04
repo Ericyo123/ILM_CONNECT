@@ -9,6 +9,7 @@ import PublicPageHero, { publicPageFadeUp as fadeUp, publicPageViewPort } from '
 import styles from './pricing.module.css';
 import { useSubscriptionPlans } from '@/lib/subscription-plans';
 import MonthlyTuitionCalculator, { currencyAmount } from '@/components/pricing/monthly-tuition-calculator';
+import { useUserLocation } from '@/lib/use-user-location';
 
 interface CourseCardData {
   id: string;
@@ -144,12 +145,16 @@ const faqs = [
 ];
 
 export default function PricingPage() {
-  const [pricingRegion, setPricingRegion] = useState('INTERNATIONAL');
+  const { region, isSriLanka } = useUserLocation();
   const { data: plans = [], isPending: pricesLoading, isError: pricesError } = useSubscriptionPlans();
   const price = (courseId: string, tier: string) => {
-    if (pricingRegion === 'LK' && tier === 'Fast Track') return 'International only';
     const plan = plans.find(row => row.courseId === courseId && row.tier === tier);
-    return pricesLoading ? 'Loading…' : pricesError || !plan ? 'Price unavailable' : currencyAmount(pricingRegion === 'LK' ? plan.monthlyLkr! : plan.monthlyUsd, pricingRegion === 'LK' ? 'LKR' : 'USD');
+    if (pricesLoading) return 'Loading…';
+    if (pricesError || !plan) return 'Price unavailable';
+    if (isSriLanka) {
+      return currencyAmount(plan.monthlyLkr ?? 5500, 'LKR');
+    }
+    return currencyAmount(plan.monthlyUsd, 'USD');
   };
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const reduceMotion = useReducedMotion();
@@ -186,7 +191,7 @@ export default function PricingPage() {
       {/* Main Plans & FAQs Container with identical separation spacing */}
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-8 py-16 sm:py-20 lg:py-24 space-y-14 sm:space-y-16 lg:space-y-20">
 
-        <MonthlyTuitionCalculator pricingRegion={pricingRegion} onRegionChange={setPricingRegion} />
+        <MonthlyTuitionCalculator pricingRegion={region} />
         {/* ========================================================================= */}
         {/* SECTION 1: Standard Plans (2 Sessions / Week · Free Trial Included)       */}
         {/* ========================================================================= */}
@@ -287,6 +292,7 @@ export default function PricingPage() {
         {/* ========================================================================= */}
         {/* SECTION 2: Fast Track Plans (3 Sessions / Week · Direct Enrollment)       */}
         {/* ========================================================================= */}
+        {!isSriLanka && (
         <section id="fast-track-plans" className="scroll-mt-24 space-y-8">
           <motion.div
             initial="hidden"
@@ -466,6 +472,7 @@ export default function PricingPage() {
             )}
           </AnimatePresence>
         </section>
+        )}
 
         {/* ========================================================================= */}
         {/* SECTION 3: Collapsible FAQs Section                                       */}

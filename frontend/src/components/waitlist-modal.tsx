@@ -3,8 +3,8 @@ import { FormSelect } from '@/components/ui/form-select';
 
 import { apiFetch } from '@/lib/api';
 import { useSubscriptionPlans } from '@/lib/subscription-plans';
-import { CurrencySelector, usePricingCurrency } from '@/lib/pricing-currency';
-import { useState } from 'react';
+import { useUserLocation } from '@/lib/use-user-location';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { X, Check, Loader2, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -27,15 +27,26 @@ export default function WaitlistModal({
   onClose,
   defaultCourse = 'Tajweed Quran Recitation',
 }: WaitlistModalProps) {
-  const { data: plans = [] } = useSubscriptionPlans();
-  const { format } = usePricingCurrency();
+  const { isSriLanka, country } = useUserLocation();
   const [error, setError] = useState('');
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [phoneCountry, setPhoneCountry] = useState<CountryCallingCode>(() => getCountryCallingCode('LK'));
+  const [phoneCountry, setPhoneCountry] = useState<CountryCallingCode>(() =>
+    getCountryCallingCode(isSriLanka ? 'LK' : (country || 'US'))
+  );
+
+  useEffect(() => {
+    if (country) {
+      setPhoneCountry(getCountryCallingCode(isSriLanka ? 'LK' : country));
+    }
+  }, [country, isSriLanka]);
+
   const [course, setCourse] = useState(defaultCourse);
-  const price = (tier: string) => { const plan = plans.find(item => item.course === course && item.tier === tier); return plan ? format(plan) : 'Price unavailable'; };
+  const price = (tier: string) => {
+    if (isSriLanka) return 'LKR 5,500';
+    return tier === 'Fast Track' ? '$69' : '$49';
+  };
   const [pace, setPace] = useState<'standard' | 'fast-track'>('standard');
   const [notes, setNotes] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -120,7 +131,6 @@ export default function WaitlistModal({
               </p>
 
               {/* Form */}
-              <div className="mb-4"><CurrencySelector /></div>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label className="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">

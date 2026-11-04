@@ -16,6 +16,7 @@ import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import WaitlistModal from '@/components/waitlist-modal';
 import faqStyles from './pricing/pricing.module.css';
 import HowToEnroll from '@/components/how-to-enroll';
+import { useUserLocation } from '@/lib/use-user-location';
 
 const audienceTracks = [
   {
@@ -142,6 +143,7 @@ const heroBackgroundImages = [
 ];
 
 export default function HomePage() {
+  const { isSriLanka } = useUserLocation();
   const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
   const [activeHeroIndex, setActiveHeroIndex] = useState(0);
@@ -642,7 +644,7 @@ export default function HomePage() {
                   {/* Price Tag */}
                   <div className="flex items-baseline gap-1.5 mb-6 pb-5 border-b border-stone-100">
                     <span className="text-4xl sm:text-[44px] lg:text-[48px] font-black tracking-tight text-stone-950 font-bricolage">
-                      $49
+                      {isSriLanka ? 'LKR 5,500' : '$49'}
                     </span>
                     <span className="text-xs lg:text-sm font-semibold text-stone-400">
                       / month
@@ -701,7 +703,7 @@ export default function HomePage() {
                   {/* Price Tag */}
                   <div className="flex items-baseline gap-1.5 mb-6 pb-5 border-b border-stone-100">
                     <span className="text-4xl sm:text-[44px] lg:text-[48px] font-black tracking-tight text-stone-950 font-bricolage">
-                      $59
+                      {isSriLanka ? 'LKR 5,500' : '$59'}
                     </span>
                     <span className="text-xs lg:text-sm font-semibold text-stone-400">
                       / month
@@ -759,7 +761,7 @@ export default function HomePage() {
                   {/* Price Tag */}
                   <div className="flex items-baseline gap-1.5 mb-6 pb-5 border-b border-stone-100">
                     <span className="text-4xl sm:text-[44px] lg:text-[48px] font-black tracking-tight text-stone-950 font-bricolage">
-                      $79
+                      {isSriLanka ? 'LKR 5,500' : '$79'}
                     </span>
                     <span className="text-xs lg:text-sm font-semibold text-stone-400">
                       / month

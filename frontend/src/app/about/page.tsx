@@ -6,7 +6,8 @@ import Link from 'next/link';
 import { useAuth } from '@/lib/auth-context';
 import { apiFetch } from '@/lib/api';
 import { useSubscriptionPlans } from '@/lib/subscription-plans';
-import { CurrencySelector, usePricingCurrency } from '@/lib/pricing-currency';
+import { useEffect } from 'react';
+import { useUserLocation } from '@/lib/use-user-location';
 import Image from 'next/image';
 import {
   Check,
@@ -298,8 +299,7 @@ const parentPromises = [
 export default function AboutPage() {
   const { user } = useAuth();
   const isAdmin = user?.role === 'ADMIN' || user?.role === 'SUPER_ADMIN';
-  const { data: plans = [], isPending: plansPending, isError: plansError } = useSubscriptionPlans();
-  const { format } = usePricingCurrency();
+  const { isSriLanka, country } = useUserLocation();
   const shouldReduceMotion = useReducedMotion();
   const [flippedCards, setFlippedCards] = useState<Record<number, boolean>>({});
 
@@ -314,14 +314,20 @@ export default function AboutPage() {
   const [waitlistEmail, setWaitlistEmail] = useState('');
   const [waitlistPhone, setWaitlistPhone] = useState('');
   const [waitlistPhoneCountry, setWaitlistPhoneCountry] = useState<CountryCallingCode>(() =>
-    getCountryCallingCode('LK')
+    getCountryCallingCode(isSriLanka ? 'LK' : (country || 'US'))
   );
+
+  useEffect(() => {
+    if (country) {
+      setWaitlistPhoneCountry(getCountryCallingCode(isSriLanka ? 'LK' : country));
+    }
+  }, [country, isSriLanka]);
+
   const [waitlistCourse, setWaitlistCourse] = useState('Tajweed Quran Recitation');
   const [waitlistPace, setWaitlistPace] = useState<'standard' | 'fast-track'>('standard');
   const price = (tier: string) => {
-    if (plansPending) return 'Loading prices…';
-    const plan = plans.find(item => item.course === waitlistCourse && item.tier === tier);
-    return !plansError && plan ? format(plan) : 'Price unavailable';
+    if (isSriLanka) return 'LKR 5,500';
+    return tier === 'Fast Track' ? '$69' : '$49';
   };
   const [waitlistNotes, setWaitlistNotes] = useState('');
   const [waitlistError, setWaitlistError] = useState('');
@@ -967,7 +973,6 @@ export default function AboutPage() {
                     </div>
                   </div>
 
-                  <CurrencySelector />
                   <fieldset className="pt-1">
                     <legend className="mb-2 text-xs font-bold uppercase tracking-wider text-stone-700">
                       Preferred learning pace

@@ -3,7 +3,8 @@ import { FormSelect } from '@/components/ui/form-select';
 
 import Link from 'next/link';
 import { Eye, EyeOff } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useUserLocation } from '@/lib/use-user-location';
 import { useRouter } from 'next/navigation';
 import { AuthShell } from '@/components/auth/auth-shell';
 import { apiFetch } from '@/lib/api';
@@ -23,7 +24,14 @@ export default function SignUpPage() {
   const [fullName, setFullName] = useState('');
   const [gender, setGender] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
+  const { isSriLanka, country: detectedCountry } = useUserLocation();
   const [countryIso, setCountryIso] = useState('');
+
+  useEffect(() => {
+    if (!countryIso && detectedCountry) {
+      setCountryIso(isSriLanka ? 'LK' : detectedCountry);
+    }
+  }, [detectedCountry, isSriLanka, countryIso]);
   const [whatsappNumber, setWhatsappNumber] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

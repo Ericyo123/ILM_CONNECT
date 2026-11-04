@@ -1,4 +1,5 @@
 'use client';
+import { FormSelect } from '@/components/ui/form-select';
 
 import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -58,14 +59,14 @@ export function RequestLecturerAssignment({ request, onBusyChange }: {
       : !lecturers.some(matches) ? <p className="mt-3 text-sm">No active lecturer has a matching time window. Update lecturer shifts in Users or ask the student about other available times.</p>
       : <form className="mt-4 space-y-3" onSubmit={event => { event.preventDefault(); save.mutate(); }}>
         <label className="block text-sm font-medium" htmlFor={`request-lecturer-${request.id}`}>Choose a lecturer</label>
-        <select id={`request-lecturer-${request.id}`} value={lecturerId} required disabled={save.isPending}
+        <FormSelect id={`request-lecturer-${request.id}`} value={lecturerId} required disabled={save.isPending}
           onChange={event => setLecturerId(event.target.value)}
           className="min-h-11 w-full rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-3 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#095F46]">
           <option value="">Select a matching lecturer</option>
           {lecturers.map(lecturer => <option key={lecturer.userId} value={lecturer.userId} disabled={!matches(lecturer)}>
             {lecturer.fullName} · {formatStudentHours(lecturer.hourlyAvailabilityJson)}{matches(lecturer) ? '' : ' (no matching window)'}
           </option>)}
-        </select>
+        </FormSelect>
         {save.error && <p role="alert" className="text-sm text-red-700">{save.error.message}</p>}
         <button disabled={save.isPending || !lecturerId || !lecturers.some(lecturer => lecturer.userId === lecturerId && matches(lecturer))}
           className="min-h-11 rounded-lg bg-[#095F46] px-4 text-sm font-semibold text-white disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#095F46]">

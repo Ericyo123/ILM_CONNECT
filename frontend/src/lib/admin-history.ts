@@ -86,6 +86,8 @@ export interface HistoryData {
       completedAt?: string;
       failureReason?: string;
       sessionBlocksIncluded: string[];
+      periodMonth?: string;
+      earningsSnapshot?: { name: string; region: string; amountLkr: number }[];
     }[];
     sessionBlocks?: {
       id: string;

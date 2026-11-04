@@ -1,4 +1,5 @@
 'use client';
+import { FormSelect } from '@/components/ui/form-select';
 
 import { use, useEffect, useMemo, useState, useRef } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -119,11 +120,11 @@ export default function SessionFeedbackPage({ searchParams }: {
         <form onSubmit={submitFeedback} className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5 shadow-sm sm:p-7">
           <div className="mb-6 flex flex-col gap-2">
             <label htmlFor="feedback-session" className="text-xs font-bold uppercase tracking-[0.14em] text-[hsl(var(--muted-foreground))]">Session</label>
-            <select id="feedback-session" value={selectedSessionId} onChange={(event) => setSelectedSessionId(event.target.value)} className="h-12 w-full rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-4 text-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--primary))]">
+            <FormSelect id="feedback-session" value={selectedSessionId} onChange={(event) => setSelectedSessionId(event.target.value)} className="h-12 w-full rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-4 text-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--primary))]">
               {sessions.map((session) => (
                 <option key={session.id} value={session.id}>{new Date(session.startsAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })} — {session.lecturer?.fullName || 'Assigned lecturer'}{session.rating ? ' (reviewed)' : ''}</option>
               ))}
-            </select>
+            </FormSelect>
           </div>
 
           {selectedSession && (

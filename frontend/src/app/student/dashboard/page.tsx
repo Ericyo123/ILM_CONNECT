@@ -10,6 +10,7 @@ import { apiFetch } from '@/lib/api';
 import { useAuth } from '@/lib/auth-context';
 import { toast } from '@/components/ui/toast';
 import { DashboardLoadingOverlay } from '@/components/student/dashboard-loading-overlay';
+import { useUserLocation } from '@/lib/use-user-location';
 
 interface Lecturer {
   hourlyAvailabilityJson?: number[];
@@ -64,6 +65,7 @@ async function optionalDashboardData<T>(endpoint: string): Promise<T | null> {
 }
 
 export default function StudentDashboard() {
+  const { isSriLanka } = useUserLocation();
   const { user, isLoading: isAuthLoading } = useAuth();
   const queryClient = useQueryClient();
   const router = useRouter();
@@ -412,7 +414,14 @@ export default function StudentDashboard() {
                       <span className="text-xl font-bold text-[#202823]">{dashboardSubscription.tier || 'Subscription'}</span>
                       <span className="rounded-full bg-[#e8f0ed] px-2 py-0.5 text-[10px] font-bold text-[#095F46]">{activeSubscriptionLabel}</span>
                     </div>
-                    <p className="mt-2 text-sm text-[#56635c]">{activeSubscriptionLabel === 'Expired' ? 'Ended' : 'Ends'} {new Date(dashboardSubscription.currentPeriodEnd).toLocaleDateString()} · LKR {dashboardSubscription.lkrAmount}</p>
+                    <p className="mt-2 text-sm text-[#56635c]">
+                      {activeSubscriptionLabel === 'Expired' ? 'Ended' : 'Ends'} {new Date(dashboardSubscription.currentPeriodEnd).toLocaleDateString()}
+                      {dashboardSubscription.tier === 'Trial' || dashboardSubscription.lkrAmount === 0
+                        ? ' · Complimentary trial'
+                        : isSriLanka
+                          ? ` · LKR ${dashboardSubscription.lkrAmount?.toLocaleString()}`
+                          : ' · Active plan'}
+                    </p>
                     <Link href="/student/billing" className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-[#095F46] hover:underline">
                       Manage <ChevronRight className="h-4 w-4" />
                     </Link>

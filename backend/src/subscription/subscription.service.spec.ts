@@ -49,10 +49,14 @@ describe('Plan price configuration', () => {
     prisma.subscriptionPlan.findMany.mockResolvedValue(plans);
     prisma.$transaction.mockImplementation(fn => fn(tx));
   });
-  it('saves all prices atomically and records the admin action', async () => {
-    await service.updatePlans(plans.map(plan => ({ id: plan.id, monthlyLkr: plan.monthlyLkr, monthlyUsd: plan.monthlyUsd + 1 })), 'admin');
-    expect(tx.subscriptionPlan.update).toHaveBeenCalledTimes(6);
-    expect(tx.auditLog.create).toHaveBeenCalledWith(expect.objectContaining({ data: expect.objectContaining({ actorId: 'admin', action: 'PRICING_UPDATED' }) }));
+  it('prevents old clients from overriding the fixed monthly pricing policy', async () => {
+    await expect(service.updatePlans(plans, 'admin')).rejects.toThrow('fixed');
+    expect(prisma.$transaction).not.toHaveBeenCalled();
+  });
+  it('returns the approved catalog even when stored prices are from the old policy', async () => {
+    const current = await service.getPlans();
+    expect(current.filter(row => row.tier === 'Standard').every(row => row.monthlyLkr === 5500 && row.monthlyUsd === 49)).toBe(true);
+    expect(current.filter(row => row.tier === 'Fast Track').every(row => row.monthlyLkr === null && row.monthlyUsd === 69)).toBe(true);
   });
   it.each([0, -1, NaN, 12.345, 10001])('rejects invalid price %s without saving', async monthlyUsd => {
     await expect(service.updatePlans(plans.map((plan, i) => ({ id: plan.id, monthlyLkr: plan.monthlyLkr, monthlyUsd: i === 0 ? monthlyUsd : plan.monthlyUsd })), 'admin')).rejects.toThrow();

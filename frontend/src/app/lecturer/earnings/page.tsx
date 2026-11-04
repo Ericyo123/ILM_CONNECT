@@ -1,142 +1,87 @@
 'use client';
+import { FormSelect } from '@/components/ui/form-select';
 
-import { DollarSign, TrendingUp, Clock, Download, FileX } from 'lucide-react';
-import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { apiFetch } from '@/lib/api';
 import { downloadCsv } from '@/lib/download';
-import { TableSkeleton } from '@/components/ui/loading-screen';
+import { currencyAmount } from '@/components/pricing/monthly-tuition-calculator';
+import styles from '@/components/pricing/monthly-pricing.module.css';
 
-interface Payout { id: string; status: string; amountLkr: number; initiatedAt: string; sessionBlocksIncluded: unknown; }
+interface Earning { id: string; periodMonth: string; region: string; amountLkr: number; payoutId: string | null; student: { fullName: string }; payout: { status: string } | null }
+interface Payout { id: string; status: string; amountLkr: number; initiatedAt: string; periodMonth: string | null; earningsSnapshot?: { name: string; region: string; amountLkr: number }[] | null; sessionBlocksIncluded: unknown }
+interface Balance { currentMonth: string; currentMonthLkr: number; availableLkr: number; earnings: Earning[] }
+
 export default function EarningsPage() {
-  const { data: payouts = [], isLoading, isError } = useQuery<Payout[]>({
-    queryKey: ['lecturerPayouts'],
-    queryFn: () => apiFetch('/payouts/me'),
+  const client = useQueryClient();
+  const [month, setMonth] = useState('');
+  const [method, setMethod] = useState('bank_transfer');
+  const payouts = useQuery<Payout[]>({ queryKey: ['lecturerPayouts'], queryFn: () => apiFetch('/payouts/me') });
+  const balance = useQuery<Balance>({ queryKey: ['lecturerBalance'], queryFn: () => apiFetch('/payouts/balance') });
+  const earnings = balance.data?.earnings ?? [];
+  const available = earnings.filter(row => !row.payoutId && row.periodMonth < (balance.data?.currentMonth ?? ''));
+  const months = [...new Set(available.map(row => row.periodMonth))].sort().reverse();
+  const selectedMonth = months.includes(month) ? month : months[0] ?? '';
+  const selectedAmount = available.filter(row => row.periodMonth === selectedMonth).reduce((sum, row) => sum + row.amountLkr, 0);
+  const request = useMutation({
+    mutationFn: () => apiFetch('/payouts/request', { method: 'POST', body: JSON.stringify({ periodMonth: selectedMonth, amountLkr: selectedAmount, method }) }),
+    onSuccess: async () => { await Promise.all(['lecturerPayouts', 'lecturerBalance'].map(key => client.invalidateQueries({ queryKey: [key] }))); },
   });
+  const totalPaid = (payouts.data ?? []).filter(row => row.status === 'SUCCESSFUL').reduce((sum, row) => sum + row.amountLkr, 0);
+  const pending = (payouts.data ?? []).filter(row => row.status === 'PENDING').reduce((sum, row) => sum + row.amountLkr, 0);
 
-  // Calculate stats
-  const totalEarned = payouts
-    .filter((p) => p.status === 'SUCCESSFUL')
-    .reduce((sum, p) => sum + p.amountLkr, 0);
+  if (payouts.isPending || balance.isPending) return <p role="status">Loading monthly earnings and payout history…</p>;
+  if (payouts.isError || balance.isError) return <div role="alert" className={styles.panel}>Unable to load earnings. <button className={styles.button} onClick={() => { payouts.refetch(); balance.refetch(); }}>Retry earnings</button></div>;
 
-  const pendingPayout = payouts
-    .filter((p) => p.status === 'PENDING')
-    .reduce((sum, p) => sum + p.amountLkr, 0);
-
-  // Group by month for chart
-  const monthlyData = new Map<string, number>();
-  payouts.forEach((p) => {
-    if (p.status !== 'SUCCESSFUL') return;
-    const date = new Date(p.initiatedAt);
-    const month = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
-    monthlyData.set(month, (monthlyData.get(month) || 0) + p.amountLkr);
-  });
-
-  // Convert to array and take last 6 months
-  const allMonths = Array.from(monthlyData.entries()).sort(([a], [b]) => a.localeCompare(b)).slice(-6).map(([key, amount]) => ({ month: new Date(`${key}-01T00:00:00`).toLocaleString('default', { month: 'short', year: 'numeric' }), amount }));
-
-  // If no successful payouts, provide empty state for chart
-  const chartData = allMonths.length > 0 ? allMonths : [
-    { month: 'No Data', amount: 0 }
-  ];
-  const maxAmount = Math.max(1, ...chartData.map(m => m.amount));
-
-  if (isError) return <p role="alert">Unable to load earnings. Please refresh to try again.</p>;
-
-  return (
-    <div className="space-y-6 animate-fade-in">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <button
-          disabled={isLoading || payouts.length === 0} onClick={() => downloadCsv([['Date', 'Payout ID', 'Blocks', 'Amount LKR', 'Status'], ...payouts.map((p: { id: string; initiatedAt: string; sessionBlocksIncluded: unknown; amountLkr: number; status: string }) => [p.initiatedAt, p.id, Array.isArray(p.sessionBlocksIncluded) ? p.sessionBlocksIncluded.length : 0, p.amountLkr, p.status])], 'lecturer-payouts.csv')}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium border border-[hsl(var(--border))] hover:bg-[hsl(var(--muted))]"
-        >
-          <Download className="h-4 w-4" /> Export
-        </button>
+  return <div className="space-y-6">
+    <section className={styles.panel} aria-labelledby="monthly-earnings-title">
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div><h2 id="monthly-earnings-title">Monthly student earnings</h2><p className={styles.help}>LKR 1,500 per Sri Lankan student; LKR 3,000 per international student, including Fast Track. Duo and Trio discounts do not reduce your earnings.</p></div>
+        <button className={styles.button} disabled={!earnings.length && !payouts.data?.length} onClick={() => downloadCsv([
+          ['Billing month', 'Student', 'Pricing region', 'Earnings LKR', 'Payout status'],
+          ...earnings.map(row => [row.periodMonth, row.student.fullName, row.region === 'LK' ? 'Sri Lanka' : 'International', row.amountLkr, row.payout?.status ?? (row.periodMonth < balance.data!.currentMonth ? 'AVAILABLE' : 'ACCRUING')]),
+          [], ['Payout ID', 'Billing month', 'Initiated', 'Amount LKR', 'Status'],
+          ...(payouts.data ?? []).map(row => [row.id, row.periodMonth ?? 'Historical session payout', row.initiatedAt, row.amountLkr, row.status]),
+        ], 'monthly-lecturer-earnings.csv')}>Export earnings</button>
       </div>
+      <dl className={styles.rows}>
+        <div className={styles.row}><dt>Accruing · {balance.data?.currentMonth}</dt><dd>{currencyAmount(balance.data?.currentMonthLkr ?? 0)}</dd></div>
+        <div className={`${styles.row} ${styles.total}`}><dt>Available from completed months</dt><dd>{currencyAmount(balance.data?.availableLkr ?? 0)}</dd></div>
+        <div className={styles.row}><dt>Pending payout requests</dt><dd>{currencyAmount(pending)}</dd></div>
+        <div className={styles.row}><dt>Paid to date, including historical payouts</dt><dd>{currencyAmount(totalPaid)}</dd></div>
+      </dl>
+      <p className={styles.help}>Earnings are recorded when monthly tuition is received. Trials are excluded. Current-month earnings become payable after month end in Sri Lanka.</p>
+    </section>
 
-      {/* Summary */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="p-5 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))]">
-          <DollarSign className="h-5 w-5 text-[hsl(var(--primary))] mb-2" />
-          <div className="text-2xl font-bold">Rs. {chartData[chartData.length - 1]?.amount.toLocaleString() || '0'}</div>
-          <div className="text-xs text-[hsl(var(--muted-foreground))]">Recent month&apos;s earnings</div>
-          <div className="flex items-center gap-1 text-xs text-[hsl(var(--success))] mt-1"><TrendingUp className="h-3 w-3" /> Updated dynamically</div>
-        </div>
-        <div className="p-5 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))]">
-          <Clock className="h-5 w-5 text-[hsl(var(--accent))] mb-2" />
-          <div className="text-2xl font-bold">Rs. {pendingPayout.toLocaleString()}</div>
-          <div className="text-xs text-[hsl(var(--muted-foreground))]">Pending payout</div>
-          <div className="text-xs text-[hsl(var(--muted-foreground))] mt-1">Requested/Processing</div>
-        </div>
-        <div className="p-5 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))]">
-          <DollarSign className="h-5 w-5 text-[hsl(var(--success))] mb-2" />
-          <div className="text-2xl font-bold">Rs. {totalEarned.toLocaleString()}</div>
-          <div className="text-xs text-[hsl(var(--muted-foreground))]">Total earned (all time)</div>
-        </div>
-      </div>
+    <section className={styles.panel} aria-labelledby="request-monthly-payout">
+      <h2 id="request-monthly-payout">Request a monthly payout</h2>
+      {months.length ? <form onSubmit={event => { event.preventDefault(); request.mutate(); }}>
+        <fieldset disabled={request.isPending} className={styles.fields}>
+          <label className={styles.field}>Billing month<FormSelect aria-label="Billing month" className={styles.control} value={selectedMonth} onChange={event => { setMonth(event.target.value); request.reset(); }}>{months.map(value => <option key={value} value={value}>{value}</option>)}</FormSelect></label>
+          <label className={styles.field}>Payout method<FormSelect aria-label="Payout method" className={styles.control} value={method} onChange={event => { setMethod(event.target.value); request.reset(); }}><option value="bank_transfer">Bank transfer</option><option value="wise">Wise</option><option value="wise_lkr">Wise in LKR</option></FormSelect></label>
+        </fieldset>
+        <p className={styles.notice}>Full unpaid balance for {selectedMonth}: <strong>{currencyAmount(selectedAmount)}</strong>. This creates a request for ILMBIT to pay externally.</p>
+        <div className={styles.actions}><button disabled={request.isPending || !selectedAmount} className={`${styles.button} ${styles.primary}`}>{request.isPending ? 'Requesting payout…' : 'Request monthly payout'}</button></div>
+      </form> : <p className={styles.notice}>No unpaid earnings from completed months. A pending request already reserves its students’ earnings.</p>}
+      {request.isError && <p role="alert" className={styles.error}>{request.error.message}</p>}
+      {request.isSuccess && <p role="status" className={styles.success}>Monthly payout requested. Your earnings are reserved while ILMBIT processes the transfer.</p>}
+    </section>
 
-      {/* Chart */}
-      <div className="p-6 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))]">
-        <h2 className="font-semibold mb-4">Monthly Earnings (Successful)</h2>
-        <div className="flex items-end gap-3 h-48">
-          {chartData.map((m, i) => (
-            <div key={i} className="flex-1 flex flex-col items-center gap-2">
-              <div className="text-xs font-medium">{m.amount > 0 ? `Rs. ${(m.amount / 1000).toFixed(0)}K` : '-'}</div>
-              <div className="w-full rounded-t-lg bg-gradient-to-t from-[hsl(168,80%,26%)] to-[hsl(168,60%,40%)] transition-all" style={{ height: `${(m.amount / maxAmount) * 140}px`, minHeight: m.amount > 0 ? '4px' : 0 }} />
-              <div className="text-xs text-[hsl(var(--muted-foreground))]">{m.month}</div>
-            </div>
-          ))}
-        </div>
-      </div>
+    <section className={styles.panel} aria-labelledby="student-earning-breakdown">
+      <h2 id="student-earning-breakdown">Earnings by student</h2>
+      {!earnings.length ? <p className={styles.help}>No monthly tuition has been recorded for your students yet. Monthly earnings will appear here after ILMBIT records received tuition.</p> : <ul className={styles.list}>{earnings.map(row => <li className={styles.item} key={row.id}>
+        <div className="flex flex-wrap justify-between gap-2"><span className="font-semibold">{row.student.fullName}</span><span className="font-semibold tabular-nums">{currencyAmount(row.amountLkr)}</span></div>
+        <p className={styles.help}>{row.periodMonth} · {row.region === 'LK' ? 'Sri Lanka' : 'International'} · {row.payout?.status === 'SUCCESSFUL' ? 'Paid' : row.payoutId ? 'Payout pending' : row.periodMonth < balance.data!.currentMonth ? 'Available for payout' : 'Accruing until month end'}</p>
+      </li>)}</ul>}
+    </section>
 
-      {/* Payout History */}
-      <div>
-        <h2 id="payout-history" className="font-semibold text-lg mb-4">Payout History</h2>
-        <div tabIndex={0} role="region" aria-labelledby="payout-history" className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] overflow-hidden overflow-x-auto focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]">
-          {isLoading ? (
-            <TableSkeleton rows={4} cols={4} />
-          ) : (
-            <table className="w-full min-w-[500px]">
-              <thead>
-                <tr className="border-b border-[hsl(var(--border))]">
-                  <th className="text-left px-5 py-3 text-xs font-semibold text-[hsl(var(--muted-foreground))]">Date</th>
-                  <th className="text-left px-5 py-3 text-xs font-semibold text-[hsl(var(--muted-foreground))]">Blocks Included</th>
-                  <th className="text-left px-5 py-3 text-xs font-semibold text-[hsl(var(--muted-foreground))]">Amount</th>
-                  <th className="text-left px-5 py-3 text-xs font-semibold text-[hsl(var(--muted-foreground))]">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {payouts.length === 0 ? (
-                <tr>
-                  <td colSpan={4} className="py-8 text-center">
-                    <FileX className="h-10 w-10 mx-auto text-[hsl(var(--muted-foreground))] mb-3 opacity-20" />
-                    <p className="font-medium">No payouts found</p>
-                    <p className="text-sm text-[hsl(var(--muted-foreground))]">You haven&apos;t requested any payouts yet.</p>
-                  </td>
-                </tr>
-              ) : (
-                payouts.map((p) => {
-                  const blocksCount = Array.isArray(p.sessionBlocksIncluded) ? p.sessionBlocksIncluded.length : 0;
-                  return (
-                    <tr key={p.id} className="border-b border-[hsl(var(--border))] last:border-0 hover:bg-[hsl(var(--muted)/0.5)]">
-                      <td className="px-5 py-3.5 text-sm">
-                        {new Date(p.initiatedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                      </td>
-                      <td className="px-5 py-3.5 text-sm">{blocksCount} blocks</td>
-                      <td className="px-5 py-3.5 text-sm font-medium">Rs. {p.amountLkr.toLocaleString()}</td>
-                      <td className="px-5 py-3.5 text-sm">
-                        <span className={`inline-flex items-center w-fit px-2 py-0.5 text-xs font-medium rounded-full ${p.status === 'SUCCESSFUL' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' : p.status === 'PENDING' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'}`}>
-                          {p.status}
-                        </span>
-                      </td>
-                    </tr>
-                  );
-                })
-              )}
-            </tbody>
-          </table>
-          )}
-        </div>
-      </div>
-    </div>
-  );
+    <section className={styles.panel} aria-labelledby="payout-history">
+      <h2 id="payout-history">Payout history</h2>
+      {!payouts.data?.length ? <p className={styles.help}>No payouts have been requested yet.</p> : <ul className={styles.list}>{payouts.data.map(row => <li className={styles.item} key={row.id}>
+        <div className="flex flex-wrap justify-between gap-2"><span className="font-semibold">{row.periodMonth ?? 'Historical session payout'}</span><span className="font-semibold tabular-nums">{currencyAmount(row.amountLkr)}</span></div>
+        <p className={styles.help}>{new Date(row.initiatedAt).toLocaleDateString('en-GB', { timeZone: 'Asia/Colombo' })} · {row.status === 'SUCCESSFUL' ? 'Paid' : row.status === 'FAILED' ? 'Failed, earnings released for retry' : 'Pending external payment'}</p>
+        {Array.isArray(row.earningsSnapshot) && row.earningsSnapshot.length > 0 && <details><summary>Included students · {row.earningsSnapshot.length}</summary><ul>{row.earningsSnapshot.map((student, i) => <li className={styles.row} key={i}>{student.name}<span>{currencyAmount(student.amountLkr)}</span></li>)}</ul></details>}
+      </li>)}</ul>}
+    </section>
+  </div>;
 }

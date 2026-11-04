@@ -4,9 +4,12 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Check, ChevronDown } from 'lucide-react';
-import { motion, useReducedMotion } from 'framer-motion';
-import PublicPageHero, { publicPageFadeUp as fadeUp } from '@/components/public-page-hero';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import PublicPageHero, { publicPageFadeUp as fadeUp, publicPageViewPort } from '@/components/public-page-hero';
 import styles from './pricing.module.css';
+import { useSubscriptionPlans } from '@/lib/subscription-plans';
+import MonthlyTuitionCalculator, { currencyAmount } from '@/components/pricing/monthly-tuition-calculator';
+import { useUserLocation } from '@/lib/use-user-location';
 
 interface CourseCardData {
   id: string;
@@ -68,7 +71,7 @@ const fastTrackCourses: CourseCardData[] = [
     title: 'Noorani Qaida',
     levelLabel: 'Beginner Level · Accelerated',
     description: 'Accelerate Arabic literacy and Quran reading fluency with intensive 3x weekly live sessions and replayable recordings.',
-    image: '/images/pricing-qaida-v2.jpg',
+    image: '/images/pricing-fast-track-qaida.jpg',
     features: [
       '12 live 1:1 sessions per month (3/week)',
       '45-minute sessions with qualified instructor',
@@ -83,7 +86,7 @@ const fastTrackCourses: CourseCardData[] = [
     title: 'Tajweed Quran Recitation',
     levelLabel: 'Intermediate Level · Accelerated',
     description: 'Master proper Tajweed rules and melodic recitation faster with 12 monthly sessions and recorded scholar feedback.',
-    image: '/images/pricing-tajweed-v4.jpg',
+    image: '/images/pricing-fast-track-tajweed.jpg',
     features: [
       '12 live 1:1 sessions per month (3/week)',
       '45-minute sessions with certified scholar',
@@ -98,7 +101,7 @@ const fastTrackCourses: CourseCardData[] = [
     title: 'Hifz Memorization',
     levelLabel: 'Advanced Level · Accelerated',
     description: 'Intensive Quran memorization with 3 weekly sessions, daily revision accountability, and milestone progress tracking.',
-    image: '/images/pricing-hifz-v2.jpg',
+    image: '/images/pricing-fast-track-hifz.jpg',
     features: [
       '12 live 1:1 sessions per month (3/week)',
       '45-minute sessions with dedicated Hifz coach',
@@ -142,6 +145,17 @@ const faqs = [
 ];
 
 export default function PricingPage() {
+  const { region, isSriLanka } = useUserLocation();
+  const { data: plans = [], isPending: pricesLoading, isError: pricesError } = useSubscriptionPlans();
+  const price = (courseId: string, tier: string) => {
+    const plan = plans.find(row => row.courseId === courseId && row.tier === tier);
+    if (pricesLoading) return 'Loading…';
+    if (pricesError || !plan) return 'Price unavailable';
+    if (isSriLanka) {
+      return currencyAmount(plan.monthlyLkr ?? 5500, 'LKR');
+    }
+    return currencyAmount(plan.monthlyUsd, 'USD');
+  };
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const reduceMotion = useReducedMotion();
   const [isFastTrackOpen, setIsFastTrackOpen] = useState(false);
@@ -158,19 +172,26 @@ export default function PricingPage() {
       {/* ========================================================================= */}
       <PublicPageHero
         title="Simple, Transparent Pricing"
+        subtitle="With Dedicated Certified Scholars"
         image="/images/pricing-hero-quran-volumes.jpg"
         imageAlt="Quran volumes with gold detailing arranged on a shelf"
         imageClassName="object-cover object-center opacity-85"
         scrollTarget="#standard-plans"
         scrollLabel="Scroll down to Standard Plans"
-        overlay={<div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/10 to-black/60" />}
+        overlay={
+          <>
+            <div className="absolute inset-0 bg-stone-950/60" />
+            <div className="absolute inset-0 bg-[#095F46]/25 mix-blend-multiply" />
+            <div className="absolute inset-0 bg-gradient-to-b from-stone-950/80 via-stone-950/30 to-stone-950/85" />
+          </>
+        }
       />
 
       <div className={`${styles.patternBackground} pb-16 sm:pb-20 lg:pb-24`}>
       {/* Main Plans & FAQs Container with identical separation spacing */}
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 space-y-14 sm:space-y-16 lg:space-y-20">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-8 py-16 sm:py-20 lg:py-24 space-y-14 sm:space-y-16 lg:space-y-20">
 
-        <div className="text-center"><CurrencySelector /></div>
+        <MonthlyTuitionCalculator pricingRegion={region} />
         {/* ========================================================================= */}
         {/* SECTION 1: Standard Plans (2 Sessions / Week · Free Trial Included)       */}
         {/* ========================================================================= */}
@@ -178,25 +199,27 @@ export default function PricingPage() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
+            viewport={publicPageViewPort}
             variants={fadeUp}
             className="text-left"
           >
-            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 leading-[1.2]">
-              <span>Standard Plans</span>{' '}
-              <span className="text-sm sm:text-xl lg:text-2xl font-normal text-stone-500 tracking-normal whitespace-nowrap">
-                (2 Sessions / Week)
+            <h2 className="flex flex-col items-start gap-1">
+              <span className="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 leading-[1.14]">
+                Standard Plans
+              </span>
+              <span className="text-base sm:text-xl lg:text-2xl font-normal text-stone-500 tracking-normal">
+                2 sessions a week
               </span>
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-8 items-stretch">
             {standardCourses.map((course, i) => (
               <motion.div
                 key={`standard-${course.id}`}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, amount: 0.15 }}
+                viewport={publicPageViewPort}
                 variants={fadeUp}
                 transition={{ delay: i * 0.1 }}
                 className="group relative flex flex-col justify-between rounded-3xl overflow-hidden transition-all duration-300 bg-white border border-stone-200/80 hover:border-stone-300 shadow-[0_12px_36px_rgba(0,0,0,0.08),0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_48px_rgba(0,0,0,0.12)] hover:-translate-y-1"
@@ -224,12 +247,12 @@ export default function PricingPage() {
                 </div>
 
                 {/* Card Body */}
-                <div className="flex flex-col flex-1 justify-between p-6 sm:p-7">
+                <div className="flex flex-col flex-1 justify-between p-5 sm:p-6 lg:p-7">
                   <div>
                     {/* Price Tag */}
                     <div className="mb-6 pb-6 border-b border-stone-100">
                       <div className="flex items-baseline gap-1.5">
-                        <span className="text-4xl font-black text-stone-950 tracking-tight">$59</span>
+                        <span className="text-3xl font-bold text-stone-950 tracking-tight">{price(course.id, 'Standard')}</span>
                         <span className="text-xs sm:text-sm font-medium text-stone-500">/ month</span>
                       </div>
                     </div>
@@ -254,9 +277,9 @@ export default function PricingPage() {
                     </div>
                     <Link
                       href="/about#waitlist"
-                      className="brand-button brand-button-primary w-full"
+                      className="brand-button brand-button-primary w-full text-xs sm:text-sm tracking-[0.05em] uppercase !font-light py-3.5 shadow-md shadow-[#095F46]/20 hover:shadow-lg transition-all"
                     >
-                      Join Waitlist
+                      JOIN WAITLIST
                     </Link>
                   </div>
                 </div>
@@ -269,34 +292,108 @@ export default function PricingPage() {
         {/* ========================================================================= */}
         {/* SECTION 2: Fast Track Plans (3 Sessions / Week · Direct Enrollment)       */}
         {/* ========================================================================= */}
+        {!isSriLanka && (
         <section id="fast-track-plans" className="scroll-mt-24 space-y-8">
-          <h2>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={publicPageViewPort}
+            variants={fadeUp}
+          >
+            <h2>
             <button
               type="button"
               onClick={() => setIsFastTrackOpen((open) => !open)}
               aria-expanded={isFastTrackOpen}
               aria-controls="fast-track-packages"
-              className="flex w-full items-center justify-between gap-4 py-3 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#095F46]"
+              className={
+                isFastTrackOpen
+                  ? "flex flex-col sm:flex-row w-full items-start sm:items-center justify-between gap-3 sm:gap-4 py-3 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#095F46]"
+                  : "group relative flex flex-col sm:flex-row w-full items-start sm:items-center justify-between gap-3 sm:gap-4 overflow-hidden rounded-2xl sm:rounded-3xl bg-[#095F46] hover:bg-[#08523c] p-5 sm:px-8 sm:py-6 text-left shadow-[0_12px_36px_rgba(9,95,70,0.18),0_2px_8px_rgba(0,0,0,0.06)] hover:shadow-[0_16px_44px_rgba(9,95,70,0.26)] transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#095F46]"
+              }
             >
-              <span className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                <span className="text-3xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 leading-[1.2]">Fast Track Plans</span>
-                <span className="text-sm sm:text-xl lg:text-2xl font-normal text-stone-500 whitespace-nowrap">3 sessions / week</span>
+              {/* Subtle decorative glow effect (only when closed in green container) */}
+              {!isFastTrackOpen && (
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -right-12 -top-12 h-44 w-44 rounded-full bg-emerald-400/15 blur-2xl transition-opacity duration-300 group-hover:opacity-100"
+                />
+              )}
+
+              <span className="relative z-10 flex flex-col items-start gap-1">
+                <span
+                  className={
+                    isFastTrackOpen
+                      ? "text-2xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-stone-950 leading-[1.14]"
+                      : "text-2xl sm:text-3xl lg:text-[40px] font-bold tracking-tight text-white leading-[1.14]"
+                  }
+                >
+                  Fast Track Plans
+                </span>
+                <span
+                  className={
+                    isFastTrackOpen
+                      ? "text-sm sm:text-xl lg:text-2xl font-normal text-stone-500 tracking-normal"
+                      : "text-sm sm:text-lg lg:text-2xl font-normal text-emerald-100/90 tracking-normal"
+                  }
+                >
+                  3 sessions a week
+                </span>
               </span>
-              <span className="flex shrink-0 items-center gap-3 sm:gap-5">
-                <span className="text-right text-base sm:text-2xl font-bold text-[#095F46]">$89 / $89 / $89<span className="block text-xs sm:text-sm font-normal text-stone-500">per month</span></span>
-                <ChevronDown aria-hidden="true" className={`h-5 w-5 sm:h-6 sm:w-6 ${isFastTrackOpen ? 'rotate-180' : ''}`} />
+              <span className={`relative z-10 flex w-full sm:w-auto items-center justify-between sm:justify-end ${isFastTrackOpen ? 'gap-3 sm:gap-5 pt-2 sm:pt-0 border-t border-stone-200/60 sm:border-t-0' : 'gap-3 sm:gap-6 pt-2 sm:pt-0 border-t border-emerald-400/20 sm:border-t-0'}`}>
+                <span
+                  className={
+                    isFastTrackOpen
+                      ? "text-left sm:text-right text-base sm:text-xl font-bold text-[#095F46]"
+                      : "text-left sm:text-right text-base sm:text-xl lg:text-2xl font-bold text-white tracking-tight"
+                  }
+                >
+                  USD 69
+                  <span
+                    className={
+                      isFastTrackOpen
+                        ? "inline sm:block text-xs sm:text-sm font-normal text-stone-500 ml-1.5 sm:ml-0"
+                        : "inline sm:block text-xs sm:text-sm font-normal text-emerald-100/80 ml-1.5 sm:ml-0"
+                    }
+                  >
+                    per student/month · international
+                  </span>
+                </span>
+                {isFastTrackOpen ? (
+                  <ChevronDown
+                    aria-hidden="true"
+                    className="h-5 w-5 sm:h-6 sm:w-6 text-stone-700 rotate-180 transition-transform duration-300"
+                  />
+                ) : (
+                  <span className="flex h-9 w-9 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur-sm group-hover:bg-white/25 transition-all duration-300">
+                    <ChevronDown
+                      aria-hidden="true"
+                      className="h-5 w-5 sm:h-6 sm:w-6 transition-transform duration-300"
+                    />
+                  </span>
+                )}
               </span>
             </button>
           </h2>
+        </motion.div>
 
-          <div id="fast-track-packages" hidden={!isFastTrackOpen}>
-          {isFastTrackOpen && <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+        <AnimatePresence>
+          {isFastTrackOpen && (
+            <motion.div
+              id="fast-track-packages"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="overflow-hidden"
+            >
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-8 items-stretch pt-2">
             {fastTrackCourses.map((course, i) => (
               <motion.div
                 key={`fasttrack-${course.id}`}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, amount: 0.15 }}
+                viewport={publicPageViewPort}
                 variants={fadeUp}
                 transition={{ delay: i * 0.1 }}
                 className="group relative flex flex-col justify-between rounded-3xl overflow-hidden transition-all duration-300 bg-white border border-stone-200/80 hover:border-emerald-500/50 shadow-[0_12px_36px_rgba(0,0,0,0.08),0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_22px_48px_rgba(9,95,70,0.16)] hover:-translate-y-1 ring-1 ring-emerald-500/15"
@@ -326,12 +423,12 @@ export default function PricingPage() {
                 </div>
 
                 {/* Card Body */}
-                <div className="flex flex-col flex-1 justify-between p-6 sm:p-7">
+                <div className="flex flex-col flex-1 justify-between p-5 sm:p-6 lg:p-7">
                   <div>
                     {/* Price Tag */}
                     <div className="mb-6 pb-6 border-b border-stone-100">
                       <div className="flex items-baseline gap-1.5">
-                        <span className="text-4xl font-black text-[#095F46] tracking-tight">$89</span>
+                        <span className="text-3xl font-bold text-[#095F46] tracking-tight">{price(course.id, 'Fast Track')}</span>
                         <span className="text-xs sm:text-sm font-medium text-stone-500">/ month</span>
                       </div>
                     </div>
@@ -362,17 +459,20 @@ export default function PricingPage() {
                     </div>
                     <Link
                       href="/about#waitlist"
-                      className="brand-button brand-button-primary w-full"
+                      className="brand-button brand-button-primary w-full text-xs sm:text-sm tracking-[0.05em] uppercase !font-light py-3.5 shadow-md shadow-[#095F46]/20 hover:shadow-lg transition-all"
                     >
-                      Enroll in Fast Track
+                      ENROLL IN FAST TRACK
                     </Link>
                   </div>
                 </div>
               </motion.div>
             ))}
-          </div>}
-          </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </section>
+        )}
 
         {/* ========================================================================= */}
         {/* SECTION 3: Collapsible FAQs Section                                       */}
@@ -381,7 +481,7 @@ export default function PricingPage() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
+            viewport={publicPageViewPort}
             variants={fadeUp}
             className="text-left mb-10"
           >
@@ -398,7 +498,7 @@ export default function PricingPage() {
                   key={faq.q}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true, amount: 0.15 }}
+                  viewport={publicPageViewPort}
                   variants={fadeUp}
                   transition={{ delay: i * 0.05 }}
                   className={`${styles.faqItem} ${isOpen ? styles.open : ''}`}

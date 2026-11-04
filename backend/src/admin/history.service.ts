@@ -216,6 +216,7 @@ export class HistoryService {
           },
         },
         payouts: { orderBy: { initiatedAt: 'desc' } },
+        monthlyEarnings: true,
         sessionBlocks: {
           include: { student: { select: person } },
           orderBy: { completedAt: 'desc' },
@@ -237,9 +238,10 @@ export class HistoryService {
       },
       orderBy: { createdAt: 'desc' },
     });
-    const availableLkr = profile.sessionBlocks
-      .filter((block) => block.status === 'COMPLETED')
-      .reduce((sum, block) => sum + block.payoutAmountLkr, 0);
+    const currentMonth = new Date(Date.now() + 330 * 60000).toISOString().slice(0, 7);
+    const availableLkr = profile.monthlyEarnings
+      .filter(earning => !earning.payoutId && earning.periodMonth < currentMonth)
+      .reduce((sum, earning) => sum + earning.amountLkr, 0);
     const pendingPayoutLkr = profile.payouts
       .filter((payout) => payout.status === 'PENDING')
       .reduce((sum, payout) => sum + payout.amountLkr, 0);

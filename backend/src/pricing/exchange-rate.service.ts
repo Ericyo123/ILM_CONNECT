@@ -56,7 +56,7 @@ export class ExchangeRateService implements OnModuleInit, OnModuleDestroy {
           const data = { region: regions[code], lkrPerUnit, rateDate, source: 'Frankfurter daily reference', fetchedAt };
           await tx.pricingCurrency.upsert({ where: { code }, create: { code, ...data }, update: data });
         }
-      });
+      }, { maxWait: 10000, timeout: 30000 });
       this.failed = false;
     } catch {
       this.failed = true;

@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { Menu, X } from 'lucide-react';
+import styles from './header.module.css';
 
 const navLinks = [
   { href: '/', label: 'HOME' },
@@ -12,13 +13,20 @@ const navLinks = [
   { href: '/pricing', label: 'PRICING' },
 ];
 
+function HeaderActions({ onNavigate }: { onNavigate?: () => void }) {
+  return <div className={styles.actions}>
+    <Link href="/teach" onClick={onNavigate} className={styles.tutor}>BECOME A TUTOR</Link>
+    <Link href="/about#waitlist" onClick={onNavigate} className={styles.start}>GET STARTED</Link>
+  </div>;
+}
+
 export default function Header() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const scrolledRef = useRef(false);
 
-  const isDarkHero = pathname === '/' || pathname === '/about';
+  const isDarkHero = ['/', '/about', '/pricing', '/teach'].includes(pathname);
 
   useEffect(() => {
     let frameId = 0;
@@ -61,15 +69,14 @@ export default function Header() {
 
   if (shouldHideHeader) return null;
 
-  // When not scrolled, pages with dark hero (Home & About) use white text/logo, while light pages use green/dark styling
   const showWhiteNav = !scrolled && isDarkHero;
+  const solidNav = scrolled || !isDarkHero;
 
   return (
     <div className="fixed top-4 sm:top-5 inset-x-0 z-50 flex flex-col items-center px-4 sm:px-6 lg:px-12 pointer-events-none">
-      {/* Floating Liquid Glass Pill Navbar (Transparent at top, rounded white pill on scroll across all pages) */}
       <header
         style={
-          scrolled
+          solidNav
             ? {
                 backdropFilter: 'blur(24px) saturate(180%)',
                 WebkitBackdropFilter: 'blur(24px) saturate(180%)',
@@ -81,22 +88,32 @@ export default function Header() {
                 backgroundColor: 'transparent',
               }
         }
-        className={`pointer-events-auto flex w-full max-w-7xl items-center justify-between rounded-full px-5 transition-all duration-300 sm:px-7 ${
-          scrolled
-            ? 'min-h-[62px] border border-white/90 shadow-[0_12px_36px_rgba(0,0,0,0.10),0_2px_6px_rgba(0,0,0,0.04),inset_0_1px_1.5px_rgba(255,255,255,1)] sm:min-h-[64px]'
-            : 'min-h-[66px] border border-transparent shadow-none sm:min-h-[68px]'
+        className={`pointer-events-auto flex w-full max-w-7xl xl:max-w-[1440px] items-center justify-between rounded-full px-5 transition-all duration-300 sm:px-7 lg:px-8 xl:px-9 ${
+          solidNav
+            ? 'min-h-[62px] border border-white/90 shadow-[0_12px_36px_rgba(0,0,0,0.10),0_2px_6px_rgba(0,0,0,0.04),inset_0_1px_1.5px_rgba(255,255,255,1)] sm:min-h-[64px] lg:min-h-[72px] xl:min-h-[74px]'
+            : 'min-h-[66px] border border-transparent shadow-none sm:min-h-[68px] lg:min-h-[76px] xl:min-h-[80px]'
         }`}
       >
-        <Link href="/" className="flex items-center" aria-label="ILMBIT home">
-          <span className="relative block h-[52px] w-[40px] sm:h-[56px] sm:w-[42px]">
+        <Link
+          href="/"
+          className="flex items-center justify-center shrink-0 my-auto"
+          aria-label="ILMBIT home"
+        >
+          <span
+            className={`relative flex items-center justify-center transition-all duration-300 ${
+              scrolled
+                ? 'h-[36px] w-[28px] sm:h-[40px] sm:w-[31px] lg:h-[44px] lg:w-[34px] xl:h-[46px] xl:w-[36px]'
+                : 'h-[46px] w-[36px] sm:h-[50px] sm:w-[39px] lg:h-[56px] lg:w-[43px] xl:h-[58px] xl:w-[45px]'
+            }`}
+          >
             <Image
               src="/images/ilmbit-logo-white.png"
               alt="ILMBIT"
-              width={56}
-              height={74}
-              className={`absolute inset-0 h-full w-auto object-contain transition-[height,opacity] duration-300 ${
+              fill
+              sizes="60px"
+              className={`object-contain object-center transition-opacity duration-300 ${
                 showWhiteNav ? 'opacity-100' : 'opacity-0'
-              } ${scrolled ? 'h-[44px] sm:h-[48px]' : 'h-[52px] sm:h-[56px]'}`}
+              }`}
               loading="eager"
               priority
             />
@@ -104,20 +121,20 @@ export default function Header() {
               src="/images/ilmbit-logo-green.png"
               alt=""
               aria-hidden="true"
-              width={56}
-              height={74}
-              className={`absolute inset-0 h-full w-auto object-contain transition-[height,opacity] duration-300 ${
+              fill
+              sizes="60px"
+              className={`object-contain object-center transition-opacity duration-300 ${
                 showWhiteNav ? 'opacity-0' : 'opacity-100'
-              } ${scrolled ? 'h-[44px] sm:h-[48px]' : 'h-[52px] sm:h-[56px]'}`}
+              }`}
               loading="eager"
               priority
             />
           </span>
         </Link>
 
-        {/* Right side: Desktop Links right-aligned with Get Started button */}
-        <div className="hidden md:flex items-center gap-7 lg:gap-8">
-          <nav className="flex h-11 items-center gap-6 lg:gap-8">
+        {/* Right side: Desktop Links right-aligned with blended action buttons */}
+        <div className="hidden md:flex items-center gap-6 lg:gap-8 xl:gap-9">
+          <nav className="flex h-11 lg:h-[48px] xl:h-[50px] items-center gap-6 lg:gap-8 xl:gap-9">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               let linkColorClass = '';
@@ -139,7 +156,7 @@ export default function Header() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`inline-flex h-11 items-center text-xs lg:text-[13px] tracking-[0.08em] uppercase transition-colors ${linkColorClass}`}
+                  className={`inline-flex h-full items-center text-xs lg:text-[13.5px] xl:text-[14px] tracking-[0.03em] uppercase transition-colors ${linkColorClass}`}
                 >
                   {link.label}
                 </Link>
@@ -147,12 +164,7 @@ export default function Header() {
             })}
           </nav>
 
-          <Link
-            href="/about#waitlist"
-            className="brand-button brand-button-primary min-h-10 px-5 text-xs tracking-wider uppercase !font-light"
-          >
-            GET STARTED
-          </Link>
+          <HeaderActions />
         </div>
 
         {/* Mobile menu toggle */}
@@ -219,24 +231,7 @@ export default function Header() {
                 showWhiteNav ? 'border-stone-800' : 'border-stone-200/60'
               }`}
             >
-              <Link
-                href="/auth/signin"
-                onClick={() => setMobileOpen(false)}
-                className={`mb-2 flex min-h-11 w-full items-center justify-center rounded-full px-4 text-sm font-bold transition-colors ${
-                  showWhiteNav
-                    ? 'text-white hover:bg-white/10'
-                    : 'text-stone-700 hover:bg-stone-100'
-                }`}
-              >
-                Sign In
-              </Link>
-              <Link
-                href="/auth/signup"
-                onClick={() => setMobileOpen(false)}
-                className="brand-button brand-button-primary w-full text-xs tracking-wider uppercase !font-light"
-              >
-                GET STARTED
-              </Link>
+              <HeaderActions onNavigate={() => setMobileOpen(false)} />
             </div>
           </div>
         </div>
@@ -244,3 +239,4 @@ export default function Header() {
     </div>
   );
 }
+

@@ -53,7 +53,10 @@ export default function AdminDashboard() {
     <div className="mx-auto w-full space-y-5 animate-fade-in">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div><p className="mt-1 text-sm text-[#56635c]">Students, lecturers, and sessions at a glance.</p></div>
-        <Link href="/admin/requests" className="inline-flex min-h-10 items-center justify-center rounded-full bg-[#095F46] px-5 text-sm font-bold text-white hover:bg-[#074c38]">Review requests</Link>
+        <div className="flex flex-wrap items-center gap-2">
+          <Link href="/admin/waitlist" className="inline-flex min-h-10 items-center justify-center rounded-full border border-[#d6e0db] bg-white px-5 text-sm font-bold text-[#095F46] hover:bg-emerald-50">Waitlist Leads</Link>
+          <Link href="/admin/requests" className="inline-flex min-h-10 items-center justify-center rounded-full bg-[#095F46] px-5 text-sm font-bold text-white hover:bg-[#074c38]">Review requests</Link>
+        </div>
       </div>
 
       {/* KPIs */}

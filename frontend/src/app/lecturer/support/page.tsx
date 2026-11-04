@@ -1,4 +1,5 @@
 'use client';
+import { FormSelect } from '@/components/ui/form-select';
 
 import { useState, Suspense } from 'react';
 import Link from 'next/link';
@@ -218,7 +219,7 @@ function LecturerSupportContent() {
                       <label htmlFor="lecturer-support-category" className="text-xs font-bold text-[hsl(var(--foreground))]">
                         Category <span className="text-red-500">*</span>
                       </label>
-                      <select
+                      <FormSelect
                         id="lecturer-support-category"
                         value={issueCategory}
                         onChange={(e) => setIssueCategory(e.target.value)}
@@ -229,7 +230,7 @@ function LecturerSupportContent() {
                             {c.label}
                           </option>
                         ))}
-                      </select>
+                      </FormSelect>
                     </div>
 
                     <div className="space-y-2">

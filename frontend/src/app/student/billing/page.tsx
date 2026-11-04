@@ -4,8 +4,8 @@ import { CreditCard, Clock } from 'lucide-react';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { CurrencySelector, usePricingCurrency } from '@/lib/pricing-currency';
 import { useSubscriptionPlans } from '@/lib/subscription-plans';
+import { useUserLocation } from '@/lib/use-user-location';
 import { useQuery } from '@tanstack/react-query';
 import { apiFetch } from '@/lib/api';
 import { LoadingScreen } from '@/components/ui/loading-screen';
@@ -16,7 +16,7 @@ export default function BillingPage() {
 }
 
 function BillingContent() {
-  const { format } = usePricingCurrency();
+  const { isSriLanka, formatPrice } = useUserLocation();
   const { data: subscriptionPlans = [] } = useSubscriptionPlans();
   const selectedPlanId = useSearchParams().get('plan');
   const selectedPlan = subscriptionPlans.find(plan => plan.id === selectedPlanId);
@@ -68,10 +68,9 @@ function BillingContent() {
         description="Review your plan, trial status, billing date, and payment history."
       />
 
-      <CurrencySelector />
       {selectedPlan && <StudentCard className="border-[#b9cac2] p-5">
         <h2 className="text-xl font-bold">{selectedPlan.course} · {selectedPlan.tier}</h2>
-        <p className="mt-2 text-sm text-[#56635c]">{format(selectedPlan)}/month · {selectedPlan.sessions} live sessions per month</p>
+        <p className="mt-2 text-sm text-[#56635c]">{formatPrice(selectedPlan.monthlyLkr, selectedPlan.monthlyUsd)}/month · {selectedPlan.sessions} live sessions per month</p>
         <p className="mt-4 text-sm text-[#56635c]">Online payment is not connected yet. Contact subscription support to arrange activation. Selecting a plan does not activate access.</p>
         <Link href={`/student/support?tab=contact&plan=${selectedPlan.id}`} className={`${studentUi.primaryButton} mt-4`}>Contact subscription support</Link>
         <Link href="/student/dashboard" className="ml-4 text-sm font-semibold text-[#095F46] underline">Choose another plan</Link>
@@ -96,8 +95,18 @@ function BillingContent() {
                       : 'Choose a plan or activate your free trial to start booking.'}
               </p>
               <div className="text-3xl font-extrabold text-[#202823]">
-                LKR {subscription?.lkrAmount?.toLocaleString() ?? 0}<span className="text-base font-normal text-[#56635c]">/month</span>
+                {isTrial
+                  ? 'Free Trial'
+                  : subscription?.pricingSnapshot?.currency === 'USD'
+                    ? `$${subscription.pricingSnapshot.feePerStudent}`
+                    : `LKR ${subscription?.lkrAmount?.toLocaleString() ?? 0}`}
+                {!isTrial && <span className="text-base font-normal text-[#56635c]">/month</span>}
               </div>
+              {subscription?.pricingSnapshot && <div className="mt-3 space-y-1 text-sm leading-6 text-[#56635c]">
+                <p>Billing month: {subscription.billingMonth} · {subscription.pricingSnapshot.packageSize === 3 ? 'Trio' : subscription.pricingSnapshot.packageSize === 2 ? 'Duo' : 'Solo'} · {subscription.pricingSnapshot.discountPercent}% tuition discount.</p>
+                <p>Tuition per student after discount: {subscription.pricingSnapshot.currency} {Number(subscription.pricingSnapshot.feePerStudent).toFixed(2)}. Your lessons remain private, one-to-one.</p>
+                {subscription.pricingSnapshot.currency === 'USD' && <p>The LKR amount above is the reference value recorded for this payment. Your tuition is priced in USD.</p>}
+              </div>}
               {subscription ? (
                 <div className="mt-4 grid gap-3 sm:grid-cols-2">
                   <div className="rounded-xl border border-[#d6e0db] bg-[#f5f7f6] p-3">

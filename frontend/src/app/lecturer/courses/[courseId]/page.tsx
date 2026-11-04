@@ -1,4 +1,5 @@
 'use client';
+import { FormSelect } from '@/components/ui/form-select';
 
 import { SharedMaterials } from '@/components/classroom/shared-materials';
 import { CourseAssessments } from '@/components/lecturer/course-assessments';
@@ -412,7 +413,7 @@ export default function LecturerCourseDetailPage() {
                           <label htmlFor={`lesson-access-${sId}`} className="text-xs text-[hsl(var(--muted-foreground))] font-medium whitespace-nowrap">
                             Unlock up to:
                           </label>
-                          <select
+                          <FormSelect
                             id={`lesson-access-${sId}`}
                             aria-label={`Lesson access for ${student.fullName || 'student'}`}
                             disabled={isPending}
@@ -430,7 +431,7 @@ export default function LecturerCourseDetailPage() {
                                 Lesson {lesson.globalIndex}: {lesson.title}
                               </option>
                             ))}
-                          </select>
+                          </FormSelect>
                         </div>
 
                         {/* Button: Unlock All */}

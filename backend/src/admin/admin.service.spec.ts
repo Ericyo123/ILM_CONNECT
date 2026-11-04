@@ -44,13 +44,13 @@ describe('Lecturer matching by student availability', () => {
 });
 
 describe('Finance overview', () => {
-  const prisma = { payment: { findMany: jest.fn() }, payout: { findMany: jest.fn() } };
+  const prisma = { payment: { findMany: jest.fn() }, payout: { findMany: jest.fn() }, monthlyLecturerEarning: { findMany: jest.fn() } };
   const service = new AdminService(prisma as unknown as PrismaService);
-  beforeEach(() => jest.resetAllMocks());
+  beforeEach(() => { jest.resetAllMocks(); prisma.monthlyLecturerEarning.findMany.mockResolvedValue([]); });
   it('returns an empty breakdown when no successful payments exist', async () => {
     prisma.payment.findMany.mockResolvedValue([]);
     prisma.payout.findMany.mockResolvedValue([]);
-    await expect(service.getFinanceOverview()).resolves.toEqual({ payments: [], payouts: [], revenueByPlan: [], exchangeRates: [], pricing: [] });
+    await expect(service.getFinanceOverview()).resolves.toMatchObject({ payments: [], payouts: [], revenueByPlan: [], exchangeRates: [], pricing: [], unpaidMonths: [], monthlySummary: { students: 0, tuitionLkr: 0, lecturerLkr: 0, remainingLkr: 0 } });
   });
   it('uses successful monthly payments and counts each paying student once per plan', async () => {
     prisma.payment.findMany.mockResolvedValueOnce([]).mockResolvedValueOnce([

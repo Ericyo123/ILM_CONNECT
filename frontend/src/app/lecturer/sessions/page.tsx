@@ -1,4 +1,5 @@
 'use client';
+import { FormSelect } from '@/components/ui/form-select';
 
 import { useState, useEffect } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
@@ -529,7 +530,8 @@ export default function LecturerSessionsPage() {
                 <label className="block text-xs font-semibold text-[hsl(var(--foreground))] mb-1.5">
                   Select New Time
                 </label>
-                <select
+                <FormSelect
+                  aria-label="Select new time"
                   value={rescheduleTime}
                   onChange={(e) => setRescheduleTime(e.target.value)}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--background))] text-sm focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
@@ -539,7 +541,7 @@ export default function LecturerSessionsPage() {
                       {t.label}
                     </option>
                   ))}
-                </select>
+                </FormSelect>
               </div>
 
               <div>

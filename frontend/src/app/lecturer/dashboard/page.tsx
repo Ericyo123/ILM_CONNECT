@@ -3,13 +3,10 @@
 import { Clock, Users, DollarSign, Star, Calendar, Play, Wallet } from 'lucide-react';
 import Link from 'next/link';
 import { DashboardStatCard } from '@/components/layout/dashboard-stat-card';
-import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { apiFetch } from '@/lib/api';
 import { useAuth } from '@/lib/auth-context';
-import { toast } from '@/components/ui/toast';
 import { LoadingScreen } from '@/components/ui/loading-screen';
-import { useDialogAccessibility } from '@/lib/use-dialog-accessibility';
 
 interface LecturerBooking { id: string; studentId: string; startsAt: string; status: string; student?: { fullName: string }; }
 interface LecturerPayout { status: string; amountLkr: number; }
@@ -17,9 +14,6 @@ interface LecturerProfile { fullName: string; ratingAvg?: number; ratingCount?: 
 
 export default function LecturerDashboard() {
   const { user } = useAuth();
-  const [showWithdrawModal, setShowWithdrawModal] = useState(false);
-  const [isWithdrawing, setIsWithdrawing] = useState(false);
-  const withdrawDialog = useDialogAccessibility(showWithdrawModal, () => { if (!isWithdrawing) setShowWithdrawModal(false); });
 
   const { data: profile, isLoading: profileLoading, isError: profileError } = useQuery<LecturerProfile>({
     queryKey: ['lecturerProfile'],
@@ -31,12 +25,12 @@ export default function LecturerDashboard() {
     queryFn: () => apiFetch('/bookings/lecturer'),
   });
 
-  const { data: payouts, isLoading: payoutsLoading, isError: payoutsError, refetch: refetchPayouts } = useQuery<LecturerPayout[]>({
+  const { data: payouts, isLoading: payoutsLoading, isError: payoutsError } = useQuery<LecturerPayout[]>({
     queryKey: ['lecturerPayouts'],
     queryFn: () => apiFetch('/payouts/me'),
   });
 
-  const { data: balance, isLoading: balanceLoading, isError: balanceError, refetch: refetchBalance } = useQuery<{ availableLkr: number }>({ queryKey: ['lecturerBalance'], queryFn: () => apiFetch('/payouts/balance') });
+  const { data: balance, isLoading: balanceLoading, isError: balanceError } = useQuery<{ availableLkr: number }>({ queryKey: ['lecturerBalance'], queryFn: () => apiFetch('/payouts/balance') });
 
   const todaySessions = bookings?.filter((b) => {
     const status = (b.status || '').toUpperCase();
@@ -60,24 +54,6 @@ export default function LecturerDashboard() {
   const weekEnd = new Date(weekStart);
   weekEnd.setDate(weekEnd.getDate() + 7);
   const sessionsThisWeek = bookings?.filter(booking => booking.status !== 'CANCELED' && new Date(booking.startsAt) >= weekStart && new Date(booking.startsAt) < weekEnd).length ?? 0;
-
-  const handleWithdraw = async () => {
-    setIsWithdrawing(true);
-    try {
-      await apiFetch('/payouts/request', {
-        method: 'POST',
-        body: JSON.stringify({ amountLkr: availableEarnings, method: profile?.payoutMethod || 'bank_transfer' }),
-      });
-      setShowWithdrawModal(false);
-      await Promise.all([refetchPayouts(), refetchBalance()]);
-      toast.success('Payout Requested', 'Your payout request has been submitted for review.');
-    } catch (err: unknown) {
-      console.error('Withdrawal failed', err);
-      toast.error('Withdrawal Failed', err instanceof Error ? err.message : 'Failed to submit withdrawal request.');
-    } finally {
-      setIsWithdrawing(false);
-    }
-  };
 
   if (profileError || bookingsError || payoutsError || balanceError) {
     return <div role="alert" className="rounded-xl border border-[#d6e0db] bg-white p-6">Unable to load your dashboard data. Please refresh to try again.</div>;
@@ -105,9 +81,9 @@ export default function LecturerDashboard() {
           <div className="text-xs text-[hsl(var(--muted-foreground))] mb-1">Available earnings</div>
           <div className="text-2xl font-bold text-[#0b3027]">Rs. {availableEarnings.toLocaleString()}</div>
           <div className="text-xs text-[hsl(var(--muted-foreground))] mt-1">Pending requests: Rs. {pendingEarnings.toLocaleString()}</div>
-          <button disabled={availableEarnings <= 0} onClick={() => setShowWithdrawModal(true)} className="mt-3 flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-semibold text-white bg-[#095F46] hover:bg-[#074c38] hover:shadow-sm transition-all">
-            <Wallet className="h-3.5 w-3.5" /> Withdraw
-          </button>
+          <Link href="/lecturer/earnings#request-monthly-payout" className="mt-3 inline-flex min-h-11 items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold text-white bg-[#095F46] hover:bg-[#074c38] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#095F46]">
+            <Wallet aria-hidden="true" className="h-3.5 w-3.5" /> Monthly payouts
+          </Link>
         </div>
         <div className="p-5 rounded-xl border border-[#d6e0db] bg-white shadow-sm">
           <DollarSign className="h-5 w-5 text-[hsl(var(--success))] mb-2" />
@@ -164,23 +140,6 @@ export default function LecturerDashboard() {
         </div>
       </section>
 
-      {showWithdrawModal && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
-          <div ref={withdrawDialog} role="dialog" aria-modal="true" aria-label="Withdraw Earnings" tabIndex={-1} className="bg-[hsl(var(--card))] rounded-2xl border border-[hsl(var(--border))] shadow-xl max-w-sm w-full p-6 animate-fade-in">
-            <h3 className="text-lg font-bold mb-2">Withdraw Earnings</h3>
-            <p className="text-sm text-[hsl(var(--muted-foreground))] mb-4">Withdraw your available earnings of Rs. {availableEarnings.toLocaleString()}.</p>
-            <div className="p-3 rounded-lg bg-[hsl(var(--muted))] text-xs text-[hsl(var(--muted-foreground))] mb-4">
-              <strong>Payout method:</strong> {profile.payoutMethod || 'Not configured'}
-            </div>
-            <div className="flex gap-3">
-              <button disabled={isWithdrawing} onClick={() => setShowWithdrawModal(false)} className="flex-1 py-2.5 rounded-xl text-sm font-medium border border-[hsl(var(--border))] hover:bg-[hsl(var(--muted))] disabled:opacity-50">Cancel</button>
-              <button disabled={isWithdrawing} onClick={handleWithdraw} className="flex-1 py-2.5 rounded-xl text-sm font-semibold text-white bg-[#095F46] hover:bg-[#074c38] disabled:opacity-50">
-                {isWithdrawing ? 'Processing...' : 'Confirm'}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { BadRequestException, ServiceUnavailableException, ConflictException, Injectable, UnauthorizedException, InternalServerErrorException } from '@nestjs/common';
+import { BadRequestException, ServiceUnavailableException, ConflictException, Injectable, Logger, UnauthorizedException, InternalServerErrorException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import { createHash, randomBytes } from 'node:crypto';
@@ -10,13 +10,51 @@ import { validateStudentHours } from '../availability/student-hours';
 
 @Injectable()
 export class AuthService {
+  private readonly logger = new Logger(AuthService.name);
   constructor(
     private readonly prisma: PrismaService,
     private readonly jwtService: JwtService,
   ) {}
 
   async joinWaitlist(dto: WaitlistDto) {
-    await this.prisma.waitlistEntry.createMany({ data: [{ fullName: dto.fullName.trim(), email: dto.email.trim().toLowerCase(), phone: dto.phone, country: dto.country, course: dto.course, pace: dto.pace, notes: dto.notes }], skipDuplicates: true });
+    const fullName = dto.fullName.trim();
+    if (!fullName) throw new BadRequestException('Enter your full name.');
+    const email = dto.email.trim().toLowerCase();
+    await this.prisma.waitlistEntry.createMany({ data: [{ fullName, email, phone: dto.phone, country: dto.country, course: dto.course, pace: dto.pace, notes: dto.notes }], skipDuplicates: true });
+    const entry = await this.prisma.waitlistEntry.findUniqueOrThrow({ where: { email_course: { email, course: dto.course } } });
+    const apiKey = process.env.RESEND_API_KEY?.trim();
+    const from = process.env.RESEND_FROM_EMAIL?.trim();
+    if (!apiKey || !from) {
+      throw new ServiceUnavailableException('Your request is saved, but email notifications are not configured. Please contact support.');
+    }
+    try {
+      const result = await new Resend(apiKey).emails.send({
+        from,
+        to: [process.env.WAITLIST_NOTIFICATION_EMAIL?.trim() || 'contact@bitmosolutions.com'],
+        replyTo: entry.email,
+        subject: 'New Ilmbit trial / waitlist request',
+        text: [
+          'New Ilmbit trial / waitlist request',
+          '',
+          `Name: ${entry.fullName}`,
+          `Email: ${entry.email}`,
+          `Phone / WhatsApp: ${entry.phone || 'Not provided'}`,
+          `Country: ${entry.country}`,
+          `Course: ${entry.course}`,
+          `Learning pace: ${entry.pace === 'fast-track' ? 'Fast Track' : 'Standard'}`,
+          '',
+          'Notes / preferred schedule:',
+          entry.notes || 'Not provided',
+          '',
+          `Request ID: ${entry.id}`,
+          `Received at: ${entry.createdAt.toISOString()}`,
+        ].join('\n'),
+      }, { idempotencyKey: `waitlist/${entry.id}` });
+      if (result.error || !result.data?.id) throw new Error('Email provider did not accept the notification');
+    } catch {
+      this.logger.warn('Waitlist request saved; notification delivery failed');
+      throw new ServiceUnavailableException('Your request is saved, but we could not email the team. Please try submitting again.');
+    }
     return { message: 'Your interest has been registered. Our team will contact you when a suitable schedule is available.' };
   }
 

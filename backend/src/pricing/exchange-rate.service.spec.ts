@@ -57,14 +57,14 @@ describe('Backend plan pricing', () => {
   });
   it('uses the independent local price and converts international prices with a single snapshot', async () => {
     const [plan] = await service.getPlans();
-    expect(plan).toMatchObject({ prices: { LKR: 6000, USD: 60, GBP: 45 }, internationalLkr: 18000 });
+    expect(plan).toMatchObject({ prices: { LKR: 5500, USD: 49, GBP: 36.75 }, internationalLkr: 14700 });
   });
   it('keeps direct local and USD prices available while hiding stale conversions', async () => {
     exchange.snapshot.mockResolvedValue([{ code: 'LKR', lkrPerUnit: 1, available: true }, { code: 'USD', lkrPerUnit: 300, available: true, stale: true }, { code: 'GBP', lkrPerUnit: 400, available: true }]);
-    expect((await service.getPlans())[0]).toMatchObject({ prices: { LKR: 6000, USD: 60, GBP: null }, internationalLkr: null });
+    expect((await service.getPlans())[0]).toMatchObject({ prices: { LKR: 5500, USD: 49, GBP: null }, internationalLkr: null });
   });
   it('keeps configured prices available before the first provider snapshot', async () => {
     exchange.snapshot.mockResolvedValue([]);
-    expect((await service.getPlans())[0]).toMatchObject({ prices: { LKR: 6000, USD: 60, GBP: null, EUR: null, AUD: null }, internationalLkr: null });
+    expect((await service.getPlans())[0]).toMatchObject({ prices: { LKR: 5500, USD: 49, GBP: null, EUR: null, AUD: null }, internationalLkr: null });
   });
 });

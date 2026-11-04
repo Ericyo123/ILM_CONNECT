@@ -13,7 +13,9 @@
   background-repeat: repeat;
   background-size: 560px 560px;
   filter: grayscale(1);
-  opacity: 0.03;
+  opacity: 0.04;
+  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.45) 20%, rgba(0, 0, 0, 0) 42%, rgba(0, 0, 0, 0) 58%, rgba(0, 0, 0, 0.45) 80%, rgba(0, 0, 0, 1) 100%);
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.45) 20%, rgba(0, 0, 0, 0) 42%, rgba(0, 0, 0, 0) 58%, rgba(0, 0, 0, 0.45) 80%, rgba(0, 0, 0, 1) 100%);
 }
 
 .faqItem {

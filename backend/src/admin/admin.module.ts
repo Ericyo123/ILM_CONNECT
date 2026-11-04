@@ -4,9 +4,10 @@ import { AdminService } from './admin.service';
 import { PrismaModule } from '../prisma/prisma.module';
 import { PricingModule } from '../pricing/pricing.module';
 import { HistoryService } from './history.service';
+import { PayoutModule } from '../payout/payout.module';
 
 @Module({
-  imports: [PrismaModule, PricingModule],
+  imports: [PrismaModule, PricingModule, PayoutModule],
   controllers: [AdminController],
   providers: [AdminService, HistoryService],
 })

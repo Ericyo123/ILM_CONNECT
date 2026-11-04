@@ -15,6 +15,25 @@ export class SubscriptionController {
   @Get('plans')
   getPlans() { return this.subscriptionService.getPlans(); }
 
+  @Post('quote')
+  getQuote(@Body('planId') planId: string, @Body('region') region: string, @Body('packageSize') packageSize: number) {
+    return this.subscriptionService.getQuote(planId, region, packageSize);
+  }
+
+  @Post('monthly-payments/quote')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN, Role.SUPER_ADMIN)
+  quoteMonthlyPayment(@Body() input: { studentIds?: unknown; planId?: unknown; billingMonth?: unknown }) {
+    return this.subscriptionService.quoteMonthlyPayment(input);
+  }
+
+  @Post('monthly-payments')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN, Role.SUPER_ADMIN)
+  recordMonthlyPayment(@Request() req: any, @Body() input: { studentIds?: unknown; planId?: unknown; billingMonth?: unknown; reference?: unknown }) {
+    return this.subscriptionService.recordMonthlyPayment(input, req.user.id);
+  }
+
   @Patch('plans')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.ADMIN, Role.SUPER_ADMIN)

@@ -1,11 +1,12 @@
 'use client';
+import { FormSelect } from '@/components/ui/form-select';
 
 import { apiFetch } from '@/lib/api';
 import { useSubscriptionPlans } from '@/lib/subscription-plans';
-import { CurrencySelector, usePricingCurrency } from '@/lib/pricing-currency';
-import { useState } from 'react';
+import { useUserLocation } from '@/lib/use-user-location';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { X, Check, Loader2, ArrowRight, ChevronDown } from 'lucide-react';
+import { X, Check, Loader2, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Portal } from '@/components/ui/portal';
 import CountryPhoneInput from '@/components/country-phone-input';
@@ -26,15 +27,26 @@ export default function WaitlistModal({
   onClose,
   defaultCourse = 'Tajweed Quran Recitation',
 }: WaitlistModalProps) {
-  const { data: plans = [] } = useSubscriptionPlans();
-  const { format } = usePricingCurrency();
+  const { isSriLanka, country } = useUserLocation();
   const [error, setError] = useState('');
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [phoneCountry, setPhoneCountry] = useState<CountryCallingCode>(() => getCountryCallingCode('LK'));
+  const [phoneCountry, setPhoneCountry] = useState<CountryCallingCode>(() =>
+    getCountryCallingCode(isSriLanka ? 'LK' : (country || 'US'))
+  );
+
+  useEffect(() => {
+    if (country) {
+      setPhoneCountry(getCountryCallingCode(isSriLanka ? 'LK' : country));
+    }
+  }, [country, isSriLanka]);
+
   const [course, setCourse] = useState(defaultCourse);
-  const price = (tier: string) => { const plan = plans.find(item => item.course === course && item.tier === tier); return plan ? format(plan) : 'Price unavailable'; };
+  const price = (tier: string) => {
+    if (isSriLanka) return 'LKR 5,500';
+    return tier === 'Fast Track' ? '$69' : '$49';
+  };
   const [pace, setPace] = useState<'standard' | 'fast-track'>('standard');
   const [notes, setNotes] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -119,7 +131,6 @@ export default function WaitlistModal({
               </p>
 
               {/* Form */}
-              <div className="mb-4"><CurrencySelector /></div>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label className="block text-xs font-bold text-stone-700 uppercase tracking-wider mb-1.5">
@@ -169,7 +180,8 @@ export default function WaitlistModal({
                       Learning Discipline
                     </label>
                     <div className="relative">
-                      <select
+                      <FormSelect
+                        aria-label="Learning discipline"
                         value={course}
                         onChange={(e) => setCourse(e.target.value)}
                         className="w-full appearance-none px-3.5 pr-10 py-3 sm:py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-base sm:text-sm font-semibold text-stone-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#095F46] min-h-[46px] cursor-pointer"
@@ -177,10 +189,7 @@ export default function WaitlistModal({
                         <option value="Noorani Qaida">Noorani Qaida (Beginner)</option>
                         <option value="Tajweed Quran Recitation">Tajweed Quran Recitation</option>
                         <option value="Hifz Memorization">Hifz Memorization (Advanced)</option>
-                      </select>
-                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-stone-400">
-                        <ChevronDown className="h-4 w-4 stroke-[2]" />
-                      </div>
+                      </FormSelect>
                     </div>
                   </div>
 
@@ -189,17 +198,15 @@ export default function WaitlistModal({
                       Preferred Pace
                     </label>
                     <div className="relative">
-                      <select
+                      <FormSelect
+                        aria-label="Preferred pace"
                         value={pace}
                         onChange={(e) => setPace(e.target.value as 'standard' | 'fast-track')}
                         className="w-full appearance-none px-3.5 pr-10 py-3 sm:py-2.5 rounded-xl border border-stone-200 bg-stone-50/50 text-base sm:text-sm font-semibold text-stone-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#095F46] min-h-[46px] cursor-pointer"
                       >
                         <option value="standard">Standard (2 sessions / wk)</option>
                         <option value="fast-track">Fast Track (3 sessions / wk)</option>
-                      </select>
-                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-stone-400">
-                        <ChevronDown className="h-4 w-4 stroke-[2]" />
-                      </div>
+                      </FormSelect>
                     </div>
                   </div>
                 </div>
@@ -223,16 +230,16 @@ export default function WaitlistModal({
                 <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="brand-button brand-button-primary h-12 w-full"
+                    className="brand-button brand-button-primary h-12 w-full text-xs sm:text-sm tracking-[0.05em] uppercase !font-light"
                   >
                     {isSubmitting ? (
                       <>
                         <Loader2 className="w-4 h-4 animate-spin" />
-                        <span>Sending request…</span>
+                        <span>JOINING PRIORITY WAITLIST...</span>
                       </>
                     ) : (
                       <>
-                        <span>Request a trial</span>
+                        <span>JOIN PRIORITY WAITLIST</span>
                         <ArrowRight className="w-4 h-4" />
                       </>
                     )}
@@ -264,9 +271,9 @@ export default function WaitlistModal({
               <button
                 type="button"
                 onClick={handleResetAndClose}
-                className="brand-button bg-stone-900 px-7 text-white hover:bg-stone-800"
+                className="brand-button bg-stone-900 px-7 text-white hover:bg-stone-800 text-xs sm:text-sm tracking-[0.05em] uppercase !font-light"
               >
-                Close Window
+                CLOSE WINDOW
               </button>
             </motion.div>
           )}
